@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\C_Sharp_Project\\PostalStampBranch\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|d:\\c_sharp_project\\postalstampbranch\\winformsapp1\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|solutionrelative:winformsapp1\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\report\\rptdgqty.rdlc||{46F6D2A1-5E86-4080-A799-01F3D0E23796}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\report\\rptdgqty.rdlc||{46F6D2A1-5E86-4080-A799-01F3D0E23796}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|d:\\c_sharp_project\\postalstampbranch\\winformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|solutionrelative:winformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\issueprinting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\issueprinting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|d:\\c_sharp_project\\postalstampbranch\\winformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B00E123C-8F0D-4DBE-BC4D-CBE178490A60}|WinFormsApp1\\WinFormsApp1.csproj|solutionrelative:winformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\issuemaillist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\issuemaillist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\issuemaillist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\issuemaillist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +30,81 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "WinFormsApp1\\Form1.Designer.cs",
-              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.Designer.cs",
-              "RelativeToolTip": "WinFormsApp1\\Form1.Designer.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAawEoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-08T05:41:46.041Z",
-              "EditorCaption": ""
+              "Title": "rptDGQty.rdlc [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Report\\rptDGQty.rdlc",
+              "RelativeDocumentMoniker": "FileIndex\\Report\\rptDGQty.rdlc",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Report\\rptDGQty.rdlc [Design]",
+              "RelativeToolTip": "FileIndex\\Report\\rptDGQty.rdlc [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001755|",
+              "WhenOpened": "2026-01-12T06:12:40.621Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.cs",
-              "RelativeDocumentMoniker": "WinFormsApp1\\Form1.cs",
-              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.cs",
-              "RelativeToolTip": "WinFormsApp1\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAHAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Program.cs",
+              "RelativeDocumentMoniker": "FileIndex\\Program.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Program.cs",
+              "RelativeToolTip": "FileIndex\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-08T05:31:42.728Z",
+              "WhenOpened": "2026-01-12T06:02:43.992Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.cs",
-              "RelativeDocumentMoniker": "WinFormsApp1\\Form1.cs",
-              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\WinFormsApp1\\Form1.cs [Design]",
-              "RelativeToolTip": "WinFormsApp1\\Form1.cs [Design]",
+              "Title": "IssuePrinting.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssuePrinting.cs",
+              "RelativeDocumentMoniker": "FileIndex\\IssuePrinting.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssuePrinting.cs [Design]",
+              "RelativeToolTip": "FileIndex\\IssuePrinting.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-08T04:47:08.053Z",
+              "WhenOpened": "2026-01-12T06:02:34.241Z",
               "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IssueMaillist.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssueMaillist.cs",
+              "RelativeDocumentMoniker": "FileIndex\\IssueMaillist.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssueMaillist.cs [Design]",
+              "RelativeToolTip": "FileIndex\\IssueMaillist.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-12T05:25:33.197Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IssueMaillist.cs",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssueMaillist.cs",
+              "RelativeDocumentMoniker": "FileIndex\\IssueMaillist.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\IssueMaillist.cs",
+              "RelativeToolTip": "FileIndex\\IssueMaillist.cs",
+              "ViewState": "AgIAAJUAAAAAAAAAAADwv6UAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-11T04:57:34.548Z",
+              "EditorCaption": ""
             }
           ]
         }

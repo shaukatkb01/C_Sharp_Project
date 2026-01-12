@@ -1,0 +1,15 @@
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\bin\Debug\net10.0\HassanPrectice.exe
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\bin\Debug\net10.0\HassanPrectice.deps.json
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\bin\Debug\net10.0\HassanPrectice.runtimeconfig.json
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\bin\Debug\net10.0\HassanPrectice.dll
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\bin\Debug\net10.0\HassanPrectice.pdb
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.GeneratedMSBuildEditorConfig.editorconfig
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.AssemblyInfoInputs.cache
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.AssemblyInfo.cs
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.csproj.CoreCompileInputs.cache
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.sourcelink.json
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.dll
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\refint\HassanPrectice.dll
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.pdb
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\HassanPrectice.genruntimeconfig.cache
+D:\C_Sharp_Project\HassanPrectice\HassanPrectice\obj\Debug\net10.0\ref\HassanPrectice.dll
