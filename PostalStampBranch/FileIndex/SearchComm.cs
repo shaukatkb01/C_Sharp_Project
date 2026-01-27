@@ -29,72 +29,56 @@ namespace FileIndex
         }
         private void SearchData(string searchTerm, DateTime fromDate, DateTime toDate)
         {
-
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
                 try
                 {
-                    // Query: Date range filter aur Text search dono shamil hain
+                    // Update: Price table ki jagah StockPrice use kiya gaya hai
                     string query = @"SELECT 
-                    c.Id, 
-                    c.IssueNo, 
-                    c.DateOfIssue, 
-                    f.FileNo AS [FileNumber], 
-                    f.FileSubject, 
-                    p.StampPrice, 
-                    p.SouvenirPrice,
-                    c.Remarks
-                    
-                 FROM CommStamp c
-                 INNER JOIN FileIndex f ON c.FileNo = f.Id 
-                 LEFT JOIN Price p ON f.Id = p.FileNo
-                 WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) -- Date Filter
-                 AND (
-                        f.FileNo LIKE @search 
-                        OR f.FileSubject LIKE @search 
-                        OR c.IssueNo LIKE @search 
-                        OR c.Remarks LIKE @search
-                     )";
+                            c.IssueId, 
+                            c.IssueNo, 
+                            c.DateOfIssue, 
+                            f.FileNo AS [FileNumber], 
+                            f.FileSubject, 
+                            p.StampPrice, 
+                            p.SouvenirPrice,
+                            c.Remarks
+                         FROM CommStamp c
+                         INNER JOIN FileIndex f ON c.FileNo = f.Id 
+                         LEFT JOIN StockPrice p ON c.FileNo = p.FileNo
+                         WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) 
+                         AND (
+                                f.FileNo LIKE @search 
+                                OR f.FileSubject LIKE @search 
+                                OR c.IssueNo LIKE @search 
+                                OR c.Remarks LIKE @search
+                             )";
 
                     SqlCommand cmd = new SqlCommand(query, con);
 
-                    // Parameters add karna (SQL Injection se bachne ke liye)
+                    // SQL Injection se bachne ke liye safe parameters
                     cmd.Parameters.AddWithValue("@search", "%" + searchTerm + "%");
-                    cmd.Parameters.AddWithValue("@fromDate", dtpFrom.Value.Date);
-                    cmd.Parameters.AddWithValue("@toDate", dtpTo.Value.Date.AddDays(1).AddTicks(-1)); // Din ke aakhir tak ka data
+                    cmd.Parameters.AddWithValue("@fromDate", fromDate.Date);
+                    cmd.Parameters.AddWithValue("@toDate", toDate.Date.AddDays(1).AddTicks(-1));
 
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
-                    // Data GridView mein load karna
                     dgvResults.DataSource = dt;
 
-                    // UI ki setting (Columns fix karna)
+                    // UI Settings
                     if (dt.Rows.Count > 0 && dgvResults.Columns.Count > 0)
                     {
-                        // Width settings
-                        if (dgvResults.Columns.Contains("Id")) dgvResults.Columns["Id"].Visible = false; // ID chupa di
-                        if (dgvResults.Columns.Contains("FileNumber")) dgvResults.Columns["FileNumber"].Width = 120;
-                        if (dgvResults.Columns.Contains("IssueNo")) dgvResults.Columns["IssueNo"].Width = 150;
-                        if (dgvResults.Columns.Contains("DateOfIssue"))
-                        {
-                            dgvResults.Columns["DateOfIssue"].Width = 120;
-                            dgvResults.Columns["DateOfIssue"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-                        }
+                        if (dgvResults.Columns.Contains("IssueId")) dgvResults.Columns["IssueId"].Visible = false;
 
-                        // Subject ko zyada jagah dena
-                        if (dgvResults.Columns.Contains("FileSubject"))
-                        {
-                            dgvResults.Columns["FileSubject"].Width = 350;
-                            dgvResults.Columns["FileSubject"].HeaderText = "File Subject";
-                        }
+                        dgvResults.Columns["FileNumber"].HeaderText = "File No";
+                        dgvResults.Columns["IssueNo"].HeaderText = "Issue No";
+                        dgvResults.Columns["DateOfIssue"].HeaderText = "Date";
+                        dgvResults.Columns["DateOfIssue"].DefaultCellStyle.Format = "dd-MMM-yyyy";
 
-                        // Remarks ko bachi hui sari jagah dena
-                        if (dgvResults.Columns.Contains("Remarks"))
-                        {
-                            dgvResults.Columns["Remarks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        }
+                        dgvResults.Columns["FileSubject"].Width = 250;
+                        dgvResults.Columns["Remarks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     }
                 }
                 catch (Exception ex)
@@ -102,7 +86,6 @@ namespace FileIndex
                     MessageBox.Show("Search Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)

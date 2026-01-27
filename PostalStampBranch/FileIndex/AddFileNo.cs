@@ -54,14 +54,14 @@ namespace FileIndex
 
                 if (result != null)
                 {
-                    string lastFileNo = result.ToString(); // Maslan "Ps.3-58/2025"
+                    string? lastFileNo = result?.ToString(); // Maslan "Ps.3-58/2025"
 
                     // Saal aur Number ko alag karna
-                    string[] parts = lastFileNo.Split('/');
-                    string lastYear = parts[1];
+                    string[]? parts = lastFileNo?.Split('/');
+                    string? lastYear = parts?[1];
 
                     // Prefix hata kar sirf number (58) nikalna
-                    string lastCountStr = parts[0].Replace(prefix, "");
+                    string? lastCountStr = parts?[0].Replace(prefix, "");
                     int lastCount = int.Parse(lastCountStr);
 
                     if (lastYear == currentYear)

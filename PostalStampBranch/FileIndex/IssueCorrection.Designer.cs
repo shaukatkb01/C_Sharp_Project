@@ -66,7 +66,6 @@
             stampPrice = new NumericUpDown();
             label10 = new Label();
             label9 = new Label();
-            btnClose = new Button();
             button1 = new Button();
             issuNoCmb = new ComboBox();
             dbBindingSource = new BindingSource(components);
@@ -424,23 +423,11 @@
             label9.TabIndex = 114;
             label9.Text = "Stamp Price:-";
             // 
-            // btnClose
-            // 
-            btnClose.BackColor = Color.FromArgb(0, 165, 255);
-            btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(344, 773);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(190, 52);
-            btnClose.TabIndex = 108;
-            btnClose.Text = "Clear";
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click_1;
-            // 
             // button1
             // 
             button1.BackColor = Color.FromArgb(0, 165, 255);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(130, 773);
+            button1.Location = new Point(338, 773);
             button1.Name = "button1";
             button1.Size = new Size(190, 52);
             button1.TabIndex = 107;
@@ -476,6 +463,7 @@
             textFileSubject.Location = new Point(130, 185);
             textFileSubject.Multiline = true;
             textFileSubject.Name = "textFileSubject";
+            textFileSubject.ReadOnly = true;
             textFileSubject.Size = new Size(597, 73);
             textFileSubject.TabIndex = 131;
             // 
@@ -534,7 +522,6 @@
             Controls.Add(stampPrice);
             Controls.Add(label10);
             Controls.Add(label9);
-            Controls.Add(btnClose);
             Controls.Add(button1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "IssueCorrection";
@@ -596,7 +583,6 @@
         private NumericUpDown stampPrice;
         private Label label10;
         private Label label9;
-        private Button btnClose;
         private Button button1;
         private ComboBox issuNoCmb;
         private BindingSource dbBindingSource;

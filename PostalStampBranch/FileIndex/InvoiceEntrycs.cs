@@ -103,7 +103,7 @@ namespace FileIndex
                     if (result != null && result != DBNull.Value)
                     {
                         lastInvoiceNo = "";
-                        lastInvoiceNo=lastInvoice_No.Text = result.ToString();
+                        lastInvoiceNo = lastInvoice_No.Text = result.ToString();
                     }
                     else
                     {
@@ -127,10 +127,12 @@ namespace FileIndex
 
                     // 1. Mukammal SQL Query (Table ka naam 'FileIndex' farz kiya hai)
                     // SQL mein '+' ki jagah ' + ' spaces ke sath use karein
-                    string query = @"SELECT Id, (FileNo + ' - ' + FileSubject) AS Filedetail 
-                         FROM FileIndex 
-                         WHERE FileType IN (1, 2, 3, 4) 
-                         ORDER BY Id DESC";
+                    string query = @"SELECT F.Id, (F.FileNo + ' - ' + F.FileSubject) AS Filedetail 
+                 FROM FileIndex F
+                 INNER JOIN CommStamp C ON F.Id = C.FileNo
+                 WHERE F.FileType IN (1, 2, 3, 4) 
+                 GROUP BY F.Id, F.FileNo, F.FileSubject -- Takay duplicate records na aayein
+                 ORDER BY F.Id DESC";
 
                     // 2. Adapter ko query aur connection dena zaroori hai
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
@@ -161,7 +163,7 @@ namespace FileIndex
                         // for FileNo Combo
                         com_FileNo.DataSource = dt;
                         com_FileNo.DisplayMember = "Filedetail"; // Jo user ko dikhega
-                        com_FileNo.ValueMember = "Id";          // Jo background mein save hoga
+                        com_FileNo.ValueMember = "F.Id";          // Jo background mein save hoga
                         com_FileNo.SelectedIndex = -1; // Shuru mein khali dikhane ke liye -1 behtar hai
                         com_FileNo.DropDownWidth = 1500;
 
@@ -192,8 +194,117 @@ namespace FileIndex
             }
         }
 
-        private void com_FileNo_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+
+
+        private void num_FDC_ValueChanged(object sender, EventArgs e)
         {
+            CalculateTotal();
+        }
+
+        private void num_Leaflet_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+
+        private void num_Postmark_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+
+        private void num_FDCC_ValueChanged(object sender, EventArgs e)
+        {
+            CalculateTotal();
+        }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            if (ValidationHelper.IsFormValid(this) == false) return;
+
+            using (SqlConnection con = new SqlConnection(Db.ConString))
+            {
+                con.Open();
+                SqlTransaction trans = con.BeginTransaction();
+
+                try
+                {
+                    string newInvoiceNo = GetNextInvoiceNoWithConnection(con, trans);
+
+                    // 2. InvoiceRegister Query (DispatchType column add kiya)
+                    string query = @"INSERT INTO InvoiceRegister 
+                    (FileNo, InvoiceNo, SupplyType, PhiliticBureauName, IssueDate, Totalamount, Remarks) 
+                    VALUES (@fno, @inv, @st, @pbn, @dt, @ta, @remarks, );
+                    SELECT SCOPE_IDENTITY();";
+
+                    SqlCommand cmd = new SqlCommand(query, con, trans);
+                    cmd.Parameters.AddWithValue("@fno", selectedFileId);
+                    cmd.Parameters.AddWithValue("@inv", newInvoiceNo);
+                    cmd.Parameters.AddWithValue("@st", 4);
+                    cmd.Parameters.AddWithValue("@pbn", com_PhilName.SelectedValue);
+                    cmd.Parameters.AddWithValue("@dt", date_Picker.Value.Date);
+
+                    decimal finalTotal = decimal.Parse(text_TA.Text.Replace("Rs. ", ""));
+                    cmd.Parameters.AddWithValue("@ta", finalTotal);
+                    cmd.Parameters.AddWithValue("@remarks", Remark_txt.Text);
+
+
+                    int newInvoiceNoId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // 3. PhilatelicSupply Query
+                    string query1 = @"INSERT INTO PhilatelicSupply
+                    (Address, FileNo, SupplyType, Supply_Date, StampsQty, FDCQty, LeafletQty, FDCCQty, PostmarkQty, Remark, InvoiceNo)
+                    VALUES (@ad, @fn, @st, @sd, @sq, @fq, @lq, @fcq, @pmq, @remark, @in)";
+
+                    SqlCommand cmd1 = new SqlCommand(query1, con, trans);
+                    cmd1.Parameters.AddWithValue("@ad", com_PhilName.SelectedValue);
+                    cmd1.Parameters.AddWithValue("@fn", selectedFileId);
+                    cmd1.Parameters.AddWithValue("@st", 4);
+                    cmd1.Parameters.AddWithValue("@sd", date_Picker.Value);
+                    cmd1.Parameters.AddWithValue("@sq", num_Stamp.Value);
+                    cmd1.Parameters.AddWithValue("@fq", num_FDC.Value);
+                    cmd1.Parameters.AddWithValue("@lq", num_Leaflet.Value);
+                    cmd1.Parameters.AddWithValue("@fcq", num_FDCC.Value);
+                    cmd1.Parameters.AddWithValue("@pmq", num_Postmark.Value);
+                    cmd1.Parameters.AddWithValue("@remark", Remark_txt.Text);
+                    cmd1.Parameters.AddWithValue("@in", newInvoiceNoId);
+                    cmd1.ExecuteNonQuery();
+
+                    // 4. PendingInvoice Query (Fixing @inv and @ac)
+                    string query2 = @"INSERT INTO PendingInvoice 
+                    (InvoiceRegisterId, AcknowledgeStatus, Remarks) 
+                    VALUES (@invId, @ac, @rem)";
+
+                    SqlCommand cmd2 = new SqlCommand(query2, con, trans);
+                    cmd2.Parameters.AddWithValue("@invId", newInvoiceNoId); // Naam match kar diya
+                    cmd2.Parameters.AddWithValue("@ac", 2); // '=' hata diya
+                    cmd2.Parameters.AddWithValue("@rem", Remark_txt.Text);
+                    cmd2.ExecuteNonQuery(); // Isay chalana bhool gaye thay aap
+
+                    trans.Commit();
+
+                    ClearForm.ClearAllControls(this);
+                    MessageBox.Show("Invoice " + newInvoiceNo + " Saved Successfully!");
+                    lastInvoice_No.Text = newInvoiceNo;
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    MessageBox.Show("Save Error: " + ex.Message);
+                }
+            }
+        }
+
+        private void com_FileNo_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (com_FileNo.SelectedValue != null && com_FileNo.SelectedValue is int)
+            {
+                // stock remaining update karne ke liye
+                int id = (int)com_FileNo.SelectedValue;
+
+
+                StockManager.CalculateAndDisplayStock(id, text_Stamp_B, text_FDC_B, text_Leaflet_B, text_FDCC_B, text_PM_B);
+            }
             // 1. Check karein ke user ne waqayi kuch select kiya hai
             if (com_FileNo.Focused && com_FileNo.SelectedValue != null)
             {
@@ -234,102 +345,6 @@ namespace FileIndex
                     {
                         MessageBox.Show("Data Load Error: " + ex.Message);
                     }
-                }
-            }
-        }
-
-
-
-        private void num_FDC_ValueChanged(object sender, EventArgs e)
-        {
-            CalculateTotal();
-        }
-
-        private void num_Leaflet_ValueChanged(object sender, EventArgs e)
-        {
-            CalculateTotal();
-        }
-
-        private void num_Postmark_ValueChanged(object sender, EventArgs e)
-        {
-            CalculateTotal();
-        }
-
-        private void num_FDCC_ValueChanged(object sender, EventArgs e)
-        {
-            CalculateTotal();
-        }
-
-        private void btn_save_Click(object sender, EventArgs e)
-        {
-            // 1. Validation hamesha Connection khulne se PEHLE honi chahiye
-            if (ValidationHelper.IsFormValid(this) == false)
-            {
-                return;
-            }
-
-            using (SqlConnection con = new SqlConnection(Db.ConString))
-            {
-                con.Open();
-                SqlTransaction trans = con.BeginTransaction();
-
-                try
-                {
-                    string newInvoiceNo = GetNextInvoiceNoWithConnection(con, trans);
-
-                    // 2. InvoiceRegister Query
-                    string query = @"INSERT INTO InvoiceRegister 
-                            (FileNo, InvoiceNo, SupplyType, PhiliticBureauName, IssueDate, Totalamount, DispatchType, Remarks) 
-                            VALUES (@fno, @inv, @st, @pbn, @dt, @ta, @disT, @remarks);
-                            SELECT SCOPE_IDENTITY();";
-
-                    SqlCommand cmd = new SqlCommand(query, con, trans);
-                    cmd.Parameters.AddWithValue("@fno", selectedFileId);
-                    cmd.Parameters.AddWithValue("@inv", newInvoiceNo);
-                    cmd.Parameters.AddWithValue("@st", 4);
-                    cmd.Parameters.AddWithValue("@pbn", com_PhilName.SelectedValue);
-                    cmd.Parameters.AddWithValue("@dt", date_Picker.Value.Date);
-                    decimal finalTotal = decimal.Parse(text_TA.Text.Replace("Rs. ", ""));
-                    cmd.Parameters.AddWithValue("@ta", finalTotal);
-                    cmd.Parameters.AddWithValue("@disT", combo_DT.SelectedValue);
-                    cmd.Parameters.AddWithValue("@remarks", Remark_txt.Text);
-
-                    // Yahan record save bhi hoga aur ID bhi mil jaye gi (Sirf ek bar chalana hai)
-                    int newInvoiceNoId = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    // 3. PhilatelicSupply Query
-                    string query1 = @"INSERT INTO PhilatelicSupply
-                            (Address, FileNo, SupplyType, Supply_Date, StampsQty, FDCQty, LeafletQty, FDCCQty, PostmarkQty, Remark, InvoiceNo)
-                            VALUES (@ad, @fn, @st, @sd, @sq, @fq, @lq, @fcq, @pmq, @remark, @in)";
-
-                    SqlCommand cmd1 = new SqlCommand(query1, con, trans);
-                    cmd1.Parameters.AddWithValue("@ad", com_PhilName.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@fn", selectedFileId);
-                    cmd1.Parameters.AddWithValue("@st", 4);
-                    cmd1.Parameters.AddWithValue("@sd", date_Picker.Value);
-                    cmd1.Parameters.AddWithValue("@sq", num_Stamp.Value);
-                    cmd1.Parameters.AddWithValue("@fq", num_FDC.Value);
-                    cmd1.Parameters.AddWithValue("@lq", num_Leaflet.Value);
-                    cmd1.Parameters.AddWithValue("@fcq", num_FDCC.Value);
-                    cmd1.Parameters.AddWithValue("@pmq", num_Postmark.Value);
-                    cmd1.Parameters.AddWithValue("@remark", Remark_txt.Text);
-                    cmd1.Parameters.AddWithValue("@in", newInvoiceNoId);
-
-                    // Doosri query chalayen
-                    cmd1.ExecuteNonQuery();
-
-                    // 4. Sab sahi raha toh Commit
-                    trans.Commit();
-
-                    // Form clean aur user ko message
-                    ClearForm.ClearAllControls(this);
-                    MessageBox.Show("Invoice " + newInvoiceNo + " Saved Successfully!");
-                    lastInvoice_No.Text = newInvoiceNo;
-                }
-                catch (Exception ex)
-                {
-                    trans.Rollback();
-                    MessageBox.Show("Save Error: " + ex.Message);
                 }
             }
         }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label3 = new Label();
             exportBtn = new Button();
@@ -88,14 +88,14 @@
             dgvResults.Name = "dgvResults";
             dgvResults.ReadOnly = true;
             dgvResults.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(44, 62, 80);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(44, 62, 80);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvResults.Size = new Size(970, 373);
             dgvResults.TabIndex = 21;
             // 
@@ -122,7 +122,7 @@
             // 
             dtpFrom.Enabled = false;
             dtpFrom.Format = DateTimePickerFormat.Custom;
-            dtpFrom.Location = new Point(284, 190);
+            dtpFrom.Location = new Point(284, 188);
             dtpFrom.Name = "dtpFrom";
             dtpFrom.Size = new Size(114, 29);
             dtpFrom.TabIndex = 24;
@@ -132,7 +132,7 @@
             // 
             dtpTo.Enabled = false;
             dtpTo.Format = DateTimePickerFormat.Short;
-            dtpTo.Location = new Point(523, 191);
+            dtpTo.Location = new Point(523, 188);
             dtpTo.Name = "dtpTo";
             dtpTo.Size = new Size(114, 29);
             dtpTo.TabIndex = 25;
@@ -142,7 +142,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(484, 193);
+            label2.Location = new Point(484, 192);
             label2.Name = "label2";
             label2.Size = new Size(33, 25);
             label2.TabIndex = 26;
@@ -153,7 +153,7 @@
             From.AutoSize = true;
             From.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             From.ForeColor = Color.White;
-            From.Location = new Point(190, 194);
+            From.Location = new Point(190, 192);
             From.Name = "From";
             From.Size = new Size(59, 25);
             From.TabIndex = 27;
@@ -166,7 +166,7 @@
             searchBtn.Enabled = false;
             searchBtn.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             searchBtn.ForeColor = Color.White;
-            searchBtn.Location = new Point(688, 183);
+            searchBtn.Location = new Point(688, 171);
             searchBtn.Margin = new Padding(1);
             searchBtn.Name = "searchBtn";
             searchBtn.Size = new Size(169, 46);
@@ -180,7 +180,7 @@
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(10, 198);
+            checkBox1.Location = new Point(10, 188);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(163, 29);
             checkBox1.TabIndex = 29;

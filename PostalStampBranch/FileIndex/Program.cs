@@ -8,10 +8,22 @@ namespace FileIndex
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new IssuePrinting());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Pehle Login Form ko kholien
+            Login login = new Login();
+
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                // Agar Login successful ho gaya, toh Main form chalayein
+                Application.Run(new Main());
+            }
+            else
+            {
+                // Warna application band kar dein
+                Application.Exit();
+            }
         }
     }
 }

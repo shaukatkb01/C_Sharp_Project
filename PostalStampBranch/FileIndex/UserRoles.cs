@@ -14,6 +14,41 @@ namespace FileIndex
 {
     public partial class UserRoles : Form
     {
+        public void DeleteUserRole( int userId)
+        {
+            // 1. Check karein ke kya user select kiya gaya hai?
+            if (cmb_User.SelectedValue == null)
+            {
+                MessageBox.Show("Please Select User first");
+                return;
+            }
+                
+             try
+            {
+                using (SqlConnection con = new SqlConnection(Db.ConString))
+                {
+                    // Query ko theek kiya: NOT IN (1) ya simply != 1
+
+
+                    // Sirf Role delete hoga, UserInfo table ko kuch nahi hoga
+                    string query = @"DELETE FROM UserRoles WHERE UserID = @id AND RoleID != 1";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", userId);
+                    con.Open();
+                    
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if ( rowsAffected > 0)
+                        MessageBox.Show("Role removed successfully!");
+                    else
+                        MessageBox.Show("No role was removed (User might be Admin).");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
         public UserRoles()
         {
             InitializeComponent();
@@ -24,7 +59,7 @@ namespace FileIndex
             if (this.Visible)
             {
                 UIHelper.ApplyTheme(this);
-       
+
                 UIHelper.SetFormTheme(this);
                 LoadUserRolesGrid();
             }
@@ -129,9 +164,14 @@ namespace FileIndex
             }
         }
 
-        private void cmb_User_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        private void btn_delet_Click(object sender, EventArgs e)
         {
-            
-       }
+            int userId = Convert.ToInt32(cmb_User.SelectedValue);
+           
+            DeleteUserRole(userId);
+            LoadUserRolesGrid();
+        }
     }
 }

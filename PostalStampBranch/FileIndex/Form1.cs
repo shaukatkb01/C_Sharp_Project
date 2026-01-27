@@ -108,7 +108,8 @@ namespace FileIndex
         // 4. Save Button Code
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!IsFormValid()) return; // Pehle check karein
+           
+            if (!IsFormValid()) return;
 
             using (SqlConnection con = new SqlConnection(conString))
             {
@@ -118,60 +119,81 @@ namespace FileIndex
                 try
                 {
                     string fullIssueNo = issueNo.Text.Trim();
-                    string[] parts = fullIssueNo.Split('-');
-                    int issueCounter = Convert.ToInt32(parts[0]);
-                    string issueYear = parts[1];
+                    int selectedFileId = (int)fileNoCmb.SelectedValue;
 
-                    // Table 1: CommStamp
-                    string query1 = @"INSERT INTO CommStamp (FileNo, DateOfIssue, IssueNo, StampDesignNo, SouvenirDesignNo, IssueYear, IssueCounter, Remarks) 
-                                    VALUES (@FileNo, @DateOfIssue, @IssueNo, @StampDesignNo, @SouvenirDesignNo, @IssueYear, @IssueCounter, @Remarks)";
+                    // --- Table 1: CommStamp ---
+                    string query1 = @"INSERT INTO CommStamp (IssueNo, FileNo, DateOfIssue, Remarks) 
+                  VALUES (@IssueNo, @FileNo, @DateOfIssue, @Remarks);
+                  SELECT SCOPE_IDENTITY();"; // Yeh line nayi ID wapas bhejti hai
 
                     SqlCommand cmd1 = new SqlCommand(query1, con, trans);
-                    cmd1.Parameters.AddWithValue("@FileNo", fileNoCmb.SelectedValue);
-                    cmd1.Parameters.AddWithValue("@DateOfIssue", dateOfIssuePicker.Value);
                     cmd1.Parameters.AddWithValue("@IssueNo", fullIssueNo);
-                    cmd1.Parameters.AddWithValue("@StampDesignNo", stampDesignNUM.Value);
-                    cmd1.Parameters.AddWithValue("@SouvenirDesignNo", souvenirDesignNUM.Value);
-                    cmd1.Parameters.AddWithValue("@IssueCounter", issueCounter);
-                    cmd1.Parameters.AddWithValue("@IssueYear", issueYear);
+                    cmd1.Parameters.AddWithValue("@FileNo", selectedFileId);
+                    cmd1.Parameters.AddWithValue("@DateOfIssue", dateOfIssuePicker.Value);
                     cmd1.Parameters.AddWithValue("@Remarks", remarkTxt.Text);
-                    cmd1.ExecuteNonQuery();
+                    object result = cmd1.ExecuteScalar();
+                    if (result != null)
+                    {
+                        int newIssueId = Convert.ToInt32(result);
 
-                    // Table 2: Price
-                    string query2 = @"INSERT INTO Price (FileNo, StampPrice, SouvenirPrice, FDCPrice, LeafletPrice, PostmarkPrice, StampQty, SouvenirQty, FDCQty, LeafletQty, PostMarkQty, Remark) 
-                                    VALUES (@FileID, @SP, @SvP, @FP, @LP, @PP, @SQ, @SvQ, @FQ, @LQ, @PQ, @Rem)";
+                        // --- Table 2: Design ---
+                        string queryDesign = @"INSERT INTO Design (IssueNo, StampDesignNo, SouvenirDesignNo, DesignRemark) 
+                                 VALUES (@ino, @sd, @svd, @dremark)";
 
-                    SqlCommand cmd2 = new SqlCommand(query2, con, trans);
-                    cmd2.Parameters.AddWithValue("@FileID", fileNoCmb.SelectedValue);
-                    cmd2.Parameters.AddWithValue("@SP", stampPrice.Text);
-                    cmd2.Parameters.AddWithValue("@SvP", souvenirPrice.Text);
-                    cmd2.Parameters.AddWithValue("@FP", FDCPrice.Text);
-                    cmd2.Parameters.AddWithValue("@LP", leafletPrice.Text);
-                    cmd2.Parameters.AddWithValue("@PP", postmarkPrice.Text);
-                    cmd2.Parameters.AddWithValue("@SQ", stampQty.Text);
-                    cmd2.Parameters.AddWithValue("@SvQ", souvenirQty.Text);
-                    cmd2.Parameters.AddWithValue("@FQ", FDCQty.Text);
-                    cmd2.Parameters.AddWithValue("@LQ", leafletQty.Text);
-                    cmd2.Parameters.AddWithValue("@PQ", postmarkQty.Text);
-                    cmd2.Parameters.AddWithValue("@Rem", remarkTxt.Text);
-                    cmd2.ExecuteNonQuery();
+                        SqlCommand cmdDesign = new SqlCommand(queryDesign, con, trans);
+                        cmdDesign.Parameters.AddWithValue("@ino", newIssueId);
+                        cmdDesign.Parameters.AddWithValue("@sd", stampDesignNUM.Value);
+                        cmdDesign.Parameters.AddWithValue("@svd", souvenirDesignNUM.Value);
+                        cmdDesign.Parameters.AddWithValue("@dremark", remarkTxt.Text);
+                        cmdDesign.ExecuteNonQuery();
+                    }
+                    // --- Table 3: StockPrice (Sirf Qeemat) ---
+                    string queryPrice = @"INSERT INTO StockPrice (FileNo, StampPrice, SouvenirPrice, FDCPrice, LeafletPrice, PostmarkPrice, Remark) 
+                                 VALUES (@FileID, @SP, @SvP, @FP, @LP, @PP, @Rem)";
 
-                    // Table 3: Update Status
-                    string query3 = "UPDATE FileIndex SET Status = 1 WHERE Id = @Id";
-                    SqlCommand cmd3 = new SqlCommand(query3, con, trans);
-                    cmd3.Parameters.AddWithValue("@Id", fileNoCmb.SelectedValue);
-                    cmd3.ExecuteNonQuery();
+                    SqlCommand cmdPrice = new SqlCommand(queryPrice, con, trans);
+                    cmdPrice.Parameters.AddWithValue("@FileID", selectedFileId);
+                    cmdPrice.Parameters.AddWithValue("@SP", stampPrice.Value);
+                    cmdPrice.Parameters.AddWithValue("@SvP", souvenirPrice.Value);
+                    cmdPrice.Parameters.AddWithValue("@FP", FDCPrice.Value);
+                    cmdPrice.Parameters.AddWithValue("@LP", leafletPrice.Value);
+                    cmdPrice.Parameters.AddWithValue("@PP", postmarkPrice.Value);
+                    cmdPrice.Parameters.AddWithValue("@Rem", remarkTxt.Text);
+                    cmdPrice.ExecuteNonQuery();
 
+                    // --- Table 4: StockPhilQuantity (Sirf Ginti) ---
+                    string queryQty = @"INSERT INTO StockPhilQuantity 
+                                      (FileNo, StampQty, SouvenirQty, FDCQty, StampFCQty, LeafletQty, PostMarkQty) 
+                               VALUES (@FileID, @SQ, @SvQ, @FQ, @SFCQ, @LQ, @PQ)";
+
+                    SqlCommand cmdQty = new SqlCommand(queryQty, con, trans);
+                    cmdQty.Parameters.AddWithValue("@FileID", selectedFileId);
+                    cmdQty.Parameters.AddWithValue("@SQ", (int)stampQty.Value);
+                    cmdQty.Parameters.AddWithValue("@SvQ", (int)souvenirQty.Value);
+                    cmdQty.Parameters.AddWithValue("@FQ", (int)FDCQty.Value);
+                    cmdQty.Parameters.AddWithValue("@SFCQ", (int)stampQtyFC.Value); // stamp free of cost Qty ke liye
+                    cmdQty.Parameters.AddWithValue("@LQ", (int)leafletQty.Value);
+                    cmdQty.Parameters.AddWithValue("@PQ", (int)postmarkQty.Value);
+                    cmdQty.ExecuteNonQuery();
+
+                    // --- Table 5: Update FileIndex Status ---
+                    string queryStatus = "UPDATE FileIndex SET Status = 1 WHERE Id = @Id";
+                    SqlCommand cmdStatus = new SqlCommand(queryStatus, con, trans);
+                    cmdStatus.Parameters.AddWithValue("@Id", selectedFileId);
+                    cmdStatus.ExecuteNonQuery();
+
+                    // Sab sahi hai toh save kar do
                     trans.Commit();
-                    MessageBox.Show("Data Saved Successfully!");
+                    MessageBox.Show("All data is saved in tables..");
 
-                    LoadData(); // ComboBox refresh karein
-                    ClearForm(); // Form clean karein
+                    LoadData(); // ComboBox refresh
+                    ClearForm(); // Form saaf karein
                 }
+
                 catch (Exception ex)
                 {
-                    trans.Rollback();
-                    MessageBox.Show("Save Error: " + ex.Message);
+                    trans.Rollback(); // Galti hone par sab wapas purani halat mein
+                    MessageBox.Show("Save Error (Data Rollbacked): " + ex.Message);
                 }
             }
         }
@@ -208,19 +230,36 @@ namespace FileIndex
 
         private void dateOfIssuePicker_ValueChanged(object sender, EventArgs e)
         {
-            string issueYear = dateOfIssuePicker.Value.ToString("yyyy");
-            string query = "SELECT ISNULL(MAX(IssueCounter), 0) + 1 FROM CommStamp WHERE IssueYear = @IssueYear";
-            issueNo.Text = null;
+         
+            // 1. Picker se saal nikaalna
+            int selectedYear = dateOfIssuePicker.Value.Year;
+
+            // 2. Query: DateOfIssue column se Year nikaal kar count karna
+            // Hum YEAR(DateOfIssue) use karenge aur us saal ke records count karenge
+            string query = "SELECT COUNT(*) + 1 FROM CommStamp WHERE YEAR(DateOfIssue) = @SelectedYear";
+
             using (SqlConnection con = new SqlConnection(conString))
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
-                cmd.Parameters.AddWithValue("@IssueYear", issueYear);
-                con.Open();
-                int nextCounter = Convert.ToInt32(cmd.ExecuteScalar());
-                issueNo.Text = $"{nextCounter}-{issueYear}";
+                cmd.Parameters.AddWithValue("@SelectedYear", selectedYear);
+
+                try
+                {
+                    con.Open();
+                    int nextCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // 3. Issue Number format: "1-2026"
+                    issueNo.Text = $"{nextCount}-{selectedYear}";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e) { this.Close(); }
+        
+
+        
     }
 }

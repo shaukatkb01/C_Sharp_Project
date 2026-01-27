@@ -14,15 +14,35 @@ namespace FileIndex
 {
     public partial class PhilatelicSupplyDetail : Form
     {
+        private void SetControlsByTag(Control parent, string tagName, bool status)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                // Check karein ke kya control ka Tag wahi hai jo hum dhoond rahe hain
+                if (c.Tag != null && c.Tag.ToString() == tagName)
+                {
+                    c.Enabled = status;
+                }
+
+                // Agar control ke andar mazeed controls hain (jaise GroupBox ya Panel)
+                if (c.HasChildren)
+                {
+                    SetControlsByTag(c, tagName, status);
+                }
+            }
+        }
         public PhilatelicSupplyDetail()
         {
             InitializeComponent();
         }
 
+        
+
         private void PhilatelicSupplyDetail_Load(object sender, EventArgs e)
         {
             UIHelper.SetFormTheme(this);
             UIHelper.ApplyTheme(this);
+            SetControlsByTag(this, "PhilControll", false);
 
             using var con = new SqlConnection(Db.ConString);
 
@@ -108,7 +128,7 @@ namespace FileIndex
             {
                 return;
             }
-
+            
             int id = (int)com_FileNo.SelectedValue;
 
             StockManager.CalculateAndDisplayStock(id, text_Stamp_B, text_FDC_B, text_Leaflet_B, text_FDCC_B, text_PM_B);
@@ -162,6 +182,7 @@ namespace FileIndex
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            SetControlsByTag(this, "PhilControll", true);
             num_FDC.Value = 0;
             num_Leaflet.Value = 0;
             num_FDCC.Value = 0;
@@ -210,7 +231,7 @@ namespace FileIndex
                                  Remark = @remark
                              WHERE Id = @id";
             SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@id",Convert.ToInt32( lbl_SelectedID.Text));
+            cmd.Parameters.AddWithValue("@id", Convert.ToInt32(lbl_SelectedID.Text));
             cmd.Parameters.AddWithValue("@address", com_Address.SelectedValue);
             cmd.Parameters.AddWithValue("@stype", com_ST.SelectedValue);
             cmd.Parameters.AddWithValue("@Sdate", date_Supply.Value.Date);
@@ -219,19 +240,24 @@ namespace FileIndex
             cmd.Parameters.AddWithValue("@Leaflet", num_Leaflet.Value);
             cmd.Parameters.AddWithValue("@fdcc", num_FDCC.Value);
             cmd.Parameters.AddWithValue("@pm", num_PM.Value);
-            cmd.Parameters.AddWithValue("@remark", string.IsNullOrWhiteSpace(text_remark.Text)?(Object)DBNull.Value:text_remark.Text);
+            cmd.Parameters.AddWithValue("@remark", string.IsNullOrWhiteSpace(text_remark.Text) ? (Object)DBNull.Value : text_remark.Text);
             try
             {
                 con.Open();
                 cmd.ExecuteNonQuery();
                 ClearForm.ClearAllControls(this);
-                
-                MessageBox.Show("Philatelic Supply update suecessfully","Successfull",MessageBoxButtons.OK);
+
+                MessageBox.Show("Philatelic Supply update suecessfully", "Successfull", MessageBoxButtons.OK);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

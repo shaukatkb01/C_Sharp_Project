@@ -119,11 +119,102 @@ namespace FileIndex
             FillBureauDropdowns(); // Pehle Bureaus bharein
             FillDisTypeDropdowns(); // Phir unke mutabiq Dispatch Types bharein
 
-            
+            // dispatch types main 
+
+            using (SqlConnection con = new SqlConnection(Db.ConString))
+            {
+                try
+                {
+
+
+                    con.Open();
+                    string query = "SELECT ID, DispatchType FROM DispatchType";
+                    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    drop_DisType.DataSource = dt.Copy();
+                    drop_DisType.DisplayMember = "DispatchType";
+                    drop_DisType.ValueMember = "ID";
+                    drop_DisType.SelectedIndex = -1;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading Dispatch Types: " + ex.Message);
+                }
+            }
 
         }
 
-        private void btn_Save_Click(object sender, EventArgs e)
+        
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (drop_DisType.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select Dispatch Type first.");
+                return;
+                drop_DisType.Focus();
+                drop_DisType.DroppedDown = true;
+            }
+
+            // ComboBox se ID utha li
+            int DistypId = Convert.ToInt32(drop_DisType.SelectedValue);
+
+            using (var con = new SqlConnection(Db.ConString))
+            {
+                // Query mein humne aakhir mein filter (WHERE) laga diya hai
+                // Yaad rakhein: PhilitelicBuearu ki spelling database wali hi rakhein (e.g. Buearu)
+                string query = @"SELECT 
+                    M.Id AS M_Id, 
+                    M.MaleListFileId, 
+                    M.Address,
+                    M.K,
+                    M.G,
+                    M.DispatchType AS M_DispatchType,
+                    P.PhilitelicBuearuName AS BureauName,
+                    D.ID,
+                    D.DispatchType,
+                    F.Id AS F_Id,
+                    F.FileNo
+
+                FROM IssueMaleList M  -- Ye wo main table hai jahan se data shuru ho raha hai
+
+                LEFT JOIN PhilitelicBuearu P ON M.Address = P.Id
+                LEFT JOIN DispatchType D ON M.DispatchType = D.ID
+                LEFT JOIN FileIndex F ON M.MaleListFileId = F.Id
+
+                     WHERE M.DispatchType = @dtId";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@dtId", DistypId);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    // Report wala form open karein
+                    frmReportView reportForm = new frmReportView();
+                    // dt yahan apka datatable hai
+                    reportForm.LoadReport(dt, "dtIssueMaleList", "Report/rptIssueMailList.rdlc");
+                    reportForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("no data found in mailist relating to this issue.");
+                }
+            }
+        }
+
+        private void btn_Save_Click_1(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {

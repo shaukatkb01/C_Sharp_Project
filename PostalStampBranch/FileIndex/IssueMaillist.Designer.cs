@@ -28,84 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label31 = new Label();
-            drop_12_Phil = new ComboBox();
-            label3 = new Label();
-            drop_13_Phil = new ComboBox();
-            drop_14_Phil = new ComboBox();
-            label28 = new Label();
-            label27 = new Label();
-            drop_13_DisType = new ComboBox();
-            drop_12_DisType = new ComboBox();
-            drop_11_DisType = new ComboBox();
-            drop_10_DisType = new ComboBox();
-            drop_9_DisType = new ComboBox();
-            drop_8_DisType = new ComboBox();
-            drop_7_DisType = new ComboBox();
-            drop_6_DisType = new ComboBox();
-            drop_5_DisType = new ComboBox();
-            drop_4_DisType = new ComboBox();
-            drop_14_DisType = new ComboBox();
-            drop_11_Phil = new ComboBox();
-            drop_10_Phil = new ComboBox();
-            drop_9_Phil = new ComboBox();
-            drop_8_Phil = new ComboBox();
-            drop_7_Phil = new ComboBox();
-            drop_6_Phil = new ComboBox();
-            drop_5_Phil = new ComboBox();
-            drop_4_Phil = new ComboBox();
-            drop_3_Phil = new ComboBox();
-            drop_20_Phil = new ComboBox();
-            drop_1_Phil = new ComboBox();
-            label22 = new Label();
-            label21 = new Label();
-            label20 = new Label();
-            label19 = new Label();
-            label18 = new Label();
-            label17 = new Label();
+            panel1 = new Panel();
             label16 = new Label();
-            label15 = new Label();
-            label25 = new Label();
-            label24 = new Label();
-            label23 = new Label();
-            drop_16_DisType = new ComboBox();
-            drop_15_DisType = new ComboBox();
-            drop_3_DisType = new ComboBox();
-            drop_20_DisType = new ComboBox();
-            drop_1_DisType = new ComboBox();
-            label44 = new Label();
-            drop_16_Phil = new ComboBox();
-            drop_15_Phil = new ComboBox();
-            drop_19_Phil = new ComboBox();
-            drop_18_Phil = new ComboBox();
-            drop_17_Phil = new ComboBox();
-            label14 = new Label();
-            label13 = new Label();
-            label12 = new Label();
-            label1 = new Label();
-            label26 = new Label();
-            num_1_K = new NumericUpDown();
-            num_20_K = new NumericUpDown();
-            num_3_K = new NumericUpDown();
-            num_4_K = new NumericUpDown();
-            num_12_K = new NumericUpDown();
-            num_13_K = new NumericUpDown();
-            num_14_K = new NumericUpDown();
-            num_11_K = new NumericUpDown();
-            num_5_K = new NumericUpDown();
-            num_6_K = new NumericUpDown();
-            num_7_K = new NumericUpDown();
-            num_8_K = new NumericUpDown();
-            num_9_K = new NumericUpDown();
-            num_10_K = new NumericUpDown();
-            num_17_K = new NumericUpDown();
-            num_18_K = new NumericUpDown();
-            num_19_K = new NumericUpDown();
-            num_15_K = new NumericUpDown();
-            num_16_K = new NumericUpDown();
-            drop_19_DisType = new ComboBox();
-            drop_18_DisType = new ComboBox();
-            drop_17_DisType = new ComboBox();
+            drop_DisType = new ComboBox();
+            button1 = new Button();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            label10 = new Label();
+            btn_Save = new Button();
+            label6 = new Label();
+            Cmb_IssueNo = new ComboBox();
+            panel2 = new Panel();
+            label8 = new Label();
+            label9 = new Label();
+            label7 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label2 = new Label();
             num_16_G = new NumericUpDown();
             num_15_G = new NumericUpDown();
             num_19_G = new NumericUpDown();
@@ -125,31 +63,85 @@
             num_14_G = new NumericUpDown();
             num_13_G = new NumericUpDown();
             num_12_G = new NumericUpDown();
-            label2 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            Cmb_IssueNo = new ComboBox();
-            label6 = new Label();
-            btn_Save = new Button();
-            ((System.ComponentModel.ISupportInitialize)num_1_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_20_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_3_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_4_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_12_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_13_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_14_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_11_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_5_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_6_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_7_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_8_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_9_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_10_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_17_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_18_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_19_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_15_K).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)num_16_K).BeginInit();
+            drop_19_DisType = new ComboBox();
+            drop_18_DisType = new ComboBox();
+            drop_17_DisType = new ComboBox();
+            drop_16_DisType = new ComboBox();
+            drop_15_DisType = new ComboBox();
+            drop_3_DisType = new ComboBox();
+            drop_20_DisType = new ComboBox();
+            drop_1_DisType = new ComboBox();
+            num_16_K = new NumericUpDown();
+            num_15_K = new NumericUpDown();
+            num_19_K = new NumericUpDown();
+            num_18_K = new NumericUpDown();
+            num_17_K = new NumericUpDown();
+            label44 = new Label();
+            drop_16_Phil = new ComboBox();
+            drop_15_Phil = new ComboBox();
+            drop_19_Phil = new ComboBox();
+            drop_18_Phil = new ComboBox();
+            drop_17_Phil = new ComboBox();
+            label14 = new Label();
+            label13 = new Label();
+            label12 = new Label();
+            label1 = new Label();
+            label26 = new Label();
+            drop_13_DisType = new ComboBox();
+            drop_12_DisType = new ComboBox();
+            drop_11_DisType = new ComboBox();
+            drop_10_DisType = new ComboBox();
+            drop_9_DisType = new ComboBox();
+            drop_8_DisType = new ComboBox();
+            drop_7_DisType = new ComboBox();
+            drop_6_DisType = new ComboBox();
+            drop_5_DisType = new ComboBox();
+            drop_4_DisType = new ComboBox();
+            drop_14_DisType = new ComboBox();
+            num_10_K = new NumericUpDown();
+            num_9_K = new NumericUpDown();
+            num_8_K = new NumericUpDown();
+            num_7_K = new NumericUpDown();
+            num_6_K = new NumericUpDown();
+            num_5_K = new NumericUpDown();
+            num_4_K = new NumericUpDown();
+            num_3_K = new NumericUpDown();
+            num_20_K = new NumericUpDown();
+            num_1_K = new NumericUpDown();
+            num_11_K = new NumericUpDown();
+            drop_11_Phil = new ComboBox();
+            drop_10_Phil = new ComboBox();
+            drop_9_Phil = new ComboBox();
+            drop_8_Phil = new ComboBox();
+            drop_7_Phil = new ComboBox();
+            drop_6_Phil = new ComboBox();
+            drop_5_Phil = new ComboBox();
+            drop_4_Phil = new ComboBox();
+            drop_3_Phil = new ComboBox();
+            drop_20_Phil = new ComboBox();
+            drop_1_Phil = new ComboBox();
+            label22 = new Label();
+            label21 = new Label();
+            label20 = new Label();
+            label19 = new Label();
+            label18 = new Label();
+            label17 = new Label();
+            label15 = new Label();
+            label25 = new Label();
+            label24 = new Label();
+            label23 = new Label();
+            num_14_K = new NumericUpDown();
+            num_13_K = new NumericUpDown();
+            num_12_K = new NumericUpDown();
+            label31 = new Label();
+            drop_12_Phil = new ComboBox();
+            label3 = new Label();
+            drop_13_Phil = new ComboBox();
+            drop_14_Phil = new ComboBox();
+            label28 = new Label();
+            label27 = new Label();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)num_16_G).BeginInit();
             ((System.ComponentModel.ISupportInitialize)num_15_G).BeginInit();
             ((System.ComponentModel.ISupportInitialize)num_19_G).BeginInit();
@@ -169,454 +161,647 @@
             ((System.ComponentModel.ISupportInitialize)num_14_G).BeginInit();
             ((System.ComponentModel.ISupportInitialize)num_13_G).BeginInit();
             ((System.ComponentModel.ISupportInitialize)num_12_G).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_16_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_15_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_19_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_18_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_17_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_10_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_9_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_8_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_7_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_6_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_5_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_4_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_3_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_20_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_1_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_11_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_14_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_13_K).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_12_K).BeginInit();
             SuspendLayout();
             // 
-            // label31
-            // 
-            label31.AutoSize = true;
-            label31.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label31.ForeColor = Color.Black;
-            label31.Location = new Point(12, 143);
-            label31.Name = "label31";
-            label31.Size = new Size(34, 21);
-            label31.TabIndex = 535;
-            label31.Text = "Sr#";
-            label31.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // drop_12_Phil
-            // 
-            drop_12_Phil.Enabled = false;
-            drop_12_Phil.FormattingEnabled = true;
-            drop_12_Phil.Location = new Point(49, 519);
-            drop_12_Phil.Name = "drop_12_Phil";
-            drop_12_Phil.Size = new Size(432, 29);
-            drop_12_Phil.TabIndex = 533;
-            drop_12_Phil.Tag = "InvoiceControl";
-            // 
-            // label3
-            // 
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label3.ForeColor = Color.Black;
-            label3.Location = new Point(49, 143);
-            label3.Name = "label3";
-            label3.Size = new Size(388, 29);
-            label3.TabIndex = 510;
-            label3.Text = "Philitelic Buearu and Office Name";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // drop_13_Phil
-            // 
-            drop_13_Phil.Enabled = false;
-            drop_13_Phil.FormattingEnabled = true;
-            drop_13_Phil.Location = new Point(49, 553);
-            drop_13_Phil.Name = "drop_13_Phil";
-            drop_13_Phil.Size = new Size(432, 29);
-            drop_13_Phil.TabIndex = 534;
-            drop_13_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_14_Phil
-            // 
-            drop_14_Phil.Enabled = false;
-            drop_14_Phil.FormattingEnabled = true;
-            drop_14_Phil.Location = new Point(49, 587);
-            drop_14_Phil.Name = "drop_14_Phil";
-            drop_14_Phil.Size = new Size(432, 29);
-            drop_14_Phil.TabIndex = 508;
-            drop_14_Phil.Tag = "InvoiceControl";
-            // 
-            // label28
-            // 
-            label28.ForeColor = Color.Black;
-            label28.Location = new Point(12, 560);
-            label28.Name = "label28";
-            label28.Size = new Size(34, 21);
-            label28.TabIndex = 507;
-            label28.Text = "19";
-            label28.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label27
-            // 
-            label27.ForeColor = Color.Black;
-            label27.Location = new Point(12, 526);
-            label27.Name = "label27";
-            label27.Size = new Size(34, 21);
-            label27.TabIndex = 506;
-            label27.Text = "18";
-            label27.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // drop_13_DisType
-            // 
-            drop_13_DisType.FormattingEnabled = true;
-            drop_13_DisType.Location = new Point(647, 550);
-            drop_13_DisType.Name = "drop_13_DisType";
-            drop_13_DisType.Size = new Size(132, 29);
-            drop_13_DisType.TabIndex = 641;
-            drop_13_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_12_DisType
-            // 
-            drop_12_DisType.FormattingEnabled = true;
-            drop_12_DisType.Location = new Point(647, 516);
-            drop_12_DisType.Name = "drop_12_DisType";
-            drop_12_DisType.Size = new Size(132, 29);
-            drop_12_DisType.TabIndex = 642;
-            drop_12_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_11_DisType
-            // 
-            drop_11_DisType.FormattingEnabled = true;
-            drop_11_DisType.Location = new Point(647, 484);
-            drop_11_DisType.Name = "drop_11_DisType";
-            drop_11_DisType.Size = new Size(132, 29);
-            drop_11_DisType.TabIndex = 643;
-            drop_11_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_10_DisType
-            // 
-            drop_10_DisType.FormattingEnabled = true;
-            drop_10_DisType.Location = new Point(647, 450);
-            drop_10_DisType.Name = "drop_10_DisType";
-            drop_10_DisType.Size = new Size(132, 29);
-            drop_10_DisType.TabIndex = 644;
-            drop_10_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_9_DisType
-            // 
-            drop_9_DisType.FormattingEnabled = true;
-            drop_9_DisType.Location = new Point(647, 416);
-            drop_9_DisType.Name = "drop_9_DisType";
-            drop_9_DisType.Size = new Size(132, 29);
-            drop_9_DisType.TabIndex = 645;
-            drop_9_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_8_DisType
-            // 
-            drop_8_DisType.FormattingEnabled = true;
-            drop_8_DisType.Location = new Point(647, 382);
-            drop_8_DisType.Name = "drop_8_DisType";
-            drop_8_DisType.Size = new Size(132, 29);
-            drop_8_DisType.TabIndex = 646;
-            drop_8_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_7_DisType
-            // 
-            drop_7_DisType.FormattingEnabled = true;
-            drop_7_DisType.Location = new Point(647, 348);
-            drop_7_DisType.Name = "drop_7_DisType";
-            drop_7_DisType.Size = new Size(132, 29);
-            drop_7_DisType.TabIndex = 647;
-            drop_7_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_6_DisType
-            // 
-            drop_6_DisType.FormattingEnabled = true;
-            drop_6_DisType.Location = new Point(647, 314);
-            drop_6_DisType.Name = "drop_6_DisType";
-            drop_6_DisType.Size = new Size(132, 29);
-            drop_6_DisType.TabIndex = 648;
-            drop_6_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_5_DisType
-            // 
-            drop_5_DisType.FormattingEnabled = true;
-            drop_5_DisType.Location = new Point(647, 280);
-            drop_5_DisType.Name = "drop_5_DisType";
-            drop_5_DisType.Size = new Size(132, 29);
-            drop_5_DisType.TabIndex = 649;
-            drop_5_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_4_DisType
-            // 
-            drop_4_DisType.FormattingEnabled = true;
-            drop_4_DisType.Location = new Point(647, 246);
-            drop_4_DisType.Name = "drop_4_DisType";
-            drop_4_DisType.Size = new Size(132, 29);
-            drop_4_DisType.TabIndex = 650;
-            drop_4_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_14_DisType
-            // 
-            drop_14_DisType.FormattingEnabled = true;
-            drop_14_DisType.Location = new Point(647, 584);
-            drop_14_DisType.Name = "drop_14_DisType";
-            drop_14_DisType.Size = new Size(132, 29);
-            drop_14_DisType.TabIndex = 640;
-            drop_14_DisType.Tag = "InvoiceControl";
-            // 
-            // drop_11_Phil
-            // 
-            drop_11_Phil.Enabled = false;
-            drop_11_Phil.FormattingEnabled = true;
-            drop_11_Phil.Location = new Point(49, 484);
-            drop_11_Phil.Name = "drop_11_Phil";
-            drop_11_Phil.Size = new Size(432, 29);
-            drop_11_Phil.TabIndex = 617;
-            drop_11_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_10_Phil
-            // 
-            drop_10_Phil.Enabled = false;
-            drop_10_Phil.FormattingEnabled = true;
-            drop_10_Phil.Location = new Point(49, 450);
-            drop_10_Phil.Name = "drop_10_Phil";
-            drop_10_Phil.Size = new Size(432, 29);
-            drop_10_Phil.TabIndex = 616;
-            drop_10_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_9_Phil
-            // 
-            drop_9_Phil.Enabled = false;
-            drop_9_Phil.FormattingEnabled = true;
-            drop_9_Phil.Location = new Point(49, 416);
-            drop_9_Phil.Name = "drop_9_Phil";
-            drop_9_Phil.Size = new Size(432, 29);
-            drop_9_Phil.TabIndex = 615;
-            drop_9_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_8_Phil
-            // 
-            drop_8_Phil.Enabled = false;
-            drop_8_Phil.FormattingEnabled = true;
-            drop_8_Phil.Location = new Point(49, 382);
-            drop_8_Phil.Name = "drop_8_Phil";
-            drop_8_Phil.Size = new Size(432, 29);
-            drop_8_Phil.TabIndex = 614;
-            drop_8_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_7_Phil
-            // 
-            drop_7_Phil.Enabled = false;
-            drop_7_Phil.FormattingEnabled = true;
-            drop_7_Phil.Location = new Point(49, 348);
-            drop_7_Phil.Name = "drop_7_Phil";
-            drop_7_Phil.Size = new Size(432, 29);
-            drop_7_Phil.TabIndex = 613;
-            drop_7_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_6_Phil
-            // 
-            drop_6_Phil.Enabled = false;
-            drop_6_Phil.FormattingEnabled = true;
-            drop_6_Phil.Location = new Point(49, 314);
-            drop_6_Phil.Name = "drop_6_Phil";
-            drop_6_Phil.Size = new Size(432, 29);
-            drop_6_Phil.TabIndex = 612;
-            drop_6_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_5_Phil
-            // 
-            drop_5_Phil.Enabled = false;
-            drop_5_Phil.FormattingEnabled = true;
-            drop_5_Phil.Location = new Point(49, 280);
-            drop_5_Phil.Name = "drop_5_Phil";
-            drop_5_Phil.Size = new Size(432, 29);
-            drop_5_Phil.TabIndex = 611;
-            drop_5_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_4_Phil
-            // 
-            drop_4_Phil.Enabled = false;
-            drop_4_Phil.FormattingEnabled = true;
-            drop_4_Phil.Location = new Point(49, 246);
-            drop_4_Phil.Name = "drop_4_Phil";
-            drop_4_Phil.Size = new Size(432, 29);
-            drop_4_Phil.TabIndex = 610;
-            drop_4_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_3_Phil
-            // 
-            drop_3_Phil.Enabled = false;
-            drop_3_Phil.FormattingEnabled = true;
-            drop_3_Phil.Location = new Point(49, 212);
-            drop_3_Phil.Name = "drop_3_Phil";
-            drop_3_Phil.Size = new Size(432, 29);
-            drop_3_Phil.TabIndex = 609;
-            drop_3_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_20_Phil
-            // 
-            drop_20_Phil.Enabled = false;
-            drop_20_Phil.FormattingEnabled = true;
-            drop_20_Phil.Location = new Point(52, 799);
-            drop_20_Phil.Name = "drop_20_Phil";
-            drop_20_Phil.Size = new Size(432, 29);
-            drop_20_Phil.TabIndex = 608;
-            drop_20_Phil.Tag = "InvoiceControl";
-            // 
-            // drop_1_Phil
-            // 
-            drop_1_Phil.FormattingEnabled = true;
-            drop_1_Phil.Location = new Point(49, 175);
-            drop_1_Phil.Name = "drop_1_Phil";
-            drop_1_Phil.Size = new Size(432, 29);
-            drop_1_Phil.TabIndex = 607;
-            drop_1_Phil.Tag = "InvoiceControl";
-            // 
-            // label22
-            // 
-            label22.ForeColor = Color.Black;
-            label22.Location = new Point(12, 381);
-            label22.Name = "label22";
-            label22.Size = new Size(34, 21);
-            label22.TabIndex = 606;
-            label22.Text = "13";
-            label22.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label21
-            // 
-            label21.ForeColor = Color.Black;
-            label21.Location = new Point(12, 347);
-            label21.Name = "label21";
-            label21.Size = new Size(34, 21);
-            label21.TabIndex = 605;
-            label21.Text = "12";
-            label21.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label20
-            // 
-            label20.ForeColor = Color.Black;
-            label20.Location = new Point(12, 313);
-            label20.Name = "label20";
-            label20.Size = new Size(34, 21);
-            label20.TabIndex = 604;
-            label20.Text = "11";
-            label20.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label19
-            // 
-            label19.ForeColor = Color.Black;
-            label19.Location = new Point(12, 279);
-            label19.Name = "label19";
-            label19.Size = new Size(34, 21);
-            label19.TabIndex = 603;
-            label19.Text = "10";
-            label19.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
-            label18.ForeColor = Color.Black;
-            label18.Location = new Point(12, 245);
-            label18.Name = "label18";
-            label18.Size = new Size(34, 21);
-            label18.TabIndex = 602;
-            label18.Text = "9";
-            label18.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label17
-            // 
-            label17.ForeColor = Color.Black;
-            label17.Location = new Point(12, 211);
-            label17.Name = "label17";
-            label17.Size = new Size(34, 21);
-            label17.TabIndex = 601;
-            label17.Text = "8";
-            label17.TextAlign = ContentAlignment.MiddleRight;
+            // panel1
+            // 
+            panel1.Controls.Add(label16);
+            panel1.Controls.Add(drop_DisType);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(flowLayoutPanel1);
+            panel1.Controls.Add(label10);
+            panel1.Controls.Add(btn_Save);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(Cmb_IssueNo);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(622, 108);
+            panel1.TabIndex = 718;
             // 
             // label16
             // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
             label16.ForeColor = Color.Black;
-            label16.Location = new Point(12, 208);
+            label16.Location = new Point(2, 43);
+            label16.Margin = new Padding(2, 0, 2, 0);
             label16.Name = "label16";
-            label16.Size = new Size(34, 21);
-            label16.TabIndex = 600;
-            label16.Text = "7";
+            label16.Size = new Size(81, 15);
+            label16.TabIndex = 731;
+            label16.Text = "DispatchType";
             label16.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label15
+            // drop_DisType
             // 
-            label15.ForeColor = Color.Black;
-            label15.Location = new Point(12, 174);
-            label15.Name = "label15";
-            label15.Size = new Size(34, 21);
-            label15.TabIndex = 599;
-            label15.Text = "6";
-            label15.TextAlign = ContentAlignment.MiddleRight;
+            drop_DisType.DropDownStyle = ComboBoxStyle.DropDownList;
+            drop_DisType.FormattingEnabled = true;
+            drop_DisType.Location = new Point(99, 40);
+            drop_DisType.Margin = new Padding(2);
+            drop_DisType.Name = "drop_DisType";
+            drop_DisType.Size = new Size(101, 23);
+            drop_DisType.TabIndex = 730;
+            drop_DisType.Tag = "InvoiceControl";
             // 
-            // label25
+            // button1
             // 
-            label25.ForeColor = Color.Black;
-            label25.Location = new Point(12, 483);
-            label25.Name = "label25";
-            label25.Size = new Size(34, 21);
-            label25.TabIndex = 598;
-            label25.Text = "16";
-            label25.TextAlign = ContentAlignment.MiddleRight;
+            button1.Location = new Point(468, 12);
+            button1.Margin = new Padding(2);
+            button1.Name = "button1";
+            button1.Size = new Size(143, 31);
+            button1.TabIndex = 729;
+            button1.Text = "Print";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
-            // label24
+            // flowLayoutPanel1
             // 
-            label24.ForeColor = Color.Black;
-            label24.Location = new Point(12, 449);
-            label24.Name = "label24";
-            label24.Size = new Size(34, 21);
-            label24.TabIndex = 597;
-            label24.Text = "15";
-            label24.TextAlign = ContentAlignment.MiddleRight;
+            flowLayoutPanel1.BackColor = Color.FromArgb(34, 167, 240);
+            flowLayoutPanel1.Location = new Point(221, 76);
+            flowLayoutPanel1.Margin = new Padding(2);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(210, 2);
+            flowLayoutPanel1.TabIndex = 727;
             // 
-            // label23
+            // label10
             // 
-            label23.ForeColor = Color.Black;
-            label23.Location = new Point(12, 415);
-            label23.Name = "label23";
-            label23.Size = new Size(34, 21);
-            label23.TabIndex = 596;
-            label23.Text = "14";
-            label23.TextAlign = ContentAlignment.MiddleRight;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.FromArgb(0, 165, 255);
+            label10.Location = new Point(204, 9);
+            label10.Margin = new Padding(2, 0, 2, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(243, 62);
+            label10.TabIndex = 728;
+            label10.Text = "Issue Mail List";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btn_Save
+            // 
+            btn_Save.Location = new Point(468, 47);
+            btn_Save.Margin = new Padding(2);
+            btn_Save.Name = "btn_Save";
+            btn_Save.Size = new Size(143, 31);
+            btn_Save.TabIndex = 726;
+            btn_Save.Text = "Save";
+            btn_Save.UseVisualStyleBackColor = true;
+            btn_Save.Click += btn_Save_Click_1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(2, 9);
+            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(89, 15);
+            label6.TabIndex = 725;
+            label6.Text = "Select IssueNo";
+            label6.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // Cmb_IssueNo
+            // 
+            Cmb_IssueNo.DropDownStyle = ComboBoxStyle.DropDownList;
+            Cmb_IssueNo.FormattingEnabled = true;
+            Cmb_IssueNo.Location = new Point(99, 3);
+            Cmb_IssueNo.Margin = new Padding(2);
+            Cmb_IssueNo.Name = "Cmb_IssueNo";
+            Cmb_IssueNo.Size = new Size(101, 23);
+            Cmb_IssueNo.TabIndex = 724;
+            Cmb_IssueNo.Tag = "InvoiceControl";
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.Controls.Add(label8);
+            panel2.Controls.Add(label9);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(label5);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(label2);
+            panel2.Controls.Add(num_16_G);
+            panel2.Controls.Add(num_15_G);
+            panel2.Controls.Add(num_19_G);
+            panel2.Controls.Add(num_18_G);
+            panel2.Controls.Add(num_17_G);
+            panel2.Controls.Add(num_10_G);
+            panel2.Controls.Add(num_9_G);
+            panel2.Controls.Add(num_8_G);
+            panel2.Controls.Add(num_7_G);
+            panel2.Controls.Add(num_6_G);
+            panel2.Controls.Add(num_5_G);
+            panel2.Controls.Add(num_4_G);
+            panel2.Controls.Add(num_3_G);
+            panel2.Controls.Add(num_20_G);
+            panel2.Controls.Add(num_1_G);
+            panel2.Controls.Add(num_11_G);
+            panel2.Controls.Add(num_14_G);
+            panel2.Controls.Add(num_13_G);
+            panel2.Controls.Add(num_12_G);
+            panel2.Controls.Add(drop_19_DisType);
+            panel2.Controls.Add(drop_18_DisType);
+            panel2.Controls.Add(drop_17_DisType);
+            panel2.Controls.Add(drop_16_DisType);
+            panel2.Controls.Add(drop_15_DisType);
+            panel2.Controls.Add(drop_3_DisType);
+            panel2.Controls.Add(drop_20_DisType);
+            panel2.Controls.Add(drop_1_DisType);
+            panel2.Controls.Add(num_16_K);
+            panel2.Controls.Add(num_15_K);
+            panel2.Controls.Add(num_19_K);
+            panel2.Controls.Add(num_18_K);
+            panel2.Controls.Add(num_17_K);
+            panel2.Controls.Add(label44);
+            panel2.Controls.Add(drop_16_Phil);
+            panel2.Controls.Add(drop_15_Phil);
+            panel2.Controls.Add(drop_19_Phil);
+            panel2.Controls.Add(drop_18_Phil);
+            panel2.Controls.Add(drop_17_Phil);
+            panel2.Controls.Add(label14);
+            panel2.Controls.Add(label13);
+            panel2.Controls.Add(label12);
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(label26);
+            panel2.Controls.Add(drop_13_DisType);
+            panel2.Controls.Add(drop_12_DisType);
+            panel2.Controls.Add(drop_11_DisType);
+            panel2.Controls.Add(drop_10_DisType);
+            panel2.Controls.Add(drop_9_DisType);
+            panel2.Controls.Add(drop_8_DisType);
+            panel2.Controls.Add(drop_7_DisType);
+            panel2.Controls.Add(drop_6_DisType);
+            panel2.Controls.Add(drop_5_DisType);
+            panel2.Controls.Add(drop_4_DisType);
+            panel2.Controls.Add(drop_14_DisType);
+            panel2.Controls.Add(num_10_K);
+            panel2.Controls.Add(num_9_K);
+            panel2.Controls.Add(num_8_K);
+            panel2.Controls.Add(num_7_K);
+            panel2.Controls.Add(num_6_K);
+            panel2.Controls.Add(num_5_K);
+            panel2.Controls.Add(num_4_K);
+            panel2.Controls.Add(num_3_K);
+            panel2.Controls.Add(num_20_K);
+            panel2.Controls.Add(num_1_K);
+            panel2.Controls.Add(num_11_K);
+            panel2.Controls.Add(drop_11_Phil);
+            panel2.Controls.Add(drop_10_Phil);
+            panel2.Controls.Add(drop_9_Phil);
+            panel2.Controls.Add(drop_8_Phil);
+            panel2.Controls.Add(drop_7_Phil);
+            panel2.Controls.Add(drop_6_Phil);
+            panel2.Controls.Add(drop_5_Phil);
+            panel2.Controls.Add(drop_4_Phil);
+            panel2.Controls.Add(drop_3_Phil);
+            panel2.Controls.Add(drop_20_Phil);
+            panel2.Controls.Add(drop_1_Phil);
+            panel2.Controls.Add(label22);
+            panel2.Controls.Add(label21);
+            panel2.Controls.Add(label20);
+            panel2.Controls.Add(label19);
+            panel2.Controls.Add(label18);
+            panel2.Controls.Add(label17);
+            panel2.Controls.Add(label15);
+            panel2.Controls.Add(label25);
+            panel2.Controls.Add(label24);
+            panel2.Controls.Add(label23);
+            panel2.Controls.Add(num_14_K);
+            panel2.Controls.Add(num_13_K);
+            panel2.Controls.Add(num_12_K);
+            panel2.Controls.Add(label31);
+            panel2.Controls.Add(drop_12_Phil);
+            panel2.Controls.Add(label3);
+            panel2.Controls.Add(drop_13_Phil);
+            panel2.Controls.Add(drop_14_Phil);
+            panel2.Controls.Add(label28);
+            panel2.Controls.Add(label27);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 108);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(622, 641);
+            panel2.TabIndex = 719;
+            // 
+            // label8
+            // 
+            label8.ForeColor = Color.Black;
+            label8.Location = new Point(4, 541);
+            label8.Margin = new Padding(2, 0, 2, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(26, 15);
+            label8.TabIndex = 819;
+            label8.Text = "20";
+            label8.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(4, 568);
+            label9.Margin = new Padding(2, 0, 2, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(26, 15);
+            label9.TabIndex = 818;
+            label9.Text = "21";
+            label9.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(4, 514);
+            label7.Margin = new Padding(2, 0, 2, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(26, 15);
+            label7.TabIndex = 817;
+            label7.Text = "19";
+            label7.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(505, -2);
+            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(81, 15);
+            label5.TabIndex = 816;
+            label5.Text = "DispatchType";
+            label5.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(444, -2);
+            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(38, 15);
+            label4.TabIndex = 815;
+            label4.Text = "Gram";
+            label4.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(384, -2);
+            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(24, 15);
+            label2.TabIndex = 814;
+            label2.Text = "KG";
+            label2.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // num_16_G
+            // 
+            num_16_G.Location = new Point(436, 443);
+            num_16_G.Margin = new Padding(2);
+            num_16_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_16_G.Name = "num_16_G";
+            num_16_G.Size = new Size(58, 23);
+            num_16_G.TabIndex = 810;
+            num_16_G.Tag = "PhilControl";
+            // 
+            // num_15_G
+            // 
+            num_15_G.Location = new Point(436, 413);
+            num_15_G.Margin = new Padding(2);
+            num_15_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_15_G.Name = "num_15_G";
+            num_15_G.Size = new Size(58, 23);
+            num_15_G.TabIndex = 809;
+            num_15_G.Tag = "PhilControl";
+            // 
+            // num_19_G
+            // 
+            num_19_G.Location = new Point(436, 533);
+            num_19_G.Margin = new Padding(2);
+            num_19_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_19_G.Name = "num_19_G";
+            num_19_G.Size = new Size(58, 23);
+            num_19_G.TabIndex = 813;
+            num_19_G.Tag = "InvoiceControl";
+            // 
+            // num_18_G
+            // 
+            num_18_G.Location = new Point(436, 503);
+            num_18_G.Margin = new Padding(2);
+            num_18_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_18_G.Name = "num_18_G";
+            num_18_G.Size = new Size(58, 23);
+            num_18_G.TabIndex = 812;
+            num_18_G.Tag = "InvoiceControl";
+            // 
+            // num_17_G
+            // 
+            num_17_G.Location = new Point(436, 473);
+            num_17_G.Margin = new Padding(2);
+            num_17_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_17_G.Name = "num_17_G";
+            num_17_G.Size = new Size(58, 23);
+            num_17_G.TabIndex = 811;
+            num_17_G.Tag = "InvoiceControl";
+            // 
+            // num_10_G
+            // 
+            num_10_G.Location = new Point(436, 263);
+            num_10_G.Margin = new Padding(2);
+            num_10_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_10_G.Name = "num_10_G";
+            num_10_G.Size = new Size(58, 23);
+            num_10_G.TabIndex = 807;
+            num_10_G.Tag = "InvoiceControl";
+            // 
+            // num_9_G
+            // 
+            num_9_G.Location = new Point(436, 233);
+            num_9_G.Margin = new Padding(2);
+            num_9_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_9_G.Name = "num_9_G";
+            num_9_G.Size = new Size(58, 23);
+            num_9_G.TabIndex = 806;
+            num_9_G.Tag = "InvoiceControl";
+            // 
+            // num_8_G
+            // 
+            num_8_G.Location = new Point(436, 203);
+            num_8_G.Margin = new Padding(2);
+            num_8_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_8_G.Name = "num_8_G";
+            num_8_G.Size = new Size(58, 23);
+            num_8_G.TabIndex = 805;
+            num_8_G.Tag = "InvoiceControl";
+            // 
+            // num_7_G
+            // 
+            num_7_G.Location = new Point(436, 173);
+            num_7_G.Margin = new Padding(2);
+            num_7_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_7_G.Name = "num_7_G";
+            num_7_G.Size = new Size(58, 23);
+            num_7_G.TabIndex = 804;
+            num_7_G.Tag = "InvoiceControl";
+            // 
+            // num_6_G
+            // 
+            num_6_G.Location = new Point(436, 143);
+            num_6_G.Margin = new Padding(2);
+            num_6_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_6_G.Name = "num_6_G";
+            num_6_G.Size = new Size(58, 23);
+            num_6_G.TabIndex = 803;
+            num_6_G.Tag = "InvoiceControl";
+            // 
+            // num_5_G
+            // 
+            num_5_G.Location = new Point(436, 113);
+            num_5_G.Margin = new Padding(2);
+            num_5_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_5_G.Name = "num_5_G";
+            num_5_G.Size = new Size(58, 23);
+            num_5_G.TabIndex = 802;
+            num_5_G.Tag = "InvoiceControl";
+            // 
+            // num_4_G
+            // 
+            num_4_G.Location = new Point(436, 83);
+            num_4_G.Margin = new Padding(2);
+            num_4_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_4_G.Name = "num_4_G";
+            num_4_G.Size = new Size(58, 23);
+            num_4_G.TabIndex = 801;
+            num_4_G.Tag = "InvoiceControl";
+            // 
+            // num_3_G
+            // 
+            num_3_G.Location = new Point(436, 53);
+            num_3_G.Margin = new Padding(2);
+            num_3_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_3_G.Name = "num_3_G";
+            num_3_G.Size = new Size(58, 23);
+            num_3_G.TabIndex = 800;
+            num_3_G.Tag = "InvoiceControl";
+            // 
+            // num_20_G
+            // 
+            num_20_G.Location = new Point(436, 563);
+            num_20_G.Margin = new Padding(2);
+            num_20_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_20_G.Name = "num_20_G";
+            num_20_G.Size = new Size(58, 23);
+            num_20_G.TabIndex = 799;
+            num_20_G.Tag = "InvoiceControl";
+            // 
+            // num_1_G
+            // 
+            num_1_G.Location = new Point(436, 23);
+            num_1_G.Margin = new Padding(2);
+            num_1_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_1_G.Name = "num_1_G";
+            num_1_G.Size = new Size(58, 23);
+            num_1_G.TabIndex = 798;
+            num_1_G.Tag = "InvoiceControl";
+            // 
+            // num_11_G
+            // 
+            num_11_G.Location = new Point(436, 293);
+            num_11_G.Margin = new Padding(2);
+            num_11_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_11_G.Name = "num_11_G";
+            num_11_G.Size = new Size(58, 23);
+            num_11_G.TabIndex = 808;
+            num_11_G.Tag = "InvoiceControl";
+            // 
+            // num_14_G
+            // 
+            num_14_G.Location = new Point(436, 383);
+            num_14_G.Margin = new Padding(2);
+            num_14_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_14_G.Name = "num_14_G";
+            num_14_G.Size = new Size(58, 23);
+            num_14_G.TabIndex = 797;
+            num_14_G.Tag = "InvoiceControl";
+            // 
+            // num_13_G
+            // 
+            num_13_G.Location = new Point(436, 353);
+            num_13_G.Margin = new Padding(2);
+            num_13_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_13_G.Name = "num_13_G";
+            num_13_G.Size = new Size(58, 23);
+            num_13_G.TabIndex = 796;
+            num_13_G.Tag = "InvoiceControl";
+            // 
+            // num_12_G
+            // 
+            num_12_G.Location = new Point(436, 323);
+            num_12_G.Margin = new Padding(2);
+            num_12_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_12_G.Name = "num_12_G";
+            num_12_G.Size = new Size(58, 23);
+            num_12_G.TabIndex = 795;
+            num_12_G.Tag = "InvoiceControl";
+            // 
+            // drop_19_DisType
+            // 
+            drop_19_DisType.FormattingEnabled = true;
+            drop_19_DisType.Location = new Point(498, 533);
+            drop_19_DisType.Margin = new Padding(2);
+            drop_19_DisType.Name = "drop_19_DisType";
+            drop_19_DisType.Size = new Size(104, 23);
+            drop_19_DisType.TabIndex = 793;
+            drop_19_DisType.Tag = "PhilControl";
+            // 
+            // drop_18_DisType
+            // 
+            drop_18_DisType.FormattingEnabled = true;
+            drop_18_DisType.Location = new Point(498, 503);
+            drop_18_DisType.Margin = new Padding(2);
+            drop_18_DisType.Name = "drop_18_DisType";
+            drop_18_DisType.Size = new Size(104, 23);
+            drop_18_DisType.TabIndex = 794;
+            drop_18_DisType.Tag = "PhilControl";
+            // 
+            // drop_17_DisType
+            // 
+            drop_17_DisType.FormattingEnabled = true;
+            drop_17_DisType.Location = new Point(498, 473);
+            drop_17_DisType.Margin = new Padding(2);
+            drop_17_DisType.Name = "drop_17_DisType";
+            drop_17_DisType.Size = new Size(104, 23);
+            drop_17_DisType.TabIndex = 792;
+            drop_17_DisType.Tag = "InvoiceControl";
             // 
             // drop_16_DisType
             // 
-            drop_16_DisType.Enabled = false;
             drop_16_DisType.FormattingEnabled = true;
-            drop_16_DisType.Location = new Point(647, 655);
+            drop_16_DisType.Location = new Point(498, 443);
+            drop_16_DisType.Margin = new Padding(2);
             drop_16_DisType.Name = "drop_16_DisType";
-            drop_16_DisType.Size = new Size(132, 29);
-            drop_16_DisType.TabIndex = 675;
+            drop_16_DisType.Size = new Size(104, 23);
+            drop_16_DisType.TabIndex = 790;
             drop_16_DisType.Tag = "PhilControl";
             // 
             // drop_15_DisType
             // 
-            drop_15_DisType.Enabled = false;
             drop_15_DisType.FormattingEnabled = true;
-            drop_15_DisType.Location = new Point(647, 621);
+            drop_15_DisType.Location = new Point(498, 413);
+            drop_15_DisType.Margin = new Padding(2);
             drop_15_DisType.Name = "drop_15_DisType";
-            drop_15_DisType.Size = new Size(132, 29);
-            drop_15_DisType.TabIndex = 676;
+            drop_15_DisType.Size = new Size(104, 23);
+            drop_15_DisType.TabIndex = 791;
             drop_15_DisType.Tag = "PhilControl";
             // 
             // drop_3_DisType
             // 
             drop_3_DisType.FormattingEnabled = true;
-            drop_3_DisType.Location = new Point(647, 212);
+            drop_3_DisType.Location = new Point(498, 53);
+            drop_3_DisType.Margin = new Padding(2);
             drop_3_DisType.Name = "drop_3_DisType";
-            drop_3_DisType.Size = new Size(132, 29);
-            drop_3_DisType.TabIndex = 672;
+            drop_3_DisType.Size = new Size(104, 23);
+            drop_3_DisType.TabIndex = 787;
             drop_3_DisType.Tag = "InvoiceControl";
             // 
             // drop_20_DisType
             // 
             drop_20_DisType.FormattingEnabled = true;
-            drop_20_DisType.Location = new Point(647, 794);
+            drop_20_DisType.Location = new Point(498, 563);
+            drop_20_DisType.Margin = new Padding(2);
             drop_20_DisType.Name = "drop_20_DisType";
-            drop_20_DisType.Size = new Size(132, 29);
-            drop_20_DisType.TabIndex = 673;
+            drop_20_DisType.Size = new Size(104, 23);
+            drop_20_DisType.TabIndex = 788;
             drop_20_DisType.Tag = "InvoiceControl";
             // 
             // drop_1_DisType
             // 
             drop_1_DisType.FormattingEnabled = true;
-            drop_1_DisType.Location = new Point(647, 175);
+            drop_1_DisType.Location = new Point(498, 23);
+            drop_1_DisType.Margin = new Padding(2);
             drop_1_DisType.Name = "drop_1_DisType";
-            drop_1_DisType.Size = new Size(132, 29);
-            drop_1_DisType.TabIndex = 674;
+            drop_1_DisType.Size = new Size(104, 23);
+            drop_1_DisType.TabIndex = 789;
             drop_1_DisType.Tag = "InvoiceControl";
+            // 
+            // num_16_K
+            // 
+            num_16_K.Location = new Point(373, 443);
+            num_16_K.Margin = new Padding(2);
+            num_16_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_16_K.Name = "num_16_K";
+            num_16_K.Size = new Size(58, 23);
+            num_16_K.TabIndex = 783;
+            num_16_K.Tag = "PhilControl";
+            // 
+            // num_15_K
+            // 
+            num_15_K.Location = new Point(373, 413);
+            num_15_K.Margin = new Padding(2);
+            num_15_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_15_K.Name = "num_15_K";
+            num_15_K.Size = new Size(58, 23);
+            num_15_K.TabIndex = 782;
+            num_15_K.Tag = "PhilControl";
+            // 
+            // num_19_K
+            // 
+            num_19_K.Location = new Point(373, 533);
+            num_19_K.Margin = new Padding(2);
+            num_19_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_19_K.Name = "num_19_K";
+            num_19_K.Size = new Size(58, 23);
+            num_19_K.TabIndex = 786;
+            num_19_K.Tag = "InvoiceControl";
+            // 
+            // num_18_K
+            // 
+            num_18_K.Location = new Point(373, 503);
+            num_18_K.Margin = new Padding(2);
+            num_18_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_18_K.Name = "num_18_K";
+            num_18_K.Size = new Size(58, 23);
+            num_18_K.TabIndex = 785;
+            num_18_K.Tag = "InvoiceControl";
+            // 
+            // num_17_K
+            // 
+            num_17_K.Location = new Point(373, 473);
+            num_17_K.Margin = new Padding(2);
+            num_17_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_17_K.Name = "num_17_K";
+            num_17_K.Size = new Size(58, 23);
+            num_17_K.TabIndex = 784;
+            num_17_K.Tag = "InvoiceControl";
             // 
             // label44
             // 
             label44.ForeColor = Color.Black;
-            label44.Location = new Point(12, 660);
+            label44.Location = new Point(4, 378);
+            label44.Margin = new Padding(2, 0, 2, 0);
             label44.Name = "label44";
-            label44.Size = new Size(34, 21);
-            label44.TabIndex = 661;
-            label44.Text = "2";
+            label44.Size = new Size(26, 15);
+            label44.TabIndex = 781;
+            label44.Text = "14";
             label44.TextAlign = ContentAlignment.MiddleRight;
             // 
             // drop_16_Phil
@@ -624,10 +809,11 @@
             drop_16_Phil.AllowDrop = true;
             drop_16_Phil.Enabled = false;
             drop_16_Phil.FormattingEnabled = true;
-            drop_16_Phil.Location = new Point(49, 654);
+            drop_16_Phil.Location = new Point(33, 443);
+            drop_16_Phil.Margin = new Padding(2);
             drop_16_Phil.Name = "drop_16_Phil";
-            drop_16_Phil.Size = new Size(432, 29);
-            drop_16_Phil.TabIndex = 660;
+            drop_16_Phil.Size = new Size(337, 23);
+            drop_16_Phil.TabIndex = 780;
             drop_16_Phil.Tag = "PhilControl";
             // 
             // drop_15_Phil
@@ -635,665 +821,677 @@
             drop_15_Phil.AllowDrop = true;
             drop_15_Phil.Enabled = false;
             drop_15_Phil.FormattingEnabled = true;
-            drop_15_Phil.Location = new Point(49, 620);
+            drop_15_Phil.Location = new Point(33, 413);
+            drop_15_Phil.Margin = new Padding(2);
             drop_15_Phil.Name = "drop_15_Phil";
-            drop_15_Phil.Size = new Size(432, 29);
-            drop_15_Phil.TabIndex = 659;
+            drop_15_Phil.Size = new Size(337, 23);
+            drop_15_Phil.TabIndex = 779;
             drop_15_Phil.Tag = "PhilControl";
             // 
             // drop_19_Phil
             // 
             drop_19_Phil.Enabled = false;
             drop_19_Phil.FormattingEnabled = true;
-            drop_19_Phil.Location = new Point(52, 760);
+            drop_19_Phil.Location = new Point(33, 533);
+            drop_19_Phil.Margin = new Padding(2);
             drop_19_Phil.Name = "drop_19_Phil";
-            drop_19_Phil.Size = new Size(432, 29);
-            drop_19_Phil.TabIndex = 658;
+            drop_19_Phil.Size = new Size(337, 23);
+            drop_19_Phil.TabIndex = 778;
             drop_19_Phil.Tag = "PhilControl";
             // 
             // drop_18_Phil
             // 
             drop_18_Phil.Enabled = false;
             drop_18_Phil.FormattingEnabled = true;
-            drop_18_Phil.Location = new Point(49, 720);
+            drop_18_Phil.Location = new Point(33, 503);
+            drop_18_Phil.Margin = new Padding(2);
             drop_18_Phil.Name = "drop_18_Phil";
-            drop_18_Phil.Size = new Size(432, 29);
-            drop_18_Phil.TabIndex = 657;
+            drop_18_Phil.Size = new Size(337, 23);
+            drop_18_Phil.TabIndex = 777;
             drop_18_Phil.Tag = "PhilControl";
             // 
             // drop_17_Phil
             // 
             drop_17_Phil.Enabled = false;
             drop_17_Phil.FormattingEnabled = true;
-            drop_17_Phil.Location = new Point(49, 686);
+            drop_17_Phil.Location = new Point(33, 473);
+            drop_17_Phil.Margin = new Padding(2);
             drop_17_Phil.Name = "drop_17_Phil";
-            drop_17_Phil.Size = new Size(432, 29);
-            drop_17_Phil.TabIndex = 656;
+            drop_17_Phil.Size = new Size(337, 23);
+            drop_17_Phil.TabIndex = 776;
             drop_17_Phil.Tag = "PhilControl";
             // 
             // label14
             // 
             label14.ForeColor = Color.Black;
-            label14.Location = new Point(12, 785);
+            label14.Location = new Point(4, 460);
+            label14.Margin = new Padding(2, 0, 2, 0);
             label14.Name = "label14";
-            label14.Size = new Size(34, 21);
-            label14.TabIndex = 655;
-            label14.Text = "5";
+            label14.Size = new Size(26, 15);
+            label14.TabIndex = 775;
+            label14.Text = "17";
             label14.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label13
             // 
             label13.ForeColor = Color.Black;
-            label13.Location = new Point(12, 720);
+            label13.Location = new Point(4, 433);
+            label13.Margin = new Padding(2, 0, 2, 0);
             label13.Name = "label13";
-            label13.Size = new Size(34, 21);
-            label13.TabIndex = 654;
-            label13.Text = "4";
+            label13.Size = new Size(26, 15);
+            label13.TabIndex = 774;
+            label13.Text = "16";
             label13.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label12
             // 
             label12.ForeColor = Color.Black;
-            label12.Location = new Point(12, 686);
+            label12.Location = new Point(4, 406);
+            label12.Margin = new Padding(2, 0, 2, 0);
             label12.Name = "label12";
-            label12.Size = new Size(34, 21);
-            label12.TabIndex = 653;
-            label12.Text = "3";
+            label12.Size = new Size(26, 15);
+            label12.TabIndex = 773;
+            label12.Text = "15";
             label12.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label1
             // 
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(9, 628);
+            label1.Location = new Point(4, 351);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(34, 21);
-            label1.TabIndex = 652;
-            label1.Text = "1";
+            label1.Size = new Size(26, 15);
+            label1.TabIndex = 772;
+            label1.Text = "13";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label26
             // 
             label26.ForeColor = Color.Black;
-            label26.Location = new Point(12, 784);
+            label26.Location = new Point(4, 487);
+            label26.Margin = new Padding(2, 0, 2, 0);
             label26.Name = "label26";
-            label26.Size = new Size(34, 21);
-            label26.TabIndex = 651;
-            label26.Text = "17";
+            label26.Size = new Size(26, 15);
+            label26.TabIndex = 771;
+            label26.Text = "18";
             label26.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // num_1_K
+            // drop_13_DisType
             // 
-            num_1_K.Location = new Point(487, 175);
-            num_1_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_1_K.Name = "num_1_K";
-            num_1_K.Size = new Size(74, 29);
-            num_1_K.TabIndex = 618;
-            num_1_K.Tag = "InvoiceControl";
+            drop_13_DisType.FormattingEnabled = true;
+            drop_13_DisType.Location = new Point(498, 353);
+            drop_13_DisType.Margin = new Padding(2);
+            drop_13_DisType.Name = "drop_13_DisType";
+            drop_13_DisType.Size = new Size(104, 23);
+            drop_13_DisType.TabIndex = 761;
+            drop_13_DisType.Tag = "InvoiceControl";
             // 
-            // num_20_K
+            // drop_12_DisType
             // 
-            num_20_K.Location = new Point(487, 794);
-            num_20_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_20_K.Name = "num_20_K";
-            num_20_K.Size = new Size(74, 29);
-            num_20_K.TabIndex = 620;
-            num_20_K.Tag = "InvoiceControl";
+            drop_12_DisType.FormattingEnabled = true;
+            drop_12_DisType.Location = new Point(498, 323);
+            drop_12_DisType.Margin = new Padding(2);
+            drop_12_DisType.Name = "drop_12_DisType";
+            drop_12_DisType.Size = new Size(104, 23);
+            drop_12_DisType.TabIndex = 762;
+            drop_12_DisType.Tag = "InvoiceControl";
             // 
-            // num_3_K
+            // drop_11_DisType
             // 
-            num_3_K.Location = new Point(487, 212);
-            num_3_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_3_K.Name = "num_3_K";
-            num_3_K.Size = new Size(74, 29);
-            num_3_K.TabIndex = 622;
-            num_3_K.Tag = "InvoiceControl";
+            drop_11_DisType.FormattingEnabled = true;
+            drop_11_DisType.Location = new Point(498, 293);
+            drop_11_DisType.Margin = new Padding(2);
+            drop_11_DisType.Name = "drop_11_DisType";
+            drop_11_DisType.Size = new Size(104, 23);
+            drop_11_DisType.TabIndex = 763;
+            drop_11_DisType.Tag = "InvoiceControl";
             // 
-            // num_4_K
+            // drop_10_DisType
             // 
-            num_4_K.Location = new Point(487, 246);
-            num_4_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_4_K.Name = "num_4_K";
-            num_4_K.Size = new Size(74, 29);
-            num_4_K.TabIndex = 624;
-            num_4_K.Tag = "InvoiceControl";
+            drop_10_DisType.FormattingEnabled = true;
+            drop_10_DisType.Location = new Point(498, 263);
+            drop_10_DisType.Margin = new Padding(2);
+            drop_10_DisType.Name = "drop_10_DisType";
+            drop_10_DisType.Size = new Size(104, 23);
+            drop_10_DisType.TabIndex = 764;
+            drop_10_DisType.Tag = "InvoiceControl";
             // 
-            // num_12_K
+            // drop_9_DisType
             // 
-            num_12_K.Location = new Point(487, 518);
-            num_12_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_12_K.Name = "num_12_K";
-            num_12_K.Size = new Size(74, 29);
-            num_12_K.TabIndex = 574;
-            num_12_K.Tag = "InvoiceControl";
+            drop_9_DisType.FormattingEnabled = true;
+            drop_9_DisType.Location = new Point(498, 233);
+            drop_9_DisType.Margin = new Padding(2);
+            drop_9_DisType.Name = "drop_9_DisType";
+            drop_9_DisType.Size = new Size(104, 23);
+            drop_9_DisType.TabIndex = 765;
+            drop_9_DisType.Tag = "InvoiceControl";
             // 
-            // num_13_K
+            // drop_8_DisType
             // 
-            num_13_K.Location = new Point(487, 550);
-            num_13_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_13_K.Name = "num_13_K";
-            num_13_K.Size = new Size(74, 29);
-            num_13_K.TabIndex = 576;
-            num_13_K.Tag = "InvoiceControl";
+            drop_8_DisType.FormattingEnabled = true;
+            drop_8_DisType.Location = new Point(498, 203);
+            drop_8_DisType.Margin = new Padding(2);
+            drop_8_DisType.Name = "drop_8_DisType";
+            drop_8_DisType.Size = new Size(104, 23);
+            drop_8_DisType.TabIndex = 766;
+            drop_8_DisType.Tag = "InvoiceControl";
             // 
-            // num_14_K
+            // drop_7_DisType
             // 
-            num_14_K.Location = new Point(487, 584);
-            num_14_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_14_K.Name = "num_14_K";
-            num_14_K.Size = new Size(74, 29);
-            num_14_K.TabIndex = 578;
-            num_14_K.Tag = "InvoiceControl";
+            drop_7_DisType.FormattingEnabled = true;
+            drop_7_DisType.Location = new Point(498, 173);
+            drop_7_DisType.Margin = new Padding(2);
+            drop_7_DisType.Name = "drop_7_DisType";
+            drop_7_DisType.Size = new Size(104, 23);
+            drop_7_DisType.TabIndex = 767;
+            drop_7_DisType.Tag = "InvoiceControl";
             // 
-            // num_11_K
+            // drop_6_DisType
             // 
-            num_11_K.Location = new Point(487, 482);
-            num_11_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_11_K.Name = "num_11_K";
-            num_11_K.Size = new Size(74, 29);
-            num_11_K.TabIndex = 638;
-            num_11_K.Tag = "InvoiceControl";
+            drop_6_DisType.FormattingEnabled = true;
+            drop_6_DisType.Location = new Point(498, 143);
+            drop_6_DisType.Margin = new Padding(2);
+            drop_6_DisType.Name = "drop_6_DisType";
+            drop_6_DisType.Size = new Size(104, 23);
+            drop_6_DisType.TabIndex = 768;
+            drop_6_DisType.Tag = "InvoiceControl";
             // 
-            // num_5_K
+            // drop_5_DisType
             // 
-            num_5_K.Location = new Point(487, 280);
-            num_5_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_5_K.Name = "num_5_K";
-            num_5_K.Size = new Size(74, 29);
-            num_5_K.TabIndex = 626;
-            num_5_K.Tag = "InvoiceControl";
+            drop_5_DisType.FormattingEnabled = true;
+            drop_5_DisType.Location = new Point(498, 113);
+            drop_5_DisType.Margin = new Padding(2);
+            drop_5_DisType.Name = "drop_5_DisType";
+            drop_5_DisType.Size = new Size(104, 23);
+            drop_5_DisType.TabIndex = 769;
+            drop_5_DisType.Tag = "InvoiceControl";
             // 
-            // num_6_K
+            // drop_4_DisType
             // 
-            num_6_K.Location = new Point(487, 314);
-            num_6_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_6_K.Name = "num_6_K";
-            num_6_K.Size = new Size(74, 29);
-            num_6_K.TabIndex = 628;
-            num_6_K.Tag = "InvoiceControl";
+            drop_4_DisType.FormattingEnabled = true;
+            drop_4_DisType.Location = new Point(498, 83);
+            drop_4_DisType.Margin = new Padding(2);
+            drop_4_DisType.Name = "drop_4_DisType";
+            drop_4_DisType.Size = new Size(104, 23);
+            drop_4_DisType.TabIndex = 770;
+            drop_4_DisType.Tag = "InvoiceControl";
             // 
-            // num_7_K
+            // drop_14_DisType
             // 
-            num_7_K.Location = new Point(487, 348);
-            num_7_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_7_K.Name = "num_7_K";
-            num_7_K.Size = new Size(74, 29);
-            num_7_K.TabIndex = 630;
-            num_7_K.Tag = "InvoiceControl";
-            // 
-            // num_8_K
-            // 
-            num_8_K.Location = new Point(487, 382);
-            num_8_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_8_K.Name = "num_8_K";
-            num_8_K.Size = new Size(74, 29);
-            num_8_K.TabIndex = 632;
-            num_8_K.Tag = "InvoiceControl";
-            // 
-            // num_9_K
-            // 
-            num_9_K.Location = new Point(487, 414);
-            num_9_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_9_K.Name = "num_9_K";
-            num_9_K.Size = new Size(74, 29);
-            num_9_K.TabIndex = 634;
-            num_9_K.Tag = "InvoiceControl";
+            drop_14_DisType.FormattingEnabled = true;
+            drop_14_DisType.Location = new Point(498, 383);
+            drop_14_DisType.Margin = new Padding(2);
+            drop_14_DisType.Name = "drop_14_DisType";
+            drop_14_DisType.Size = new Size(104, 23);
+            drop_14_DisType.TabIndex = 760;
+            drop_14_DisType.Tag = "InvoiceControl";
             // 
             // num_10_K
             // 
-            num_10_K.Location = new Point(487, 448);
+            num_10_K.Location = new Point(373, 263);
+            num_10_K.Margin = new Padding(2);
             num_10_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             num_10_K.Name = "num_10_K";
-            num_10_K.Size = new Size(74, 29);
-            num_10_K.TabIndex = 636;
+            num_10_K.Size = new Size(58, 23);
+            num_10_K.TabIndex = 758;
             num_10_K.Tag = "InvoiceControl";
             // 
-            // num_17_K
-            // 
-            num_17_K.Location = new Point(487, 690);
-            num_17_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_17_K.Name = "num_17_K";
-            num_17_K.Size = new Size(74, 29);
-            num_17_K.TabIndex = 666;
-            num_17_K.Tag = "InvoiceControl";
-            // 
-            // num_18_K
-            // 
-            num_18_K.Location = new Point(487, 725);
-            num_18_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_18_K.Name = "num_18_K";
-            num_18_K.Size = new Size(74, 29);
-            num_18_K.TabIndex = 668;
-            num_18_K.Tag = "InvoiceControl";
-            // 
-            // num_19_K
-            // 
-            num_19_K.Location = new Point(487, 759);
-            num_19_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_19_K.Name = "num_19_K";
-            num_19_K.Size = new Size(74, 29);
-            num_19_K.TabIndex = 670;
-            num_19_K.Tag = "InvoiceControl";
-            // 
-            // num_15_K
-            // 
-            num_15_K.Enabled = false;
-            num_15_K.Location = new Point(487, 621);
-            num_15_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_15_K.Name = "num_15_K";
-            num_15_K.Size = new Size(74, 29);
-            num_15_K.TabIndex = 662;
-            num_15_K.Tag = "PhilControl";
-            // 
-            // num_16_K
-            // 
-            num_16_K.Enabled = false;
-            num_16_K.Location = new Point(487, 655);
-            num_16_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_16_K.Name = "num_16_K";
-            num_16_K.Size = new Size(74, 29);
-            num_16_K.TabIndex = 664;
-            num_16_K.Tag = "PhilControl";
-            // 
-            // drop_19_DisType
-            // 
-            drop_19_DisType.Enabled = false;
-            drop_19_DisType.FormattingEnabled = true;
-            drop_19_DisType.Location = new Point(647, 759);
-            drop_19_DisType.Name = "drop_19_DisType";
-            drop_19_DisType.Size = new Size(132, 29);
-            drop_19_DisType.TabIndex = 678;
-            drop_19_DisType.Tag = "PhilControl";
-            // 
-            // drop_18_DisType
-            // 
-            drop_18_DisType.Enabled = false;
-            drop_18_DisType.FormattingEnabled = true;
-            drop_18_DisType.Location = new Point(647, 725);
-            drop_18_DisType.Name = "drop_18_DisType";
-            drop_18_DisType.Size = new Size(132, 29);
-            drop_18_DisType.TabIndex = 679;
-            drop_18_DisType.Tag = "PhilControl";
-            // 
-            // drop_17_DisType
-            // 
-            drop_17_DisType.FormattingEnabled = true;
-            drop_17_DisType.Location = new Point(647, 690);
-            drop_17_DisType.Name = "drop_17_DisType";
-            drop_17_DisType.Size = new Size(132, 29);
-            drop_17_DisType.TabIndex = 677;
-            drop_17_DisType.Tag = "InvoiceControl";
-            // 
-            // num_16_G
-            // 
-            num_16_G.Enabled = false;
-            num_16_G.Location = new Point(567, 655);
-            num_16_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_16_G.Name = "num_16_G";
-            num_16_G.Size = new Size(74, 29);
-            num_16_G.TabIndex = 705;
-            num_16_G.Tag = "PhilControl";
-            // 
-            // num_15_G
-            // 
-            num_15_G.Enabled = false;
-            num_15_G.Location = new Point(567, 621);
-            num_15_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_15_G.Name = "num_15_G";
-            num_15_G.Size = new Size(74, 29);
-            num_15_G.TabIndex = 704;
-            num_15_G.Tag = "PhilControl";
-            // 
-            // num_19_G
-            // 
-            num_19_G.Location = new Point(567, 759);
-            num_19_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_19_G.Name = "num_19_G";
-            num_19_G.Size = new Size(74, 29);
-            num_19_G.TabIndex = 708;
-            num_19_G.Tag = "InvoiceControl";
-            // 
-            // num_18_G
-            // 
-            num_18_G.Location = new Point(567, 725);
-            num_18_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_18_G.Name = "num_18_G";
-            num_18_G.Size = new Size(74, 29);
-            num_18_G.TabIndex = 707;
-            num_18_G.Tag = "InvoiceControl";
-            // 
-            // num_17_G
-            // 
-            num_17_G.Location = new Point(567, 690);
-            num_17_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_17_G.Name = "num_17_G";
-            num_17_G.Size = new Size(74, 29);
-            num_17_G.TabIndex = 706;
-            num_17_G.Tag = "InvoiceControl";
-            // 
-            // num_10_G
-            // 
-            num_10_G.Location = new Point(567, 448);
-            num_10_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_10_G.Name = "num_10_G";
-            num_10_G.Size = new Size(74, 29);
-            num_10_G.TabIndex = 702;
-            num_10_G.Tag = "InvoiceControl";
-            // 
-            // num_9_G
-            // 
-            num_9_G.Location = new Point(567, 414);
-            num_9_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_9_G.Name = "num_9_G";
-            num_9_G.Size = new Size(74, 29);
-            num_9_G.TabIndex = 701;
-            num_9_G.Tag = "InvoiceControl";
-            // 
-            // num_8_G
-            // 
-            num_8_G.Location = new Point(567, 382);
-            num_8_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_8_G.Name = "num_8_G";
-            num_8_G.Size = new Size(74, 29);
-            num_8_G.TabIndex = 700;
-            num_8_G.Tag = "InvoiceControl";
-            // 
-            // num_7_G
-            // 
-            num_7_G.Location = new Point(567, 348);
-            num_7_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_7_G.Name = "num_7_G";
-            num_7_G.Size = new Size(74, 29);
-            num_7_G.TabIndex = 699;
-            num_7_G.Tag = "InvoiceControl";
-            // 
-            // num_6_G
-            // 
-            num_6_G.Location = new Point(567, 314);
-            num_6_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_6_G.Name = "num_6_G";
-            num_6_G.Size = new Size(74, 29);
-            num_6_G.TabIndex = 698;
-            num_6_G.Tag = "InvoiceControl";
-            // 
-            // num_5_G
-            // 
-            num_5_G.Location = new Point(567, 280);
-            num_5_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_5_G.Name = "num_5_G";
-            num_5_G.Size = new Size(74, 29);
-            num_5_G.TabIndex = 697;
-            num_5_G.Tag = "InvoiceControl";
-            // 
-            // num_4_G
-            // 
-            num_4_G.Location = new Point(567, 246);
-            num_4_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_4_G.Name = "num_4_G";
-            num_4_G.Size = new Size(74, 29);
-            num_4_G.TabIndex = 696;
-            num_4_G.Tag = "InvoiceControl";
-            // 
-            // num_3_G
-            // 
-            num_3_G.Location = new Point(567, 212);
-            num_3_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_3_G.Name = "num_3_G";
-            num_3_G.Size = new Size(74, 29);
-            num_3_G.TabIndex = 695;
-            num_3_G.Tag = "InvoiceControl";
-            // 
-            // num_20_G
-            // 
-            num_20_G.Location = new Point(567, 794);
-            num_20_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_20_G.Name = "num_20_G";
-            num_20_G.Size = new Size(74, 29);
-            num_20_G.TabIndex = 694;
-            num_20_G.Tag = "InvoiceControl";
-            // 
-            // num_1_G
-            // 
-            num_1_G.Location = new Point(567, 175);
-            num_1_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_1_G.Name = "num_1_G";
-            num_1_G.Size = new Size(74, 29);
-            num_1_G.TabIndex = 693;
-            num_1_G.Tag = "InvoiceControl";
-            // 
-            // num_11_G
-            // 
-            num_11_G.Location = new Point(567, 482);
-            num_11_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_11_G.Name = "num_11_G";
-            num_11_G.Size = new Size(74, 29);
-            num_11_G.TabIndex = 703;
-            num_11_G.Tag = "InvoiceControl";
-            // 
-            // num_14_G
-            // 
-            num_14_G.Location = new Point(567, 584);
-            num_14_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_14_G.Name = "num_14_G";
-            num_14_G.Size = new Size(74, 29);
-            num_14_G.TabIndex = 692;
-            num_14_G.Tag = "InvoiceControl";
-            // 
-            // num_13_G
-            // 
-            num_13_G.Location = new Point(567, 550);
-            num_13_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_13_G.Name = "num_13_G";
-            num_13_G.Size = new Size(74, 29);
-            num_13_G.TabIndex = 691;
-            num_13_G.Tag = "InvoiceControl";
-            // 
-            // num_12_G
-            // 
-            num_12_G.Location = new Point(567, 518);
-            num_12_G.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            num_12_G.Name = "num_12_G";
-            num_12_G.Size = new Size(74, 29);
-            num_12_G.TabIndex = 690;
-            num_12_G.Tag = "InvoiceControl";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(501, 143);
-            label2.Name = "label2";
-            label2.Size = new Size(31, 21);
-            label2.TabIndex = 709;
-            label2.Text = "KG";
-            label2.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(583, 143);
-            label4.Name = "label4";
-            label4.Size = new Size(51, 21);
-            label4.TabIndex = 710;
-            label4.Text = "Gram";
-            label4.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label5.ForeColor = Color.Black;
-            label5.Location = new Point(656, 143);
-            label5.Name = "label5";
-            label5.Size = new Size(113, 21);
-            label5.TabIndex = 711;
-            label5.Text = "DispatchType";
-            label5.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // Cmb_IssueNo
-            // 
-            Cmb_IssueNo.DropDownStyle = ComboBoxStyle.DropDownList;
-            Cmb_IssueNo.FormattingEnabled = true;
-            Cmb_IssueNo.Location = new Point(167, 81);
-            Cmb_IssueNo.Name = "Cmb_IssueNo";
-            Cmb_IssueNo.Size = new Size(104, 29);
-            Cmb_IssueNo.TabIndex = 712;
-            Cmb_IssueNo.Tag = "InvoiceControl";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Underline);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(12, 84);
-            label6.Name = "label6";
-            label6.Size = new Size(121, 21);
-            label6.TabIndex = 713;
-            label6.Text = "Select IssueNo";
-            label6.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // btn_Save
-            // 
-            btn_Save.Location = new Point(364, 66);
-            btn_Save.Name = "btn_Save";
-            btn_Save.Size = new Size(184, 44);
-            btn_Save.TabIndex = 714;
-            btn_Save.Text = "Save";
-            btn_Save.UseVisualStyleBackColor = true;
-            btn_Save.Click += btn_Save_Click;
+            // num_9_K
+            // 
+            num_9_K.Location = new Point(373, 233);
+            num_9_K.Margin = new Padding(2);
+            num_9_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_9_K.Name = "num_9_K";
+            num_9_K.Size = new Size(58, 23);
+            num_9_K.TabIndex = 757;
+            num_9_K.Tag = "InvoiceControl";
+            // 
+            // num_8_K
+            // 
+            num_8_K.Location = new Point(373, 203);
+            num_8_K.Margin = new Padding(2);
+            num_8_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_8_K.Name = "num_8_K";
+            num_8_K.Size = new Size(58, 23);
+            num_8_K.TabIndex = 756;
+            num_8_K.Tag = "InvoiceControl";
+            // 
+            // num_7_K
+            // 
+            num_7_K.Location = new Point(373, 173);
+            num_7_K.Margin = new Padding(2);
+            num_7_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_7_K.Name = "num_7_K";
+            num_7_K.Size = new Size(58, 23);
+            num_7_K.TabIndex = 755;
+            num_7_K.Tag = "InvoiceControl";
+            // 
+            // num_6_K
+            // 
+            num_6_K.Location = new Point(373, 143);
+            num_6_K.Margin = new Padding(2);
+            num_6_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_6_K.Name = "num_6_K";
+            num_6_K.Size = new Size(58, 23);
+            num_6_K.TabIndex = 754;
+            num_6_K.Tag = "InvoiceControl";
+            // 
+            // num_5_K
+            // 
+            num_5_K.Location = new Point(373, 113);
+            num_5_K.Margin = new Padding(2);
+            num_5_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_5_K.Name = "num_5_K";
+            num_5_K.Size = new Size(58, 23);
+            num_5_K.TabIndex = 753;
+            num_5_K.Tag = "InvoiceControl";
+            // 
+            // num_4_K
+            // 
+            num_4_K.Location = new Point(373, 83);
+            num_4_K.Margin = new Padding(2);
+            num_4_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_4_K.Name = "num_4_K";
+            num_4_K.Size = new Size(58, 23);
+            num_4_K.TabIndex = 752;
+            num_4_K.Tag = "InvoiceControl";
+            // 
+            // num_3_K
+            // 
+            num_3_K.Location = new Point(373, 53);
+            num_3_K.Margin = new Padding(2);
+            num_3_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_3_K.Name = "num_3_K";
+            num_3_K.Size = new Size(58, 23);
+            num_3_K.TabIndex = 751;
+            num_3_K.Tag = "InvoiceControl";
+            // 
+            // num_20_K
+            // 
+            num_20_K.Location = new Point(373, 563);
+            num_20_K.Margin = new Padding(2);
+            num_20_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_20_K.Name = "num_20_K";
+            num_20_K.Size = new Size(58, 23);
+            num_20_K.TabIndex = 750;
+            num_20_K.Tag = "InvoiceControl";
+            // 
+            // num_1_K
+            // 
+            num_1_K.Location = new Point(373, 23);
+            num_1_K.Margin = new Padding(2);
+            num_1_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_1_K.Name = "num_1_K";
+            num_1_K.Size = new Size(58, 23);
+            num_1_K.TabIndex = 749;
+            num_1_K.Tag = "InvoiceControl";
+            // 
+            // num_11_K
+            // 
+            num_11_K.Location = new Point(373, 293);
+            num_11_K.Margin = new Padding(2);
+            num_11_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_11_K.Name = "num_11_K";
+            num_11_K.Size = new Size(58, 23);
+            num_11_K.TabIndex = 759;
+            num_11_K.Tag = "InvoiceControl";
+            // 
+            // drop_11_Phil
+            // 
+            drop_11_Phil.Enabled = false;
+            drop_11_Phil.FormattingEnabled = true;
+            drop_11_Phil.Location = new Point(33, 293);
+            drop_11_Phil.Margin = new Padding(2);
+            drop_11_Phil.Name = "drop_11_Phil";
+            drop_11_Phil.Size = new Size(337, 23);
+            drop_11_Phil.TabIndex = 748;
+            drop_11_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_10_Phil
+            // 
+            drop_10_Phil.Enabled = false;
+            drop_10_Phil.FormattingEnabled = true;
+            drop_10_Phil.Location = new Point(33, 263);
+            drop_10_Phil.Margin = new Padding(2);
+            drop_10_Phil.Name = "drop_10_Phil";
+            drop_10_Phil.Size = new Size(337, 23);
+            drop_10_Phil.TabIndex = 747;
+            drop_10_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_9_Phil
+            // 
+            drop_9_Phil.Enabled = false;
+            drop_9_Phil.FormattingEnabled = true;
+            drop_9_Phil.Location = new Point(33, 233);
+            drop_9_Phil.Margin = new Padding(2);
+            drop_9_Phil.Name = "drop_9_Phil";
+            drop_9_Phil.Size = new Size(337, 23);
+            drop_9_Phil.TabIndex = 746;
+            drop_9_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_8_Phil
+            // 
+            drop_8_Phil.Enabled = false;
+            drop_8_Phil.FormattingEnabled = true;
+            drop_8_Phil.Location = new Point(33, 203);
+            drop_8_Phil.Margin = new Padding(2);
+            drop_8_Phil.Name = "drop_8_Phil";
+            drop_8_Phil.Size = new Size(337, 23);
+            drop_8_Phil.TabIndex = 745;
+            drop_8_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_7_Phil
+            // 
+            drop_7_Phil.Enabled = false;
+            drop_7_Phil.FormattingEnabled = true;
+            drop_7_Phil.Location = new Point(33, 173);
+            drop_7_Phil.Margin = new Padding(2);
+            drop_7_Phil.Name = "drop_7_Phil";
+            drop_7_Phil.Size = new Size(337, 23);
+            drop_7_Phil.TabIndex = 744;
+            drop_7_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_6_Phil
+            // 
+            drop_6_Phil.Enabled = false;
+            drop_6_Phil.FormattingEnabled = true;
+            drop_6_Phil.Location = new Point(33, 143);
+            drop_6_Phil.Margin = new Padding(2);
+            drop_6_Phil.Name = "drop_6_Phil";
+            drop_6_Phil.Size = new Size(337, 23);
+            drop_6_Phil.TabIndex = 743;
+            drop_6_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_5_Phil
+            // 
+            drop_5_Phil.Enabled = false;
+            drop_5_Phil.FormattingEnabled = true;
+            drop_5_Phil.Location = new Point(33, 113);
+            drop_5_Phil.Margin = new Padding(2);
+            drop_5_Phil.Name = "drop_5_Phil";
+            drop_5_Phil.Size = new Size(337, 23);
+            drop_5_Phil.TabIndex = 742;
+            drop_5_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_4_Phil
+            // 
+            drop_4_Phil.Enabled = false;
+            drop_4_Phil.FormattingEnabled = true;
+            drop_4_Phil.Location = new Point(33, 83);
+            drop_4_Phil.Margin = new Padding(2);
+            drop_4_Phil.Name = "drop_4_Phil";
+            drop_4_Phil.Size = new Size(337, 23);
+            drop_4_Phil.TabIndex = 741;
+            drop_4_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_3_Phil
+            // 
+            drop_3_Phil.Enabled = false;
+            drop_3_Phil.FormattingEnabled = true;
+            drop_3_Phil.Location = new Point(33, 53);
+            drop_3_Phil.Margin = new Padding(2);
+            drop_3_Phil.Name = "drop_3_Phil";
+            drop_3_Phil.Size = new Size(337, 23);
+            drop_3_Phil.TabIndex = 740;
+            drop_3_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_20_Phil
+            // 
+            drop_20_Phil.Enabled = false;
+            drop_20_Phil.FormattingEnabled = true;
+            drop_20_Phil.Location = new Point(35, 563);
+            drop_20_Phil.Margin = new Padding(2);
+            drop_20_Phil.Name = "drop_20_Phil";
+            drop_20_Phil.Size = new Size(337, 23);
+            drop_20_Phil.TabIndex = 739;
+            drop_20_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_1_Phil
+            // 
+            drop_1_Phil.Enabled = false;
+            drop_1_Phil.FormattingEnabled = true;
+            drop_1_Phil.Location = new Point(33, 23);
+            drop_1_Phil.Margin = new Padding(2);
+            drop_1_Phil.Name = "drop_1_Phil";
+            drop_1_Phil.Size = new Size(337, 23);
+            drop_1_Phil.TabIndex = 738;
+            drop_1_Phil.Tag = "InvoiceControl";
+            // 
+            // label22
+            // 
+            label22.ForeColor = Color.Black;
+            label22.Location = new Point(4, 188);
+            label22.Margin = new Padding(2, 0, 2, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(26, 15);
+            label22.TabIndex = 737;
+            label22.Text = "7";
+            label22.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label21
+            // 
+            label21.ForeColor = Color.Black;
+            label21.Location = new Point(4, 161);
+            label21.Margin = new Padding(2, 0, 2, 0);
+            label21.Name = "label21";
+            label21.Size = new Size(26, 15);
+            label21.TabIndex = 736;
+            label21.Text = "6";
+            label21.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label20
+            // 
+            label20.ForeColor = Color.Black;
+            label20.Location = new Point(4, 134);
+            label20.Margin = new Padding(2, 0, 2, 0);
+            label20.Name = "label20";
+            label20.Size = new Size(26, 15);
+            label20.TabIndex = 735;
+            label20.Text = "5";
+            label20.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label19
+            // 
+            label19.ForeColor = Color.Black;
+            label19.Location = new Point(4, 107);
+            label19.Margin = new Padding(2, 0, 2, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(26, 15);
+            label19.TabIndex = 734;
+            label19.Text = "4";
+            label19.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label18
+            // 
+            label18.ForeColor = Color.Black;
+            label18.Location = new Point(4, 80);
+            label18.Margin = new Padding(2, 0, 2, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(26, 15);
+            label18.TabIndex = 733;
+            label18.Text = "3";
+            label18.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label17
+            // 
+            label17.ForeColor = Color.Black;
+            label17.Location = new Point(4, 53);
+            label17.Margin = new Padding(2, 0, 2, 0);
+            label17.Name = "label17";
+            label17.Size = new Size(26, 15);
+            label17.TabIndex = 732;
+            label17.Text = "2";
+            label17.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            label15.ForeColor = Color.Black;
+            label15.Location = new Point(4, 26);
+            label15.Margin = new Padding(2, 0, 2, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(26, 15);
+            label15.TabIndex = 731;
+            label15.Text = "1";
+            label15.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label25
+            // 
+            label25.ForeColor = Color.Black;
+            label25.Location = new Point(4, 270);
+            label25.Margin = new Padding(2, 0, 2, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(26, 15);
+            label25.TabIndex = 730;
+            label25.Text = "10";
+            label25.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label24
+            // 
+            label24.ForeColor = Color.Black;
+            label24.Location = new Point(4, 243);
+            label24.Margin = new Padding(2, 0, 2, 0);
+            label24.Name = "label24";
+            label24.Size = new Size(26, 15);
+            label24.TabIndex = 729;
+            label24.Text = "9";
+            label24.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label23
+            // 
+            label23.ForeColor = Color.Black;
+            label23.Location = new Point(4, 216);
+            label23.Margin = new Padding(2, 0, 2, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(26, 15);
+            label23.TabIndex = 728;
+            label23.Text = "8";
+            label23.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // num_14_K
+            // 
+            num_14_K.Location = new Point(373, 383);
+            num_14_K.Margin = new Padding(2);
+            num_14_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_14_K.Name = "num_14_K";
+            num_14_K.Size = new Size(58, 23);
+            num_14_K.TabIndex = 727;
+            num_14_K.Tag = "InvoiceControl";
+            // 
+            // num_13_K
+            // 
+            num_13_K.Location = new Point(373, 353);
+            num_13_K.Margin = new Padding(2);
+            num_13_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_13_K.Name = "num_13_K";
+            num_13_K.Size = new Size(58, 23);
+            num_13_K.TabIndex = 726;
+            num_13_K.Tag = "InvoiceControl";
+            // 
+            // num_12_K
+            // 
+            num_12_K.Location = new Point(373, 323);
+            num_12_K.Margin = new Padding(2);
+            num_12_K.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            num_12_K.Name = "num_12_K";
+            num_12_K.Size = new Size(58, 23);
+            num_12_K.TabIndex = 725;
+            num_12_K.Tag = "InvoiceControl";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline);
+            label31.ForeColor = Color.Black;
+            label31.Location = new Point(4, -2);
+            label31.Margin = new Padding(2, 0, 2, 0);
+            label31.Name = "label31";
+            label31.Size = new Size(26, 15);
+            label31.TabIndex = 724;
+            label31.Text = "Sr#";
+            label31.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // drop_12_Phil
+            // 
+            drop_12_Phil.Enabled = false;
+            drop_12_Phil.FormattingEnabled = true;
+            drop_12_Phil.Location = new Point(33, 323);
+            drop_12_Phil.Margin = new Padding(2);
+            drop_12_Phil.Name = "drop_12_Phil";
+            drop_12_Phil.Size = new Size(337, 23);
+            drop_12_Phil.TabIndex = 722;
+            drop_12_Phil.Tag = "InvoiceControl";
+            // 
+            // label3
+            // 
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Underline);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(33, -2);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(302, 21);
+            label3.TabIndex = 721;
+            label3.Text = "Philitelic Buearu and Office Name";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // drop_13_Phil
+            // 
+            drop_13_Phil.Enabled = false;
+            drop_13_Phil.FormattingEnabled = true;
+            drop_13_Phil.Location = new Point(33, 353);
+            drop_13_Phil.Margin = new Padding(2);
+            drop_13_Phil.Name = "drop_13_Phil";
+            drop_13_Phil.Size = new Size(337, 23);
+            drop_13_Phil.TabIndex = 723;
+            drop_13_Phil.Tag = "InvoiceControl";
+            // 
+            // drop_14_Phil
+            // 
+            drop_14_Phil.Enabled = false;
+            drop_14_Phil.FormattingEnabled = true;
+            drop_14_Phil.Location = new Point(33, 383);
+            drop_14_Phil.Margin = new Padding(2);
+            drop_14_Phil.Name = "drop_14_Phil";
+            drop_14_Phil.Size = new Size(337, 23);
+            drop_14_Phil.TabIndex = 720;
+            drop_14_Phil.Tag = "InvoiceControl";
+            // 
+            // label28
+            // 
+            label28.ForeColor = Color.Black;
+            label28.Location = new Point(4, 324);
+            label28.Margin = new Padding(2, 0, 2, 0);
+            label28.Name = "label28";
+            label28.Size = new Size(26, 15);
+            label28.TabIndex = 719;
+            label28.Text = "12";
+            label28.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label27
+            // 
+            label27.ForeColor = Color.Black;
+            label27.Location = new Point(4, 297);
+            label27.Margin = new Padding(2, 0, 2, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(26, 15);
+            label27.TabIndex = 718;
+            label27.Text = "11";
+            label27.TextAlign = ContentAlignment.MiddleRight;
             // 
             // IssueMaillist
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 990);
-            Controls.Add(btn_Save);
-            Controls.Add(label6);
-            Controls.Add(Cmb_IssueNo);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label2);
-            Controls.Add(num_16_G);
-            Controls.Add(num_15_G);
-            Controls.Add(num_19_G);
-            Controls.Add(num_18_G);
-            Controls.Add(num_17_G);
-            Controls.Add(num_10_G);
-            Controls.Add(num_9_G);
-            Controls.Add(num_8_G);
-            Controls.Add(num_7_G);
-            Controls.Add(num_6_G);
-            Controls.Add(num_5_G);
-            Controls.Add(num_4_G);
-            Controls.Add(num_3_G);
-            Controls.Add(num_20_G);
-            Controls.Add(num_1_G);
-            Controls.Add(num_11_G);
-            Controls.Add(num_14_G);
-            Controls.Add(num_13_G);
-            Controls.Add(num_12_G);
-            Controls.Add(drop_19_DisType);
-            Controls.Add(drop_18_DisType);
-            Controls.Add(drop_17_DisType);
-            Controls.Add(drop_16_DisType);
-            Controls.Add(drop_15_DisType);
-            Controls.Add(drop_3_DisType);
-            Controls.Add(drop_20_DisType);
-            Controls.Add(drop_1_DisType);
-            Controls.Add(num_16_K);
-            Controls.Add(num_15_K);
-            Controls.Add(num_19_K);
-            Controls.Add(num_18_K);
-            Controls.Add(num_17_K);
-            Controls.Add(label44);
-            Controls.Add(drop_16_Phil);
-            Controls.Add(drop_15_Phil);
-            Controls.Add(drop_19_Phil);
-            Controls.Add(drop_18_Phil);
-            Controls.Add(drop_17_Phil);
-            Controls.Add(label14);
-            Controls.Add(label13);
-            Controls.Add(label12);
-            Controls.Add(label1);
-            Controls.Add(label26);
-            Controls.Add(drop_13_DisType);
-            Controls.Add(drop_12_DisType);
-            Controls.Add(drop_11_DisType);
-            Controls.Add(drop_10_DisType);
-            Controls.Add(drop_9_DisType);
-            Controls.Add(drop_8_DisType);
-            Controls.Add(drop_7_DisType);
-            Controls.Add(drop_6_DisType);
-            Controls.Add(drop_5_DisType);
-            Controls.Add(drop_4_DisType);
-            Controls.Add(drop_14_DisType);
-            Controls.Add(num_10_K);
-            Controls.Add(num_9_K);
-            Controls.Add(num_8_K);
-            Controls.Add(num_7_K);
-            Controls.Add(num_6_K);
-            Controls.Add(num_5_K);
-            Controls.Add(num_4_K);
-            Controls.Add(num_3_K);
-            Controls.Add(num_20_K);
-            Controls.Add(num_1_K);
-            Controls.Add(num_11_K);
-            Controls.Add(drop_11_Phil);
-            Controls.Add(drop_10_Phil);
-            Controls.Add(drop_9_Phil);
-            Controls.Add(drop_8_Phil);
-            Controls.Add(drop_7_Phil);
-            Controls.Add(drop_6_Phil);
-            Controls.Add(drop_5_Phil);
-            Controls.Add(drop_4_Phil);
-            Controls.Add(drop_3_Phil);
-            Controls.Add(drop_20_Phil);
-            Controls.Add(drop_1_Phil);
-            Controls.Add(label22);
-            Controls.Add(label21);
-            Controls.Add(label20);
-            Controls.Add(label19);
-            Controls.Add(label18);
-            Controls.Add(label17);
-            Controls.Add(label16);
-            Controls.Add(label15);
-            Controls.Add(label25);
-            Controls.Add(label24);
-            Controls.Add(label23);
-            Controls.Add(num_14_K);
-            Controls.Add(num_13_K);
-            Controls.Add(num_12_K);
-            Controls.Add(label31);
-            Controls.Add(drop_12_Phil);
-            Controls.Add(label3);
-            Controls.Add(drop_13_Phil);
-            Controls.Add(drop_14_Phil);
-            Controls.Add(label28);
-            Controls.Add(label27);
+            ClientSize = new Size(622, 749);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Margin = new Padding(2);
             Name = "IssueMaillist";
             Text = "IssueMaillist";
             Load += IssueMaillist_Load;
-            ((System.ComponentModel.ISupportInitialize)num_1_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_20_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_3_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_4_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_12_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_13_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_14_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_11_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_5_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_6_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_7_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_8_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_9_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_10_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_17_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_18_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_19_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_15_K).EndInit();
-            ((System.ComponentModel.ISupportInitialize)num_16_K).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)num_16_G).EndInit();
             ((System.ComponentModel.ISupportInitialize)num_15_G).EndInit();
             ((System.ComponentModel.ISupportInitialize)num_19_G).EndInit();
@@ -1313,89 +1511,45 @@
             ((System.ComponentModel.ISupportInitialize)num_14_G).EndInit();
             ((System.ComponentModel.ISupportInitialize)num_13_G).EndInit();
             ((System.ComponentModel.ISupportInitialize)num_12_G).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_16_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_15_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_19_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_18_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_17_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_10_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_9_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_8_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_7_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_6_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_5_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_4_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_3_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_20_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_1_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_11_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_14_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_13_K).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_12_K).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private Label label31;
-        private ComboBox drop_12_Phil;
-        private Label label3;
-        private ComboBox drop_13_Phil;
-        private ComboBox drop_14_Phil;
-        private Label label28;
-        private Label label27;
-        private ComboBox drop_13_DisType;
-        private ComboBox drop_12_DisType;
-        private ComboBox drop_11_DisType;
-        private ComboBox drop_10_DisType;
-        private ComboBox drop_9_DisType;
-        private ComboBox drop_8_DisType;
-        private ComboBox drop_7_DisType;
-        private ComboBox drop_6_DisType;
-        private ComboBox drop_5_DisType;
-        private ComboBox drop_4_DisType;
-        private ComboBox drop_14_DisType;
-        private ComboBox drop_11_Phil;
-        private ComboBox drop_10_Phil;
-        private ComboBox drop_9_Phil;
-        private ComboBox drop_8_Phil;
-        private ComboBox drop_7_Phil;
-        private ComboBox drop_6_Phil;
-        private ComboBox drop_5_Phil;
-        private ComboBox drop_4_Phil;
-        private ComboBox drop_3_Phil;
-        private ComboBox drop_20_Phil;
-        private ComboBox drop_1_Phil;
-        private Label label22;
-        private Label label21;
-        private Label label20;
-        private Label label19;
-        private Label label18;
-        private Label label17;
+        private Panel panel1;
         private Label label16;
-        private Label label15;
-        private Label label25;
-        private Label label24;
-        private Label label23;
-        private ComboBox drop_16_DisType;
-        private ComboBox drop_15_DisType;
-        private ComboBox drop_3_DisType;
-        private ComboBox drop_20_DisType;
-        private ComboBox drop_1_DisType;
-        private Label label44;
-        private ComboBox drop_16_Phil;
-        private ComboBox drop_15_Phil;
-        private ComboBox drop_19_Phil;
-        private ComboBox drop_18_Phil;
-        private ComboBox drop_17_Phil;
-        private Label label14;
-        private Label label13;
-        private Label label12;
-        private Label label1;
-        private Label label26;
-        private NumericUpDown num_1_K;
-        private NumericUpDown num_20_K;
-        private NumericUpDown num_3_K;
-        private NumericUpDown num_4_K;
-        private NumericUpDown num_12_K;
-        private NumericUpDown num_13_K;
-        private NumericUpDown num_14_K;
-        private NumericUpDown num_11_K;
-        private NumericUpDown num_5_K;
-        private NumericUpDown num_6_K;
-        private NumericUpDown num_7_K;
-        private NumericUpDown num_8_K;
-        private NumericUpDown num_9_K;
-        private NumericUpDown num_10_K;
-        private NumericUpDown num_17_K;
-        private NumericUpDown num_18_K;
-        private NumericUpDown num_19_K;
-        private NumericUpDown num_15_K;
-        private NumericUpDown num_16_K;
-        private ComboBox drop_19_DisType;
-        private ComboBox drop_18_DisType;
-        private ComboBox drop_17_DisType;
+        private ComboBox drop_DisType;
+        private Button button1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Label label10;
+        private Button btn_Save;
+        private Label label6;
+        private ComboBox Cmb_IssueNo;
+        private Panel panel2;
+        private Label label8;
+        private Label label9;
+        private Label label7;
+        private Label label5;
+        private Label label4;
+        private Label label2;
         private NumericUpDown num_16_G;
         private NumericUpDown num_15_G;
         private NumericUpDown num_19_G;
@@ -1415,11 +1569,82 @@
         private NumericUpDown num_14_G;
         private NumericUpDown num_13_G;
         private NumericUpDown num_12_G;
-        private Label label2;
-        private Label label4;
-        private Label label5;
-        private ComboBox Cmb_IssueNo;
-        private Label label6;
-        private Button btn_Save;
+        private ComboBox drop_19_DisType;
+        private ComboBox drop_18_DisType;
+        private ComboBox drop_17_DisType;
+        private ComboBox drop_16_DisType;
+        private ComboBox drop_15_DisType;
+        private ComboBox drop_3_DisType;
+        private ComboBox drop_20_DisType;
+        private ComboBox drop_1_DisType;
+        private NumericUpDown num_16_K;
+        private NumericUpDown num_15_K;
+        private NumericUpDown num_19_K;
+        private NumericUpDown num_18_K;
+        private NumericUpDown num_17_K;
+        private Label label44;
+        private ComboBox drop_16_Phil;
+        private ComboBox drop_15_Phil;
+        private ComboBox drop_19_Phil;
+        private ComboBox drop_18_Phil;
+        private ComboBox drop_17_Phil;
+        private Label label14;
+        private Label label13;
+        private Label label12;
+        private Label label1;
+        private Label label26;
+        private ComboBox drop_13_DisType;
+        private ComboBox drop_12_DisType;
+        private ComboBox drop_11_DisType;
+        private ComboBox drop_10_DisType;
+        private ComboBox drop_9_DisType;
+        private ComboBox drop_8_DisType;
+        private ComboBox drop_7_DisType;
+        private ComboBox drop_6_DisType;
+        private ComboBox drop_5_DisType;
+        private ComboBox drop_4_DisType;
+        private ComboBox drop_14_DisType;
+        private NumericUpDown num_10_K;
+        private NumericUpDown num_9_K;
+        private NumericUpDown num_8_K;
+        private NumericUpDown num_7_K;
+        private NumericUpDown num_6_K;
+        private NumericUpDown num_5_K;
+        private NumericUpDown num_4_K;
+        private NumericUpDown num_3_K;
+        private NumericUpDown num_20_K;
+        private NumericUpDown num_1_K;
+        private NumericUpDown num_11_K;
+        private ComboBox drop_11_Phil;
+        private ComboBox drop_10_Phil;
+        private ComboBox drop_9_Phil;
+        private ComboBox drop_8_Phil;
+        private ComboBox drop_7_Phil;
+        private ComboBox drop_6_Phil;
+        private ComboBox drop_5_Phil;
+        private ComboBox drop_4_Phil;
+        private ComboBox drop_3_Phil;
+        private ComboBox drop_20_Phil;
+        private ComboBox drop_1_Phil;
+        private Label label22;
+        private Label label21;
+        private Label label20;
+        private Label label19;
+        private Label label18;
+        private Label label17;
+        private Label label15;
+        private Label label25;
+        private Label label24;
+        private Label label23;
+        private NumericUpDown num_14_K;
+        private NumericUpDown num_13_K;
+        private NumericUpDown num_12_K;
+        private Label label31;
+        private ComboBox drop_12_Phil;
+        private Label label3;
+        private ComboBox drop_13_Phil;
+        private ComboBox drop_14_Phil;
+        private Label label28;
+        private Label label27;
     }
 }

@@ -60,7 +60,7 @@ namespace FileIndex
 
                 // 🔹 Step 1: Check if username already exists
                 string checkQuery =
-                    "SELECT COUNT(*) FROM UserInfo WHERE UserName = @UserName";
+                    "SELECT COUNT(*) FROM UsersInfo WHERE UserName = @UserName";
 
                 using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
                 {
@@ -85,7 +85,7 @@ namespace FileIndex
 
                 // 🔹 Step 2: Insert new user
                 string insertQuery = @"
-            INSERT INTO UserInfo (FullName, UserName, Password, UserEmail)
+            INSERT INTO UsersInfo (FullName, UserName, Password, UserEmail)
             VALUES (@FullName, @UserName, @Password, @UserEmail)";
 
                 using (SqlCommand insertCmd = new SqlCommand(insertQuery, con))
@@ -120,6 +120,11 @@ namespace FileIndex
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            Main regmain = new Main();
+            if (regmain.Visible == true)
+            {
+                regmain.Hide();
+            }
             Login regForm = new Login();
 
             regForm.Show();
@@ -132,19 +137,52 @@ namespace FileIndex
             Application.Exit();
         }
 
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Register_Load(object sender, EventArgs e)
         {
             UIHelper.ApplyTheme(this);
+            UIHelper.SetFormTheme(this);
+        }
+
+        private void checkRegisterAgree_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkRegisterAgree.Checked)
+            {
+                string agreement = "Terms of Service:\n\n" +
+                                  "1. Data will be stored in SQL Server.\n" +
+                                  "2. User is responsible for password security.\n" +
+                                  "3. Unauthorized access is prohibited.\n\n" +
+                                  "Do you accept these terms?";
+
+                DialogResult result = MessageBox.Show(agreement, "User Agreement", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (result == DialogResult.Yes)
+                {
+                    btnRegister.Enabled = true;
+                }
+                else
+                {
+                    checkRegisterAgree.Checked = false;
+                    btnRegister.Enabled = false;
+                }
+            }
+            else
+            {
+                btnRegister.Enabled = false;
+            }
+        }
+
+        private void texUserName_Validating(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void textEmail_Validating(object sender, CancelEventArgs e)
+        {
+            if (!textEmail.Text.Contains("@"))
+            {
+                e.Cancel = true; // User ko textbox se bahar nahi jane dega
+                MessageBox.Show("Email adress must have '@'!");
+            }
         }
     }
 }

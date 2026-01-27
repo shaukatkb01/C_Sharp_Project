@@ -1862,7 +1862,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>                                                                                 Karachi dated  </Value>
+                                      <Value>                                                                          Karachi dated  </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2613,7 +2613,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value xml:space="preserve">                                                          </Value>
+                                      <Value xml:space="preserve">                                               </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>

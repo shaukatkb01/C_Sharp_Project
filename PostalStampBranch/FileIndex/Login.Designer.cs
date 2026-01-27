@@ -53,17 +53,18 @@ namespace FileIndex
             // userTxt
             // 
             userTxt.BorderStyle = BorderStyle.None;
+            userTxt.Font = new Font("Segoe UI", 14F);
             userTxt.Location = new Point(107, 138);
             userTxt.Name = "userTxt";
             userTxt.PlaceholderText = "UserName";
-            userTxt.Size = new Size(267, 22);
+            userTxt.Size = new Size(267, 25);
             userTxt.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(5, 141);
+            label1.Location = new Point(5, 142);
             label1.Name = "label1";
             label1.Size = new Size(84, 21);
             label1.TabIndex = 0;
@@ -92,7 +93,7 @@ namespace FileIndex
             // 
             // passwordTxt
             // 
-            passwordTxt.Location = new Point(107, 198);
+            passwordTxt.Location = new Point(107, 180);
             passwordTxt.Name = "passwordTxt";
             passwordTxt.PlaceholderText = "Password";
             passwordTxt.Size = new Size(267, 29);
@@ -165,7 +166,7 @@ namespace FileIndex
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(343, 198);
+            pictureBox2.Location = new Point(343, 180);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(31, 29);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -175,6 +176,8 @@ namespace FileIndex
             // showPasswordCheck
             // 
             showPasswordCheck.AutoSize = true;
+            showPasswordCheck.Checked = true;
+            showPasswordCheck.CheckState = CheckState.Indeterminate;
             showPasswordCheck.ForeColor = Color.White;
             showPasswordCheck.Location = new Point(107, 233);
             showPasswordCheck.Name = "showPasswordCheck";

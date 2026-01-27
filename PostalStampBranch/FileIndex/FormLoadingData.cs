@@ -21,11 +21,11 @@ namespace FileIndex
                 {
                     string query = @"SELECT 
                                     F.Id AS FileId,
-                                    C.Id, 
+                                    C.IssueId, 
                                     (C.IssueNo + ' - ' + F.FileSubject) AS IssueDetail
                                  FROM CommStamp C
                                  LEFT JOIN FileIndex F ON F.Id = C.FileNo
-                                 ORDER BY C.Id DESC";
+                                 ORDER BY C.IssueId DESC";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();

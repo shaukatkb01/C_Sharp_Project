@@ -77,7 +77,6 @@
             label3.TabIndex = 0;
             label3.Text = "REGISTER NOW";
             label3.TextAlign = ContentAlignment.MiddleCenter;
-            label3.Click += label3_Click;
             // 
             // textFullName
             // 
@@ -94,6 +93,7 @@
             texUserName.PlaceholderText = "UserName";
             texUserName.Size = new Size(205, 29);
             texUserName.TabIndex = 2;
+            texUserName.Validating += texUserName_Validating;
             // 
             // textEmail
             // 
@@ -102,6 +102,7 @@
             textEmail.PlaceholderText = "Email";
             textEmail.Size = new Size(205, 29);
             textEmail.TabIndex = 3;
+            textEmail.Validating += textEmail_Validating;
             // 
             // textPassword
             // 
@@ -125,7 +126,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(40, 164);
+            label1.Location = new Point(12, 164);
             label1.Name = "label1";
             label1.Size = new Size(81, 21);
             label1.TabIndex = 0;
@@ -135,7 +136,7 @@
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
-            label2.Location = new Point(40, 207);
+            label2.Location = new Point(12, 207);
             label2.Name = "label2";
             label2.Size = new Size(88, 21);
             label2.TabIndex = 0;
@@ -145,7 +146,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.White;
-            label4.Location = new Point(40, 258);
+            label4.Location = new Point(12, 258);
             label4.Name = "label4";
             label4.Size = new Size(48, 21);
             label4.TabIndex = 0;
@@ -155,7 +156,7 @@
             // 
             label5.AutoSize = true;
             label5.ForeColor = Color.White;
-            label5.Location = new Point(40, 303);
+            label5.Location = new Point(12, 303);
             label5.Name = "label5";
             label5.Size = new Size(76, 21);
             label5.TabIndex = 0;
@@ -165,7 +166,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(40, 348);
+            label6.Location = new Point(12, 348);
             label6.Name = "label6";
             label6.Size = new Size(137, 21);
             label6.TabIndex = 0;
@@ -231,10 +232,12 @@
             checkRegisterAgree.TabIndex = 6;
             checkRegisterAgree.Text = "I agree to the Terms && Conditions";
             checkRegisterAgree.UseVisualStyleBackColor = true;
+            checkRegisterAgree.CheckedChanged += checkRegisterAgree_CheckedChanged;
             // 
             // btnRegister
             // 
             btnRegister.BackColor = Color.FromArgb(0, 165, 255);
+            btnRegister.Enabled = false;
             btnRegister.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRegister.ForeColor = Color.White;
             btnRegister.Location = new Point(40, 450);

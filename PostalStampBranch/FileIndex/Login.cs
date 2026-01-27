@@ -55,7 +55,7 @@ namespace FileIndex
 
 
                     // Query 1: Kya ye user database mein maujood hai?
-                    string query = @"SELECT COUNT(1) FROM UserInfo 
+                    string query = @"SELECT COUNT(1) FROM UsersInfo 
                              WHERE UserName = @userName AND Password = @Password";
 
                     using (SqlCommand cmd1 = new SqlCommand(query, con))
@@ -64,29 +64,41 @@ namespace FileIndex
                         cmd1.Parameters.AddWithValue("@Password", passwordTxt.Text.Trim());
 
                         int result = Convert.ToInt32(cmd1.ExecuteScalar());
-
+                       
                         if (result == 1)
                         {
                             // Query 2: Sirf ISI USER ka Auth_ID check karein (query update ki hai)
-                            string query2 = @"SELECT COUNT(1) FROM UserInfo 
-                                     WHERE UserName = @userName AND Athu_ID IS NOT NULL";
+                            string query2 = @"SELECT 
+                            I.FullName, I.Athu_ID,
+                            R.RoleID
+                            FROM UsersInfo I
+                            LEFT JOIN UserRoles R ON I.UserID = R.UserID
+                      WHERE UserName = @userName AND RoleID IS NOT NULL";
 
                             using (SqlCommand cmd2 = new SqlCommand(query2, con))
                             {
                                 cmd2.Parameters.AddWithValue("@userName", userTxt.Text.Trim());
-                                int result2 = Convert.ToInt32(cmd2.ExecuteScalar());
 
-                                if (result2 >= 1)
+                                // ExecuteReader use karein kyunke humein multiple columns chahiye
+                                using (SqlDataReader reader = cmd2.ExecuteReader())
                                 {
-                                    MessageBox.Show("Login successful. Welcome!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    if (reader.Read()) // Agar record mil gaya
+                                    {
+                                        // Database se values nikaal kar GlobalData mein save karein
+                                        GlobalData.CurrentUser = reader["FullName"].ToString();
+                                        GlobalData.UerRole = reader["Athu_ID"].ToString();
 
-                                    Main mainform = new Main();
-                                    mainform.Show();
-                                    this.Hide();
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Access Denied. Your account is not authorized (Auth_ID missing).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Login successful. Welcome " + GlobalData.CurrentUser, "Success");
+
+                                        Main mainform = new Main();
+
+                                        this.DialogResult = DialogResult.OK;
+                                        this.Close();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("You are registered but Connect Admin for login", "Error");
+                                    }
                                 }
                             }
                         }

@@ -28,403 +28,441 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            menuStrip1 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            addFileNumberToolStripMenuItem = new ToolStripMenuItem();
-            editFileNumberToolStripMenuItem = new ToolStripMenuItem();
-            printFileToolStripMenuItem = new ToolStripMenuItem();
-            frintFileTagToolStripMenuItem = new ToolStripMenuItem();
-            searchFileNumberToolStripMenuItem = new ToolStripMenuItem();
-            issueCommemorativeToolStripMenuItem = new ToolStripMenuItem();
-            addIssueDetailToolStripMenuItem = new ToolStripMenuItem();
-            editIssueDetailToolStripMenuItem = new ToolStripMenuItem();
-            searchIssueToolStripMenuItem = new ToolStripMenuItem();
-            invoiceEtnryToolStripMenuItem = new ToolStripMenuItem();
-            addInvoiceToolStripMenuItem = new ToolStripMenuItem();
-            correctionInvoiceToolStripMenuItem = new ToolStripMenuItem();
-            penddingInvoiceToolStripMenuItem = new ToolStripMenuItem();
-            addressBookToolStripMenuItem = new ToolStripMenuItem();
-            addNewAddressToolStripMenuItem = new ToolStripMenuItem();
-            editAddressToolStripMenuItem = new ToolStripMenuItem();
-            addOfficerAddressToolStripMenuItem = new ToolStripMenuItem();
-            supplyToolStripMenuItem = new ToolStripMenuItem();
-            phelatilicSupplyToolStripMenuItem = new ToolStripMenuItem();
-            stationerySupplyToolStripMenuItem = new ToolStripMenuItem();
-            printSupplyReportToolStripMenuItem = new ToolStripMenuItem();
-            issuePrintingWorkToolStripMenuItem = new ToolStripMenuItem();
-            addDistributionListToolStripMenuItem = new ToolStripMenuItem();
-            singlePrintJobToolStripMenuItem = new ToolStripMenuItem();
-            issuePrintingJobsToolStripMenuItem = new ToolStripMenuItem();
-            dToolStripMenuItem = new ToolStripMenuItem();
-            dGSirculareQuantityToolStripMenuItem = new ToolStripMenuItem();
-            printOrderToolStripMenuItem = new ToolStripMenuItem();
-            nSPCToolStripMenuItem = new ToolStripMenuItem();
-            commemorativeStampToolStripMenuItem = new ToolStripMenuItem();
-            postOfficeFoundationToolStripMenuItem = new ToolStripMenuItem();
-            specialPostMarkToolStripMenuItem = new ToolStripMenuItem();
-            promtPrinterToolStripMenuItem = new ToolStripMenuItem();
-            fDCAndLeafletsToolStripMenuItem = new ToolStripMenuItem();
-            userToolStripMenuItem = new ToolStripMenuItem();
-            addUserToolStripMenuItem = new ToolStripMenuItem();
-            registorToolStripMenuItem = new ToolStripMenuItem();
-            searchUserToolStripMenuItem = new ToolStripMenuItem();
-            pictureBox3 = new PictureBox();
-            menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            pnl_Top = new Panel();
+            btn_task = new Button();
+            button1 = new Button();
+            btn_logout = new Button();
+            txt_userName = new Label();
+            pnl_Sidebar = new Panel();
+            btn_Address = new Button();
+            btn_Admin = new Button();
+            btn_InvoiceWork = new Button();
+            btn_PhiletalicSupply = new Button();
+            btn_Issue = new Button();
+            btn_Com = new Button();
+            btn_File = new Button();
+            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
+            pnl_Main = new Panel();
+            pnl_Loading = new Panel();
+            label45 = new Label();
+            tabControl1 = new TabControl();
+            tab_1 = new TabPage();
+            tab_2 = new TabPage();
+            tab_3 = new TabPage();
+            tab_4 = new TabPage();
+            Dashboard = new TabPage();
+            tab_6 = new TabPage();
+            tab_7 = new TabPage();
+            timer1 = new System.Windows.Forms.Timer(components);
+            sqlCommandBuilder2 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
+            pnl_Top.SuspendLayout();
+            pnl_Sidebar.SuspendLayout();
+            pnl_Main.SuspendLayout();
+            pnl_Loading.SuspendLayout();
+            tabControl1.SuspendLayout();
             SuspendLayout();
             // 
-            // menuStrip1
-            // 
-            menuStrip1.BackColor = Color.FromArgb(44, 62, 80);
-            menuStrip1.Font = new Font("Verdana", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, issueCommemorativeToolStripMenuItem, invoiceEtnryToolStripMenuItem, addressBookToolStripMenuItem, supplyToolStripMenuItem, issuePrintingWorkToolStripMenuItem, printOrderToolStripMenuItem, userToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1286, 26);
-            menuStrip1.TabIndex = 0;
-            menuStrip1.Text = "menuStrip1";
-            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
-            // 
-            // fileToolStripMenuItem
-            // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addFileNumberToolStripMenuItem, editFileNumberToolStripMenuItem, printFileToolStripMenuItem, searchFileNumberToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(49, 22);
-            fileToolStripMenuItem.Text = "File";
-            fileToolStripMenuItem.Click += fileToolStripMenuItem_Click;
-            // 
-            // addFileNumberToolStripMenuItem
-            // 
-            addFileNumberToolStripMenuItem.Name = "addFileNumberToolStripMenuItem";
-            addFileNumberToolStripMenuItem.Size = new Size(274, 22);
-            addFileNumberToolStripMenuItem.Text = "Add File Number";
-            addFileNumberToolStripMenuItem.Click += addFileNumberToolStripMenuItem_Click;
-            // 
-            // editFileNumberToolStripMenuItem
-            // 
-            editFileNumberToolStripMenuItem.Name = "editFileNumberToolStripMenuItem";
-            editFileNumberToolStripMenuItem.Size = new Size(274, 22);
-            editFileNumberToolStripMenuItem.Text = "Correction in FileIndex";
-            editFileNumberToolStripMenuItem.Click += editFileNumberToolStripMenuItem_Click;
-            // 
-            // printFileToolStripMenuItem
-            // 
-            printFileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { frintFileTagToolStripMenuItem });
-            printFileToolStripMenuItem.Name = "printFileToolStripMenuItem";
-            printFileToolStripMenuItem.Size = new Size(274, 22);
-            printFileToolStripMenuItem.Text = "Print File";
-            // 
-            // frintFileTagToolStripMenuItem
-            // 
-            frintFileTagToolStripMenuItem.Name = "frintFileTagToolStripMenuItem";
-            frintFileTagToolStripMenuItem.Size = new Size(191, 22);
-            frintFileTagToolStripMenuItem.Text = "Print File Tag";
-            // 
-            // searchFileNumberToolStripMenuItem
-            // 
-            searchFileNumberToolStripMenuItem.Name = "searchFileNumberToolStripMenuItem";
-            searchFileNumberToolStripMenuItem.Size = new Size(274, 22);
-            searchFileNumberToolStripMenuItem.Text = "Search File Number";
-            searchFileNumberToolStripMenuItem.Click += searchFileNumberToolStripMenuItem_Click;
-            // 
-            // issueCommemorativeToolStripMenuItem
-            // 
-            issueCommemorativeToolStripMenuItem.BackColor = Color.WhiteSmoke;
-            issueCommemorativeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addIssueDetailToolStripMenuItem, editIssueDetailToolStripMenuItem, searchIssueToolStripMenuItem });
-            issueCommemorativeToolStripMenuItem.ForeColor = SystemColors.ControlText;
-            issueCommemorativeToolStripMenuItem.Name = "issueCommemorativeToolStripMenuItem";
-            issueCommemorativeToolStripMenuItem.Size = new Size(217, 22);
-            issueCommemorativeToolStripMenuItem.Text = "Issue Commemorative";
-            // 
-            // addIssueDetailToolStripMenuItem
-            // 
-            addIssueDetailToolStripMenuItem.Name = "addIssueDetailToolStripMenuItem";
-            addIssueDetailToolStripMenuItem.Size = new Size(218, 22);
-            addIssueDetailToolStripMenuItem.Text = "Add Issue Detail";
-            addIssueDetailToolStripMenuItem.Click += addIssueDetailToolStripMenuItem_Click;
-            // 
-            // editIssueDetailToolStripMenuItem
-            // 
-            editIssueDetailToolStripMenuItem.Name = "editIssueDetailToolStripMenuItem";
-            editIssueDetailToolStripMenuItem.Size = new Size(218, 22);
-            editIssueDetailToolStripMenuItem.Text = "Edit Issue Detail";
-            editIssueDetailToolStripMenuItem.Click += editIssueDetailToolStripMenuItem_Click;
-            // 
-            // searchIssueToolStripMenuItem
-            // 
-            searchIssueToolStripMenuItem.Name = "searchIssueToolStripMenuItem";
-            searchIssueToolStripMenuItem.Size = new Size(218, 22);
-            searchIssueToolStripMenuItem.Text = "Search Issue";
-            // 
-            // invoiceEtnryToolStripMenuItem
-            // 
-            invoiceEtnryToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addInvoiceToolStripMenuItem, correctionInvoiceToolStripMenuItem, penddingInvoiceToolStripMenuItem });
-            invoiceEtnryToolStripMenuItem.Name = "invoiceEtnryToolStripMenuItem";
-            invoiceEtnryToolStripMenuItem.Size = new Size(136, 22);
-            invoiceEtnryToolStripMenuItem.Text = "Invoice Etnry";
-            // 
-            // addInvoiceToolStripMenuItem
-            // 
-            addInvoiceToolStripMenuItem.Name = "addInvoiceToolStripMenuItem";
-            addInvoiceToolStripMenuItem.Size = new Size(237, 22);
-            addInvoiceToolStripMenuItem.Text = "Add Invoice";
-            // 
-            // correctionInvoiceToolStripMenuItem
-            // 
-            correctionInvoiceToolStripMenuItem.Name = "correctionInvoiceToolStripMenuItem";
-            correctionInvoiceToolStripMenuItem.Size = new Size(237, 22);
-            correctionInvoiceToolStripMenuItem.Text = "Correction Invoice";
-            // 
-            // penddingInvoiceToolStripMenuItem
-            // 
-            penddingInvoiceToolStripMenuItem.Name = "penddingInvoiceToolStripMenuItem";
-            penddingInvoiceToolStripMenuItem.Size = new Size(237, 22);
-            penddingInvoiceToolStripMenuItem.Text = "Pendding Invoice";
-            // 
-            // addressBookToolStripMenuItem
-            // 
-            addressBookToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addNewAddressToolStripMenuItem, editAddressToolStripMenuItem, addOfficerAddressToolStripMenuItem });
-            addressBookToolStripMenuItem.Name = "addressBookToolStripMenuItem";
-            addressBookToolStripMenuItem.Size = new Size(140, 22);
-            addressBookToolStripMenuItem.Text = "Address Book";
-            // 
-            // addNewAddressToolStripMenuItem
-            // 
-            addNewAddressToolStripMenuItem.Name = "addNewAddressToolStripMenuItem";
-            addNewAddressToolStripMenuItem.Size = new Size(231, 22);
-            addNewAddressToolStripMenuItem.Text = "Add New Address";
-            // 
-            // editAddressToolStripMenuItem
-            // 
-            editAddressToolStripMenuItem.Name = "editAddressToolStripMenuItem";
-            editAddressToolStripMenuItem.Size = new Size(231, 22);
-            editAddressToolStripMenuItem.Text = "Edit Address";
-            // 
-            // addOfficerAddressToolStripMenuItem
-            // 
-            addOfficerAddressToolStripMenuItem.Name = "addOfficerAddressToolStripMenuItem";
-            addOfficerAddressToolStripMenuItem.Size = new Size(231, 22);
-            addOfficerAddressToolStripMenuItem.Text = "Print Address";
-            // 
-            // supplyToolStripMenuItem
-            // 
-            supplyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { phelatilicSupplyToolStripMenuItem, stationerySupplyToolStripMenuItem, printSupplyReportToolStripMenuItem });
-            supplyToolStripMenuItem.Name = "supplyToolStripMenuItem";
-            supplyToolStripMenuItem.Size = new Size(78, 22);
-            supplyToolStripMenuItem.Text = "Supply";
-            // 
-            // phelatilicSupplyToolStripMenuItem
-            // 
-            phelatilicSupplyToolStripMenuItem.Name = "phelatilicSupplyToolStripMenuItem";
-            phelatilicSupplyToolStripMenuItem.Size = new Size(247, 22);
-            phelatilicSupplyToolStripMenuItem.Text = "Phelatilic supply";
-            // 
-            // stationerySupplyToolStripMenuItem
-            // 
-            stationerySupplyToolStripMenuItem.Name = "stationerySupplyToolStripMenuItem";
-            stationerySupplyToolStripMenuItem.Size = new Size(247, 22);
-            stationerySupplyToolStripMenuItem.Text = "Stationery Supply";
-            // 
-            // printSupplyReportToolStripMenuItem
-            // 
-            printSupplyReportToolStripMenuItem.Name = "printSupplyReportToolStripMenuItem";
-            printSupplyReportToolStripMenuItem.Size = new Size(247, 22);
-            printSupplyReportToolStripMenuItem.Text = "Print Supply Report";
-            // 
-            // issuePrintingWorkToolStripMenuItem
-            // 
-            issuePrintingWorkToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addDistributionListToolStripMenuItem, singlePrintJobToolStripMenuItem, issuePrintingJobsToolStripMenuItem, dToolStripMenuItem, dGSirculareQuantityToolStripMenuItem });
-            issuePrintingWorkToolStripMenuItem.Name = "issuePrintingWorkToolStripMenuItem";
-            issuePrintingWorkToolStripMenuItem.Size = new Size(193, 22);
-            issuePrintingWorkToolStripMenuItem.Text = "Issue Printing Work";
-            issuePrintingWorkToolStripMenuItem.Click += issuePrintingWorkToolStripMenuItem_Click;
-            // 
-            // addDistributionListToolStripMenuItem
-            // 
-            addDistributionListToolStripMenuItem.Name = "addDistributionListToolStripMenuItem";
-            addDistributionListToolStripMenuItem.Size = new Size(270, 22);
-            addDistributionListToolStripMenuItem.Text = "Add Distribution List";
-            addDistributionListToolStripMenuItem.Click += addDistributionListToolStripMenuItem_Click;
-            // 
-            // singlePrintJobToolStripMenuItem
-            // 
-            singlePrintJobToolStripMenuItem.Name = "singlePrintJobToolStripMenuItem";
-            singlePrintJobToolStripMenuItem.Size = new Size(270, 22);
-            singlePrintJobToolStripMenuItem.Text = "Single Print Job";
-            // 
-            // issuePrintingJobsToolStripMenuItem
-            // 
-            issuePrintingJobsToolStripMenuItem.Name = "issuePrintingJobsToolStripMenuItem";
-            issuePrintingJobsToolStripMenuItem.Size = new Size(270, 22);
-            issuePrintingJobsToolStripMenuItem.Text = "Issue Printing Jobs";
-            // 
-            // dToolStripMenuItem
-            // 
-            dToolStripMenuItem.Name = "dToolStripMenuItem";
-            dToolStripMenuItem.Size = new Size(270, 22);
-            dToolStripMenuItem.Text = "D.G Sirculare ";
-            // 
-            // dGSirculareQuantityToolStripMenuItem
-            // 
-            dGSirculareQuantityToolStripMenuItem.Name = "dGSirculareQuantityToolStripMenuItem";
-            dGSirculareQuantityToolStripMenuItem.Size = new Size(270, 22);
-            dGSirculareQuantityToolStripMenuItem.Text = "D.G Sirculare Quantity";
-            // 
-            // printOrderToolStripMenuItem
-            // 
-            printOrderToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { nSPCToolStripMenuItem, postOfficeFoundationToolStripMenuItem, promtPrinterToolStripMenuItem });
-            printOrderToolStripMenuItem.Name = "printOrderToolStripMenuItem";
-            printOrderToolStripMenuItem.Size = new Size(119, 22);
-            printOrderToolStripMenuItem.Text = "Print Order";
-            // 
-            // nSPCToolStripMenuItem
-            // 
-            nSPCToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { commemorativeStampToolStripMenuItem });
-            nSPCToolStripMenuItem.Name = "nSPCToolStripMenuItem";
-            nSPCToolStripMenuItem.Size = new Size(275, 22);
-            nSPCToolStripMenuItem.Text = "NSPC";
-            // 
-            // commemorativeStampToolStripMenuItem
-            // 
-            commemorativeStampToolStripMenuItem.Name = "commemorativeStampToolStripMenuItem";
-            commemorativeStampToolStripMenuItem.Size = new Size(281, 22);
-            commemorativeStampToolStripMenuItem.Text = "Commemorative Stamp";
-            // 
-            // postOfficeFoundationToolStripMenuItem
-            // 
-            postOfficeFoundationToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { specialPostMarkToolStripMenuItem });
-            postOfficeFoundationToolStripMenuItem.Name = "postOfficeFoundationToolStripMenuItem";
-            postOfficeFoundationToolStripMenuItem.Size = new Size(275, 22);
-            postOfficeFoundationToolStripMenuItem.Text = "Post Office Foundation";
-            // 
-            // specialPostMarkToolStripMenuItem
-            // 
-            specialPostMarkToolStripMenuItem.Name = "specialPostMarkToolStripMenuItem";
-            specialPostMarkToolStripMenuItem.Size = new Size(230, 22);
-            specialPostMarkToolStripMenuItem.Text = "Special Post Mark";
-            // 
-            // promtPrinterToolStripMenuItem
-            // 
-            promtPrinterToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fDCAndLeafletsToolStripMenuItem });
-            promtPrinterToolStripMenuItem.Name = "promtPrinterToolStripMenuItem";
-            promtPrinterToolStripMenuItem.Size = new Size(275, 22);
-            promtPrinterToolStripMenuItem.Text = "Promt Printer";
-            // 
-            // fDCAndLeafletsToolStripMenuItem
-            // 
-            fDCAndLeafletsToolStripMenuItem.Name = "fDCAndLeafletsToolStripMenuItem";
-            fDCAndLeafletsToolStripMenuItem.Size = new Size(224, 22);
-            fDCAndLeafletsToolStripMenuItem.Text = "FDC and Leaflets";
-            // 
-            // userToolStripMenuItem
-            // 
-            userToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addUserToolStripMenuItem, searchUserToolStripMenuItem });
-            userToolStripMenuItem.Name = "userToolStripMenuItem";
-            userToolStripMenuItem.Size = new Size(61, 22);
-            userToolStripMenuItem.Text = "User";
-            // 
-            // addUserToolStripMenuItem
-            // 
-            addUserToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { registorToolStripMenuItem });
-            addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            addUserToolStripMenuItem.Size = new Size(183, 22);
-            addUserToolStripMenuItem.Text = "Add User";
-            addUserToolStripMenuItem.Click += addUserToolStripMenuItem_Click;
-            // 
-            // registorToolStripMenuItem
-            // 
-            registorToolStripMenuItem.Name = "registorToolStripMenuItem";
-            registorToolStripMenuItem.Size = new Size(150, 22);
-            registorToolStripMenuItem.Text = "Registor";
-            registorToolStripMenuItem.Click += registorToolStripMenuItem_Click;
-            // 
-            // searchUserToolStripMenuItem
-            // 
-            searchUserToolStripMenuItem.Name = "searchUserToolStripMenuItem";
-            searchUserToolStripMenuItem.Size = new Size(183, 22);
-            searchUserToolStripMenuItem.Text = "Search User";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            pictureBox3.Cursor = Cursors.Hand;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(1240, 0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(46, 26);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 11;
-            pictureBox3.TabStop = false;
-            pictureBox3.Click += pictureBox3_Click;
+            // pnl_Top
+            // 
+            pnl_Top.BackColor = Color.SkyBlue;
+            pnl_Top.Controls.Add(btn_task);
+            pnl_Top.Controls.Add(button1);
+            pnl_Top.Controls.Add(btn_logout);
+            pnl_Top.Controls.Add(txt_userName);
+            pnl_Top.Dock = DockStyle.Top;
+            pnl_Top.Location = new Point(0, 0);
+            pnl_Top.Margin = new Padding(2, 2, 2, 2);
+            pnl_Top.Name = "pnl_Top";
+            pnl_Top.Size = new Size(966, 39);
+            pnl_Top.TabIndex = 14;
+            // 
+            // btn_task
+            // 
+            btn_task.Location = new Point(702, 0);
+            btn_task.Margin = new Padding(2, 2, 2, 2);
+            btn_task.Name = "btn_task";
+            btn_task.Size = new Size(104, 39);
+            btn_task.TabIndex = 3;
+            btn_task.Text = "Task";
+            btn_task.UseVisualStyleBackColor = true;
+            btn_task.Click += btn_task_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(507, 0);
+            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Name = "button1";
+            button1.Size = new Size(171, 26);
+            button1.TabIndex = 2;
+            button1.Text = "data import from access";
+            button1.UseVisualStyleBackColor = true;
+            button1.Visible = false;
+            button1.Click += button1_Click;
+            // 
+            // btn_logout
+            // 
+            btn_logout.Dock = DockStyle.Right;
+            btn_logout.Image = (Image)resources.GetObject("btn_logout.Image");
+            btn_logout.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_logout.Location = new Point(850, 0);
+            btn_logout.Margin = new Padding(2, 2, 2, 2);
+            btn_logout.Name = "btn_logout";
+            btn_logout.Size = new Size(116, 39);
+            btn_logout.TabIndex = 1;
+            btn_logout.Text = "Logout";
+            btn_logout.UseVisualStyleBackColor = true;
+            btn_logout.Click += btn_logout_Click;
+            // 
+            // txt_userName
+            // 
+            txt_userName.AutoSize = true;
+            txt_userName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txt_userName.Location = new Point(46, 5);
+            txt_userName.Margin = new Padding(2, 0, 2, 0);
+            txt_userName.Name = "txt_userName";
+            txt_userName.Size = new Size(0, 21);
+            txt_userName.TabIndex = 0;
+            // 
+            // pnl_Sidebar
+            // 
+            pnl_Sidebar.BackColor = Color.LightBlue;
+            pnl_Sidebar.Controls.Add(btn_Address);
+            pnl_Sidebar.Controls.Add(btn_Admin);
+            pnl_Sidebar.Controls.Add(btn_InvoiceWork);
+            pnl_Sidebar.Controls.Add(btn_PhiletalicSupply);
+            pnl_Sidebar.Controls.Add(btn_Issue);
+            pnl_Sidebar.Controls.Add(btn_Com);
+            pnl_Sidebar.Controls.Add(btn_File);
+            pnl_Sidebar.Location = new Point(0, 44);
+            pnl_Sidebar.Margin = new Padding(2, 2, 2, 2);
+            pnl_Sidebar.Name = "pnl_Sidebar";
+            pnl_Sidebar.Size = new Size(33, 500);
+            pnl_Sidebar.TabIndex = 17;
+            // 
+            // btn_Address
+            // 
+            btn_Address.Dock = DockStyle.Top;
+            btn_Address.FlatAppearance.BorderSize = 0;
+            btn_Address.FlatStyle = FlatStyle.Flat;
+            btn_Address.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Address.ForeColor = Color.White;
+            btn_Address.Image = (Image)resources.GetObject("btn_Address.Image");
+            btn_Address.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_Address.Location = new Point(0, 216);
+            btn_Address.Margin = new Padding(2, 2, 2, 2);
+            btn_Address.Name = "btn_Address";
+            btn_Address.Size = new Size(33, 36);
+            btn_Address.TabIndex = 6;
+            btn_Address.UseVisualStyleBackColor = true;
+            btn_Address.Click += btn_Address_Click;
+            // 
+            // btn_Admin
+            // 
+            btn_Admin.Dock = DockStyle.Top;
+            btn_Admin.FlatAppearance.BorderSize = 0;
+            btn_Admin.FlatStyle = FlatStyle.Flat;
+            btn_Admin.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Admin.ForeColor = Color.White;
+            btn_Admin.Image = (Image)resources.GetObject("btn_Admin.Image");
+            btn_Admin.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_Admin.Location = new Point(0, 180);
+            btn_Admin.Margin = new Padding(2, 2, 2, 2);
+            btn_Admin.Name = "btn_Admin";
+            btn_Admin.Size = new Size(33, 36);
+            btn_Admin.TabIndex = 5;
+            btn_Admin.UseVisualStyleBackColor = true;
+            btn_Admin.Click += btn_Admin_Click;
+            // 
+            // btn_InvoiceWork
+            // 
+            btn_InvoiceWork.Dock = DockStyle.Top;
+            btn_InvoiceWork.FlatAppearance.BorderSize = 0;
+            btn_InvoiceWork.FlatStyle = FlatStyle.Flat;
+            btn_InvoiceWork.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_InvoiceWork.ForeColor = Color.White;
+            btn_InvoiceWork.Image = (Image)resources.GetObject("btn_InvoiceWork.Image");
+            btn_InvoiceWork.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_InvoiceWork.Location = new Point(0, 144);
+            btn_InvoiceWork.Margin = new Padding(2, 2, 2, 2);
+            btn_InvoiceWork.Name = "btn_InvoiceWork";
+            btn_InvoiceWork.Size = new Size(33, 36);
+            btn_InvoiceWork.TabIndex = 4;
+            btn_InvoiceWork.UseVisualStyleBackColor = true;
+            btn_InvoiceWork.Click += btn_InvoiceWork_Click;
+            // 
+            // btn_PhiletalicSupply
+            // 
+            btn_PhiletalicSupply.Dock = DockStyle.Top;
+            btn_PhiletalicSupply.FlatAppearance.BorderSize = 0;
+            btn_PhiletalicSupply.FlatStyle = FlatStyle.Flat;
+            btn_PhiletalicSupply.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_PhiletalicSupply.ForeColor = Color.White;
+            btn_PhiletalicSupply.Image = (Image)resources.GetObject("btn_PhiletalicSupply.Image");
+            btn_PhiletalicSupply.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_PhiletalicSupply.Location = new Point(0, 108);
+            btn_PhiletalicSupply.Margin = new Padding(2, 2, 2, 2);
+            btn_PhiletalicSupply.Name = "btn_PhiletalicSupply";
+            btn_PhiletalicSupply.Size = new Size(33, 36);
+            btn_PhiletalicSupply.TabIndex = 3;
+            btn_PhiletalicSupply.UseVisualStyleBackColor = true;
+            btn_PhiletalicSupply.Click += btn_PhiletalicSupply_Click;
+            // 
+            // btn_Issue
+            // 
+            btn_Issue.Dock = DockStyle.Top;
+            btn_Issue.FlatAppearance.BorderSize = 0;
+            btn_Issue.FlatStyle = FlatStyle.Flat;
+            btn_Issue.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Issue.ForeColor = Color.White;
+            btn_Issue.Image = (Image)resources.GetObject("btn_Issue.Image");
+            btn_Issue.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_Issue.Location = new Point(0, 72);
+            btn_Issue.Margin = new Padding(2, 2, 2, 2);
+            btn_Issue.Name = "btn_Issue";
+            btn_Issue.Size = new Size(33, 36);
+            btn_Issue.TabIndex = 2;
+            btn_Issue.UseVisualStyleBackColor = true;
+            btn_Issue.Click += btn_Issue_Click;
+            // 
+            // btn_Com
+            // 
+            btn_Com.Dock = DockStyle.Top;
+            btn_Com.FlatAppearance.BorderSize = 0;
+            btn_Com.FlatStyle = FlatStyle.Flat;
+            btn_Com.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Com.ForeColor = Color.White;
+            btn_Com.Image = (Image)resources.GetObject("btn_Com.Image");
+            btn_Com.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_Com.Location = new Point(0, 36);
+            btn_Com.Margin = new Padding(2, 2, 2, 2);
+            btn_Com.Name = "btn_Com";
+            btn_Com.Size = new Size(33, 36);
+            btn_Com.TabIndex = 1;
+            btn_Com.UseVisualStyleBackColor = true;
+            btn_Com.Click += btn_Com_Click;
+            // 
+            // btn_File
+            // 
+            btn_File.Dock = DockStyle.Top;
+            btn_File.FlatAppearance.BorderSize = 0;
+            btn_File.FlatStyle = FlatStyle.Flat;
+            btn_File.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_File.ForeColor = Color.White;
+            btn_File.Image = (Image)resources.GetObject("btn_File.Image");
+            btn_File.ImageAlign = ContentAlignment.MiddleLeft;
+            btn_File.Location = new Point(0, 0);
+            btn_File.Margin = new Padding(2, 2, 2, 2);
+            btn_File.Name = "btn_File";
+            btn_File.Size = new Size(33, 36);
+            btn_File.TabIndex = 0;
+            btn_File.UseVisualStyleBackColor = true;
+            btn_File.Click += btn_File_Click;
+            // 
+            // pnl_Main
+            // 
+            pnl_Main.BackColor = Color.AliceBlue;
+            pnl_Main.Controls.Add(pnl_Loading);
+            pnl_Main.Controls.Add(tabControl1);
+            pnl_Main.Dock = DockStyle.Fill;
+            pnl_Main.Location = new Point(0, 0);
+            pnl_Main.Margin = new Padding(8, 2, 2, 2);
+            pnl_Main.Name = "pnl_Main";
+            pnl_Main.Padding = new Padding(39, 50, 0, 0);
+            pnl_Main.Size = new Size(966, 544);
+            pnl_Main.TabIndex = 15;
+            // 
+            // pnl_Loading
+            // 
+            pnl_Loading.BackColor = Color.LightGray;
+            pnl_Loading.Controls.Add(label45);
+            pnl_Loading.Dock = DockStyle.Fill;
+            pnl_Loading.Location = new Point(39, 50);
+            pnl_Loading.Margin = new Padding(2, 2, 2, 2);
+            pnl_Loading.Name = "pnl_Loading";
+            pnl_Loading.Size = new Size(927, 494);
+            pnl_Loading.TabIndex = 423;
+            pnl_Loading.Visible = false;
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label45.Location = new Point(367, 29);
+            label45.Margin = new Padding(2, 0, 2, 0);
+            label45.Name = "label45";
+            label45.Size = new Size(477, 45);
+            label45.TabIndex = 0;
+            label45.Text = "Please Wait... Loading Records";
+            // 
+            // tabControl1
+            // 
+            tabControl1.Anchor = AnchorStyles.Top;
+            tabControl1.Controls.Add(tab_1);
+            tabControl1.Controls.Add(tab_2);
+            tabControl1.Controls.Add(tab_3);
+            tabControl1.Controls.Add(tab_4);
+            tabControl1.Controls.Add(Dashboard);
+            tabControl1.Controls.Add(tab_6);
+            tabControl1.Controls.Add(tab_7);
+            tabControl1.ItemSize = new Size(200, 50);
+            tabControl1.Location = new Point(79, 90);
+            tabControl1.Margin = new Padding(16, 2, 2, 2);
+            tabControl1.Multiline = true;
+            tabControl1.Name = "tabControl1";
+            tabControl1.Padding = new Point(5, 3);
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(913, 711);
+            tabControl1.SizeMode = TabSizeMode.FillToRight;
+            tabControl1.TabIndex = 0;
+            // 
+            // tab_1
+            // 
+            tab_1.AutoScroll = true;
+            tab_1.Location = new Point(4, 54);
+            tab_1.Margin = new Padding(2, 2, 2, 2);
+            tab_1.Name = "tab_1";
+            tab_1.Padding = new Padding(2, 2, 2, 2);
+            tab_1.Size = new Size(905, 653);
+            tab_1.TabIndex = 0;
+            tab_1.Text = "tab_1";
+            tab_1.UseVisualStyleBackColor = true;
+            // 
+            // tab_2
+            // 
+            tab_2.AutoScroll = true;
+            tab_2.Location = new Point(4, 54);
+            tab_2.Margin = new Padding(2, 2, 2, 2);
+            tab_2.Name = "tab_2";
+            tab_2.Padding = new Padding(2, 2, 2, 2);
+            tab_2.Size = new Size(905, 653);
+            tab_2.TabIndex = 1;
+            tab_2.Text = "tab_2";
+            tab_2.UseVisualStyleBackColor = true;
+            // 
+            // tab_3
+            // 
+            tab_3.AutoScroll = true;
+            tab_3.Location = new Point(4, 54);
+            tab_3.Margin = new Padding(2, 2, 2, 2);
+            tab_3.Name = "tab_3";
+            tab_3.Size = new Size(905, 653);
+            tab_3.TabIndex = 2;
+            tab_3.Text = "tab_3";
+            tab_3.UseVisualStyleBackColor = true;
+            // 
+            // tab_4
+            // 
+            tab_4.AutoScroll = true;
+            tab_4.Location = new Point(4, 54);
+            tab_4.Margin = new Padding(2, 2, 2, 2);
+            tab_4.Name = "tab_4";
+            tab_4.Padding = new Padding(2, 2, 2, 2);
+            tab_4.Size = new Size(905, 653);
+            tab_4.TabIndex = 3;
+            tab_4.Text = "tab_4";
+            tab_4.UseVisualStyleBackColor = true;
+            // 
+            // Dashboard
+            // 
+            Dashboard.AutoScroll = true;
+            Dashboard.Location = new Point(4, 54);
+            Dashboard.Margin = new Padding(2, 2, 2, 2);
+            Dashboard.Name = "Dashboard";
+            Dashboard.Padding = new Padding(2, 2, 2, 2);
+            Dashboard.Size = new Size(905, 653);
+            Dashboard.TabIndex = 4;
+            Dashboard.Text = "Task";
+            Dashboard.UseVisualStyleBackColor = true;
+            // 
+            // tab_6
+            // 
+            tab_6.AutoScroll = true;
+            tab_6.Location = new Point(4, 54);
+            tab_6.Margin = new Padding(2, 2, 2, 2);
+            tab_6.Name = "tab_6";
+            tab_6.Size = new Size(905, 653);
+            tab_6.TabIndex = 5;
+            tab_6.Text = "tab_6";
+            tab_6.UseVisualStyleBackColor = true;
+            // 
+            // tab_7
+            // 
+            tab_7.AutoScroll = true;
+            tab_7.Location = new Point(4, 54);
+            tab_7.Margin = new Padding(2, 2, 2, 2);
+            tab_7.Name = "tab_7";
+            tab_7.Size = new Size(905, 653);
+            tab_7.TabIndex = 6;
+            tab_7.Text = "tab_7";
+            tab_7.UseVisualStyleBackColor = true;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1;
+            timer1.Tick += timer1_Tick;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.RoyalBlue;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1286, 450);
-            Controls.Add(pictureBox3);
-            Controls.Add(menuStrip1);
+            ClientSize = new Size(983, 500);
+            Controls.Add(pnl_Top);
+            Controls.Add(pnl_Sidebar);
+            Controls.Add(pnl_Main);
             DoubleBuffered = true;
-            FormBorderStyle = FormBorderStyle.None;
-            IsMdiContainer = true;
-            MainMenuStrip = menuStrip1;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main";
+            WindowState = FormWindowState.Maximized;
+            FormClosed += Main_FormClosed;
             Load += Main_Load;
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            pnl_Top.ResumeLayout(false);
+            pnl_Top.PerformLayout();
+            pnl_Sidebar.ResumeLayout(false);
+            pnl_Main.ResumeLayout(false);
+            pnl_Loading.ResumeLayout(false);
+            pnl_Loading.PerformLayout();
+            tabControl1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem addFileNumberToolStripMenuItem;
-        private ToolStripMenuItem editFileNumberToolStripMenuItem;
-        private ToolStripMenuItem printFileToolStripMenuItem;
-        private ToolStripMenuItem frintFileTagToolStripMenuItem;
-        private ToolStripMenuItem searchFileNumberToolStripMenuItem;
-        private ToolStripMenuItem issueCommemorativeToolStripMenuItem;
-        private ToolStripMenuItem addIssueDetailToolStripMenuItem;
-        private ToolStripMenuItem editIssueDetailToolStripMenuItem;
-        private ToolStripMenuItem searchIssueToolStripMenuItem;
-        private ToolStripMenuItem invoiceEtnryToolStripMenuItem;
-        private ToolStripMenuItem addInvoiceToolStripMenuItem;
-        private ToolStripMenuItem correctionInvoiceToolStripMenuItem;
-        private ToolStripMenuItem penddingInvoiceToolStripMenuItem;
-        private ToolStripMenuItem addressBookToolStripMenuItem;
-        private ToolStripMenuItem addNewAddressToolStripMenuItem;
-        private ToolStripMenuItem editAddressToolStripMenuItem;
-        private ToolStripMenuItem addOfficerAddressToolStripMenuItem;
-        private ToolStripMenuItem supplyToolStripMenuItem;
-        private ToolStripMenuItem phelatilicSupplyToolStripMenuItem;
-        private ToolStripMenuItem stationerySupplyToolStripMenuItem;
-        private ToolStripMenuItem printSupplyReportToolStripMenuItem;
-        private ToolStripMenuItem issuePrintingWorkToolStripMenuItem;
-        private ToolStripMenuItem addDistributionListToolStripMenuItem;
-        private ToolStripMenuItem singlePrintJobToolStripMenuItem;
-        private ToolStripMenuItem issuePrintingJobsToolStripMenuItem;
-        private ToolStripMenuItem dToolStripMenuItem;
-        private ToolStripMenuItem dGSirculareQuantityToolStripMenuItem;
-        private ToolStripMenuItem printOrderToolStripMenuItem;
-        private ToolStripMenuItem nSPCToolStripMenuItem;
-        private ToolStripMenuItem commemorativeStampToolStripMenuItem;
-        private ToolStripMenuItem postOfficeFoundationToolStripMenuItem;
-        private ToolStripMenuItem specialPostMarkToolStripMenuItem;
-        private ToolStripMenuItem promtPrinterToolStripMenuItem;
-        private ToolStripMenuItem fDCAndLeafletsToolStripMenuItem;
-        private ToolStripMenuItem userToolStripMenuItem;
-        private ToolStripMenuItem addUserToolStripMenuItem;
-        private ToolStripMenuItem searchUserToolStripMenuItem;
-        private ToolStripMenuItem registorToolStripMenuItem;
-        private PictureBox pictureBox3;
+        private Panel pnl_Top;
+        private Panel pnl_Sidebar;
+        private Button btn_InvoiceWork;
+        private Button btn_PhiletalicSupply;
+        private Button btn_Issue;
+        private Button btn_Com;
+        private Button btn_File;
+        private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
+        private dtTable.dsPhilatelic dsPhilatelic1;
+        private Panel pnl_Main;
+        private TabControl tabControl1;
+        private TabPage tab_1;
+        private TabPage tab_2;
+        private TabPage tab_3;
+        private System.Windows.Forms.Timer timer1;
+        private TabPage tab_4;
+        private Button btn_Admin;
+        private Label txt_userName;
+        private TabPage Dashboard;
+        private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder2;
+        private Button btn_Address;
+        private TabPage tab_6;
+        private TabPage tab_7;
+        private Button btn_logout;
+        private Button button1;
+        private Button btn_task;
+        private Panel pnl_Loading;
+        private Label label45;
     }
 }

@@ -59,9 +59,14 @@ namespace FileIndex
                 try
                 {
                     string query1 = @"SELECT fi.Id, fi.FileNo 
-                     FROM FileIndex fi
-                     INNER JOIN CommStamp cs ON fi.Id = cs.FileNo
-                     ORDER BY Id DESC";
+                                 FROM FileIndex fi
+                                 INNER JOIN CommStamp cs ON fi.Id = cs.FileNo
+                                 WHERE EXISTS (
+                                    SELECT 1 
+                                    FROM PhilatelicSupply SP 
+                                    WHERE SP.FileNo = fi.Id
+                                 )
+                                 ORDER BY fi.Id DESC";
                     //WHERE cs.Id = @stampId";
                     SqlDataAdapter adapter1 = new SqlDataAdapter(query1, con);
                     DataTable dt1 = new DataTable();

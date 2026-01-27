@@ -186,6 +186,7 @@
             Controls.Add(label3);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AddFileNo";
+            RightToLeft = RightToLeft.No;
             Text = "AddFileNo";
             Load += AddFileNo_Load;
             ResumeLayout(false);

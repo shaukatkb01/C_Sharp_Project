@@ -110,15 +110,16 @@
             label1.Name = "label1";
             label1.Size = new Size(398, 87);
             label1.TabIndex = 116;
-            label1.Text = "Philatelic Supply Details";
+            label1.Text = "Correction in Philatelic Supply";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // dataGridView1
             // 
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dataGridView1.Location = new Point(-267, 462);
+            dataGridView1.Location = new Point(-320, 462);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(1374, 169);
             dataGridView1.TabIndex = 0;
@@ -127,7 +128,6 @@
             // 
             // groupBox1
             // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             groupBox1.Controls.Add(text_Leaflet_B);
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(text_Stamp_B);
@@ -138,9 +138,9 @@
             groupBox1.Controls.Add(text_FDC_B);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label4);
-            groupBox1.Location = new Point(740, 12);
+            groupBox1.Location = new Point(711, 58);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(367, 312);
+            groupBox1.Size = new Size(323, 312);
             groupBox1.TabIndex = 122;
             groupBox1.TabStop = false;
             groupBox1.Text = "Balance";
@@ -248,7 +248,7 @@
             text_remark.PlaceholderText = "Insert Remark if any";
             text_remark.Size = new Size(579, 107);
             text_remark.TabIndex = 149;
-            text_remark.Tag = "Skip";
+            text_remark.Tag = "PhilControll";
             // 
             // label15
             // 
@@ -267,6 +267,7 @@
             date_Supply.Name = "date_Supply";
             date_Supply.Size = new Size(128, 29);
             date_Supply.TabIndex = 142;
+            date_Supply.Tag = "PhilControll";
             date_Supply.Value = new DateTime(2026, 1, 1, 0, 0, 0, 0);
             // 
             // com_ST
@@ -277,6 +278,7 @@
             com_ST.Name = "com_ST";
             com_ST.Size = new Size(128, 29);
             com_ST.TabIndex = 141;
+            com_ST.Tag = "PhilControll";
             // 
             // label14
             // 
@@ -295,6 +297,7 @@
             num_Leaflet.Name = "num_Leaflet";
             num_Leaflet.Size = new Size(94, 29);
             num_Leaflet.TabIndex = 146;
+            num_Leaflet.Tag = "PhilControll";
             // 
             // label12
             // 
@@ -313,6 +316,7 @@
             num_FDC.Name = "num_FDC";
             num_FDC.Size = new Size(94, 29);
             num_FDC.TabIndex = 145;
+            num_FDC.Tag = "PhilControll";
             // 
             // num_FDCC
             // 
@@ -321,6 +325,7 @@
             num_FDCC.Name = "num_FDCC";
             num_FDCC.Size = new Size(94, 29);
             num_FDCC.TabIndex = 147;
+            num_FDCC.Tag = "PhilControll";
             // 
             // num_PM
             // 
@@ -329,6 +334,7 @@
             num_PM.Name = "num_PM";
             num_PM.Size = new Size(94, 29);
             num_PM.TabIndex = 148;
+            num_PM.Tag = "PhilControll";
             // 
             // label7
             // 
@@ -377,6 +383,7 @@
             num_Stamp.Name = "num_Stamp";
             num_Stamp.Size = new Size(94, 29);
             num_Stamp.TabIndex = 144;
+            num_Stamp.Tag = "PhilControll";
             // 
             // com_Address
             // 
@@ -386,6 +393,7 @@
             com_Address.Name = "com_Address";
             com_Address.Size = new Size(579, 29);
             com_Address.TabIndex = 143;
+            com_Address.Tag = "PhilControll";
             // 
             // label2
             // 
@@ -423,6 +431,7 @@
             button1.Name = "button1";
             button1.Size = new Size(209, 57);
             button1.TabIndex = 150;
+            button1.Tag = "PhilControll";
             button1.Text = "Save";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
@@ -431,7 +440,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1278, 665);
+            ClientSize = new Size(1149, 665);
             Controls.Add(button1);
             Controls.Add(lbl_SelectedID);
             Controls.Add(label16);

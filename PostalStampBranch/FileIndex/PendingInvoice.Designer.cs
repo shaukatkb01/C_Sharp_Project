@@ -58,7 +58,7 @@
             label7.Name = "label7";
             label7.Size = new Size(398, 87);
             label7.TabIndex = 104;
-            label7.Text = "Invoice Entry";
+            label7.Text = "Acknowledge Invoice";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // com_InvoiceNo

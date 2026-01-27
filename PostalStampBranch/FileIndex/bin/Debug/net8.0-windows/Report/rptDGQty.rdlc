@@ -439,9 +439,9 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox2</rd:DefaultName>
-                          <Left>0.01042in</Left>
+                          <Left>0.16667in</Left>
                           <Height>3.55556in</Height>
-                          <Width>7.43833in</Width>
+                          <Width>7.28208in</Width>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -803,9 +803,9 @@
                           </Paragraphs>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Top>5.9132in</Top>
-                          <Left>0.01042in</Left>
+                          <Left>0.16667in</Left>
                           <Height>1.35417in</Height>
-                          <Width>7.41832in</Width>
+                          <Width>7.26207in</Width>
                           <ZIndex>2</ZIndex>
                           <Style>
                             <Border>
@@ -1511,9 +1511,9 @@
                           </Paragraphs>
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Top>10.84292in</Top>
-                          <Left>0.01042in</Left>
+                          <Left>0.16667in</Left>
                           <Height>9.56944in</Height>
-                          <Width>7.43833in</Width>
+                          <Width>7.28208in</Width>
                           <ZIndex>4</ZIndex>
                           <Style>
                             <Border>
@@ -1564,13 +1564,15 @@
           <Border>
             <Style>None</Style>
           </Border>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>0.25pt</PaddingRight>
         </Style>
       </Tablix>
     </ReportItems>
     <Height>20.41236in</Height>
     <Style />
   </Body>
-  <Width>7.47918in</Width>
+  <Width>7.46876in</Width>
   <Page>
     <PageWidth>8in</PageWidth>
     <Style />

@@ -13,6 +13,41 @@ namespace FileIndex
 {
     public partial class PendingInvoice : Form
     {
+        // 1. Function parameters ko theek kiya (int status aur ComboBox comp)
+        public void pendinginvoice(int status, ComboBox comp)
+        {
+            using (SqlConnection con = new SqlConnection(Db.ConString))
+            {
+                try
+                {
+                    // 2. Query mein filter lagaya jo 'CommStamp' table mein moojood hon
+                    string query = @"SELECT Id, InvoiceNo
+                             FROM InvoiceRegister
+                             WHERE Acknowledgetyp = @st
+                            
+                             ORDER BY Id DESC";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    // 3. Status parameter ko @st se jora
+                    cmd.Parameters.AddWithValue("@st", status);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    // 4. 'comp' variable use kiya jo bahar se aaya hai
+                    comp.DataSource = dt;
+                    comp.DisplayMember = "InvoiceNo";
+                    comp.ValueMember = "Id";
+                    comp.SelectedIndex = -1;
+                }
+                catch (Exception ex)
+                {
+                    // '&' ki jagah '+' lagayein
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
         public PendingInvoice()
         {
             InitializeComponent();
@@ -25,23 +60,24 @@ namespace FileIndex
 
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
-                try
-                {
-                    string query = @"SELECT Id,InvoiceNo
-                                 FROM  InvoiceRegister
-                                WHERE Acknowledgetyp=2
-                                ORDER BY Id DESC";
-                    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    com_InvoiceNo.DataSource = dt;
-                    com_InvoiceNo.DisplayMember = "InvoiceNo";
-                    com_InvoiceNo.ValueMember = "id";
-                    com_InvoiceNo.SelectedIndex = -1;
-                }
-                catch (Exception ex) { MessageBox.Show(ex.Message); }
+                //try
+                //{
+                //    string query = @"SELECT Id,InvoiceNo
+                //                 FROM  InvoiceRegister
+                //                WHERE Acknowledgetyp=2
+                //                ORDER BY Id DESC";
+                //    SqlDataAdapter adapter = new SqlDataAdapter(query, con);
+                //    DataTable dt = new DataTable();
+                //    adapter.Fill(dt);
+                //    com_InvoiceNo.DataSource = dt;
+                //    com_InvoiceNo.DisplayMember = "InvoiceNo";
+                //    com_InvoiceNo.ValueMember = "id";
+                //    com_InvoiceNo.SelectedIndex = -1;
+                //}
+                //catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-               
+                pendinginvoice(2, com_InvoiceNo);
+
             }
         }
 
@@ -113,6 +149,7 @@ namespace FileIndex
                     ClearForm.ClearAllControls(this);
                     com_InvoiceNo.Focus();
                     MessageBox.Show("Pending Invoice Acknowldge successfully");
+                pendinginvoice(2, com_InvoiceNo);
                 }
             }
             catch(Exception ex)
