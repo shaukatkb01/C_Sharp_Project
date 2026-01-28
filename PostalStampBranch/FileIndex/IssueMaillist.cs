@@ -118,7 +118,8 @@ namespace FileIndex
 
             FillBureauDropdowns(); // Pehle Bureaus bharein
             FillDisTypeDropdowns(); // Phir unke mutabiq Dispatch Types bharein
-
+            num_1_K.Text = num_1_K.Value.ToString("00");
+            num_1_G.Text = num_1_G.Value.ToString("00");
             // dispatch types main 
 
             using (SqlConnection con = new SqlConnection(Db.ConString))
@@ -146,7 +147,7 @@ namespace FileIndex
 
         }
 
-        
+
 
         private void label4_Click(object sender, EventArgs e)
         {
@@ -216,6 +217,11 @@ namespace FileIndex
 
         private void btn_Save_Click_1(object sender, EventArgs e)
         {
+            if (Cmb_IssueNo.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select Issue No first!", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
                 con.Open();
@@ -256,6 +262,11 @@ namespace FileIndex
                 }
                 MessageBox.Show("MaleList Data successfully updated!");
             }
+        }
+
+        private void num_1_K_ValueChanged(object sender, EventArgs e)
+        {
+            num_1_K.Text = num_1_K.Value.ToString("00");
         }
     }
 }
