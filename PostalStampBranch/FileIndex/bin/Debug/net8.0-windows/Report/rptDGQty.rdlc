@@ -446,8 +446,8 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
-                            <PaddingLeft>10pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingLeft>30pt</PaddingLeft>
+                            <PaddingRight>15pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
@@ -804,15 +804,15 @@
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Top>5.9132in</Top>
                           <Left>0.16667in</Left>
-                          <Height>1.35417in</Height>
+                          <Height>4.82208in</Height>
                           <Width>7.26207in</Width>
                           <ZIndex>2</ZIndex>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
-                            <PaddingLeft>10pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingLeft>30pt</PaddingLeft>
+                            <PaddingRight>15pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
@@ -1254,13 +1254,26 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value xml:space="preserve">                                                                                                          </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Label>SignatureAuthority</Label>
+                                  <Value>=Fields!SignatureAuthority.Value</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1519,8 +1532,8 @@
                             <Border>
                               <Style>None</Style>
                             </Border>
-                            <PaddingLeft>10pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingLeft>30pt</PaddingLeft>
+                            <PaddingRight>15pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>

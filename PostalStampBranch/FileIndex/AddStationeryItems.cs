@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
+
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
@@ -128,7 +129,7 @@ namespace FileIndex
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+               return System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().Location);
             }
         }
 
@@ -136,7 +137,8 @@ namespace FileIndex
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                // Defensive: Version can be null, so use null-conditional and null-coalescing operators
+                return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? string.Empty;
             }
         }
 

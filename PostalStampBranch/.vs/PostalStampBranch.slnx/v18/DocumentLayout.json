@@ -1,0 +1,103 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\C_Sharp_Project\\PostalStampBranch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\addstationeryitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\addstationeryitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3fd5e0cc-709a-4f8c-94c3-7f0f8dff5bb2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Main.cs",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs",
+              "RelativeDocumentMoniker": "FileIndex\\Main.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs",
+              "RelativeToolTip": "FileIndex\\Main.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAUwC8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:47:23.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Main.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs",
+              "RelativeDocumentMoniker": "FileIndex\\Main.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs [Design]",
+              "RelativeToolTip": "FileIndex\\Main.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:46:00.226Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AddStationeryItems.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\AddStationeryItems.cs",
+              "RelativeDocumentMoniker": "FileIndex\\AddStationeryItems.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\AddStationeryItems.cs [Design]",
+              "RelativeToolTip": "FileIndex\\AddStationeryItems.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T13:42:09.313Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 79,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

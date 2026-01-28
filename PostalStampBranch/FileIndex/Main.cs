@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,56 +17,125 @@ namespace FileIndex
 {
     public partial class Main : Form
     {
-
-
-
-        public void MigratePriceAndQty()
+        string fileName;
+        string fullPath;
+        public void RunAutoBackup(string folderPath)
         {
-
-        }
-        private void AutoBackup()
-        {
-
-            // Backup folder ka rasta
-            string folderPath = @"C:\Users\ccsk_\OneDrive\PS\ProjectBackups";
-
-            // 7 din se purani files dhoondo aur delete karo
-            DirectoryInfo d = new DirectoryInfo(folderPath);
-            foreach (FileInfo file in d.GetFiles("*.bak"))
-            {
-                if (file.LastWriteTime < DateTime.Now.AddDays(-7))
-                {
-                    file.Delete();
-                }
-            }
             try
             {
-                // 1. Backup kahan save karna hai (Folder path)
-                
-                if (!System.IO.Directory.Exists(folderPath))
-                    System.IO.Directory.CreateDirectory(folderPath);
+                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
-                // 2. File ka naam date ke sath (taake roz naya backup banay)
-                string fileName = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm") + ".bak";
-                string fullPath = System.IO.Path.Combine(folderPath, fileName);
-
-                // 3. SQL Command
-                string query = $"BACKUP DATABASE [PSDB] TO DISK = '{fullPath}'";
-
-                using (SqlConnection con = new(Db.ConString))
+                // 7 Din purani files delete karein
+                DirectoryInfo d = new DirectoryInfo(folderPath);
+                foreach (FileInfo file in d.GetFiles("AutoBackup_*.bak"))
                 {
-                    SqlCommand cmd = new(query, con);
+                    if (file.LastWriteTime < DateTime.Now.AddDays(-7)) file.Delete();
+                }
+
+                // SQL Backup Command
+                string fileName = "AutoBackup_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm") + ".bak";
+                string fullPath = Path.Combine(folderPath, fileName);
+                string query = $"BACKUP DATABASE [PSDB] TO DISK = '{fullPath}' WITH FORMAT";
+
+                using (SqlConnection con = new SqlConnection(Db.ConString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch { /* Background mein error handle karein */ }
+        }
+        public void ExecuteBackup(string folderPath)
+        {
+            try
+            {
+                // 1. Folder check karein aur banayein agar mojud nahi hai
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                // 2. File ka naam date aur time ke sath
+                string fileName = "ManualBackup_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm") + ".bak";
+                string fullPath = Path.Combine(folderPath, fileName);
+
+                // 3. SQL Query (Database ka naam apne mutabiq check kar lein)
+                // Agar aapke DB ka naam PSDB hai toh wahi likhein
+                string query = $"BACKUP DATABASE [PSDB] TO DISK = '{fullPath}' WITH FORMAT";
+
+                using (SqlConnection con = new SqlConnection(Db.ConString))
+                {
+                    // Microsoft.Data.SqlClient use karein warning se bachne ke liye
+                    SqlCommand cmd = new SqlCommand(query, con);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
+
+                MessageBox.Show("Backup successfully save ho gaya!\nPath: " + fullPath, "Success");
             }
             catch (Exception ex)
             {
-                // Agar backup fail ho jaye (maslan space na ho ya permission na ho)
-                MessageBox.Show("Backup Error: " + ex.Message);
+                MessageBox.Show("Backup Fail ho gaya: " + ex.Message, "Error");
             }
         }
+
+        private static void DeleteOldBackups(string folderPath, int days)
+        {
+            string[] files = Directory.GetFiles(folderPath, "Postal_*.bak");
+            foreach (string file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                if (fi.CreationTime < DateTime.Now.AddDays(-days))
+                {
+                    fi.Delete();
+                }
+            }
+        }
+        //private void AutoBackup()
+        //{
+
+        //    // Backup folder ka rasta
+        //    string folderPath = @"C:\Users\ccsk_\OneDrive\PS\ProjectBackups";
+
+        //    // 7 din se purani files dhoondo aur delete karo
+        //    DirectoryInfo d = new DirectoryInfo(folderPath);
+        //    foreach (FileInfo file in d.GetFiles("*.bak"))
+        //    {
+        //        if (file.LastWriteTime < DateTime.Now.AddDays(-7))
+        //        {
+        //            file.Delete();
+        //        }
+        //    }
+        //    try
+        //    {
+        //        // 1. Backup kahan save karna hai (Folder path)
+
+        //        if (!System.IO.Directory.Exists(folderPath))
+        //            System.IO.Directory.CreateDirectory(folderPath);
+
+        //        // 2. File ka naam date ke sath (taake roz naya backup banay)
+        //        string fileName = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm") + ".bak";
+        //        string fullPath = System.IO.Path.Combine(folderPath, fileName);
+
+        //        // 3. SQL Command
+        //        string query = $"BACKUP DATABASE [PSDB] TO DISK = '{fullPath}'";
+
+        //        using (SqlConnection con = new(Db.ConString))
+        //        {
+        //            SqlCommand cmd = new(query, con);
+        //            con.Open();
+        //            cmd.ExecuteNonQuery();
+        //            con.Close();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Agar backup fail ho jaye (maslan space na ho ya permission na ho)
+        //        MessageBox.Show("Backup Error: " + ex.Message);
+        //    }
+        //}
 
 
         // Text update karne ke liye alag function (Performance behtar hogi)
@@ -642,10 +712,48 @@ namespace FileIndex
 
         private void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Software band hone se pehle backup le lo
-            AutoBackup();
+
+
+            // Settings se purani saved value uthayein
+            string savedPath = Properties.Settings.Default.BackupFolderPath;
+
+            // Agar user ne zindagi mein ek dafa bhi button daba kar path set kiya hoga, 
+            // toh savedPath khali nahi hoga.
+            if (string.IsNullOrEmpty(savedPath))
+            {
+                // Agar bilkul hi khali hai (pehli dafa chal raha hai), tabhi default Documents use karein
+                savedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "PostalBackups");
+            }
+
+            // Ab backup ka function call karein (Wahi ExecuteBackup wala logic)
+            RunAutoBackup(savedPath);
+
+        }
+
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            {
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    // 1. Memory mein value rakhein
+                    Properties.Settings.Default.BackupFolderPath = fbd.SelectedPath;
+
+                    // 2. Isay PC ki hard drive mein permanently save karein
+                    Properties.Settings.Default.Save();
+
+                    MessageBox.Show("The location is set forever!");
+                }
+            }
+
+        }
+
+            
         }
     }
-}
+    
+
+
 
 

@@ -98,7 +98,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>KPAKISTAN POST</Value>
+                                      <Value>PAKISTAN POST</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -333,18 +333,18 @@
                                     </TextRun>
                                     <TextRun>
                                       <Label>Date of Avalible</Label>
-                                      <Value>=Fields!DateOfIssue.Value</Value>
+                                      <Value>=Format(Fields!DateOfIssue.Value,"dd/MM/yyyy")</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
                                         <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
+                                        <FontWeight>Bold</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>at all the important Post Offices in Pakistan. It should be carefully noted that the Commemorative Postage Stamp is not to be put on sale before the date of issue under any circumstances.</Value>
+                                      <Value> at all the important Post Offices in Pakistan. It should be carefully noted that the Commemorative Postage Stamp is not to be put on sale before the date of issue under any circumstances.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -381,7 +381,7 @@
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
                                         <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
+                                        <FontWeight>Bold</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
@@ -404,13 +404,13 @@
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
                                         <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
+                                        <FontWeight>Bold</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>/-per item respectively, are also brought out. The price of the first day of issue covers and leaflets will be recovered in cash in addition to the value of the stamps required to be affixed on the first day of issue covers (without stamp). The leaflets may not be put on sale before the date of the actual release of the Commemorative Postage Stamp.</Value>
+                                      <Value>/- per item respectively, are also brought out. The price of the first day of issue covers and leaflets will be recovered in cash in addition to the value of the stamps required to be affixed on the first day of issue covers (without stamp). The leaflets may not be put on sale before the date of the actual release of the Commemorative Postage Stamp.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -470,7 +470,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value xml:space="preserve">                                 </Value>
+                                      <Value xml:space="preserve">                           </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -487,7 +487,7 @@
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
                                         <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
+                                        <FontWeight>Bold</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
@@ -623,7 +623,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>1.    The Director General, Pak. Post Islamabad.</Value>
+                                      <Value>The Director General, Pak. Post Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -634,8 +634,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -644,7 +646,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>2.    All the Postmasters General, for information and necessary instructions in the matter, may kindly be issued to all concerned offices under their jurisdictions, please. </Value>
+                                      <Value>All the Postmasters General, for information and necessary instructions in the matter, may kindly be issued to all concerned offices under their jurisdictions, please. </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -655,8 +657,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -665,7 +669,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>3.    The Director, Postal Staff College, Islamabad.</Value>
+                                      <Value>The Director, Postal Staff College, Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -676,8 +680,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -686,7 +692,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>4.    The Principal, Postal Training Centre, Karachi, Lahore, Islamabad.</Value>
+                                      <Value>The Principal, Postal Training Centre, Karachi, Lahore, Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -697,8 +703,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -707,7 +715,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>5.    The Director (Inland Mail), Dte-General, Pakistan Post, Islamabad, for processing and issuance at Dte. General level.</Value>
+                                      <Value>The Director (Inland Mail), Dte-General, Pakistan Post, Islamabad, for processing and issuance at Dte. General level.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -718,8 +726,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -728,7 +738,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>6.    All Chief/Senior, Postmasters for information and necessary action. It should be ensured that the Commemorative Postage Stamp will not be sold to the Public by any Post Office before the prescribed date.</Value>
+                                      <Value>All Chief/Senior, Postmasters for information and necessary action. It should be ensured that the Commemorative Postage Stamp will not be sold to the Public by any Post Office before the prescribed date.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -739,8 +749,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -749,7 +761,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>7.    The Manager, Philatelic Bureau Karachi, Lahore, Rawalpindi, Peshawar, Mardan, Multan, Bahawalpur, Sialkot, Gujrat, Gujranwala, Sargodha, Faisalabad, Khairpur, Hyderabad, Quetta, Sukkur, Murree, Post Mall Gulberg Lahore and National Philatelic Bureau, Islamabad.</Value>
+                                      <Value>The Manager, Philatelic Bureau Karachi, Lahore, Rawalpindi, Peshawar, Mardan, Multan, Bahawalpur, Sialkot, Gujrat, Gujranwala, Sargodha, Faisalabad, Khairpur, Hyderabad, Quetta, Sukkur, Murree, Post Mall Gulberg Lahore and National Philatelic Bureau, Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -760,8 +772,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -770,7 +784,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>8.    Deputy Controller of Stamps, Karachi % the Chief Controller of Stamps Karachi.</Value>
+                                      <Value>Deputy Controller of Stamps, Karachi % the Chief Controller of Stamps Karachi.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -781,8 +795,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -791,7 +807,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>9.    Store Keeper Central Stamps Store, Karachi.</Value>
+                                      <Value>Store Keeper Central Stamps Store, Karachi.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -802,8 +818,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -812,7 +830,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>10. The Supdt. (Procurement) Branch, Dte-General, Pak. Post Islamabad for arranging publication in the DG’s Circular in the D.G gazette w.r.t. D.G.P.P.O Islamabad letter No. Dy. D.G(R)/43/2010 dated 17-6-2010.</Value>
+                                      <Value>The Supdt. (Procurement) Branch, Dte-General, Pak. Post Islamabad for arranging publication in the DG’s Circular in the D.G gazette w.r.t. D.G.P.P.O Islamabad letter No. Dy. D.G(R)/43/2010 dated 17-6-2010.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -823,8 +841,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -833,7 +853,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>11. A.S.S General Branch, % the Chief Controller of Stamps Karachi.</Value>
+                                      <Value>A.S.S General Branch, % the Chief Controller of Stamps Karachi.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -844,8 +864,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.19722in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-14.2pt</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -880,8 +902,8 @@
                                 <Border>
                                   <Style>None</Style>
                                 </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingLeft>25pt</PaddingLeft>
+                                <PaddingRight>10pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
@@ -1069,7 +1091,7 @@
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
                                         <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
+                                        <FontWeight>Bold</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
@@ -1248,7 +1270,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value xml:space="preserve">                                     </Value>
+                                      <Value xml:space="preserve">                </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1449,7 +1471,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>1.       The Director General, International Bureau, Universal Postal Union, Berne, Switzerland.</Value>
+                                      <Value>The Director General, International Bureau, Universal Postal Union, Berne, Switzerland.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1460,8 +1482,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1470,7 +1494,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>2.       All the Group Officers, through Director (IM) % the Dte-General, Pakistan Post, Islamabad.</Value>
+                                      <Value>All the Group Officers, through Director (IM) % the Dte-General, Pakistan Post, Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1481,8 +1505,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1491,7 +1517,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>3.       Postmasters General, Karachi, Multan, Lahore, Rawalpindi, Peshawar, Quetta, Islamabad, and Azad Jammu &amp; Kashmir.</Value>
+                                      <Value>Postmasters General, Karachi, Multan, Lahore, Rawalpindi, Peshawar, Quetta, Islamabad, and Azad Jammu &amp; Kashmir.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1502,8 +1528,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1512,7 +1540,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>4.       Store Keeper, Central Stamps Store, Karachi.</Value>
+                                      <Value>Store Keeper, Central Stamps Store, Karachi.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1523,8 +1551,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1533,7 +1563,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>5.       A.S.S General Branch % Chief Controller of Stamps, Karachi.</Value>
+                                      <Value>A.S.S General Branch % Chief Controller of Stamps, Karachi.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1544,8 +1574,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1554,7 +1586,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>6.       Manager, Philatelic Bureau Karachi, Lahore, Multan, Faisalabad, Khairpur, Bahawalpur, Rawalpindi, Gujrat, Gujranwala, Sialkot, Sargodha, Hyderabad, Mardan, Sukkur, Murree, Peshawar, Quetta, Post Mall Gulberg Lahore and National Philatelic Bureau, Islamabad.</Value>
+                                      <Value>Manager, Philatelic Bureau Karachi, Lahore, Multan, Faisalabad, Khairpur, Bahawalpur, Rawalpindi, Gujrat, Gujranwala, Sialkot, Sargodha, Hyderabad, Mardan, Sukkur, Murree, Peshawar, Quetta, Post Mall Gulberg Lahore and National Philatelic Bureau, Islamabad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1565,8 +1597,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1575,7 +1609,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>7.       Director General, External Publicity Wing, Ministry of Information and Broadcasting, Islamabad for arranging publicity through Pak. Embassies and Diplomatic Mission, abroad.</Value>
+                                      <Value>Director General, External Publicity Wing, Ministry of Information and Broadcasting, Islamabad for arranging publicity through Pak. Embassies and Diplomatic Mission, abroad.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1586,8 +1620,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1596,7 +1632,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>8.       Director General (Information) Press Information Department Govt. of Pakistan Islamabad and Karachi for the favor of giving adequate publicity in the News Papers and other media of the country.</Value>
+                                      <Value>Director General (Information) Press Information Department Govt. of Pakistan Islamabad and Karachi for the favor of giving adequate publicity in the News Papers and other media of the country.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1607,8 +1643,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1617,7 +1655,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>9.       Director Press Information Departments, Govt. of Sindh, Karachi, Govt. of Punjab, Lahore, Govt. of Khyber Pakhtunkhwa, Peshawar and Govt. of Baluchistan, Quetta for the favor of News.</Value>
+                                      <Value>Director Press Information Departments, Govt. of Sindh, Karachi, Govt. of Punjab, Lahore, Govt. of Khyber Pakhtunkhwa, Peshawar and Govt. of Baluchistan, Quetta for the favor of News.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1628,8 +1666,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1638,7 +1678,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>10.   All Regional Deputy Postmaster General for information and to issue necessary instructions in the matter may kindly be issued to all concerned.</Value>
+                                      <Value>All Regional Deputy Postmaster General for information and to issue necessary instructions in the matter may kindly be issued to all concerned.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1649,8 +1689,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1659,7 +1701,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>11.   Office Copy.</Value>
+                                      <Value>Office Copy.</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -1670,8 +1712,10 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <LeftIndent>0.5in</LeftIndent>
+                                  <LeftIndent>0cm</LeftIndent>
                                   <HangingIndent>-0.25in</HangingIndent>
+                                  <ListStyle>Numbered</ListStyle>
+                                  <ListLevel>1</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -1688,8 +1732,8 @@
                                 <Border>
                                   <Style>None</Style>
                                 </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingLeft>25pt</PaddingLeft>
+                                <PaddingRight>10pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
@@ -2401,7 +2445,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>16.          do                  Sukkur                                          1</Value>
+                                      <Value>16.          do                  Sukkur                                        1</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2422,7 +2466,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>17.          do                  Khairpur                                        1</Value>
+                                      <Value>17.          do                  Khairpur                                      1</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2443,7 +2487,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>18.   Post Mall, Gulberg Lahore                                          1</Value>
+                                      <Value>18.   Post Mall, Gulberg Lahore                                        1</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2464,7 +2508,7 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>19.   National Philatelic Bureau, Islamabad, GPO.               1</Value>
+                                      <Value>19.   National Philatelic Bureau, Islamabad, GPO.             1</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2613,7 +2657,7 @@
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value xml:space="preserve">                                               </Value>
+                                      <Value xml:space="preserve">                     </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
@@ -2752,7 +2796,8 @@
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
-                                  <HangingIndent>1in</HangingIndent>
+                                  <HangingIndent>0cm</HangingIndent>
+                                  <ListLevel>2</ListLevel>
                                   <Style>
                                     <TextAlign>Left</TextAlign>
                                     <LineHeight>13pt</LineHeight>
@@ -2768,8 +2813,8 @@
                                 <Border>
                                   <Style>None</Style>
                                 </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingLeft>25pt</PaddingLeft>
+                                <PaddingRight>10pt</PaddingRight>
                                 <PaddingTop>2pt</PaddingTop>
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>

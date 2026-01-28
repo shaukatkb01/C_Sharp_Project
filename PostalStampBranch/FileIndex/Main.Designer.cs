@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             pnl_Top = new Panel();
+            btnBackup = new Button();
             btn_task = new Button();
             button1 = new Button();
             btn_logout = new Button();
@@ -67,23 +68,34 @@
             // pnl_Top
             // 
             pnl_Top.BackColor = Color.SkyBlue;
+            pnl_Top.Controls.Add(btnBackup);
             pnl_Top.Controls.Add(btn_task);
             pnl_Top.Controls.Add(button1);
             pnl_Top.Controls.Add(btn_logout);
             pnl_Top.Controls.Add(txt_userName);
             pnl_Top.Dock = DockStyle.Top;
             pnl_Top.Location = new Point(0, 0);
-            pnl_Top.Margin = new Padding(2, 2, 2, 2);
             pnl_Top.Name = "pnl_Top";
-            pnl_Top.Size = new Size(966, 39);
+            pnl_Top.Size = new Size(1247, 55);
             pnl_Top.TabIndex = 14;
+            // 
+            // btnBackup
+            // 
+            btnBackup.Dock = DockStyle.Right;
+            btnBackup.Location = new Point(845, 0);
+            btnBackup.Name = "btnBackup";
+            btnBackup.Size = new Size(134, 55);
+            btnBackup.TabIndex = 4;
+            btnBackup.Text = "Set Backup Locaiton";
+            btnBackup.UseVisualStyleBackColor = true;
+            btnBackup.Click += btnBackup_Click;
             // 
             // btn_task
             // 
-            btn_task.Location = new Point(702, 0);
-            btn_task.Margin = new Padding(2, 2, 2, 2);
+            btn_task.Dock = DockStyle.Right;
+            btn_task.Location = new Point(979, 0);
             btn_task.Name = "btn_task";
-            btn_task.Size = new Size(104, 39);
+            btn_task.Size = new Size(134, 55);
             btn_task.TabIndex = 3;
             btn_task.Text = "Task";
             btn_task.UseVisualStyleBackColor = true;
@@ -91,10 +103,9 @@
             // 
             // button1
             // 
-            button1.Location = new Point(507, 0);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Location = new Point(652, 0);
             button1.Name = "button1";
-            button1.Size = new Size(171, 26);
+            button1.Size = new Size(220, 36);
             button1.TabIndex = 2;
             button1.Text = "data import from access";
             button1.UseVisualStyleBackColor = true;
@@ -106,10 +117,9 @@
             btn_logout.Dock = DockStyle.Right;
             btn_logout.Image = (Image)resources.GetObject("btn_logout.Image");
             btn_logout.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_logout.Location = new Point(850, 0);
-            btn_logout.Margin = new Padding(2, 2, 2, 2);
+            btn_logout.Location = new Point(1113, 0);
             btn_logout.Name = "btn_logout";
-            btn_logout.Size = new Size(116, 39);
+            btn_logout.Size = new Size(134, 55);
             btn_logout.TabIndex = 1;
             btn_logout.Text = "Logout";
             btn_logout.UseVisualStyleBackColor = true;
@@ -119,8 +129,7 @@
             // 
             txt_userName.AutoSize = true;
             txt_userName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            txt_userName.Location = new Point(46, 5);
-            txt_userName.Margin = new Padding(2, 0, 2, 0);
+            txt_userName.Location = new Point(59, 7);
             txt_userName.Name = "txt_userName";
             txt_userName.Size = new Size(0, 21);
             txt_userName.TabIndex = 0;
@@ -135,10 +144,9 @@
             pnl_Sidebar.Controls.Add(btn_Issue);
             pnl_Sidebar.Controls.Add(btn_Com);
             pnl_Sidebar.Controls.Add(btn_File);
-            pnl_Sidebar.Location = new Point(0, 44);
-            pnl_Sidebar.Margin = new Padding(2, 2, 2, 2);
+            pnl_Sidebar.Location = new Point(0, 62);
             pnl_Sidebar.Name = "pnl_Sidebar";
-            pnl_Sidebar.Size = new Size(33, 500);
+            pnl_Sidebar.Size = new Size(42, 700);
             pnl_Sidebar.TabIndex = 17;
             // 
             // btn_Address
@@ -150,10 +158,9 @@
             btn_Address.ForeColor = Color.White;
             btn_Address.Image = (Image)resources.GetObject("btn_Address.Image");
             btn_Address.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_Address.Location = new Point(0, 216);
-            btn_Address.Margin = new Padding(2, 2, 2, 2);
+            btn_Address.Location = new Point(0, 300);
             btn_Address.Name = "btn_Address";
-            btn_Address.Size = new Size(33, 36);
+            btn_Address.Size = new Size(42, 50);
             btn_Address.TabIndex = 6;
             btn_Address.UseVisualStyleBackColor = true;
             btn_Address.Click += btn_Address_Click;
@@ -167,10 +174,9 @@
             btn_Admin.ForeColor = Color.White;
             btn_Admin.Image = (Image)resources.GetObject("btn_Admin.Image");
             btn_Admin.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_Admin.Location = new Point(0, 180);
-            btn_Admin.Margin = new Padding(2, 2, 2, 2);
+            btn_Admin.Location = new Point(0, 250);
             btn_Admin.Name = "btn_Admin";
-            btn_Admin.Size = new Size(33, 36);
+            btn_Admin.Size = new Size(42, 50);
             btn_Admin.TabIndex = 5;
             btn_Admin.UseVisualStyleBackColor = true;
             btn_Admin.Click += btn_Admin_Click;
@@ -184,10 +190,9 @@
             btn_InvoiceWork.ForeColor = Color.White;
             btn_InvoiceWork.Image = (Image)resources.GetObject("btn_InvoiceWork.Image");
             btn_InvoiceWork.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_InvoiceWork.Location = new Point(0, 144);
-            btn_InvoiceWork.Margin = new Padding(2, 2, 2, 2);
+            btn_InvoiceWork.Location = new Point(0, 200);
             btn_InvoiceWork.Name = "btn_InvoiceWork";
-            btn_InvoiceWork.Size = new Size(33, 36);
+            btn_InvoiceWork.Size = new Size(42, 50);
             btn_InvoiceWork.TabIndex = 4;
             btn_InvoiceWork.UseVisualStyleBackColor = true;
             btn_InvoiceWork.Click += btn_InvoiceWork_Click;
@@ -201,10 +206,9 @@
             btn_PhiletalicSupply.ForeColor = Color.White;
             btn_PhiletalicSupply.Image = (Image)resources.GetObject("btn_PhiletalicSupply.Image");
             btn_PhiletalicSupply.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_PhiletalicSupply.Location = new Point(0, 108);
-            btn_PhiletalicSupply.Margin = new Padding(2, 2, 2, 2);
+            btn_PhiletalicSupply.Location = new Point(0, 150);
             btn_PhiletalicSupply.Name = "btn_PhiletalicSupply";
-            btn_PhiletalicSupply.Size = new Size(33, 36);
+            btn_PhiletalicSupply.Size = new Size(42, 50);
             btn_PhiletalicSupply.TabIndex = 3;
             btn_PhiletalicSupply.UseVisualStyleBackColor = true;
             btn_PhiletalicSupply.Click += btn_PhiletalicSupply_Click;
@@ -218,10 +222,9 @@
             btn_Issue.ForeColor = Color.White;
             btn_Issue.Image = (Image)resources.GetObject("btn_Issue.Image");
             btn_Issue.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_Issue.Location = new Point(0, 72);
-            btn_Issue.Margin = new Padding(2, 2, 2, 2);
+            btn_Issue.Location = new Point(0, 100);
             btn_Issue.Name = "btn_Issue";
-            btn_Issue.Size = new Size(33, 36);
+            btn_Issue.Size = new Size(42, 50);
             btn_Issue.TabIndex = 2;
             btn_Issue.UseVisualStyleBackColor = true;
             btn_Issue.Click += btn_Issue_Click;
@@ -235,10 +238,9 @@
             btn_Com.ForeColor = Color.White;
             btn_Com.Image = (Image)resources.GetObject("btn_Com.Image");
             btn_Com.ImageAlign = ContentAlignment.MiddleLeft;
-            btn_Com.Location = new Point(0, 36);
-            btn_Com.Margin = new Padding(2, 2, 2, 2);
+            btn_Com.Location = new Point(0, 50);
             btn_Com.Name = "btn_Com";
-            btn_Com.Size = new Size(33, 36);
+            btn_Com.Size = new Size(42, 50);
             btn_Com.TabIndex = 1;
             btn_Com.UseVisualStyleBackColor = true;
             btn_Com.Click += btn_Com_Click;
@@ -253,9 +255,8 @@
             btn_File.Image = (Image)resources.GetObject("btn_File.Image");
             btn_File.ImageAlign = ContentAlignment.MiddleLeft;
             btn_File.Location = new Point(0, 0);
-            btn_File.Margin = new Padding(2, 2, 2, 2);
             btn_File.Name = "btn_File";
-            btn_File.Size = new Size(33, 36);
+            btn_File.Size = new Size(42, 50);
             btn_File.TabIndex = 0;
             btn_File.UseVisualStyleBackColor = true;
             btn_File.Click += btn_File_Click;
@@ -267,10 +268,10 @@
             pnl_Main.Controls.Add(tabControl1);
             pnl_Main.Dock = DockStyle.Fill;
             pnl_Main.Location = new Point(0, 0);
-            pnl_Main.Margin = new Padding(8, 2, 2, 2);
+            pnl_Main.Margin = new Padding(10, 3, 3, 3);
             pnl_Main.Name = "pnl_Main";
-            pnl_Main.Padding = new Padding(39, 50, 0, 0);
-            pnl_Main.Size = new Size(966, 544);
+            pnl_Main.Padding = new Padding(50, 70, 0, 0);
+            pnl_Main.Size = new Size(1247, 762);
             pnl_Main.TabIndex = 15;
             // 
             // pnl_Loading
@@ -278,10 +279,9 @@
             pnl_Loading.BackColor = Color.LightGray;
             pnl_Loading.Controls.Add(label45);
             pnl_Loading.Dock = DockStyle.Fill;
-            pnl_Loading.Location = new Point(39, 50);
-            pnl_Loading.Margin = new Padding(2, 2, 2, 2);
+            pnl_Loading.Location = new Point(50, 70);
             pnl_Loading.Name = "pnl_Loading";
-            pnl_Loading.Size = new Size(927, 494);
+            pnl_Loading.Size = new Size(1197, 692);
             pnl_Loading.TabIndex = 423;
             pnl_Loading.Visible = false;
             // 
@@ -289,8 +289,7 @@
             // 
             label45.AutoSize = true;
             label45.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label45.Location = new Point(367, 29);
-            label45.Margin = new Padding(2, 0, 2, 0);
+            label45.Location = new Point(472, 41);
             label45.Name = "label45";
             label45.Size = new Size(477, 45);
             label45.TabIndex = 0;
@@ -307,13 +306,13 @@
             tabControl1.Controls.Add(tab_6);
             tabControl1.Controls.Add(tab_7);
             tabControl1.ItemSize = new Size(200, 50);
-            tabControl1.Location = new Point(79, 90);
-            tabControl1.Margin = new Padding(16, 2, 2, 2);
+            tabControl1.Location = new Point(104, 126);
+            tabControl1.Margin = new Padding(21, 3, 3, 3);
             tabControl1.Multiline = true;
             tabControl1.Name = "tabControl1";
             tabControl1.Padding = new Point(5, 3);
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(913, 711);
+            tabControl1.Size = new Size(1174, 995);
             tabControl1.SizeMode = TabSizeMode.FillToRight;
             tabControl1.TabIndex = 0;
             // 
@@ -321,10 +320,9 @@
             // 
             tab_1.AutoScroll = true;
             tab_1.Location = new Point(4, 54);
-            tab_1.Margin = new Padding(2, 2, 2, 2);
             tab_1.Name = "tab_1";
-            tab_1.Padding = new Padding(2, 2, 2, 2);
-            tab_1.Size = new Size(905, 653);
+            tab_1.Padding = new Padding(3);
+            tab_1.Size = new Size(1166, 937);
             tab_1.TabIndex = 0;
             tab_1.Text = "tab_1";
             tab_1.UseVisualStyleBackColor = true;
@@ -333,10 +331,9 @@
             // 
             tab_2.AutoScroll = true;
             tab_2.Location = new Point(4, 54);
-            tab_2.Margin = new Padding(2, 2, 2, 2);
             tab_2.Name = "tab_2";
-            tab_2.Padding = new Padding(2, 2, 2, 2);
-            tab_2.Size = new Size(905, 653);
+            tab_2.Padding = new Padding(3);
+            tab_2.Size = new Size(1166, 937);
             tab_2.TabIndex = 1;
             tab_2.Text = "tab_2";
             tab_2.UseVisualStyleBackColor = true;
@@ -345,9 +342,8 @@
             // 
             tab_3.AutoScroll = true;
             tab_3.Location = new Point(4, 54);
-            tab_3.Margin = new Padding(2, 2, 2, 2);
             tab_3.Name = "tab_3";
-            tab_3.Size = new Size(905, 653);
+            tab_3.Size = new Size(1166, 937);
             tab_3.TabIndex = 2;
             tab_3.Text = "tab_3";
             tab_3.UseVisualStyleBackColor = true;
@@ -356,10 +352,9 @@
             // 
             tab_4.AutoScroll = true;
             tab_4.Location = new Point(4, 54);
-            tab_4.Margin = new Padding(2, 2, 2, 2);
             tab_4.Name = "tab_4";
-            tab_4.Padding = new Padding(2, 2, 2, 2);
-            tab_4.Size = new Size(905, 653);
+            tab_4.Padding = new Padding(3);
+            tab_4.Size = new Size(1166, 937);
             tab_4.TabIndex = 3;
             tab_4.Text = "tab_4";
             tab_4.UseVisualStyleBackColor = true;
@@ -368,10 +363,9 @@
             // 
             Dashboard.AutoScroll = true;
             Dashboard.Location = new Point(4, 54);
-            Dashboard.Margin = new Padding(2, 2, 2, 2);
             Dashboard.Name = "Dashboard";
-            Dashboard.Padding = new Padding(2, 2, 2, 2);
-            Dashboard.Size = new Size(905, 653);
+            Dashboard.Padding = new Padding(3);
+            Dashboard.Size = new Size(1166, 937);
             Dashboard.TabIndex = 4;
             Dashboard.Text = "Task";
             Dashboard.UseVisualStyleBackColor = true;
@@ -380,9 +374,8 @@
             // 
             tab_6.AutoScroll = true;
             tab_6.Location = new Point(4, 54);
-            tab_6.Margin = new Padding(2, 2, 2, 2);
             tab_6.Name = "tab_6";
-            tab_6.Size = new Size(905, 653);
+            tab_6.Size = new Size(1166, 937);
             tab_6.TabIndex = 5;
             tab_6.Text = "tab_6";
             tab_6.UseVisualStyleBackColor = true;
@@ -391,9 +384,8 @@
             // 
             tab_7.AutoScroll = true;
             tab_7.Location = new Point(4, 54);
-            tab_7.Margin = new Padding(2, 2, 2, 2);
             tab_7.Name = "tab_7";
-            tab_7.Size = new Size(905, 653);
+            tab_7.Size = new Size(1166, 937);
             tab_7.TabIndex = 6;
             tab_7.Text = "tab_7";
             tab_7.UseVisualStyleBackColor = true;
@@ -406,19 +398,18 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = Color.RoyalBlue;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(983, 500);
+            ClientSize = new Size(1264, 700);
             Controls.Add(pnl_Top);
             Controls.Add(pnl_Sidebar);
             Controls.Add(pnl_Main);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(2, 2, 2, 2);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main";
@@ -464,5 +455,6 @@
         private Button btn_task;
         private Panel pnl_Loading;
         private Label label45;
+        private Button btnBackup;
     }
 }

@@ -1071,24 +1071,6 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
-                <Style>
-                  <FontStyle>Normal</FontStyle>
-                  <FontFamily>Times New Roman</FontFamily>
-                  <FontSize>12pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
-                  <TextDecoration>None</TextDecoration>
-                  <Color>#000000</Color>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
                 <Value>Chief Controller of Stamps</Value>
                 <Style>
                   <FontStyle>Normal</FontStyle>
@@ -1124,9 +1106,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox9</rd:DefaultName>
-        <Top>3.05841in</Top>
+        <Top>3.88133in</Top>
         <Left>4.81883in</Left>
-        <Height>1.04167in</Height>
+        <Height>0.86459in</Height>
         <Width>2.4375in</Width>
         <ZIndex>5</ZIndex>
         <Style>
@@ -1181,8 +1163,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox23</rd:DefaultName>
-        <Top>3.30841in</Top>
-        <Left>0.68688in</Left>
+        <Top>3.88133in</Top>
+        <Left>0.69904in</Left>
         <Height>0.79167in</Height>
         <Width>1.94334in</Width>
         <ZIndex>6</ZIndex>
@@ -1635,7 +1617,7 @@
         </Style>
       </Line>
     </ReportItems>
-    <Height>4.1452in</Height>
+    <Height>4.88478in</Height>
     <Style />
   </Body>
   <Width>7.92995in</Width>
