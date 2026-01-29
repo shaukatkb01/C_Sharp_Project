@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
+
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -33,12 +34,12 @@ namespace FileIndex
             using (SqlConnection con = new SqlConnection(Db.ConString))
                 try
                 {
-                    string query = @"UPDATE Addresses
+                    string query = @"UPDATE PhilitelicBuearu
                                      SET Name = @name,
                                          Address = @address,
                                          City = @city,
                                          BPS = @bps
-                                     WHERE ID = @id";
+                                     WHERE Id = @id";
                     id = selectedRecordId;
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@name", name);
@@ -49,6 +50,7 @@ namespace FileIndex
                     con.Open();
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Address Updated Successfully!");
+                    btn_Assign.Enabled = false;
                 }
                 catch (SqlException ex)
                 {
@@ -77,33 +79,13 @@ namespace FileIndex
                 }
 
         }
-        public void editAddress(int id, string name, string address, string city, int bps)
-        {
 
-            //using (SqlConnection con = new SqlConnection(Db.ConString))
-            //    try
-            //    {
-            //        string query = @"SELECT A.ID, A.Name, A.Address, A.City, 
-            //                        B.BPS
-            //                    FROM Addresses A
-            //                    LEFT JOIN BPS B ON A.BPS = B.BPSID
-            //                    WHERE A.ID = @id";
-            //        SqlCommand cmd = new SqlCommand(query, con);
-            //        cmd.Parameters.AddWithValue("@id", id);
-
-            //            txt_Name.Text = name;
-            //        txt_Address.Text = address;
-            //        txt_City.Text = city;
-            //        cmb_BPS.SelectedValue = bps;
-            //        btn_delet.Enabled = false;
-            //    }
-        }
         public void AddressLoadgrid(DataGridView DGV)
         {
             using (SqlConnection con = new SqlConnection(Db.ConString))
                 try
                 {
-                    string query = @"SELECT A.ID, A.Name, A.Address, A.City, 
+                    string query = @"SELECT A.Id, A.Name, A.City, A.Address,  
                                     B.BPS
                                 FROM Addresses A
                                 LEFT JOIN BPS B ON A.BPS = B.BPSID
@@ -210,49 +192,23 @@ namespace FileIndex
 
 
 
-        private void btn_Add_Click(object sender, EventArgs e)
-        {
-            if (txt_Name.Text != "" && txt_City.Text != "" && txt_Address.Text != "" && cmb_BPS.SelectedIndex != -1)
-            {
-                using (SqlConnection con = new SqlConnection(Db.ConString))
-                    try
-                    {
-                        string query = @"INSERT INTO Addresses(Name, Address,City,BPS)
-                          VALUES(@name,@address,@city,@bps)";
-                        SqlCommand cmd = new SqlCommand(query, con);
-                        cmd.Parameters.AddWithValue("@name", txt_Name.Text);
-                        cmd.Parameters.AddWithValue("@address", txt_Address.Text);
-                        cmd.Parameters.AddWithValue("@city", txt_City.Text);
-                        cmd.Parameters.AddWithValue("@bps", cmb_BPS.SelectedValue);
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Address Added Successfully!");
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Proble in Database!" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-            }
-            else
-            {
-                MessageBox.Show("Please Fill all the fields");
-                txt_Name.Focus();
-            }
-        }
+
 
         private void Address_Load(object sender, EventArgs e)
         {
             UIHelper.ApplyTheme(this);
             UIHelper.SetFormTheme(this);
 
+            btn_Assign.Enabled= false;
             BPS(cmb_BPS);
             AddressLoadgrid(dataGridView1);
-            dataGridView1.Columns["Address"].Width = 1000;
-            dataGridView1.Columns["Name"].Width = 500;
-            dataGridView1.Columns["City"].Width = 500;
+            dataGridView1.Columns["Address"].Width = 500;
+            dataGridView1.Columns["Name"].Width = 100;
+            dataGridView1.Columns["City"].Width = 100;
+            dataGridView1.Columns["Id"].Visible = false;
         }
 
-        
+
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -260,7 +216,8 @@ namespace FileIndex
             int Id = 0;
             if (e.RowIndex >= 0)
             {
-            btn_Add.Enabled = false;
+                btn_Add.Enabled = false;
+                btn_Assign.Enabled = true;
                 // Selected Row ko aik variable mein save kar lein
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
@@ -284,13 +241,42 @@ namespace FileIndex
             updateAddress(selectedRecordId, txt_Name.Text, txt_Address.Text, txt_City.Text, Convert.ToInt32(cmb_BPS.SelectedValue));
             AddressLoadgrid(dataGridView1);
             ClearFields();
-            if (btn_Add.Enabled==false)
+            if (btn_Add.Enabled == false)
             {
                 btn_Add.Enabled = true;
             }
 
         }
 
-        
+        private void btn_Add_Click(object sender, EventArgs e)
+        {
+            if (txt_Name.Text != "" && txt_City.Text != "" && txt_Address.Text != "" && cmb_BPS.SelectedIndex != -1)
+            {
+                using (SqlConnection con = new SqlConnection(Db.ConString))
+                    try
+                    {
+                        string query = @"INSERT INTO PhilitelicBuearu(Name, Address,City,BPS)
+                          VALUES(@name,@address,@city,@bps)";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@name", txt_Name.Text);
+                        cmd.Parameters.AddWithValue("@address", txt_Address.Text);
+                        cmd.Parameters.AddWithValue("@city", txt_City.Text);
+                        cmd.Parameters.AddWithValue("@bps", cmb_BPS.SelectedValue);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Address Added Successfully!");
+                        
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Proble in Database!" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+            }
+            else
+            {
+                MessageBox.Show("Please Fill all the fields");
+                txt_Name.Focus();
+            }
+        }
     }
 }

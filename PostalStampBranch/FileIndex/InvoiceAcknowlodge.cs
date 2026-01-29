@@ -37,7 +37,7 @@ namespace FileIndex
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@type", acknowledgeType);
 
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    SqlDataAdapter adapter = new(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
@@ -53,7 +53,7 @@ namespace FileIndex
 
         private void InvoiceToComboBox(ComboBox targitcombo, int status)
         {
-            using (SqlConnection con = new SqlConnection(Db.ConString))
+            using (SqlConnection con = new(Db.ConString))
             {
                 string query = @"SELECT 
                  I.Id, 
@@ -90,6 +90,28 @@ namespace FileIndex
             }
 
         }
+        public int GetInvoiceType() // Function ka naam sahi tareeqe se likhein
+        {
+            int a = 0; // Variable ko pehle define karein
+
+            if (radio_Accepted.Checked)
+            {
+                // Agar Accepted wala radio button select hai
+                a = 1;
+            }
+            else if (radio_Pending.Checked)
+            {
+                // Agar Pending wala select hai
+                a = 2;
+            }
+            else
+            {
+                // Agar koi bhi select nahi (Safety ke liye)
+                a = 0;
+            }
+
+            return a; // Yeh line value ko wapas bhejti hai
+        }
 
         public InvoiceAcknowlodge()
         {
@@ -97,9 +119,11 @@ namespace FileIndex
         }
         private void InvoiceAcknowlodge_Load(object sender, EventArgs e)
         {
+
             UIHelper.ApplyTheme(this);
             UIHelper.SetFormTheme(this);
-            LoadDataToGrid(dataGridView1,1); // Load data for Acknowledge Type 1
+            btn_update.Enabled = false;
+            LoadDataToGrid(dataGridView1, GetInvoiceType()); // Load data for Acknowledge Type 1
             InvoiceToComboBox(cmb_InvoiceNo, 2); // Load invoices with Acknowledge Type 1
 
         }
@@ -208,7 +232,7 @@ namespace FileIndex
                             MessageBox.Show("Invoice Acknowledged successfully!", "Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             // Refresh UI
-                            LoadDataToGrid(dataGridView1,1);
+                            LoadDataToGrid(dataGridView1, 1);
                             InvoiceToComboBox(cmb_InvoiceNo, 1);
 
                             // Reset flag for next entry
@@ -241,6 +265,10 @@ namespace FileIndex
                 MessageBox.Show("Pehle list se koi record select karein!");
                 return;
             }
+            if (radio_Pending.Checked == true && string.IsNullOrWhiteSpace(txt_PageNo.Text))
+            {
+                MessageBox.Show("must insert Page number"); return;
+            }
 
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
@@ -248,6 +276,7 @@ namespace FileIndex
                 string query = @"UPDATE PendingInvoice 
                          SET ReceivingDate = @rd, 
                              PageNoInFile = @pg, 
+                             AcknowledgeStatus=@as,
                              Remarks = @rmk 
                          WHERE InvoiceRegisterId = @id"; // Id ki jagah aksar InvoiceRegisterId use hota hai aapke case mein
 
@@ -259,33 +288,55 @@ namespace FileIndex
                 cmd.Parameters.AddWithValue("@rmk", string.IsNullOrWhiteSpace(txt_Remark.Text) ? (object)DBNull.Value : txt_Remark.Text);
                 cmd.Parameters.AddWithValue("@id", cmb_InvoiceNo.SelectedValue);
 
-                try
+                if (radio_Accepted.Checked||string.IsNullOrWhiteSpace(txt_PageNo.Text))
                 {
-                    con.Open();
-                    int result = cmd.ExecuteNonQuery();
-
-                    if (result > 0)
+                cmd.Parameters.AddWithValue("@as" ,2);
+                    InvoiceToComboBox(cmb_InvoiceNo, 2);
+                }else if (radio_Accepted.Checked||!string.IsNullOrWhiteSpace(txt_PageNo.Text))
+                {
+                    cmd.Parameters.AddWithValue("@as", 1);
+                    InvoiceToComboBox(cmb_InvoiceNo, 1);
+                }
+                else if (radio_Pending.Checked)
+                {
+                    cmd.Parameters.AddWithValue("@as", 1);
+                    InvoiceToComboBox(cmb_InvoiceNo, 1);
+                }
+                    try
                     {
-                        MessageBox.Show("Record Update ho gaya!");
+                        con.Open();
+                        int result = cmd.ExecuteNonQuery();
 
-                        // Refresh Grid taake tabdeeli nazar aaye
-                        LoadDataToGrid(dataGridView1, 1);
+                        if (result > 0)
+                        {
+                            MessageBox.Show("Record Update ho gaya!");
+                        groupBox1.Enabled = true;
 
-                        // Form ko wapas normal halat mein layein
-                        button1.Enabled = true;
-                        cmb_InvoiceNo.Enabled = true;
-                        isDateChanged = false; // Flag reset
+                            // Refresh Grid taake tabdeeli nazar aaye
+                            LoadDataToGrid(dataGridView1, 1);
+                        txt_PageNo.Text = "";
+                        txt_Remark.Text = "";
+                            // Form ko wapas normal halat mein layein
+                            button1.Enabled = true;
+                            cmb_InvoiceNo.Enabled = true;
+                            isDateChanged = false; // Flag reset
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Update Error: " + ex.Message);
-                }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Update Error: " + ex.Message);
+                    }
             }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (radio_Accepted.Checked)
+
+            {
+                InvoiceToComboBox(cmb_InvoiceNo, 1);
+                groupBox1.Enabled = false;
+            }
             if (e.RowIndex >= 0)
             {
                 try
@@ -294,6 +345,7 @@ namespace FileIndex
 
                     button1.Enabled = false;
                     cmb_InvoiceNo.Enabled = false;
+                    btn_update.Enabled = true;
 
                     DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
@@ -328,6 +380,18 @@ namespace FileIndex
                     isSelectionProcess = false; // Flag OFF
                 }
             }
+        }
+
+        private void radio_Pending_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDataToGrid(dataGridView1, GetInvoiceType());
+            InvoiceToComboBox(cmb_InvoiceNo, 2);
+        }
+
+        private void radio_Accepted_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDataToGrid(dataGridView1, GetInvoiceType());
+            InvoiceToComboBox(cmb_InvoiceNo, 1);
         }
     }
 }

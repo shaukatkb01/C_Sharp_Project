@@ -100,6 +100,7 @@
             btn_Add.TabIndex = 159;
             btn_Add.Text = "Add";
             btn_Add.UseVisualStyleBackColor = true;
+            btn_Add.Click += btn_Add_Click;
             // 
             // label1
             // 
@@ -134,13 +135,12 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(624, 341);
             dataGridView1.TabIndex = 162;
             dataGridView1.CellClick += dataGridView1_CellClick;
-          
             // 
             // panel1
             // 

@@ -41,7 +41,11 @@
             button1 = new Button();
             Picker_RDate = new DateTimePicker();
             btn_update = new Button();
+            groupBox1 = new GroupBox();
+            radio_Accepted = new RadioButton();
+            radio_Pending = new RadioButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -69,7 +73,7 @@
             // cmb_InvoiceNo
             // 
             cmb_InvoiceNo.FormattingEnabled = true;
-            cmb_InvoiceNo.Location = new Point(158, 44);
+            cmb_InvoiceNo.Location = new Point(176, 100);
             cmb_InvoiceNo.Name = "cmb_InvoiceNo";
             cmb_InvoiceNo.Size = new Size(137, 29);
             cmb_InvoiceNo.TabIndex = 463;
@@ -78,7 +82,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(4, 47);
+            label1.Location = new Point(22, 103);
             label1.Name = "label1";
             label1.Size = new Size(129, 21);
             label1.TabIndex = 464;
@@ -90,15 +94,15 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(4, 227);
+            dataGridView1.Location = new Point(4, 270);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1045, 211);
+            dataGridView1.Size = new Size(1045, 168);
             dataGridView1.TabIndex = 465;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // txt_PageNo
             // 
-            txt_PageNo.Location = new Point(158, 164);
+            txt_PageNo.Location = new Point(155, 189);
             txt_PageNo.Name = "txt_PageNo";
             txt_PageNo.Size = new Size(108, 29);
             txt_PageNo.TabIndex = 467;
@@ -106,7 +110,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(170, 119);
+            label2.Location = new Point(167, 144);
             label2.Name = "label2";
             label2.Size = new Size(68, 21);
             label2.TabIndex = 468;
@@ -115,7 +119,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(18, 119);
+            label3.Location = new Point(15, 144);
             label3.Name = "label3";
             label3.Size = new Size(111, 21);
             label3.TabIndex = 469;
@@ -124,7 +128,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(301, 116);
+            label4.Location = new Point(298, 141);
             label4.Name = "label4";
             label4.Size = new Size(64, 21);
             label4.TabIndex = 471;
@@ -132,7 +136,7 @@
             // 
             // txt_Remark
             // 
-            txt_Remark.Location = new Point(289, 161);
+            txt_Remark.Location = new Point(286, 186);
             txt_Remark.Multiline = true;
             txt_Remark.Name = "txt_Remark";
             txt_Remark.Size = new Size(497, 60);
@@ -140,7 +144,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(806, 176);
+            button1.Location = new Point(803, 201);
             button1.Name = "button1";
             button1.Size = new Size(228, 45);
             button1.TabIndex = 472;
@@ -151,7 +155,7 @@
             // Picker_RDate
             // 
             Picker_RDate.Format = DateTimePickerFormat.Short;
-            Picker_RDate.Location = new Point(13, 163);
+            Picker_RDate.Location = new Point(10, 188);
             Picker_RDate.Name = "Picker_RDate";
             Picker_RDate.Size = new Size(134, 29);
             Picker_RDate.TabIndex = 473;
@@ -159,7 +163,7 @@
             // 
             // btn_update
             // 
-            btn_update.Location = new Point(806, 107);
+            btn_update.Location = new Point(803, 132);
             btn_update.Name = "btn_update";
             btn_update.Size = new Size(228, 45);
             btn_update.TabIndex = 474;
@@ -167,11 +171,47 @@
             btn_update.UseVisualStyleBackColor = true;
             btn_update.Click += btn_update_Click;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(radio_Accepted);
+            groupBox1.Controls.Add(radio_Pending);
+            groupBox1.Location = new Point(15, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(335, 69);
+            groupBox1.TabIndex = 475;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Select Invoice Type";
+            // 
+            // radio_Accepted
+            // 
+            radio_Accepted.AutoSize = true;
+            radio_Accepted.Location = new Point(185, 36);
+            radio_Accepted.Name = "radio_Accepted";
+            radio_Accepted.Size = new Size(91, 25);
+            radio_Accepted.TabIndex = 1;
+            radio_Accepted.TabStop = true;
+            radio_Accepted.Text = "Accepted";
+            radio_Accepted.UseVisualStyleBackColor = true;
+            radio_Accepted.CheckedChanged += radio_Accepted_CheckedChanged;
+            // 
+            // radio_Pending
+            // 
+            radio_Pending.AutoSize = true;
+            radio_Pending.Location = new Point(13, 36);
+            radio_Pending.Name = "radio_Pending";
+            radio_Pending.Size = new Size(84, 25);
+            radio_Pending.TabIndex = 0;
+            radio_Pending.TabStop = true;
+            radio_Pending.Text = "Pending";
+            radio_Pending.UseVisualStyleBackColor = true;
+            radio_Pending.CheckedChanged += radio_Pending_CheckedChanged;
+            // 
             // InvoiceAcknowlodge
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1063, 450);
+            Controls.Add(groupBox1);
             Controls.Add(btn_update);
             Controls.Add(Picker_RDate);
             Controls.Add(button1);
@@ -191,6 +231,8 @@
             WindowState = FormWindowState.Maximized;
             Load += InvoiceAcknowlodge_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -210,5 +252,8 @@
         private Button button1;
         private DateTimePicker Picker_RDate;
         private Button btn_update;
+        private GroupBox groupBox1;
+        private RadioButton radio_Accepted;
+        private RadioButton radio_Pending;
     }
 }
