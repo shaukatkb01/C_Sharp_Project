@@ -283,7 +283,7 @@
             // 
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(39, 535);
+            label7.Location = new Point(12, 535);
             label7.Name = "label7";
             label7.Size = new Size(80, 21);
             label7.TabIndex = 61;
@@ -293,11 +293,11 @@
             // 
             remarkTxt.BackColor = SystemColors.Window;
             remarkTxt.ForeColor = SystemColors.WindowText;
-            remarkTxt.Location = new Point(41, 559);
+            remarkTxt.Location = new Point(12, 559);
             remarkTxt.Multiline = true;
             remarkTxt.Name = "remarkTxt";
             remarkTxt.PlaceholderText = "Insert Remark if any";
-            remarkTxt.Size = new Size(790, 129);
+            remarkTxt.Size = new Size(819, 129);
             remarkTxt.TabIndex = 17;
             // 
             // souvenirQty
