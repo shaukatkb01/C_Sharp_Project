@@ -1,0 +1,17 @@
+
+═══════════════════════════════════════════════════
+Timestamp: 2026-02-17 15:17:39
+Source: button1_Click
+User: Shaukat Ali        
+Message: Could not migrate table [PhilitelicBuearu]: Error at row 109: Cannot insert the value NULL into column 'Name', table 'PSDB.dbo.PhilitelicBuearu'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+Stack Trace:
+   at FileIndex.Main.MigrateTable(OleDbConnection accCon, SqlConnection sqlCon, String tableName) in C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\Main.cs:line 905
+   at FileIndex.Main.<>c__DisplayClass42_0.<button1_Click>b__0() in C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\Main.cs:line 818
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at FileIndex.Main.button1_Click(Object sender, EventArgs e) in C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\Main.cs:line 810
+═══════════════════════════════════════════════════

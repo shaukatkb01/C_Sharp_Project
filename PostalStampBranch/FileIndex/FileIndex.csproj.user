@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="AddFileNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Address.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddressOption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddStationeryItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddTaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ComboBox_LeftDropdown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="distribution2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DistributionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FileCorrection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="frmReportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="InvoiceAcknowlodge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="InvoiceCorection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="InvoiceEntrycs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="InvoicePrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="IssueCorrection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="IssueMaillist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="IssuePrinting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MigrationTool_Updated.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PendingInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PendingInvoicePrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PhilatelicSupply.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PhilatelicSupplyDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Registor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SearchComm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="searchFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SingleMaillist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="StationeryTransactionscs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UserRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="WNS02.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

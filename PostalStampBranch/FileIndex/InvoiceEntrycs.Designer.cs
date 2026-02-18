@@ -1,0 +1,659 @@
+﻿namespace FileIndex
+{
+    partial class InvoiceEntrycs
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
+            panel1 = new Panel();
+            lastInvoice_No = new Label();
+            label14 = new Label();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            label7 = new Label();
+            panel2 = new Panel();
+            groupBox2 = new GroupBox();
+            label15 = new Label();
+            Remark_txt = new TextBox();
+            num_Stamp = new NumericUpDown();
+            label1 = new Label();
+            num_FDCC = new NumericUpDown();
+            label2 = new Label();
+            num_Postmark = new NumericUpDown();
+            label3 = new Label();
+            num_Leaflet = new NumericUpDown();
+            label9 = new Label();
+            label4 = new Label();
+            text_TA = new TextBox();
+            num_FDC = new NumericUpDown();
+            label5 = new Label();
+            date_Picker = new DateTimePicker();
+            label6 = new Label();
+            groupBox1 = new GroupBox();
+            groupBox4 = new GroupBox();
+            label11 = new Label();
+            text_PMPrice = new TextBox();
+            text_FDCPrice = new TextBox();
+            text_LeafletPrice = new TextBox();
+            label12 = new Label();
+            label13 = new Label();
+            groupBox3 = new GroupBox();
+            text_Leaflet_B = new TextBox();
+            label17 = new Label();
+            text_Stamp_B = new TextBox();
+            text_PM_B = new TextBox();
+            text_FDCC_B = new TextBox();
+            label18 = new Label();
+            label19 = new Label();
+            text_FDC_B = new TextBox();
+            label20 = new Label();
+            label21 = new Label();
+            com_PhilName = new ComboBox();
+            label16 = new Label();
+            com_FileNo = new ComboBox();
+            label10 = new Label();
+            btn_save = new Button();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)num_Stamp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_FDCC).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_Postmark).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_Leaflet).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)num_FDC).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox3.SuspendLayout();
+            SuspendLayout();
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(lastInvoice_No);
+            panel1.Controls.Add(label14);
+            panel1.Controls.Add(flowLayoutPanel1);
+            panel1.Controls.Add(label7);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(815, 175);
+            panel1.TabIndex = 46;
+            // 
+            // lastInvoice_No
+            // 
+            lastInvoice_No.AutoSize = true;
+            lastInvoice_No.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
+            lastInvoice_No.Location = new Point(446, 133);
+            lastInvoice_No.Name = "lastInvoice_No";
+            lastInvoice_No.Size = new Size(76, 25);
+            lastInvoice_No.TabIndex = 97;
+            lastInvoice_No.Text = "label15";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.Location = new Point(260, 133);
+            label14.Name = "label14";
+            label14.Size = new Size(148, 25);
+            label14.TabIndex = 96;
+            label14.Text = "Last Invoice No";
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.BackColor = Color.FromArgb(34, 167, 240);
+            flowLayoutPanel1.Location = new Point(252, 112);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(300, 3);
+            flowLayoutPanel1.TabIndex = 94;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(0, 165, 255);
+            label7.Location = new Point(202, 6);
+            label7.Name = "label7";
+            label7.Size = new Size(399, 87);
+            label7.TabIndex = 95;
+            label7.Text = "Invoice Entry";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            panel2.AutoScroll = true;
+            panel2.Controls.Add(groupBox2);
+            panel2.Controls.Add(groupBox1);
+            panel2.Controls.Add(btn_save);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 175);
+            panel2.Margin = new Padding(4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(815, 874);
+            panel2.TabIndex = 47;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(Remark_txt);
+            groupBox2.Controls.Add(num_Stamp);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(num_FDCC);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(num_Postmark);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(num_Leaflet);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(text_TA);
+            groupBox2.Controls.Add(num_FDC);
+            groupBox2.Controls.Add(label5);
+            groupBox2.Controls.Add(date_Picker);
+            groupBox2.Controls.Add(label6);
+            groupBox2.ForeColor = Color.White;
+            groupBox2.Location = new Point(75, 395);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(667, 428);
+            groupBox2.TabIndex = 48;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Philatelic Quantity";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = Color.White;
+            label15.Location = new Point(27, 263);
+            label15.Name = "label15";
+            label15.Size = new Size(71, 21);
+            label15.TabIndex = 201;
+            label15.Text = "Remarks";
+            // 
+            // Remark_txt
+            // 
+            Remark_txt.Location = new Point(28, 288);
+            Remark_txt.Multiline = true;
+            Remark_txt.Name = "Remark_txt";
+            Remark_txt.Size = new Size(612, 124);
+            Remark_txt.TabIndex = 200;
+            Remark_txt.Tag = "Skip";
+            // 
+            // num_Stamp
+            // 
+            num_Stamp.Location = new Point(176, 97);
+            num_Stamp.Name = "num_Stamp";
+            num_Stamp.Size = new Size(127, 29);
+            num_Stamp.TabIndex = 4;
+            num_Stamp.ValueChanged += num_Stamp_ValueChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(53, 104);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 21);
+            label1.TabIndex = 22;
+            label1.Text = "Stamp Qty";
+            // 
+            // num_FDCC
+            // 
+            num_FDCC.Location = new Point(486, 147);
+            num_FDCC.Name = "num_FDCC";
+            num_FDCC.Size = new Size(127, 29);
+            num_FDCC.TabIndex = 9;
+            num_FDCC.ValueChanged += num_FDCC_ValueChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(53, 154);
+            label2.Name = "label2";
+            label2.Size = new Size(64, 21);
+            label2.TabIndex = 24;
+            label2.Text = "FDCQty";
+            // 
+            // num_Postmark
+            // 
+            num_Postmark.Location = new Point(486, 97);
+            num_Postmark.Name = "num_Postmark";
+            num_Postmark.Size = new Size(127, 29);
+            num_Postmark.TabIndex = 8;
+            num_Postmark.ValueChanged += num_Postmark_ValueChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(320, 59);
+            label3.Name = "label3";
+            label3.Size = new Size(85, 21);
+            label3.TabIndex = 26;
+            label3.Text = "Leaflet Qty";
+            // 
+            // num_Leaflet
+            // 
+            num_Leaflet.Location = new Point(486, 52);
+            num_Leaflet.Name = "num_Leaflet";
+            num_Leaflet.Size = new Size(127, 29);
+            num_Leaflet.TabIndex = 7;
+            num_Leaflet.ValueChanged += num_Leaflet_ValueChanged;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.ForeColor = Color.White;
+            label9.Location = new Point(160, 236);
+            label9.Name = "label9";
+            label9.Size = new Size(102, 21);
+            label9.TabIndex = 34;
+            label9.Text = "Total Amount";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(320, 104);
+            label4.Name = "label4";
+            label4.Size = new Size(104, 21);
+            label4.TabIndex = 28;
+            label4.Text = "Postmark Qty";
+            // 
+            // text_TA
+            // 
+            text_TA.Enabled = false;
+            text_TA.Location = new Point(301, 228);
+            text_TA.Name = "text_TA";
+            text_TA.ReadOnly = true;
+            text_TA.Size = new Size(127, 29);
+            text_TA.TabIndex = 199;
+            // 
+            // num_FDC
+            // 
+            num_FDC.Location = new Point(176, 147);
+            num_FDC.Name = "num_FDC";
+            num_FDC.Size = new Size(127, 29);
+            num_FDC.TabIndex = 5;
+            num_FDC.ValueChanged += num_FDC_ValueChanged;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(320, 154);
+            label5.Name = "label5";
+            label5.Size = new Size(139, 21);
+            label5.TabIndex = 30;
+            label5.Text = "FDC Cancelled Qty";
+            // 
+            // date_Picker
+            // 
+            date_Picker.CustomFormat = "27/12/2025";
+            date_Picker.Format = DateTimePickerFormat.Short;
+            date_Picker.Location = new Point(176, 52);
+            date_Picker.Name = "date_Picker";
+            date_Picker.Size = new Size(127, 29);
+            date_Picker.TabIndex = 3;
+            date_Picker.Value = new DateTime(2025, 12, 27, 0, 0, 0, 0);
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(53, 59);
+            label6.Name = "label6";
+            label6.Size = new Size(42, 21);
+            label6.TabIndex = 32;
+            label6.Text = "Date";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(groupBox4);
+            groupBox1.Controls.Add(groupBox3);
+            groupBox1.Controls.Add(com_PhilName);
+            groupBox1.Controls.Add(label16);
+            groupBox1.Controls.Add(com_FileNo);
+            groupBox1.Controls.Add(label10);
+            groupBox1.ForeColor = Color.White;
+            groupBox1.Location = new Point(75, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(667, 385);
+            groupBox1.TabIndex = 47;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Price";
+            // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(label11);
+            groupBox4.Controls.Add(text_PMPrice);
+            groupBox4.Controls.Add(text_FDCPrice);
+            groupBox4.Controls.Add(text_LeafletPrice);
+            groupBox4.Controls.Add(label12);
+            groupBox4.Controls.Add(label13);
+            groupBox4.Location = new Point(27, 164);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(293, 202);
+            groupBox4.TabIndex = 123;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Price";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.ForeColor = Color.Black;
+            label11.Location = new Point(9, 66);
+            label11.Name = "label11";
+            label11.Size = new Size(77, 21);
+            label11.TabIndex = 50;
+            label11.Text = "FDC Price";
+            // 
+            // text_PMPrice
+            // 
+            text_PMPrice.Enabled = false;
+            text_PMPrice.Location = new Point(141, 143);
+            text_PMPrice.Name = "text_PMPrice";
+            text_PMPrice.ReadOnly = true;
+            text_PMPrice.Size = new Size(127, 29);
+            text_PMPrice.TabIndex = 47;
+            // 
+            // text_FDCPrice
+            // 
+            text_FDCPrice.Enabled = false;
+            text_FDCPrice.Location = new Point(141, 59);
+            text_FDCPrice.Name = "text_FDCPrice";
+            text_FDCPrice.ReadOnly = true;
+            text_FDCPrice.Size = new Size(127, 29);
+            text_FDCPrice.TabIndex = 49;
+            // 
+            // text_LeafletPrice
+            // 
+            text_LeafletPrice.Enabled = false;
+            text_LeafletPrice.Location = new Point(141, 101);
+            text_LeafletPrice.Name = "text_LeafletPrice";
+            text_LeafletPrice.ReadOnly = true;
+            text_LeafletPrice.Size = new Size(127, 29);
+            text_LeafletPrice.TabIndex = 45;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.ForeColor = Color.Black;
+            label12.Location = new Point(1, 150);
+            label12.Name = "label12";
+            label12.Size = new Size(113, 21);
+            label12.TabIndex = 48;
+            label12.Text = "Postmark Price";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.ForeColor = Color.Black;
+            label13.Location = new Point(9, 102);
+            label13.Name = "label13";
+            label13.Size = new Size(94, 21);
+            label13.TabIndex = 46;
+            label13.Text = "Leaflet Price";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(text_Leaflet_B);
+            groupBox3.Controls.Add(label17);
+            groupBox3.Controls.Add(text_Stamp_B);
+            groupBox3.Controls.Add(text_PM_B);
+            groupBox3.Controls.Add(text_FDCC_B);
+            groupBox3.Controls.Add(label18);
+            groupBox3.Controls.Add(label19);
+            groupBox3.Controls.Add(text_FDC_B);
+            groupBox3.Controls.Add(label20);
+            groupBox3.Controls.Add(label21);
+            groupBox3.Location = new Point(357, 164);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(289, 202);
+            groupBox3.TabIndex = 122;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Balance";
+            // 
+            // text_Leaflet_B
+            // 
+            text_Leaflet_B.Location = new Point(136, 106);
+            text_Leaflet_B.Name = "text_Leaflet_B";
+            text_Leaflet_B.ReadOnly = true;
+            text_Leaflet_B.Size = new Size(145, 29);
+            text_Leaflet_B.TabIndex = 121;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.ForeColor = Color.Black;
+            label17.Location = new Point(6, 112);
+            label17.Name = "label17";
+            label17.Size = new Size(62, 21);
+            label17.TabIndex = 122;
+            label17.Text = "Leaflet-";
+            // 
+            // text_Stamp_B
+            // 
+            text_Stamp_B.Location = new Point(134, 32);
+            text_Stamp_B.Name = "text_Stamp_B";
+            text_Stamp_B.ReadOnly = true;
+            text_Stamp_B.Size = new Size(145, 29);
+            text_Stamp_B.TabIndex = 113;
+            // 
+            // text_PM_B
+            // 
+            text_PM_B.Location = new Point(134, 237);
+            text_PM_B.Name = "text_PM_B";
+            text_PM_B.ReadOnly = true;
+            text_PM_B.Size = new Size(145, 29);
+            text_PM_B.TabIndex = 117;
+            // 
+            // text_FDCC_B
+            // 
+            text_FDCC_B.Location = new Point(134, 143);
+            text_FDCC_B.Name = "text_FDCC_B";
+            text_FDCC_B.ReadOnly = true;
+            text_FDCC_B.Size = new Size(145, 29);
+            text_FDCC_B.TabIndex = 119;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.ForeColor = Color.Black;
+            label18.Location = new Point(5, 150);
+            label18.Name = "label18";
+            label18.Size = new Size(125, 21);
+            label18.TabIndex = 120;
+            label18.Text = "FDC(Cancelled):-";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.ForeColor = Color.Black;
+            label19.Location = new Point(5, 244);
+            label19.Name = "label19";
+            label19.Size = new Size(84, 21);
+            label19.TabIndex = 118;
+            label19.Text = "Postmark:-";
+            // 
+            // text_FDC_B
+            // 
+            text_FDC_B.Location = new Point(134, 69);
+            text_FDC_B.Name = "text_FDC_B";
+            text_FDC_B.ReadOnly = true;
+            text_FDC_B.Size = new Size(145, 29);
+            text_FDC_B.TabIndex = 115;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.ForeColor = Color.Black;
+            label20.Location = new Point(5, 39);
+            label20.Name = "label20";
+            label20.Size = new Size(63, 21);
+            label20.TabIndex = 114;
+            label20.Text = "Stamp:-";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.ForeColor = Color.Black;
+            label21.Location = new Point(5, 76);
+            label21.Name = "label21";
+            label21.Size = new Size(48, 21);
+            label21.TabIndex = 116;
+            label21.Text = "FDC:-";
+            // 
+            // com_PhilName
+            // 
+            com_PhilName.DropDownStyle = ComboBoxStyle.DropDownList;
+            com_PhilName.FormattingEnabled = true;
+            com_PhilName.Location = new Point(145, 109);
+            com_PhilName.Name = "com_PhilName";
+            com_PhilName.Size = new Size(468, 29);
+            com_PhilName.TabIndex = 2;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.ForeColor = Color.Black;
+            label16.Location = new Point(5, 116);
+            label16.Name = "label16";
+            label16.Size = new Size(94, 21);
+            label16.TabIndex = 51;
+            label16.Text = "Address To:-";
+            // 
+            // com_FileNo
+            // 
+            com_FileNo.DropDownStyle = ComboBoxStyle.DropDownList;
+            com_FileNo.FormattingEnabled = true;
+            com_FileNo.Location = new Point(145, 59);
+            com_FileNo.Name = "com_FileNo";
+            com_FileNo.Size = new Size(176, 29);
+            com_FileNo.TabIndex = 1;
+            com_FileNo.SelectedIndexChanged += com_FileNo_SelectedIndexChanged_1;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(12, 66);
+            label10.Name = "label10";
+            label10.Size = new Size(64, 21);
+            label10.TabIndex = 20;
+            label10.Text = "FileNo:-";
+            // 
+            // btn_save
+            // 
+            btn_save.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_save.Location = new Point(329, 829);
+            btn_save.Name = "btn_save";
+            btn_save.Size = new Size(157, 38);
+            btn_save.TabIndex = 46;
+            btn_save.Text = "Save";
+            btn_save.UseVisualStyleBackColor = true;
+            btn_save.Click += btn_save_Click;
+            // 
+            // InvoiceEntrycs
+            // 
+            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(815, 1049);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Name = "InvoiceEntrycs";
+            Text = "InvoiceEntrycs";
+            Load += InvoiceEntrycs_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)num_Stamp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_FDCC).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_Postmark).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_Leaflet).EndInit();
+            ((System.ComponentModel.ISupportInitialize)num_FDC).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
+        private Panel panel1;
+        private Label lastInvoice_No;
+        private Label label14;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Label label7;
+        private Panel panel2;
+        private GroupBox groupBox2;
+        private Label label15;
+        private TextBox Remark_txt;
+        private NumericUpDown num_Stamp;
+        private Label label1;
+        private NumericUpDown num_FDCC;
+        private Label label2;
+        private NumericUpDown num_Postmark;
+        private Label label3;
+        private NumericUpDown num_Leaflet;
+        private Label label9;
+        private Label label4;
+        private TextBox text_TA;
+        private NumericUpDown num_FDC;
+        private Label label5;
+        private DateTimePicker date_Picker;
+        private Label label6;
+        private GroupBox groupBox1;
+        private GroupBox groupBox4;
+        private Label label11;
+        private TextBox text_PMPrice;
+        private TextBox text_FDCPrice;
+        private TextBox text_LeafletPrice;
+        private Label label12;
+        private Label label13;
+        private GroupBox groupBox3;
+        private TextBox text_Leaflet_B;
+        private Label label17;
+        private TextBox text_Stamp_B;
+        private TextBox text_PM_B;
+        private TextBox text_FDCC_B;
+        private Label label18;
+        private Label label19;
+        private TextBox text_FDC_B;
+        private Label label20;
+        private Label label21;
+        private ComboBox com_PhilName;
+        private Label label16;
+        private ComboBox com_FileNo;
+        private Label label10;
+        private Button btn_save;
+    }
+}
