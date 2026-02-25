@@ -1,0 +1,34 @@
+
+═══════════════════════════════════════════════════
+Timestamp: 2026-02-25 17:39:34
+Source: ExecuteBackup
+User: Shaukat Ali        
+Message: Database 'YourDatabaseName' does not exist. Make sure that the name is entered correctly.
+BACKUP DATABASE is terminating abnormally.
+Stack Trace:
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at FileIndex.Main.ExecuteBackup(String folderPath) in D:\C_Sharp_Project\PostalStampBranch\FileIndex\Main.cs:line 48
+═══════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════
+Timestamp: 2026-02-25 17:46:19
+Source: ExecuteBackup
+User: Shaukat Ali        
+Message: Database 'YourDatabaseName' does not exist. Make sure that the name is entered correctly.
+BACKUP DATABASE is terminating abnormally.
+Stack Trace:
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at FileIndex.Main.ExecuteBackup(String folderPath) in D:\C_Sharp_Project\PostalStampBranch\FileIndex\Main.cs:line 48
+═══════════════════════════════════════════════════

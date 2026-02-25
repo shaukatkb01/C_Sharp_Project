@@ -29,6 +29,62 @@ namespace FileIndex
     public partial class Main : Form
     {
 
+        private void ExecuteBackup(string folderPath)
+        {
+            // Apne Database ka sahi naam yahan likhein
+            string dbName = "PSDB";
+            string fileName = $"Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+            string fullPath = Path.Combine(folderPath, fileName);
+
+            // SQL Query for Backup
+            string query = $@"BACKUP DATABASE [{dbName}] TO DISK = '{fullPath}'";
+
+            using (SqlConnection con = new SqlConnection(Db.ConString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+
+                    // Backup hone ke baad purani files saaf karein
+                    DeleteOldBackups(folderPath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Backup Failed: " + ex.Message); // Ye aapko asli wajah batayega
+                    LogError(ex, "ExecuteBackup");
+                }
+            }
+   
+
+   
+}
+
+        // 3. Purani files (7 days old) delete karne ka function
+        private void DeleteOldBackups(string folderPath)
+        {
+            try
+            {
+                DirectoryInfo info = new DirectoryInfo(folderPath);
+                FileInfo[] files = info.GetFiles("*.bak"); // Sirf backup files
+
+                foreach (FileInfo file in files)
+                {
+                    // Agar file 7 din se purani hai
+                    if (file.CreationTime < DateTime.Now.AddDays(-7))
+                    {
+                        file.Delete();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, "DeleteOldBackups");
+            }
+        }
+
         private void CreateLoadingPanel()
         {
             pnl_Loading = new Panel
@@ -715,22 +771,21 @@ namespace FileIndex
                 using (FolderBrowserDialog fbd = new FolderBrowserDialog())
                 {
                     fbd.Description = "Select backup location";
-                    fbd.ShowNewFolderButton = true;
-
                     if (fbd.ShowDialog() == DialogResult.OK)
                     {
+                        // Path save karna Settings mein
                         Properties.Settings.Default.BackupFolderPath = fbd.SelectedPath;
                         Properties.Settings.Default.Save();
 
-                        MessageBox.Show("✅ Backup location saved successfully!",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("✅ Backup location saved successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                LogError(ex, "btnBackup_Click");
-                MessageBox.Show($"❌ Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogError(ex, "btnBackupLocation_Click");
+                MessageBox.Show($"❌ Error: {ex.Message}");
             }
         }
 
@@ -1008,22 +1063,12 @@ namespace FileIndex
 
         private async void Main_FormClosed(object sender, FormClosedEventArgs e)
         {
-            try
-            {
-                string savedPath = Properties.Settings.Default.BackupFolderPath;
+            string savedPath = Properties.Settings.Default.BackupFolderPath;
 
-                if (string.IsNullOrEmpty(savedPath))
-                {
-                    savedPath = Path.Combine(
-                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                        "PostalBackups");
-                }
-
-                await RunAutoBackupAsync(savedPath);
-            }
-            catch (Exception ex)
+            if (!string.IsNullOrEmpty(savedPath) && Directory.Exists(savedPath))
             {
-                LogError(ex, "Main_FormClosed");
+                // Program band hone se pehle backup lega
+                ExecuteBackup(savedPath);
             }
         }
 

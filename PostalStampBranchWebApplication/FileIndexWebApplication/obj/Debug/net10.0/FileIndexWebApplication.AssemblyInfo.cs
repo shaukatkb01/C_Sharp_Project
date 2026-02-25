@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FileIndexWebApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e77fc83e2a8d8ae90439e84dfc0b8ac684ab6fed")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b02f9a1379a63293fff6d3fba2e2725772ccae1")]
 [assembly: System.Reflection.AssemblyProductAttribute("FileIndexWebApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FileIndexWebApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
