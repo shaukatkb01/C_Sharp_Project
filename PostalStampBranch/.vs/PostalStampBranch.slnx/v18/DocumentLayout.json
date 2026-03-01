@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\C_Sharp_Project\\PostalStampBranch\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\searchfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\searchfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\searchcomm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\searchcomm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\searchcomm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\searchcomm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|d:\\c_sharp_project\\postalstampbranch\\fileindex\\report\\rptcommsearch.rdlc||{46F6D2A1-5E86-4080-A799-01F3D0E23796}",
+      "RelativeMoniker": "D:0:0:{70F30D06-B45D-62F9-A0A8-23E83B13AC50}|FileIndex\\FileIndex.csproj|solutionrelative:fileindex\\report\\rptcommsearch.rdlc||{46F6D2A1-5E86-4080-A799-01F3D0E23796}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +55,67 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3fd5e0cc-709a-4f8c-94c3-7f0f8dff5bb2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "searchFile.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\searchFile.cs",
+              "RelativeDocumentMoniker": "FileIndex\\searchFile.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\searchFile.cs [Design]*",
+              "RelativeToolTip": "FileIndex\\searchFile.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-01T12:50:15.436Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Main.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs",
+              "RelativeDocumentMoniker": "FileIndex\\Main.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Main.cs [Design]",
+              "RelativeToolTip": "FileIndex\\Main.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-01T12:49:33.536Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SearchComm.cs",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\SearchComm.cs",
+              "RelativeDocumentMoniker": "FileIndex\\SearchComm.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\SearchComm.cs",
+              "RelativeToolTip": "FileIndex\\SearchComm.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAIwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-01T12:14:46.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "rptCommSearch.rdlc [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Report\\rptCommSearch.rdlc",
+              "RelativeDocumentMoniker": "FileIndex\\Report\\rptCommSearch.rdlc",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\Report\\rptCommSearch.rdlc [Design]",
+              "RelativeToolTip": "FileIndex\\Report\\rptCommSearch.rdlc [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001755|",
+              "WhenOpened": "2026-03-01T12:14:34.842Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SearchComm.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\SearchComm.cs",
+              "RelativeDocumentMoniker": "FileIndex\\SearchComm.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalStampBranch\\FileIndex\\SearchComm.cs [Design]",
+              "RelativeToolTip": "FileIndex\\SearchComm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-01T12:14:31.039Z",
+              "EditorCaption": " [Design]"
             }
           ]
         },

@@ -41,6 +41,7 @@ namespace FileIndex
                             c.IssueNo, 
                             c.DateOfIssue, 
                             f.FileNo AS [FileNumber], 
+                            t.FileType AS [IssueType],
                             f.FileSubject, 
                             p.StampPrice, 
                             p.SouvenirPrice,
@@ -48,7 +49,8 @@ namespace FileIndex
                          FROM CommStamp c
                          INNER JOIN FileIndex f ON c.FileNo = f.Id 
                          LEFT JOIN StockPrice p ON c.FileNo = p.FileNo
-                         WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) 
+                        LEFT JOIN FileType t ON f.FileType = t.Id 
+                        WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) 
                          AND (
                                 f.FileNo LIKE @search 
                                 OR f.FileSubject LIKE @search 
@@ -79,7 +81,8 @@ namespace FileIndex
                         dgvResults.Columns["DateOfIssue"].HeaderText = "Date";
                         dgvResults.Columns["DateOfIssue"].DefaultCellStyle.Format = "dd-MMM-yyyy";
 
-                        dgvResults.Columns["FileSubject"].Width = 250;
+                        dgvResults.Columns["FileSubject"].Width = 500;
+                        dgvResults.Columns["IssueType"].Width = 150;
                         dgvResults.Columns["Remarks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     }
                 }
