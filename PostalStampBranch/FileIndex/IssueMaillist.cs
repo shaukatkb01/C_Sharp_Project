@@ -14,6 +14,46 @@ namespace FileIndex
 {
     public partial class IssueMaillist : Form
     {
+        // Yeh function controls ko dhoond kar events attach karega
+        private void ApplyGlobalBehavior(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                // 1. Textbox aur NumericUpDown ke liye (Auto Select)
+                if (c is TextBox || c is NumericUpDown)
+                {
+                    // Jab cursor Tab ya Mouse se dakhil ho
+                    c.Enter += (s, e) =>
+                    {
+                        if (s is TextBox txt)
+                        {
+                            txt.BeginInvoke(new Action(() => txt.SelectAll()));
+                        }
+                        else if (s is NumericUpDown num)
+                        {
+                            // NumericUpDown ki value ko select karne ka tareeqa
+                            num.BeginInvoke(new Action(() => num.Select(0, num.Text.Length)));
+                        }
+                    };
+                }
+
+                // 2. ComboBox ke liye (Auto Dropdown)
+                else if (c is ComboBox combo)
+                {
+                    c.Enter += (s, e) =>
+                    {
+                        combo.DroppedDown = true;
+                    };
+                }
+
+                // 3. Agar controls kisi Panel ya GroupBox ke andar hain (Recursive call)
+                if (c.HasChildren)
+                {
+                    ApplyGlobalBehavior(c);
+                }
+            }
+        }
+
         // Ye function har container ke andar ja kar controls dhoonde ga
         private void EnableDisablePhil(Control parent, bool status)
         {
@@ -131,6 +171,8 @@ namespace FileIndex
 
         private void IssueMaillist_Load(object sender, EventArgs e)
         {
+
+
             ThemeManager.ApplyTheme(this); // Form pe theme apply karna
             FormLoadingData.FillIssueNumbers(Cmb_IssueNo);
 
@@ -139,7 +181,7 @@ namespace FileIndex
             num_1_K.Text = num_1_K.Value.ToString("00");
             num_1_G.Text = num_1_G.Value.ToString("00");
             // dispatch types main 
-
+            ApplyGlobalBehavior(this);
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
                 try

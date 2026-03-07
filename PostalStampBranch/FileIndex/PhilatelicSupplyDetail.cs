@@ -66,16 +66,16 @@ namespace FileIndex
                 com_FileNo.DisplayMember = "IndexFileNo";
                 com_FileNo.ValueMember = "Id";
                 com_FileNo.SelectedIndex = -1;
-                string? query1 = @"SELECT ID, PhilitelicBuearuName 
+                string? query1 = @"SELECT Id, Address
                                 FROM PhilitelicBuearu 
-                                ORDER BY PhilitelicBuearuName ASC";
+                                ORDER BY Id ASC";
 
                 SqlDataAdapter adapter1 = new SqlDataAdapter(query1, con);
                 DataTable dt1 = new DataTable();
                 adapter1.Fill(dt1);
                 com_Address.DataSource = dt1;
-                com_Address.DisplayMember = "PhilitelicBuearuName";
-                com_Address.ValueMember = "ID";
+                com_Address.DisplayMember = "Address";
+                com_Address.ValueMember = "Id";
                 com_Address.SelectedIndex = -1;
 
                 string? query2 = @"SELECT ID, SupplyType 

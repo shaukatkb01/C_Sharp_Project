@@ -39,7 +39,6 @@
             Cmb_IssueNo = new ComboBox();
             panel2 = new Panel();
             label8 = new Label();
-            label9 = new Label();
             label7 = new Label();
             label5 = new Label();
             label4 = new Label();
@@ -138,7 +137,6 @@
             label3 = new Label();
             drop_13_Phil = new ComboBox();
             drop_14_Phil = new ComboBox();
-            label28 = new Label();
             label27 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -287,7 +285,6 @@
             // 
             panel2.AutoScroll = true;
             panel2.Controls.Add(label8);
-            panel2.Controls.Add(label9);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label5);
             panel2.Controls.Add(label4);
@@ -386,7 +383,6 @@
             panel2.Controls.Add(label3);
             panel2.Controls.Add(drop_13_Phil);
             panel2.Controls.Add(drop_14_Phil);
-            panel2.Controls.Add(label28);
             panel2.Controls.Add(label27);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 139);
@@ -398,31 +394,21 @@
             // label8
             // 
             label8.ForeColor = Color.Black;
-            label8.Location = new Point(5, 757);
+            label8.Location = new Point(5, 754);
             label8.Name = "label8";
             label8.Size = new Size(33, 21);
             label8.TabIndex = 819;
-            label8.Text = "20";
+            label8.Text = "18";
             label8.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(5, 795);
-            label9.Name = "label9";
-            label9.Size = new Size(33, 21);
-            label9.TabIndex = 818;
-            label9.Text = "21";
-            label9.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label7
             // 
             label7.ForeColor = Color.Black;
-            label7.Location = new Point(5, 720);
+            label7.Location = new Point(5, 712);
             label7.Name = "label7";
             label7.Size = new Size(33, 21);
             label7.TabIndex = 817;
-            label7.Text = "19";
+            label7.Text = "17";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label5
@@ -752,11 +738,11 @@
             // label44
             // 
             label44.ForeColor = Color.Black;
-            label44.Location = new Point(5, 529);
+            label44.Location = new Point(5, 502);
             label44.Name = "label44";
             label44.Size = new Size(33, 21);
             label44.TabIndex = 781;
-            label44.Text = "14";
+            label44.Text = "12";
             label44.TextAlign = ContentAlignment.MiddleRight;
             // 
             // drop_16_Phil
@@ -814,51 +800,51 @@
             // label14
             // 
             label14.ForeColor = Color.Black;
-            label14.Location = new Point(5, 644);
+            label14.Location = new Point(5, 628);
             label14.Name = "label14";
             label14.Size = new Size(33, 21);
             label14.TabIndex = 775;
-            label14.Text = "17";
+            label14.Text = "15";
             label14.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label13
             // 
             label13.ForeColor = Color.Black;
-            label13.Location = new Point(5, 606);
+            label13.Location = new Point(5, 586);
             label13.Name = "label13";
             label13.Size = new Size(33, 21);
             label13.TabIndex = 774;
-            label13.Text = "16";
+            label13.Text = "14";
             label13.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label12
             // 
             label12.ForeColor = Color.Black;
-            label12.Location = new Point(5, 568);
+            label12.Location = new Point(5, 544);
             label12.Name = "label12";
             label12.Size = new Size(33, 21);
             label12.TabIndex = 773;
-            label12.Text = "15";
+            label12.Text = "13";
             label12.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label1
             // 
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(5, 491);
+            label1.Location = new Point(5, 460);
             label1.Name = "label1";
             label1.Size = new Size(33, 21);
             label1.TabIndex = 772;
-            label1.Text = "13";
+            label1.Text = "11";
             label1.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label26
             // 
             label26.ForeColor = Color.Black;
-            label26.Location = new Point(5, 682);
+            label26.Location = new Point(5, 670);
             label26.Name = "label26";
             label26.Size = new Size(33, 21);
             label26.TabIndex = 771;
-            label26.Text = "18";
+            label26.Text = "16";
             label26.TextAlign = ContentAlignment.MiddleRight;
             // 
             // drop_13_DisType
@@ -1173,7 +1159,7 @@
             // label22
             // 
             label22.ForeColor = Color.Black;
-            label22.Location = new Point(5, 263);
+            label22.Location = new Point(5, 292);
             label22.Name = "label22";
             label22.Size = new Size(33, 21);
             label22.TabIndex = 737;
@@ -1183,7 +1169,7 @@
             // label21
             // 
             label21.ForeColor = Color.Black;
-            label21.Location = new Point(5, 225);
+            label21.Location = new Point(5, 250);
             label21.Name = "label21";
             label21.Size = new Size(33, 21);
             label21.TabIndex = 736;
@@ -1193,7 +1179,7 @@
             // label20
             // 
             label20.ForeColor = Color.Black;
-            label20.Location = new Point(5, 188);
+            label20.Location = new Point(5, 208);
             label20.Name = "label20";
             label20.Size = new Size(33, 21);
             label20.TabIndex = 735;
@@ -1203,7 +1189,7 @@
             // label19
             // 
             label19.ForeColor = Color.Black;
-            label19.Location = new Point(5, 150);
+            label19.Location = new Point(3, 166);
             label19.Name = "label19";
             label19.Size = new Size(33, 21);
             label19.TabIndex = 734;
@@ -1213,7 +1199,7 @@
             // label18
             // 
             label18.ForeColor = Color.Black;
-            label18.Location = new Point(5, 112);
+            label18.Location = new Point(5, 124);
             label18.Name = "label18";
             label18.Size = new Size(33, 21);
             label18.TabIndex = 733;
@@ -1243,31 +1229,31 @@
             // label25
             // 
             label25.ForeColor = Color.Black;
-            label25.Location = new Point(5, 378);
+            label25.Location = new Point(3, 796);
             label25.Name = "label25";
             label25.Size = new Size(33, 21);
             label25.TabIndex = 730;
-            label25.Text = "10";
+            label25.Text = "19";
             label25.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label24
             // 
             label24.ForeColor = Color.Black;
-            label24.Location = new Point(5, 340);
+            label24.Location = new Point(3, 334);
             label24.Name = "label24";
             label24.Size = new Size(33, 21);
             label24.TabIndex = 729;
-            label24.Text = "9";
+            label24.Text = "8";
             label24.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label23
             // 
             label23.ForeColor = Color.Black;
-            label23.Location = new Point(5, 302);
+            label23.Location = new Point(5, 376);
             label23.Name = "label23";
             label23.Size = new Size(33, 21);
             label23.TabIndex = 728;
-            label23.Text = "8";
+            label23.Text = "9";
             label23.TextAlign = ContentAlignment.MiddleRight;
             // 
             // num_14_K
@@ -1350,24 +1336,14 @@
             drop_14_Phil.TabIndex = 720;
             drop_14_Phil.Tag = "Phil";
             // 
-            // label28
-            // 
-            label28.ForeColor = Color.Black;
-            label28.Location = new Point(5, 454);
-            label28.Name = "label28";
-            label28.Size = new Size(33, 21);
-            label28.TabIndex = 719;
-            label28.Text = "12";
-            label28.TextAlign = ContentAlignment.MiddleRight;
-            // 
             // label27
             // 
             label27.ForeColor = Color.Black;
-            label27.Location = new Point(5, 416);
+            label27.Location = new Point(5, 418);
             label27.Name = "label27";
             label27.Size = new Size(33, 21);
             label27.TabIndex = 718;
-            label27.Text = "11";
+            label27.Text = "10";
             label27.TextAlign = ContentAlignment.MiddleRight;
             // 
             // IssueMaillist
@@ -1437,7 +1413,6 @@
         private ComboBox Cmb_IssueNo;
         private Panel panel2;
         private Label label8;
-        private Label label9;
         private Label label7;
         private Label label5;
         private Label label4;
@@ -1536,7 +1511,6 @@
         private Label label3;
         private ComboBox drop_13_Phil;
         private ComboBox drop_14_Phil;
-        private Label label28;
         private Label label27;
     }
 }

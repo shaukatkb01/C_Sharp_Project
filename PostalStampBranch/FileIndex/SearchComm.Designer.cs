@@ -51,7 +51,6 @@
             // 
             // dgvResults
             // 
-            dgvResults.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvResults.BackgroundColor = SystemColors.Control;
             dgvResults.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;

@@ -317,21 +317,26 @@ namespace FileIndex
 
                 try
                 {
-                    string qMD = "TRUNCATE TABLE IssueMaleList";
-                    SqlCommand qm = new(qMD, con, trans);
-                    qm.ExecuteNonQuery();
-                    // Logic for InvoiceRegister (1-19)
-                    for (int i = 1; i <= 19; i++)
+                    // 1. Table saaf karna
+                    new SqlCommand("TRUNCATE TABLE IssueMaleList", con, trans).ExecuteNonQuery();
+
+                    // Loop 1: Invoices aur MaleList (1 to 20)
+                    for (int i = 1; i <= 20; i++)
                     {
                         var dP = GetControl($"drop_{i}_Phil") as ComboBox;
                         var tA = GetControl($"text_{i}_TA") as TextBox;
                         var dD = GetControl($"drop_{i}_DisType") as ComboBox;
 
-                        if (dP?.SelectedValue != null && !string.IsNullOrWhiteSpace(tA?.Text) && decimal.Parse(tA.Text) > 0)
+                        // Agar Dropdown khali hai toh is row ko chhor kar agni row par jao
+                        if (dP?.SelectedValue == null) continue;
+
+                        // A. INVOICE LOGIC (Sirf agar amount ho)
+                        decimal.TryParse(tA?.Text, out decimal amount);
+                        if (amount > 0)
                         {
                             string invNo = GetNextInvoiceNoWithConnection(con, trans);
                             string q = @"INSERT INTO InvoiceRegister (FileNo, InvoiceNo, SupplyType, PhiliticBureauName, IssueDate, Totalamount) 
-                                         VALUES (@file, @inv, 2, @phil, @date, @amount); SELECT SCOPE_IDENTITY();";
+                                 VALUES (@file, @inv, 2, @phil, @date, @amount); SELECT SCOPE_IDENTITY();";
 
                             using (SqlCommand cmd = new SqlCommand(q, con, trans))
                             {
@@ -339,42 +344,52 @@ namespace FileIndex
                                 cmd.Parameters.AddWithValue("@inv", invNo);
                                 cmd.Parameters.AddWithValue("@phil", dP.SelectedValue);
                                 cmd.Parameters.AddWithValue("@date", DateTime.Now);
-                                cmd.Parameters.AddWithValue("@amount", decimal.Parse(tA.Text));
+                                cmd.Parameters.AddWithValue("@amount", amount);
+
                                 int id = Convert.ToInt32(cmd.ExecuteScalar());
                                 invoiceIdMap.Add(i, id);
 
-                                // Pending Invoice
-                                new SqlCommand($"INSERT INTO PendingInvoice (InvoiceRegisterId) VALUES({id})", con, trans).ExecuteNonQuery();
-
-
-                                // IssueMaleList
-                                if (i != 2)
+                                // Pending Invoice (ExecuteNonQuery lazmi hai)
+                                using (SqlCommand cmdP = new SqlCommand("INSERT INTO PendingInvoice (InvoiceRegisterId) VALUES(@id)", con, trans))
                                 {
-                                    string qM = "INSERT INTO IssueMaleList (MaleListFileId, Address, DispatchType) VALUES (@mf, @ad, @dt)";
-                                    SqlCommand cM = new SqlCommand(qM, con, trans);
-                                    cM.Parameters.AddWithValue("@mf", combFileNo.SelectedValue);
-                                    cM.Parameters.AddWithValue("@ad", dP.SelectedValue);
-                                    cM.Parameters.AddWithValue("@dt", dD?.SelectedValue ?? DBNull.Value);
-                                    cM.ExecuteNonQuery();
+                                    cmdP.Parameters.AddWithValue("@id", id);
+                                    cmdP.ExecuteNonQuery();
                                 }
+                            }
+                        }
+
+                        // B. ISSUE MALE LIST (Row 2 Karachi GPO ki male list nahi bani)
+                        if (i != 2)
+                        {
+                            string qM = "INSERT INTO IssueMaleList (MaleListFileId, Address, DispatchType) VALUES (@mf, @ad, @dt)";
+                            using (SqlCommand cM = new SqlCommand(qM, con, trans))
+                            {
+                                cM.Parameters.AddWithValue("@mf", combFileNo.SelectedValue);
+                                cM.Parameters.AddWithValue("@ad", dP.SelectedValue);
+                                cM.Parameters.AddWithValue("@dt", dD?.SelectedValue ?? DBNull.Value);
+                                cM.ExecuteNonQuery();
                             }
                         }
                     }
 
-                    // PhilatelicSupply (1-26)
+                    // Loop 2: PhilatelicSupply (1 to 26)
                     for (int i = 1; i <= 26; i++)
                     {
                         var dP = GetControl($"drop_{i}_Phil") as ComboBox;
                         if (dP?.SelectedValue == null) continue;
 
                         string qS = @"INSERT INTO PhilatelicSupply (Address, FileNo, InvoiceNo, SupplyType, Supply_Date, StampsQty, FDCQty, LeafletQty, FDCCQty, PostmarkQty)
-                                      VALUES (@phil, @file, @inv, @rstype, @date, @sq, @fq, @lq, @fcq, @pmq)";
+                              VALUES (@phil, @file, @inv, @rstype, @date, @sq, @fq, @lq, @fcq, @pmq)";
 
                         using (SqlCommand cmd = new SqlCommand(qS, con, trans))
                         {
                             cmd.Parameters.AddWithValue("@phil", dP.SelectedValue);
                             cmd.Parameters.AddWithValue("@file", combFileNo.SelectedValue);
-                            cmd.Parameters.AddWithValue("@inv", (i <= 19 && invoiceIdMap.ContainsKey(i)) ? (object)invoiceIdMap[i] : DBNull.Value);
+
+                            // Invoice ID check
+                            object invId = (i <= 19 && invoiceIdMap.ContainsKey(i)) ? (object)invoiceIdMap[i] : DBNull.Value;
+                            cmd.Parameters.AddWithValue("@inv", invId);
+
                             cmd.Parameters.AddWithValue("@rstype", ((i >= 1 && i <= 20) || i == 25 || i == 26) ? 2 : 1);
                             cmd.Parameters.AddWithValue("@date", DateTime.Now);
                             cmd.Parameters.AddWithValue("@sq", (GetControl($"num_{i}_Stamp") as NumericUpDown)?.Value ?? 0);
@@ -382,19 +397,24 @@ namespace FileIndex
                             cmd.Parameters.AddWithValue("@lq", (GetControl($"num_{i}_Leaflet") as NumericUpDown)?.Value ?? 0);
                             cmd.Parameters.AddWithValue("@fcq", (GetControl($"num_{i}_FDCCanccelled") as NumericUpDown)?.Value ?? 0);
                             cmd.Parameters.AddWithValue("@pmq", (GetControl($"num_{i}_Postmark") as NumericUpDown)?.Value ?? 0);
+
                             cmd.ExecuteNonQuery();
                         }
                     }
 
                     trans.Commit();
-                    MessageBox.Show("Saved Successfully!");
+                    MessageBox.Show("✅ Saved Successfully!");
                     ClearFormControls();
                     FillFileDropdown();
                 }
-                catch (Exception ex) { trans.Rollback(); MessageBox.Show("Save Error: " + ex.Message); }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    MessageBox.Show("❌ Save Error: " + ex.Message);
+                }
             }
         }
 
-        
+
     }
 }

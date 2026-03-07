@@ -1,5 +1,40 @@
 ﻿public static class UIHelper
 {
+    // Yeh function controls ko dhoond kar events attach karega
+    // Yeh function kisi bhi form par use ho sakta hai
+    public static void SetGlobalBehavior(Control parent)
+    {
+        foreach (Control c in parent.Controls)
+        {
+            // 1. TextBox aur NumericUpDown ke liye
+            if (c is TextBox || c is NumericUpDown)
+            {
+                c.Enter += (s, e) =>
+                {
+                    // Delay ke sath select karna taake Windows selection ko overwrite na kare
+                    parent.BeginInvoke(new Action(() => {
+                        if (s is TextBox txt) txt.SelectAll();
+                        if (s is NumericUpDown num) num.Select(0, num.Text.Length);
+                    }));
+                };
+            }
+
+            // 2. ComboBox ke liye (List niche girana)
+            else if (c is ComboBox combo)
+            {
+                c.Enter += (s, e) =>
+                {
+                    combo.DroppedDown = true;
+                };
+            }
+
+            // 3. Agar control kisi container (Panel/GroupBox) mein hai toh andar jao
+            if (c.HasChildren)
+            {
+                SetGlobalBehavior(c);
+            }
+        }
+    }
     public static void ApplyTheme(Control parent)
     {
         foreach (Control c in parent.Controls)

@@ -77,7 +77,7 @@ namespace FileIndex
         }
         private void frmReportView_Load(object sender, EventArgs e)
         {
-            ThemeManager.ApplyTheme(this);
+            //ThemeManager.ApplyTheme(this);
         }
     }
 }

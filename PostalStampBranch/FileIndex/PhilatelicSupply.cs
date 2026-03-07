@@ -27,14 +27,14 @@ namespace FileIndex
             {
                 try
                 {
-                    string query = @" SELECT Id,PhilitelicBuearuName
+                    string query = @" SELECT Id,Address
                               From PhilitelicBuearu
-                              ORDER BY Id DESC";
+                              ORDER BY Id ASC";
                     SqlDataAdapter adapter = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     com_Address.DataSource = dt;
-                    com_Address.DisplayMember = "PhilitelicBuearuName";
+                    com_Address.DisplayMember = "Address";
                     com_Address.ValueMember = "Id";
                     com_Address.SelectedIndex = -1;
 
@@ -61,12 +61,13 @@ namespace FileIndex
                     string query1 = @"SELECT fi.Id, fi.FileNo 
                                  FROM FileIndex fi
                                  INNER JOIN CommStamp cs ON fi.Id = cs.FileNo
-                                 WHERE EXISTS (
+                                 ORDER BY fi.Id DESC";
+                                 /* is cond ko comit keya h keon ka Phil supply main sub ka data nahi
+                                  * WHERE EXISTS (
                                     SELECT 1 
                                     FROM PhilatelicSupply SP 
                                     WHERE SP.FileNo = fi.Id
-                                 )
-                                 ORDER BY fi.Id DESC";
+                                 )*/
                     //WHERE cs.Id = @stampId";
                     SqlDataAdapter adapter1 = new SqlDataAdapter(query1, con);
                     DataTable dt1 = new DataTable();

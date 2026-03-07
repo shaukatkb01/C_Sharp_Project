@@ -21,7 +21,7 @@ namespace FileIndex
         {
             LoadData();
             ThemeManager.ApplyTheme(this); // Theme apply karne ka function
-
+            UIHelper.SetGlobalBehavior(this);// drowdown aur numeric controls ke liye global behavior set karne ka function
         }
 
         // 1. Data Load karne ka function
