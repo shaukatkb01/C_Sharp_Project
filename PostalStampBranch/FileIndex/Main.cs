@@ -57,10 +57,10 @@ namespace FileIndex
                     LogError(ex, "ExecuteBackup");
                 }
             }
-   
 
-   
-}
+
+
+        }
 
         // 3. Purani files (7 days old) delete karne ka function
         private void DeleteOldBackups(string folderPath)
@@ -1108,6 +1108,29 @@ Stack Trace:
         #endregion
 
 
-        
+
+        private void btn_Items_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                tabControl1.TabPages.Clear();
+                tabControl1.TabPages.Add(tab_1);
+                tabControl1.TabPages.Add(tab_2);
+                tabControl1.TabPages.Add(tab_3);
+
+                BindFormToTab(new AddItems(), tab_1, "[+] Add New Items");
+                BindFormToTab(new IssueCorrection(), tab_2, "[✎] Edit / Update");
+                BindFormToTab(new SearchComm(), tab_3, "[🔍] Search Records");
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, "btn_Com_Click");
+                MessageBox.Show($"❌ Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+          
+        }
     }
 }

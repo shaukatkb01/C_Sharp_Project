@@ -631,3 +631,5 @@ D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\refint\F
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.pdb
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.genruntimeconfig.cache
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\ref\FileIndex.dll
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddItems.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.Signature.resources

@@ -104,14 +104,14 @@ namespace FileIndex
 
 
                 string sub_2_Single_First =
-                            @"      In view of the above, you are requested to furnish the acknowledgment of the aforementioned invoice without any further delay, positively, for completion of official record.";
+                            @"      In view of the above, you are requested to furnish the acknowledgment of the aforementioned invoice without any further delay, positively, for completion of office record.";
                 return sub_2_Single_First;
             }
             else
             {
 
                 string sub_2_Double_First =
-                    @"      In view of the above, you are requested to furnish the acknowledgments of the aforementioned invoices without any further delay, positively, for completion of official record.";
+                    @"      In view of the above, you are requested to furnish the acknowledgments of the aforementioned invoices without any further delay, positively, for completion of office record.";
                 return sub_2_Double_First;
             }
         }

@@ -7,6 +7,9 @@
     <Compile Update="AddFileNo.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AddItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Address.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +95,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="searchFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Signature.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SingleMaillist.cs">
