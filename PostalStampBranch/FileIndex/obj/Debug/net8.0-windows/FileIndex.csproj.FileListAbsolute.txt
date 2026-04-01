@@ -588,10 +588,12 @@ D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Debug\net8.0-windows\runtimes
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.csproj.AssemblyReference.cache
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddFileNo.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddItems.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.Address.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddressOption.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddStationeryItems.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.DashBoard.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.DispatchType.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.distribution2.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.DistributionList.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.FileCorrection.resources
@@ -615,6 +617,7 @@ D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileInde
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.Register.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.SearchComm.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.searchFile.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.Signature.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.SingleMaillist.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.StationeryTransactionscs.resources
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.UserRoles.resources
@@ -631,5 +634,3 @@ D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\refint\F
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.pdb
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.genruntimeconfig.cache
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\ref\FileIndex.dll
-D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.AddItems.resources
-D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Debug\net8.0-windows\FileIndex.Signature.resources

@@ -196,6 +196,12 @@ namespace FileIndex
                     cmdStatus.Parameters.AddWithValue("@Id", selectedFileId);
                     cmdStatus.ExecuteNonQuery();
 
+                    //-- Table 6: Insert IssueNo in Images Table of stamp and souvenir
+                    string queryImage = @"INSERT INTO StampImage (IssueNo) VALUES (@IssueNo)";
+                    SqlCommand cmdImage = new SqlCommand(queryImage, con, trans);
+                    cmdImage.Parameters.AddWithValue("@IssueNo", fullIssueNo);
+                    cmdImage.ExecuteNonQuery();
+
                     // Sab sahi hai toh save kar do
                     trans.Commit();
                     MessageBox.Show("All data is saved in tables..");

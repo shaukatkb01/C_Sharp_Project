@@ -35,32 +35,21 @@ namespace FileIndex
             {
                 try
                 {
-                    // Update: Price table ki jagah StockPrice use kiya gaya hai
+                    // 1. Query mein StampImage table ko JOIN kiya aur Path uthaya
                     string query = @"SELECT 
-                            c.IssueId, 
-                            c.IssueNo, 
-                            c.DateOfIssue, 
-                            f.FileNo AS [FileNumber], 
-                            t.FileType AS [IssueType],
-                            f.FileSubject, 
-                            p.StampPrice, 
-                            p.SouvenirPrice,
-                            c.Remarks
-                         FROM CommStamp c
-                         INNER JOIN FileIndex f ON c.FileNo = f.Id 
-                         LEFT JOIN StockPrice p ON c.FileNo = p.FileNo
-                        LEFT JOIN FileType t ON f.FileType = t.Id 
-                        WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) 
-                         AND (
-                                f.FileNo LIKE @search 
-                                OR f.FileSubject LIKE @search 
-                                OR c.IssueNo LIKE @search 
-                                OR c.Remarks LIKE @search
-                             )";
+                                c.IssueId, c.IssueNo, c.DateOfIssue, 
+                                f.FileNo AS [FileNumber], t.FileType AS [IssueType], 
+                                f.FileSubject, p.StampPrice, p.SouvenirPrice, c.Remarks,
+                                s.StampImagePath, SouvenirImagePath -- Path yahan se aayega
+                             FROM CommStamp c 
+                             INNER JOIN FileIndex f ON c.FileNo = f.Id 
+                             LEFT JOIN StockPrice p ON c.FileNo = p.FileNo 
+                             LEFT JOIN FileType t ON f.FileType = t.Id 
+                             LEFT JOIN StampImage s ON c.IssueNo = s.IssueNo -- Image table join kiya
+                             WHERE (c.DateOfIssue BETWEEN @fromDate AND @toDate) 
+                             AND (f.FileNo LIKE @search OR f.FileSubject LIKE @search OR c.IssueNo LIKE @search)";
 
                     SqlCommand cmd = new SqlCommand(query, con);
-
-                    // SQL Injection se bachne ke liye safe parameters
                     cmd.Parameters.AddWithValue("@search", "%" + searchTerm + "%");
                     cmd.Parameters.AddWithValue("@fromDate", fromDate.Date);
                     cmd.Parameters.AddWithValue("@toDate", toDate.Date.AddDays(1).AddTicks(-1));
@@ -69,26 +58,44 @@ namespace FileIndex
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
 
+                    // 2. DataTable mein aik naya Column add karein jo Picture hold karega
+                    dt.Columns.Add("Picture", typeof(byte[]));
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string path = row["StampImagePath"]?.ToString();
+                        if (!string.IsNullOrEmpty(path) && System.IO.File.Exists(path))
+                        {
+                            // Path se asli image read karke bytes mein convert ki
+                            row["Picture"] = System.IO.File.ReadAllBytes(path);
+                        }
+                    }
+
                     dgvResults.DataSource = dt;
 
-                    // UI Settings
-                    if (dt.Rows.Count > 0 && dgvResults.Columns.Count > 0)
+                    // 3. UI Settings (Image column ko set karna)
+                    if (dt.Rows.Count > 0)
                     {
+                        // Path wala column chhupa dein, kyunke humne "Picture" column dikhana hai
+                        if (dgvResults.Columns.Contains("StampImagePath")) dgvResults.Columns["StampImagePath"].Visible = false;
                         if (dgvResults.Columns.Contains("IssueId")) dgvResults.Columns["IssueId"].Visible = false;
 
-                        dgvResults.Columns["FileNumber"].HeaderText = "File No";
-                        dgvResults.Columns["IssueNo"].HeaderText = "Issue No";
-                        dgvResults.Columns["DateOfIssue"].HeaderText = "Date";
-                        dgvResults.Columns["DateOfIssue"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                        // Image Column ki setting
+                        if (dgvResults.Columns.Contains("Picture"))
+                        {
+                            DataGridViewImageColumn imgCol = (DataGridViewImageColumn)dgvResults.Columns["Picture"];
+                            imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom; // Image ko box mein fit karein
+                            imgCol.HeaderText = "Stamp";
+                            imgCol.Width = 60;
+                        }
 
-                        dgvResults.Columns["FileSubject"].Width = 500;
-                        dgvResults.Columns["IssueType"].Width = 150;
-                        dgvResults.Columns["Remarks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dgvResults.RowTemplate.Height = 60; // Row ki height thori barha dein taake image saaf dikhe
+                        dgvResults.Columns["FileSubject"].Width = 400;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Search Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Search Error: " + ex.Message);
                 }
             }
         }
@@ -146,6 +153,8 @@ namespace FileIndex
             }
             else
             {
+                dtpFrom.Value = new DateTime(1947, 8, 14);
+                dtpTo.Value = DateTime.Today;
                 dtpFrom.Enabled = false;
                 dtpTo.Enabled = false;
                 searchBtn.Enabled = true;
@@ -167,6 +176,49 @@ namespace FileIndex
 
             // Ab yahan 3 arguments bhejein: Text, Start Date, aur End Date
             SearchData(txtSearch.Text, dtpFrom.Value, dtpTo.Value);
+        }
+
+        private void dgvResults_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvResults.Columns[e.ColumnIndex].Name == "Picture")
+            {
+                var cellValue = dgvResults.Rows[e.RowIndex].Cells["Picture"].Value;
+
+                if (cellValue != null && cellValue != DBNull.Value)
+                {
+                    // DataTable se byte array ko image mein badlein
+                    byte[] imgBytes = (byte[])cellValue;
+                    using (MemoryStream ms = new MemoryStream(imgBytes))
+                    {
+                        picPopup.Image = Image.FromStream(ms);
+                    }
+
+                    // PictureBox ki position mouse ke paas set karein
+                    Point p = dgvResults.PointToClient(Cursor.Position);
+                    picPopup.Location = new Point(p.X + 20, p.Y + 20); // Mouse se thora hat kar
+
+                    picPopup.Visible = true;
+                    picPopup.BringToFront(); // Taake Grid ke upar dikhe
+                    Point mousePos = dgvResults.PointToClient(Cursor.Position);
+
+                    // PictureBox ko thora offset (hat kar) dikhana taake mouse ke niche na dabe
+                    picPopup.Location = new Point(mousePos.X + 100, mousePos.Y + 15);
+                    if (e.RowIndex >= 0 && dgvResults.Columns[e.ColumnIndex].Name == "Picture")
+                    {
+                        // 1. PictureBox ko kisi bhi panel se nikal kar direct Form par le aayein
+                        if (picPopup.Parent != this)
+                        {
+                            picPopup.Parent = this;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void dgvResults_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            picPopup.Visible = false; // Popup ko chhupa dein
         }
     }
 }

@@ -41,6 +41,8 @@
             label3 = new Label();
             label4 = new Label();
             fileTypeCmb = new ComboBox();
+            txt_Location = new MaskedTextBox();
+            label7 = new Label();
             SuspendLayout();
             // 
             // saveCorrectionBtn
@@ -49,7 +51,7 @@
             saveCorrectionBtn.BackColor = Color.FromArgb(0, 165, 255);
             saveCorrectionBtn.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             saveCorrectionBtn.ForeColor = Color.White;
-            saveCorrectionBtn.Location = new Point(250, 560);
+            saveCorrectionBtn.Location = new Point(219, 560);
             saveCorrectionBtn.Margin = new Padding(1);
             saveCorrectionBtn.Name = "saveCorrectionBtn";
             saveCorrectionBtn.Size = new Size(169, 46);
@@ -61,9 +63,9 @@
             // FileNoTxt
             // 
             FileNoTxt.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            FileNoTxt.Location = new Point(189, 214);
+            FileNoTxt.Location = new Point(189, 184);
             FileNoTxt.Name = "FileNoTxt";
-            FileNoTxt.Size = new Size(359, 29);
+            FileNoTxt.Size = new Size(353, 29);
             FileNoTxt.TabIndex = 2;
             FileNoTxt.Click += FileNoTxt_Click;
             // 
@@ -71,7 +73,7 @@
             // 
             label6.AutoSize = true;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(47, 214);
+            label6.Location = new Point(47, 184);
             label6.Name = "label6";
             label6.Size = new Size(132, 21);
             label6.TabIndex = 24;
@@ -79,17 +81,17 @@
             // 
             // remarkTxt
             // 
-            remarkTxt.Location = new Point(186, 402);
+            remarkTxt.Location = new Point(189, 418);
             remarkTxt.Multiline = true;
             remarkTxt.Name = "remarkTxt";
-            remarkTxt.Size = new Size(362, 119);
+            remarkTxt.Size = new Size(353, 119);
             remarkTxt.TabIndex = 4;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.ForeColor = Color.White;
-            label5.Location = new Point(47, 402);
+            label5.Location = new Point(47, 418);
             label5.Name = "label5";
             label5.Size = new Size(71, 21);
             label5.TabIndex = 23;
@@ -97,17 +99,17 @@
             // 
             // subjectTxt
             // 
-            subjectTxt.Location = new Point(186, 313);
+            subjectTxt.Location = new Point(189, 319);
             subjectTxt.Multiline = true;
             subjectTxt.Name = "subjectTxt";
-            subjectTxt.Size = new Size(362, 83);
+            subjectTxt.Size = new Size(353, 83);
             subjectTxt.TabIndex = 3;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.ForeColor = Color.White;
-            label2.Location = new Point(47, 313);
+            label2.Location = new Point(47, 319);
             label2.Name = "label2";
             label2.Size = new Size(89, 21);
             label2.TabIndex = 20;
@@ -117,7 +119,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(47, 163);
+            label1.Location = new Point(47, 139);
             label1.Name = "label1";
             label1.Size = new Size(104, 21);
             label1.TabIndex = 18;
@@ -126,16 +128,16 @@
             // fileNoCmb
             // 
             fileNoCmb.FormattingEnabled = true;
-            fileNoCmb.Location = new Point(189, 163);
+            fileNoCmb.Location = new Point(189, 139);
             fileNoCmb.Name = "fileNoCmb";
-            fileNoCmb.Size = new Size(359, 29);
+            fileNoCmb.Size = new Size(353, 29);
             fileNoCmb.TabIndex = 1;
             fileNoCmb.SelectedIndexChanged += fileNoCmb_SelectedIndexChanged;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = Color.FromArgb(34, 167, 240);
-            flowLayoutPanel1.Location = new Point(182, 94);
+            flowLayoutPanel1.Location = new Point(178, 94);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(250, 3);
             flowLayoutPanel1.TabIndex = 13;
@@ -145,7 +147,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(0, 165, 255);
-            label3.Location = new Point(108, 45);
+            label3.Location = new Point(104, 45);
             label3.Name = "label3";
             label3.Size = new Size(398, 46);
             label3.TabIndex = 15;
@@ -156,7 +158,7 @@
             // 
             label4.AutoSize = true;
             label4.ForeColor = Color.White;
-            label4.Location = new Point(44, 259);
+            label4.Location = new Point(47, 229);
             label4.Name = "label4";
             label4.Size = new Size(115, 21);
             label4.TabIndex = 26;
@@ -165,11 +167,29 @@
             // fileTypeCmb
             // 
             fileTypeCmb.FormattingEnabled = true;
-            fileTypeCmb.Location = new Point(189, 259);
+            fileTypeCmb.Location = new Point(189, 229);
             fileTypeCmb.Name = "fileTypeCmb";
-            fileTypeCmb.Size = new Size(359, 29);
+            fileTypeCmb.Size = new Size(353, 29);
             fileTypeCmb.TabIndex = 25;
             fileTypeCmb.Click += fileTypeCmb_Click;
+            // 
+            // txt_Location
+            // 
+            txt_Location.Location = new Point(189, 274);
+            txt_Location.Mask = "00-00";
+            txt_Location.Name = "txt_Location";
+            txt_Location.Size = new Size(353, 29);
+            txt_Location.TabIndex = 28;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(47, 274);
+            label7.Name = "label7";
+            label7.Size = new Size(97, 21);
+            label7.TabIndex = 27;
+            label7.Text = "File Location";
             // 
             // FileCorrection
             // 
@@ -177,6 +197,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(44, 62, 80);
             ClientSize = new Size(607, 685);
+            Controls.Add(txt_Location);
+            Controls.Add(label7);
             Controls.Add(label4);
             Controls.Add(fileTypeCmb);
             Controls.Add(saveCorrectionBtn);
@@ -213,5 +235,7 @@
         private Label label3;
         private Label label4;
         private ComboBox fileTypeCmb;
+        private MaskedTextBox txt_Location;
+        private Label label7;
     }
 }

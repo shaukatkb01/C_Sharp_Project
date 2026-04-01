@@ -10,6 +10,8 @@ namespace FileIndex
     public partial class IssueCorrection : Form
     {
         int currentFileType = 0;
+        string selectedStampFilePath = string.Empty;
+        string selectedSouvenirFilePath = string.Empty;
 
         private void RefreshForm()
         {
@@ -25,6 +27,10 @@ namespace FileIndex
         {
             foreach (Control c in parent.Controls)
             {
+                if (c is PictureBox pictureBox)
+                {
+                    pictureBox.Image = null;
+                }
                 // 1. TextBox saaf karein
                 if (c is TextBox textBox)
                 {
@@ -127,67 +133,25 @@ namespace FileIndex
             }
         }
 
-        private void issuNoCmb_SelectedIndexChanged(object sender, EventArgs e)
+
+
+
+
+        // Helper function for safe decimal conversion
+        private decimal SafeDecimal(string text)
         {
-            int selectedIssue = Convert.ToInt32(issuNoCmb.SelectedValue);
-            // Sirf tab chale jab waqayi koi number select ho (DataRowView se bachne ke liye)
-            if (issuNoCmb.SelectedIndex == -1 ) return;
-
-            using (SqlConnection con = new SqlConnection(Db.ConString))
-            {
-                try
-                {
-                    // Specific Columns mention karein taake ambiguity na ho
-                    string query = @"SELECT C.FileNo, C.DateOfIssue, C.IssueNo, C.Remarks AS CommRemarks, 
-                                     P.StampPrice, P.SouvenirPrice, P.FDCPrice, P.LeafletPrice, P.PostmarkPrice,
-                                     Q.StampQty, Q.SouvenirQty, Q.FDCQty, Q.StampFCQty, Q.LeafletQty, Q.PostMarkQty,
-                                     D.StampDesignNo, D.SouvenirDesignNo, F.FileType 
-                                     FROM CommStamp C 
-                                     LEFT JOIN StockPrice P ON C.FileNo = P.FileNo 
-                                     LEFT JOIN StockPhilQuantity Q ON C.FileNo = Q.FileNo
-                                     LEFT JOIN Design D ON C.IssueId = D.IssueNo
-                                     LEFT JOIN FileIndex F ON C.FileNo = F.Id
-                                     WHERE C.IssueId = @IssueNo";
-
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@IssueNo", selectedIssue);
-
-                    con.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-
-                    if (dr.Read())
-                    {
-                        currentFileType = dr["FileType"] != DBNull.Value ? Convert.ToInt32(dr["FileType"]) : 0;
-                        EnableSouveControls(this, (currentFileType == 2 || currentFileType == 4));
-
-                        fileNoCmb.SelectedValue = dr["FileNo"];
-                        dateOfIssuePicker.Value = dr["DateOfIssue"] != DBNull.Value ? Convert.ToDateTime(dr["DateOfIssue"]) : DateTime.Now;
-                        issueNo.Text = dr["IssueNo"].ToString();
-                        remarkTxt.Text = dr["CommRemarks"]?.ToString() ?? "";
-
-                        // Design
-                        stampDesignNUM.Value = dr["StampDesignNo"] != DBNull.Value ? Convert.ToDecimal(dr["StampDesignNo"]) : 0;
-                        souvenirDesignNUM.Value = dr["SouvenirDesignNo"] != DBNull.Value ? Convert.ToDecimal(dr["SouvenirDesignNo"]) : 0;
-
-                        // Prices & Quantities (Safe display)
-                        stampPrice.Text = dr["StampPrice"]?.ToString() ?? "0";
-                        souvenirPrice.Text = dr["SouvenirPrice"]?.ToString() ?? "0";
-                        FDCPrice.Text = dr["FDCPrice"]?.ToString() ?? "0";
-                        leafletPrice.Text = dr["LeafletPrice"]?.ToString() ?? "0";
-                        postmarkPrice.Text = dr["PostmarkPrice"]?.ToString() ?? "0";
-
-                        stampQty.Text = dr["StampQty"]?.ToString() ?? "0";
-                        souvenirQty.Text = dr["SouvenirQty"]?.ToString() ?? "0";
-                        FDCQty.Text = dr["FDCQty"]?.ToString() ?? "0";
-                        stampQtyFC.Text = dr["StampFCQty"]?.ToString() ?? "0";
-                        leafletQty.Text = dr["LeafletQty"]?.ToString() ?? "0";
-                        postmarkQty.Text = dr["PostMarkQty"]?.ToString() ?? "0";
-                    }
-                    dr.Close();
-                }
-                catch (Exception ex) { MessageBox.Show("Display Error: " + ex.Message); }
-            }
+            return decimal.TryParse(text, out decimal res) ? res : 0;
         }
+
+
+
+        private void EnableSouveControls(Control parent, bool enable)
+        {
+            if (parent.Tag?.ToString() == "souveControll") parent.Enabled = enable;
+            foreach (Control child in parent.Controls) EnableSouveControls(child, enable);
+        }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -236,15 +200,33 @@ namespace FileIndex
                     cmd3.Parameters.AddWithValue("@SQ", SafeDecimal(stampQty.Text));
                     cmd3.Parameters.AddWithValue("@SvQ", SafeDecimal(souvenirQty.Text));
                     cmd3.Parameters.AddWithValue("@FQ", SafeDecimal(FDCQty.Text));
-                    cmd3.Parameters.AddWithValue("@SFQ", SafeDecimal(stampQtyFC.Text)); 
+                    cmd3.Parameters.AddWithValue("@SFQ", SafeDecimal(stampQtyFC.Text));
                     cmd3.Parameters.AddWithValue("@LQ", SafeDecimal(leafletQty.Text));
                     cmd3.Parameters.AddWithValue("@PQ", SafeDecimal(postmarkQty.Text));
                     cmd3.Parameters.AddWithValue("@FID", selectedFileId);
                     cmd3.ExecuteNonQuery();
 
+                    //5 insert images path in images table
+                    string up4 = @"UPDATE StampImage SET StampImagePath=@stamppath, SouvenirImagePath=@souvenirpath
+                                        WHERE IssueNo=@IsID";
+                                            
+                    SqlCommand cmd4 = new SqlCommand(up4, con, trans);
+                    cmd4.Parameters.AddWithValue("@IsID", issueNo.Text);
+                    cmd4.Parameters.AddWithValue("@stamppath", selectedStampFilePath);
+                    cmd4.Parameters.AddWithValue("@souvenirpath", selectedSouvenirFilePath);
+                    cmd4.ExecuteNonQuery();
+
+                    // 6 update FileIndex (FileSubject)
+                    string up5 = "UPDATE FileIndex SET FileSubject=@FS WHERE Id=@FID";
+                    SqlCommand cmd5 = new SqlCommand(up5, con, trans);
+                    cmd5.Parameters.AddWithValue("@FID", selectedFileId);
+                    cmd5.Parameters.AddWithValue("@FS", textFileSubject.Text);
+                    cmd5.ExecuteNonQuery();
+
+
                     trans.Commit();
                     MessageBox.Show("All Tables Updated Successfully!");
-                   
+
                     RefreshForm();
                 }
                 catch (Exception ex)
@@ -255,22 +237,133 @@ namespace FileIndex
             }
         }
 
-        // Helper function for safe decimal conversion
-        private decimal SafeDecimal(string text)
+        private void issuNoCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            return decimal.TryParse(text, out decimal res) ? res : 0;
+            int selectedIssue = Convert.ToInt32(issuNoCmb.SelectedValue);
+            // Sirf tab chale jab waqayi koi number select ho (DataRowView se bachne ke liye)
+            if (issuNoCmb.SelectedIndex == -1) return;
+
+            using (SqlConnection con = new SqlConnection(Db.ConString))
+            {
+                try
+                {
+                    // Specific Columns mention karein taake ambiguity na ho
+                    string query = @"SELECT C.FileNo, C.DateOfIssue, C.IssueNo, C.Remarks AS CommRemarks, 
+                                     P.StampPrice, P.SouvenirPrice, P.FDCPrice, P.LeafletPrice, P.PostmarkPrice,
+                                     Q.StampQty, Q.SouvenirQty, Q.FDCQty, Q.StampFCQty, Q.LeafletQty, Q.PostMarkQty,
+                                     D.StampDesignNo, D.SouvenirDesignNo, F.FileType,
+                                     S.StampImagePath, SouvenirImagePath,
+                                     F.FileSubject
+                                     FROM CommStamp C 
+                                     LEFT JOIN StockPrice P ON C.FileNo = P.FileNo 
+                                     LEFT JOIN StockPhilQuantity Q ON C.FileNo = Q.FileNo
+                                     LEFT JOIN Design D ON C.IssueId = D.IssueNo
+                                     LEFT JOIN FileIndex F ON C.FileNo = F.Id
+                                     LEFT JOIN StampImage S on C.IssueNo = S.IssueNo
+                                     
+                                     WHERE C.IssueId = @IssueNo";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@IssueNo", selectedIssue);
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        currentFileType = dr["FileType"] != DBNull.Value ? Convert.ToInt32(dr["FileType"]) : 0;
+                        EnableSouveControls(this, (currentFileType == 2 || currentFileType == 4));
+
+                        fileNoCmb.SelectedValue = dr["FileNo"];
+                        dateOfIssuePicker.Value = dr["DateOfIssue"] != DBNull.Value ? Convert.ToDateTime(dr["DateOfIssue"]) : DateTime.Now;
+                        issueNo.Text = dr["IssueNo"].ToString();
+                        textFileSubject.Text = dr["FileSubject"].ToString();
+                        remarkTxt.Text = dr["CommRemarks"]?.ToString() ?? "";
+                        string imagePath = dr["StampImagePath"]?.ToString();
+                        string souvenirImagePath = dr["SouvenirImagePath"]?.ToString();
+
+                        // --- PictureBox 1 (Stamp) ---
+                        if (!string.IsNullOrEmpty(imagePath) && System.IO.File.Exists(imagePath))
+                        {
+                            using (var stream = new System.IO.FileStream(imagePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                            {
+                                pictureBox1.Image = Image.FromStream(stream);
+                            }
+                            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                        }
+                        else
+                        {
+                            pictureBox1.Image = null;
+                        }
+
+                        // --- PictureBox 2 (Souvenir) ---
+                        if (!string.IsNullOrEmpty(souvenirImagePath) && System.IO.File.Exists(souvenirImagePath))
+                        {
+                            using (var stream = new System.IO.FileStream(souvenirImagePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                            {
+                                pictureBox2.Image = Image.FromStream(stream);
+                            }
+                            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage; // Yahan pehle pictureBox1 likha tha
+                        }
+                        else
+                        {
+                            pictureBox2.Image = null;
+                        }
+
+
+                        // Design
+                        stampDesignNUM.Value = dr["StampDesignNo"] != DBNull.Value ? Convert.ToDecimal(dr["StampDesignNo"]) : 0;
+                        souvenirDesignNUM.Value = dr["SouvenirDesignNo"] != DBNull.Value ? Convert.ToDecimal(dr["SouvenirDesignNo"]) : 0;
+
+                        // Prices & Quantities (Safe display)
+                        stampPrice.Text = dr["StampPrice"]?.ToString() ?? "0";
+                        souvenirPrice.Text = dr["SouvenirPrice"]?.ToString() ?? "0";
+                        FDCPrice.Text = dr["FDCPrice"]?.ToString() ?? "0";
+                        leafletPrice.Text = dr["LeafletPrice"]?.ToString() ?? "0";
+                        postmarkPrice.Text = dr["PostmarkPrice"]?.ToString() ?? "0";
+
+                        stampQty.Text = dr["StampQty"]?.ToString() ?? "0";
+                        souvenirQty.Text = dr["SouvenirQty"]?.ToString() ?? "0";
+                        FDCQty.Text = dr["FDCQty"]?.ToString() ?? "0";
+                        stampQtyFC.Text = dr["StampFCQty"]?.ToString() ?? "0";
+                        leafletQty.Text = dr["LeafletQty"]?.ToString() ?? "0";
+                        postmarkQty.Text = dr["PostMarkQty"]?.ToString() ?? "0";
+                    }
+                    dr.Close();
+                }
+                catch (Exception ex) { MessageBox.Show("Display Error: " + ex.Message); }
+            }
         }
 
-       
-
-        private void EnableSouveControls(Control parent, bool enable)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (parent.Tag?.ToString() == "souveControll") parent.Enabled = enable;
-            foreach (Control child in parent.Controls) EnableSouveControls(child, enable);
+
         }
 
-       
+        private void btn_StampImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Images (*.jpg;*.png)|*.jpg;*.png";
 
-        
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                selectedStampFilePath = ofd.FileName; // Asli rasta save kar liya
+                pictureBox1.Image = Image.FromFile(selectedStampFilePath); // Form par dikha diya
+                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
+
+        private void btn_SouvenirImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Images (*.jpg;*.png)|*.jpg;*.png";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                selectedSouvenirFilePath = ofd.FileName; // Asli rasta save kar liya
+                pictureBox2.Image = Image.FromFile(selectedSouvenirFilePath); // Form par dikha diya
+                pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+        }
     }
 }

@@ -75,7 +75,7 @@ namespace FileIndex
                 using (SqlConnection connection = new SqlConnection(Db.ConString))
                 {
                     connection.Open();
-                    string query = "SELECT FileNo, FileSubject, Remark, FileType FROM FileIndex WHERE Id = @id";
+                    string query = "SELECT FileNo, FileSubject, Location, Remark, FileType FROM FileIndex WHERE Id = @id";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@id", selectedId);
@@ -85,6 +85,7 @@ namespace FileIndex
                     {
                         FileNoTxt.Text = reader["FileNo"].ToString();
                         subjectTxt.Text = reader["FileSubject"].ToString();
+                        txt_Location.Text = reader["Location"].ToString();
                         remarkTxt.Text = reader["Remark"].ToString();
 
                         // --- SAHI TARIQA (SelectedValue use karein) ---
@@ -140,6 +141,7 @@ namespace FileIndex
                              SET FileNo = @fno, 
                                  FileSubject = @subject, 
                                   FileType = @filetype,
+                                  Location = @location,
                                  Remark = @remark
                              WHERE Id = @id";
 
@@ -149,6 +151,7 @@ namespace FileIndex
                     cmd.Parameters.AddWithValue("@fno", FileNoTxt.Text);
                     cmd.Parameters.AddWithValue("@subject", subjectTxt.Text);
                     cmd.Parameters.AddWithValue("@filetype", fileTypeCmb.SelectedValue);
+                    cmd.Parameters.AddWithValue("@location", txt_Location.Text); // Location field ke liye koi input nahi diya gaya, toh empty string bhej rahe hain
                     cmd.Parameters.AddWithValue("@remark", remarkTxt.Text);
                     cmd.Parameters.AddWithValue("@id", fileNoCmb.SelectedValue); // Yeh wahi hidden ID hai
 

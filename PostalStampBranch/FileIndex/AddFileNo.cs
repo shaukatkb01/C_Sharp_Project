@@ -168,9 +168,9 @@ namespace FileIndex
         {
           
             // 1. Pehle Check karein ke zaroori cheezein khali to nahi
-            if (fileTypeCmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(newFileNoTxt.Text))
+            if (fileTypeCmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(newFileNoTxt.Text)||!txt_Location.MaskFull)
             {
-                MessageBox.Show("Please select File Type and ensure File Number is generated.");
+                MessageBox.Show("Please select File Type, insert File Location and ensure File Number is generated.");
                 return;
             }
 
@@ -182,8 +182,8 @@ namespace FileIndex
             using (SqlConnection con = new SqlConnection(Db.ConString))
             {
                 // SQL Query
-                string query = @"INSERT INTO FileIndex (FileType, FileNo, FileSubject, dateOfCreation, Remark, Status) 
-                         VALUES (@type, @no, @subject, @date, @remark, @status)";
+                string query = @"INSERT INTO FileIndex (FileType, FileNo, FileSubject, DateOfCreation, Location, Remark, Status) 
+                         VALUES (@type, @no, @subject, @date, @location, @remark, @status)";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -192,6 +192,7 @@ namespace FileIndex
                     cmd.Parameters.AddWithValue("@no", newFileNoTxt.Text.Trim());
                     cmd.Parameters.AddWithValue("@subject", subjectTxt.Text.Trim());
                     cmd.Parameters.AddWithValue("@date", dateOfCreationPick.Value); // DateTimePicker ki value
+                    cmd.Parameters.AddWithValue("@location", txt_Location.Text.Trim());
                     cmd.Parameters.AddWithValue("@remark", remarkTxt.Text.Trim());
                     cmd.Parameters.AddWithValue("@status", statusValue);
 
@@ -210,7 +211,7 @@ namespace FileIndex
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        MessageBox.Show("General Error: " + ex.Message);
                     }
                 }
             }

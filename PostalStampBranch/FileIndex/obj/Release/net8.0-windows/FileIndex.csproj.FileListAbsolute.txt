@@ -21,7 +21,6 @@ D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\FileIn
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Azure.Core.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Azure.Identity.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
-D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Microsoft.Bcl.Cryptography.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Microsoft.CodeAnalysis.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Microsoft.CodeAnalysis.VisualBasic.dll
 D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Microsoft.Data.SqlClient.dll
@@ -611,3 +610,17 @@ C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-wi
 C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptStationery.rdlc
 C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Serilog.dll
 C:\GetProjects\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.AddressOption.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptOfficerAddress.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptPhildetail.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptPInvoiceReminder.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptSingleMailList.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptStationery.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Report\rptWNS02.rdlc
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\bin\Release\net8.0-windows\Serilog.dll
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.AddItems.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.AddressOption.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.DispatchType.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.PendingInvoicePrint.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.Signature.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.SingleMaillist.resources
+D:\C_Sharp_Project\PostalStampBranch\FileIndex\obj\Release\net8.0-windows\FileIndex.WNS02.resources

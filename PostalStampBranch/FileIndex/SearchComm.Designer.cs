@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvResults = new DataGridView();
             panel1 = new Panel();
+            picPopup = new PictureBox();
             checkBox1 = new CheckBox();
             searchBtn = new Button();
             From = new Label();
@@ -46,6 +47,7 @@
             panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dgvResults).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picPopup).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,9 +78,12 @@
             dgvResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvResults.Size = new Size(968, 504);
             dgvResults.TabIndex = 21;
+            dgvResults.CellMouseEnter += dgvResults_CellMouseEnter;
+            dgvResults.CellMouseLeave += dgvResults_CellMouseLeave;
             // 
             // panel1
             // 
+            panel1.Controls.Add(picPopup);
             panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(searchBtn);
             panel1.Controls.Add(From);
@@ -95,6 +100,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(968, 216);
             panel1.TabIndex = 22;
+            // 
+            // picPopup
+            // 
+            picPopup.Location = new Point(145, 247);
+            picPopup.Name = "picPopup";
+            picPopup.Size = new Size(690, 357);
+            picPopup.SizeMode = PictureBoxSizeMode.Zoom;
+            picPopup.TabIndex = 41;
+            picPopup.TabStop = false;
+            picPopup.Visible = false;
             // 
             // checkBox1
             // 
@@ -245,6 +260,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvResults).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picPopup).EndInit();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -264,5 +280,6 @@
         private Label label1;
         private TextBox txtSearch;
         private Panel panel2;
+        private PictureBox picPopup;
     }
 }

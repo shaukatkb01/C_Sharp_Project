@@ -32,6 +32,7 @@
             SignatureName = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
             label7 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // SignatureName
@@ -64,11 +65,22 @@
             label7.Text = "Add/Update Items";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            button1.Location = new Point(236, 135);
+            button1.Name = "button1";
+            button1.Size = new Size(187, 50);
+            button1.TabIndex = 109;
+            button1.Text = "DispatchType";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // AddItems
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(label7);
             Controls.Add(SignatureName);
@@ -84,5 +96,6 @@
         private Button SignatureName;
         private FlowLayoutPanel flowLayoutPanel1;
         private Label label7;
+        private Button button1;
     }
 }
