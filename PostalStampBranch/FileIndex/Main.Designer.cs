@@ -51,7 +51,8 @@
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             pnl_Main = new Panel();
             pnl_Loading = new Panel();
-            label45 = new Label();
+            progressBar1 = new ProgressBar();
+            lblPercentage = new Label();
             tabControl1 = new TabControl();
             tab_1 = new TabPage();
             tab_2 = new TabPage();
@@ -186,6 +187,7 @@
             pnl_Sidebar.Name = "pnl_Sidebar";
             pnl_Sidebar.Size = new Size(59, 700);
             pnl_Sidebar.TabIndex = 17;
+            
             // 
             // btn_Items
             // 
@@ -331,7 +333,8 @@
             // pnl_Loading
             // 
             pnl_Loading.BackColor = Color.LightGray;
-            pnl_Loading.Controls.Add(label45);
+            pnl_Loading.Controls.Add(progressBar1);
+            pnl_Loading.Controls.Add(lblPercentage);
             pnl_Loading.Dock = DockStyle.Fill;
             pnl_Loading.Location = new Point(50, 70);
             pnl_Loading.Name = "pnl_Loading";
@@ -339,15 +342,22 @@
             pnl_Loading.TabIndex = 423;
             pnl_Loading.Visible = false;
             // 
-            // label45
+            // progressBar1
             // 
-            label45.AutoSize = true;
-            label45.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label45.Location = new Point(472, 41);
-            label45.Name = "label45";
-            label45.Size = new Size(477, 45);
-            label45.TabIndex = 0;
-            label45.Text = "Please Wait... Loading Records";
+            progressBar1.Location = new Point(97, 89);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(558, 45);
+            progressBar1.TabIndex = 1;
+            // 
+            // lblPercentage
+            // 
+            lblPercentage.AutoSize = true;
+            lblPercentage.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPercentage.Location = new Point(118, 41);
+            lblPercentage.Name = "lblPercentage";
+            lblPercentage.Size = new Size(477, 45);
+            lblPercentage.TabIndex = 0;
+            lblPercentage.Text = "Please Wait... Loading Records";
             // 
             // tabControl1
             // 
@@ -509,11 +519,12 @@
         private Button button1;
         private Button btn_task;
         private Panel pnl_Loading;
-        private Label label45;
+        private Label lblPercentage;
         private Button btnBackup;
         private Button btnApplyTheme;
         private Label lblThemeSelector;
         private ComboBox cmbTheme;
         private Button btn_Items;
+        private ProgressBar progressBar1;
     }
 }

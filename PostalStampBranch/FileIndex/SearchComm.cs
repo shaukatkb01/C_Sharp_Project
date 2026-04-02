@@ -180,38 +180,44 @@ namespace FileIndex
 
         private void dgvResults_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
+            // Sirf tab chale jab mouse "Picture" column par ho
             if (e.RowIndex >= 0 && dgvResults.Columns[e.ColumnIndex].Name == "Picture")
             {
                 var cellValue = dgvResults.Rows[e.RowIndex].Cells["Picture"].Value;
 
                 if (cellValue != null && cellValue != DBNull.Value)
                 {
-                    // DataTable se byte array ko image mein badlein
+                    // 1. Picture load karein
                     byte[] imgBytes = (byte[])cellValue;
                     using (MemoryStream ms = new MemoryStream(imgBytes))
                     {
                         picPopup.Image = Image.FromStream(ms);
                     }
 
-                    // PictureBox ki position mouse ke paas set karein
-                    Point p = dgvResults.PointToClient(Cursor.Position);
-                    picPopup.Location = new Point(p.X + 20, p.Y + 20); // Mouse se thora hat kar
-
-                    picPopup.Visible = true;
-                    picPopup.BringToFront(); // Taake Grid ke upar dikhe
-                    Point mousePos = dgvResults.PointToClient(Cursor.Position);
-
-                    // PictureBox ko thora offset (hat kar) dikhana taake mouse ke niche na dabe
-                    picPopup.Location = new Point(mousePos.X + 100, mousePos.Y + 15);
-                    if (e.RowIndex >= 0 && dgvResults.Columns[e.ColumnIndex].Name == "Picture")
+                    // 2. Parent aur Z-Order set karein (Taake Grid ke upar nazar aaye)
+                    if (picPopup.Parent != this)
                     {
-                        // 1. PictureBox ko kisi bhi panel se nikal kar direct Form par le aayein
-                        if (picPopup.Parent != this)
-                        {
-                            picPopup.Parent = this;
-                        }
-
+                        picPopup.Parent = this;
                     }
+                    picPopup.BringToFront();
+
+                    // 3. Left Side Positioning Logic
+                    // Mouse ki position Form ke hisaab se nikalna
+                    Point mousePos = this.PointToClient(Cursor.Position);
+
+                    // Mouse ke X se PictureBox ki Width minus karein taake wo Left par nazar aaye
+                    int posX = mousePos.X - picPopup.Width - 20;
+                    int posY = mousePos.Y -100;
+
+                    // Boundary Check: Agar Left par jagah na ho (X negative ho jaye), toh Right par dikhao
+                    if (posX < 0)
+                    {
+                        posX = mousePos.X + 20;
+                    }
+
+                    // Final Location set karein
+                    picPopup.Location = new Point(posX, posY);
+                    picPopup.Visible = true;
                 }
             }
         }

@@ -194,6 +194,7 @@
             // 
             // pictureBox2
             // 
+            pictureBox2.BorderStyle = BorderStyle.Fixed3D;
             pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Location = new Point(409, 619);
             pictureBox2.Name = "pictureBox2";
@@ -203,6 +204,7 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BorderStyle = BorderStyle.Fixed3D;
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Location = new Point(52, 619);
             pictureBox1.Name = "pictureBox1";
@@ -303,7 +305,7 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BackColor = Color.FromArgb(34, 167, 240);
-            flowLayoutPanel1.Location = new Point(206, 113);
+            flowLayoutPanel1.Location = new Point(225, 73);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(300, 3);
             flowLayoutPanel1.TabIndex = 172;
@@ -313,7 +315,7 @@
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.FromArgb(0, 165, 255);
-            label5.Location = new Point(167, 7);
+            label5.Location = new Point(176, 7);
             label5.Name = "label5";
             label5.Size = new Size(398, 87);
             label5.TabIndex = 173;

@@ -28,6 +28,39 @@ namespace FileIndex
 {
     public partial class Main : Form
     {
+        // --- GLOBAL VARIABLES ---
+        bool isTab1Loaded = false;
+        bool isTab2Loaded = false;
+        bool isTab3Loaded = false;
+
+        // 1. Loading Animation Function
+        private async Task StartLoadingAnimation()
+        {
+            progressBar1.Value = 0;
+            progressBar1.Visible = true;
+            lblPercentage.Visible = true;
+            progressBar1.Update(); // Force UI refresh
+
+            var progress = new Progress<int>(value =>
+            {
+                progressBar1.Value = value;
+                lblPercentage.Text = $"{value}% Loading Data...";
+            });
+
+            // Simulation: Asli data loading ke liye yahan delay diya gaya hai
+            await Task.Run(() =>
+            {
+                for (int i = 1; i <= 100; i++)
+                {
+                    System.Threading.Thread.Sleep(10); // 10ms * 100 = 1 second total loading
+                    ((IProgress<int>)progress).Report(i);
+                }
+            });
+
+            progressBar1.Visible = false;
+            lblPercentage.Visible = false;
+        }
+
 
         private void ExecuteBackup(string folderPath)
         {
@@ -383,6 +416,7 @@ namespace FileIndex
             btn_InvoiceWork.Text = show ? "   Invoice Work" : "";
             btn_Admin.Text = show ? "   User Management" : "";
             btn_Address.Text = show ? "   Address Book" : "";
+            btn_Items.Text = show ? "   Add New Items" : "";
         }
 
         #endregion
@@ -681,32 +715,38 @@ namespace FileIndex
             }
         }
 
-        private void btn_File_Click(object sender, EventArgs e)
+        // 2. Main Button Click (Tabs Setup)
+        private async void btn_File_Click(object sender, EventArgs e)
         {
             try
             {
+                // Purane flags reset karein
+                isTab1Loaded = false; isTab2Loaded = false; isTab3Loaded = false;
+
                 tabControl1.TabPages.Clear();
                 tabControl1.TabPages.Add(tab_1);
                 tabControl1.TabPages.Add(tab_2);
                 tabControl1.TabPages.Add(tab_3);
 
-                // 1. Forms ke objects pehle bana lein
+                // Forms ke objects
                 var frmSearch = new searchFile();
                 var frmEdit = new FileCorrection();
                 var frmAdd = new AddFileNo();
 
-                // 2. Inhein Tabs mein bind karein
+                // Tabs mein bind karein
                 BindFormToTab(frmSearch, tab_3, "[🔍] Search Records");
                 BindFormToTab(frmEdit, tab_2, "[✎] Edit / Update");
                 BindFormToTab(frmAdd, tab_1, "[+] Add New File");
 
-                // 3. --- JADU KI LINE ---
-                // Ye line Windows ko majboor karti hai ke wo invisible tab ke controls ko foran "Zinda" kare
+                // "Jadu ki Lines" - Controls initialize karne ke liye
                 IntPtr h1 = frmSearch.Handle;
                 IntPtr h2 = frmEdit.Handle;
-                IntPtr h3 = frmAdd.Handle;
+                IntPtr h3 = frmSearch.Handle;
 
+                // Pehle Tab (tab_1) select karein aur loading dikhayein
                 tabControl1.SelectedTab = tab_1;
+                await StartLoadingAnimation();
+                isTab1Loaded = true;
             }
             catch (Exception ex)
             {
@@ -1130,7 +1170,11 @@ Stack Trace:
             }
 
 
-          
+
         }
+
+        
+
+        
     }
 }

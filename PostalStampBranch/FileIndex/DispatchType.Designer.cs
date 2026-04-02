@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            dataGridView1 = new DataGridView();
             button1 = new Button();
             lbl_HiddenID = new Label();
             txt_Remarks = new TextBox();
@@ -36,15 +37,13 @@
             btn_AddUpdate = new Button();
             label7 = new Label();
             txt_distype = new TextBox();
-            panel2 = new Panel();
-            dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(dataGridView1);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(lbl_HiddenID);
             panel1.Controls.Add(txt_Remarks);
@@ -52,11 +51,21 @@
             panel1.Controls.Add(btn_AddUpdate);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(txt_distype);
-            panel1.Dock = DockStyle.Top;
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1194, 387);
+            panel1.Size = new Size(1194, 662);
             panel1.TabIndex = 109;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(3, 383);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(1194, 276);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // button1
             // 
@@ -66,6 +75,7 @@
             button1.TabIndex = 108;
             button1.Text = "Delete";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // lbl_HiddenID
             // 
@@ -124,37 +134,17 @@
             txt_distype.Size = new Size(457, 29);
             txt_distype.TabIndex = 6;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(dataGridView1);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1194, 662);
-            panel2.TabIndex = 110;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1194, 662);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            // 
             // DispatchType
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1194, 662);
             Controls.Add(panel1);
-            Controls.Add(panel2);
             Name = "DispatchType";
             Text = "DispatchType";
             Load += DispatchType_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
@@ -169,7 +159,6 @@
         private Button btn_AddUpdate;
         private Label label7;
         private TextBox txt_distype;
-        private Panel panel2;
         private DataGridView dataGridView1;
     }
 }

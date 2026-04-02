@@ -128,26 +128,35 @@ namespace FileIndex
                 return;
             }
 
-            using (SqlConnection con = new SqlConnection(Db.ConString))
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
             {
-                try
+                using (SqlConnection con = new SqlConnection(Db.ConString))
                 {
-                    con.Open();
-                    string query = "DELETE FROM SignatureAuthority WHERE Id=@ID";
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@ID", lbl_HiddenID.Text);
-                        cmd.ExecuteNonQuery();
+                        con.Open();
+                        string query = "DELETE FROM SignatureAuthority WHERE Id=@ID";
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", lbl_HiddenID.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                        MessageBox.Show("Deleted Successfully!");
+                        // Grid refresh karein aur fields khali karein
+                        loadSignature(dataGridView1);
+                        ClearFields();
                     }
-                    MessageBox.Show("Deleted Successfully!");
-                    // Grid refresh karein aur fields khali karein
-                    loadSignature(dataGridView1);
-                    ClearFields();
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Deletion cancelled.");
             }
         }
     }

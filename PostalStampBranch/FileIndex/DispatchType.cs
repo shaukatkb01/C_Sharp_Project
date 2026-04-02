@@ -29,14 +29,18 @@ namespace FileIndex
                 using (SqlConnection con = new SqlConnection(Db.ConString))
                 {
                     con.Open(); // Connection open karna achi baat hai
-                    string query = "SELECT * FROM DispatchType ";
+                    string query = "SELECT [ID], [DispatchType], [Remarks] FROM dbo.DispatchType";
 
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     
                     // GridView ko data dena
-                    gridView.AutoGenerateColumns = true;
+                    //gridView.AutoGenerateColumns = true;
+                    //gridView.DataSource = null;
+                    //gridView.Columns.Clear(); // Purane saare columns khatam karein
+                    //gridView.DefaultCellStyle.ForeColor = Color.Black;
+                    //gridView.DefaultCellStyle.BackColor = Color.White;
                     gridView.DataSource = dt;
                 } // Connection yahan khud band ho jayega
             }
@@ -73,6 +77,7 @@ namespace FileIndex
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Dispatch type added successfully!");
+                        loadDistype(dataGridView1);
                         Clear(sender, e); // Clear the form after adding
                     }
                     catch (Exception ex)
@@ -100,7 +105,8 @@ namespace FileIndex
                             cmd.ExecuteNonQuery();
                         }
                         MessageBox.Show("Dispatch type updated successfully!");
-                        Clear (sender, e);
+                        loadDistype(dataGridView1);
+                        Clear(sender, e);
                     }
                     catch (Exception ex)
                     {
@@ -112,6 +118,9 @@ namespace FileIndex
 
         private void DispatchType_Load(object sender, EventArgs e)
         {
+           
+
+
             loadDistype(dataGridView1);
             ThemeManager.ApplyTheme(this);
             this.WindowState = FormWindowState.Maximized;
@@ -120,12 +129,53 @@ namespace FileIndex
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btn_AddUpdate.Text = "Update";
-            if(e.RowIndex > 0) // Ensure that the click is on a valid row
+            if (e.RowIndex > 0) // Ensure that the click is on a valid row
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 lbl_HiddenID.Text = row.Cells["ID"].Value.ToString(); // Assuming "Id" is the name of the ID column
                 txt_distype.Text = row.Cells["DispatchType"].Value.ToString(); // Assuming "DispatchType" is the name of the DispatchType column
                 txt_Remarks.Text = row.Cells["Remarks"].Value.ToString(); // Assuming "Remarks" is the name of the Remarks column
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (btn_AddUpdate.Text == "Add")
+            {
+                return; // Clear the form if we are in Update mode
+            }
+
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this dispatch type?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(Db.ConString))
+                    {
+                        con.Open();
+                        string query = "DELETE FROM dbo.DispatchType WHERE ID=@id";
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@id", lbl_HiddenID.Text); // Assuming lbl_HiddenID contains the ID of the record to delete
+                            cmd.ExecuteNonQuery();
+                        }
+                        MessageBox.Show("Dispatch type deleted successfully!");
+                        loadDistype(dataGridView1);
+                        Clear(sender, e); // Clear the form after deletion
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Deletion cancelled.");
             }
         }
     }
