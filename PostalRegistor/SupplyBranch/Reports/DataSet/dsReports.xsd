@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsReports" targetNamespace="http://tempuri.org/dsReports.xsd" xmlns:mstns="http://tempuri.org/dsReports.xsd" xmlns="http://tempuri.org/dsReports.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="SupplyDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="SupplyDBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.SupplyBranch.Properties.Settings.GlobalReference.Default.SupplyDBConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReportIndentTableAdapter" GeneratorDataComponentClassName="ReportIndentTableAdapter" Name="ReportIndent" UserDataComponentName="ReportIndentTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SupplyDBConnectionString (Settings)" DbObjectName="SupplyDB.dbo.vw_ReportIndent" DbObjectType="View" FillMethodModifier="Public" FillMethodName="FillReportIndent" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetReportIndent" GeneratorSourceName="FillReportIndent" GetMethodModifier="Public" GetMethodName="GetReportIndent" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetReportIndent" UserSourceName="FillReportIndent">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT *
+FROM vw_ReportIndent</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OfficeID" DataSetColumn="OfficeID" />
+              <Mapping SourceColumn="OfficeName" DataSetColumn="OfficeName" />
+              <Mapping SourceColumn="OfficeCode" DataSetColumn="OfficeCode" />
+              <Mapping SourceColumn="IndentID" DataSetColumn="IndentID" />
+              <Mapping SourceColumn="IndentNo" DataSetColumn="IndentNo" />
+              <Mapping SourceColumn="IndentDate" DataSetColumn="IndentDate" />
+              <Mapping SourceColumn="StatusID" DataSetColumn="StatusID" />
+              <Mapping SourceColumn="Remarks" DataSetColumn="Remarks" />
+              <Mapping SourceColumn="CategoryID" DataSetColumn="CategoryID" />
+              <Mapping SourceColumn="CategoryName" DataSetColumn="CategoryName" />
+              <Mapping SourceColumn="DenominationID" DataSetColumn="DenominationID" />
+              <Mapping SourceColumn="Denomination" DataSetColumn="Denomination" />
+              <Mapping SourceColumn="DetailID" DataSetColumn="DetailID" />
+              <Mapping SourceColumn="SheetQty" DataSetColumn="SheetQty" />
+              <Mapping SourceColumn="PieceQty" DataSetColumn="PieceQty" />
+              <Mapping SourceColumn="PiecesPerSheet" DataSetColumn="PiecesPerSheet" />
+              <Mapping SourceColumn="TotalPieces" DataSetColumn="TotalPieces" />
+              <Mapping SourceColumn="StatusName" DataSetColumn="StatusName" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ReportSupplyTableAdapter" GeneratorDataComponentClassName="ReportSupplyTableAdapter" Name="ReportSupply" UserDataComponentName="ReportSupplyTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SupplyDBConnectionString (Settings)" DbObjectName="SupplyDB.dbo.vw_ReportSupply" DbObjectType="View" FillMethodModifier="Public" FillMethodName="FillReportSupply" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetReportSupply" GeneratorSourceName="FillReportSupply" GetMethodModifier="Public" GetMethodName="GetReportSupply" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetReportSupply" UserSourceName="FillReportSupply">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT *
+FROM vw_ReportSupply</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="OfficeID" DataSetColumn="OfficeID" />
+              <Mapping SourceColumn="OfficeName" DataSetColumn="OfficeName" />
+              <Mapping SourceColumn="OfficeCode" DataSetColumn="OfficeCode" />
+              <Mapping SourceColumn="IndentID" DataSetColumn="IndentID" />
+              <Mapping SourceColumn="IndentNo" DataSetColumn="IndentNo" />
+              <Mapping SourceColumn="IndentDate" DataSetColumn="IndentDate" />
+              <Mapping SourceColumn="IndentStatusID" DataSetColumn="IndentStatusID" />
+              <Mapping SourceColumn="SupplyID" DataSetColumn="SupplyID" />
+              <Mapping SourceColumn="SupplyNo" DataSetColumn="SupplyNo" />
+              <Mapping SourceColumn="SupplyDate" DataSetColumn="SupplyDate" />
+              <Mapping SourceColumn="InvoiceNo" DataSetColumn="InvoiceNo" />
+              <Mapping SourceColumn="FinancialYear" DataSetColumn="FinancialYear" />
+              <Mapping SourceColumn="SupplyStatusID" DataSetColumn="SupplyStatusID" />
+              <Mapping SourceColumn="SupplyType" DataSetColumn="SupplyType" />
+              <Mapping SourceColumn="DispatchMode" DataSetColumn="DispatchMode" />
+              <Mapping SourceColumn="PackingType" DataSetColumn="PackingType" />
+              <Mapping SourceColumn="PackingQty" DataSetColumn="PackingQty" />
+              <Mapping SourceColumn="Remarks" DataSetColumn="Remarks" />
+              <Mapping SourceColumn="CategoryID" DataSetColumn="CategoryID" />
+              <Mapping SourceColumn="CategoryName" DataSetColumn="CategoryName" />
+              <Mapping SourceColumn="DenominationID" DataSetColumn="DenominationID" />
+              <Mapping SourceColumn="Denomination" DataSetColumn="Denomination" />
+              <Mapping SourceColumn="DetailID" DataSetColumn="DetailID" />
+              <Mapping SourceColumn="IndentSheets" DataSetColumn="IndentSheets" />
+              <Mapping SourceColumn="IndentPieces" DataSetColumn="IndentPieces" />
+              <Mapping SourceColumn="IndentTotalPieces" DataSetColumn="IndentTotalPieces" />
+              <Mapping SourceColumn="SupplySheets" DataSetColumn="SupplySheets" />
+              <Mapping SourceColumn="SupplyPieces" DataSetColumn="SupplyPieces" />
+              <Mapping SourceColumn="SupplyTotalPieces" DataSetColumn="SupplyTotalPieces" />
+              <Mapping SourceColumn="BalanceSheets" DataSetColumn="BalanceSheets" />
+              <Mapping SourceColumn="BalancePieces" DataSetColumn="BalancePieces" />
+              <Mapping SourceColumn="BalanceTotalPieces" DataSetColumn="BalanceTotalPieces" />
+              <Mapping SourceColumn="StatusID" DataSetColumn="StatusID" />
+              <Mapping SourceColumn="CaseCode" DataSetColumn="CaseCode" />
+              <Mapping SourceColumn="CaseNoFrom" DataSetColumn="CaseNoFrom" />
+              <Mapping SourceColumn="CaseNoTo" DataSetColumn="CaseNoTo" />
+              <Mapping SourceColumn="RunningSupplySheets" DataSetColumn="RunningSupplySheets" />
+              <Mapping SourceColumn="RunningSupplyPieces" DataSetColumn="RunningSupplyPieces" />
+              <Mapping SourceColumn="RunningSupplyTotalPieces" DataSetColumn="RunningSupplyTotalPieces" />
+              <Mapping SourceColumn="CategoryCod" DataSetColumn="CategoryCod" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwReportIndentBalanceTableAdapter" GeneratorDataComponentClassName="vwReportIndentBalanceTableAdapter" Name="vwReportIndentBalance" UserDataComponentName="vwReportIndentBalanceTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="SupplyDBConnectionString (Settings)" DbObjectName="SupplyDB.dbo.vwReportIndentBalance" DbObjectType="View" FillMethodModifier="Public" FillMethodName="FillReportIndentBalance" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetReportIndentBalance" GeneratorSourceName="FillReportIndentBalance" GetMethodModifier="Public" GetMethodName="GetReportIndentBalance" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetReportIndentBalance" UserSourceName="FillReportIndentBalance">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT *
+FROM vwReportIndentBalance</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="SupplyDetailID" DataSetColumn="SupplyDetailID" />
+              <Mapping SourceColumn="SupplyID" DataSetColumn="SupplyID" />
+              <Mapping SourceColumn="SupplyNo" DataSetColumn="SupplyNo" />
+              <Mapping SourceColumn="SupplyDate" DataSetColumn="SupplyDate" />
+              <Mapping SourceColumn="IndentDetailID" DataSetColumn="IndentDetailID" />
+              <Mapping SourceColumn="IndentID" DataSetColumn="IndentID" />
+              <Mapping SourceColumn="IndentNo" DataSetColumn="IndentNo" />
+              <Mapping SourceColumn="IndentDate" DataSetColumn="IndentDate" />
+              <Mapping SourceColumn="OfficeID" DataSetColumn="OfficeID" />
+              <Mapping SourceColumn="OfficeName" DataSetColumn="OfficeName" />
+              <Mapping SourceColumn="CategoryID" DataSetColumn="CategoryID" />
+              <Mapping SourceColumn="CategoryName" DataSetColumn="CategoryName" />
+              <Mapping SourceColumn="DenominationID" DataSetColumn="DenominationID" />
+              <Mapping SourceColumn="Denomination" DataSetColumn="Denomination" />
+              <Mapping SourceColumn="SheetQty" DataSetColumn="SheetQty" />
+              <Mapping SourceColumn="PieceQty" DataSetColumn="PieceQty" />
+              <Mapping SourceColumn="SupplyQty" DataSetColumn="SupplyQty" />
+              <Mapping SourceColumn="LoosePieces" DataSetColumn="LoosePieces" />
+              <Mapping SourceColumn="RunningSupplySheets" DataSetColumn="RunningSupplySheets" />
+              <Mapping SourceColumn="RunningSupplyLoosePieces" DataSetColumn="RunningSupplyLoosePieces" />
+              <Mapping SourceColumn="RemainingSheets" DataSetColumn="RemainingSheets" />
+              <Mapping SourceColumn="RemainingLoosePieces" DataSetColumn="RemainingLoosePieces" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsReports" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ReportIndent" msprop:Generator_RowEvHandlerName="ReportIndentRowChangeEventHandler" msprop:Generator_RowDeletedName="ReportIndentRowDeleted" msprop:Generator_RowDeletingName="ReportIndentRowDeleting" msprop:Generator_RowEvArgName="ReportIndentRowChangeEvent" msprop:Generator_TablePropName="ReportIndent" msprop:Generator_RowChangedName="ReportIndentRowChanged" msprop:Generator_UserTableName="ReportIndent" msprop:Generator_RowChangingName="ReportIndentRowChanging" msprop:Generator_RowClassName="ReportIndentRow" msprop:Generator_TableClassName="ReportIndentDataTable" msprop:Generator_TableVarName="tableReportIndent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OfficeID" msprop:Generator_ColumnPropNameInTable="OfficeIDColumn" msprop:Generator_ColumnPropNameInRow="OfficeID" msprop:Generator_UserColumnName="OfficeID" msprop:Generator_ColumnVarNameInTable="columnOfficeID" type="xs:int" />
+              <xs:element name="OfficeName" msprop:Generator_ColumnPropNameInTable="OfficeNameColumn" msprop:Generator_ColumnPropNameInRow="OfficeName" msprop:Generator_UserColumnName="OfficeName" msprop:Generator_ColumnVarNameInTable="columnOfficeName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OfficeCode" msprop:Generator_ColumnPropNameInTable="OfficeCodeColumn" msprop:Generator_ColumnPropNameInRow="OfficeCode" msprop:Generator_UserColumnName="OfficeCode" msprop:Generator_ColumnVarNameInTable="columnOfficeCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IndentID" msprop:Generator_ColumnPropNameInTable="IndentIDColumn" msprop:Generator_ColumnPropNameInRow="IndentID" msprop:Generator_UserColumnName="IndentID" msprop:Generator_ColumnVarNameInTable="columnIndentID" type="xs:int" />
+              <xs:element name="IndentNo" msprop:Generator_ColumnPropNameInTable="IndentNoColumn" msprop:Generator_ColumnPropNameInRow="IndentNo" msprop:Generator_UserColumnName="IndentNo" msprop:Generator_ColumnVarNameInTable="columnIndentNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IndentDate" msprop:Generator_ColumnPropNameInTable="IndentDateColumn" msprop:Generator_ColumnPropNameInRow="IndentDate" msprop:Generator_UserColumnName="IndentDate" msprop:Generator_ColumnVarNameInTable="columnIndentDate" type="xs:dateTime" />
+              <xs:element name="StatusID" msprop:Generator_ColumnPropNameInTable="StatusIDColumn" msprop:Generator_ColumnPropNameInRow="StatusID" msprop:Generator_UserColumnName="StatusID" msprop:Generator_ColumnVarNameInTable="columnStatusID" type="xs:int" />
+              <xs:element name="Remarks" msprop:Generator_ColumnPropNameInTable="RemarksColumn" msprop:Generator_ColumnPropNameInRow="Remarks" msprop:Generator_UserColumnName="Remarks" msprop:Generator_ColumnVarNameInTable="columnRemarks" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CategoryID" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_UserColumnName="CategoryID" msprop:Generator_ColumnVarNameInTable="columnCategoryID" type="xs:int" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_UserColumnName="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DenominationID" msprop:Generator_ColumnPropNameInTable="DenominationIDColumn" msprop:Generator_ColumnPropNameInRow="DenominationID" msprop:Generator_UserColumnName="DenominationID" msprop:Generator_ColumnVarNameInTable="columnDenominationID" type="xs:int" />
+              <xs:element name="Denomination" msprop:Generator_ColumnPropNameInTable="DenominationColumn" msprop:Generator_ColumnPropNameInRow="Denomination" msprop:Generator_UserColumnName="Denomination" msprop:Generator_ColumnVarNameInTable="columnDenomination" type="xs:decimal" />
+              <xs:element name="DetailID" msprop:Generator_ColumnPropNameInTable="DetailIDColumn" msprop:Generator_ColumnPropNameInRow="DetailID" msprop:Generator_UserColumnName="DetailID" msprop:Generator_ColumnVarNameInTable="columnDetailID" type="xs:int" />
+              <xs:element name="SheetQty" msprop:Generator_ColumnPropNameInTable="SheetQtyColumn" msprop:Generator_ColumnPropNameInRow="SheetQty" msprop:Generator_UserColumnName="SheetQty" msprop:Generator_ColumnVarNameInTable="columnSheetQty" type="xs:int" />
+              <xs:element name="PieceQty" msprop:Generator_ColumnPropNameInTable="PieceQtyColumn" msprop:Generator_ColumnPropNameInRow="PieceQty" msprop:Generator_UserColumnName="PieceQty" msprop:Generator_ColumnVarNameInTable="columnPieceQty" type="xs:int" />
+              <xs:element name="PiecesPerSheet" msprop:Generator_ColumnPropNameInTable="PiecesPerSheetColumn" msprop:Generator_ColumnPropNameInRow="PiecesPerSheet" msprop:Generator_UserColumnName="PiecesPerSheet" msprop:Generator_ColumnVarNameInTable="columnPiecesPerSheet" type="xs:int" />
+              <xs:element name="TotalPieces" msprop:Generator_ColumnPropNameInTable="TotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="TotalPieces" msprop:Generator_UserColumnName="TotalPieces" msprop:Generator_ColumnVarNameInTable="columnTotalPieces" type="xs:int" />
+              <xs:element name="StatusName" msprop:Generator_ColumnPropNameInTable="StatusNameColumn" msprop:Generator_ColumnPropNameInRow="StatusName" msprop:Generator_UserColumnName="StatusName" msprop:Generator_ColumnVarNameInTable="columnStatusName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ReportSupply" msprop:Generator_RowEvHandlerName="ReportSupplyRowChangeEventHandler" msprop:Generator_RowDeletedName="ReportSupplyRowDeleted" msprop:Generator_RowDeletingName="ReportSupplyRowDeleting" msprop:Generator_RowEvArgName="ReportSupplyRowChangeEvent" msprop:Generator_TablePropName="ReportSupply" msprop:Generator_RowChangedName="ReportSupplyRowChanged" msprop:Generator_UserTableName="ReportSupply" msprop:Generator_RowChangingName="ReportSupplyRowChanging" msprop:Generator_RowClassName="ReportSupplyRow" msprop:Generator_TableClassName="ReportSupplyDataTable" msprop:Generator_TableVarName="tableReportSupply">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OfficeID" msprop:Generator_ColumnPropNameInTable="OfficeIDColumn" msprop:Generator_ColumnPropNameInRow="OfficeID" msprop:Generator_UserColumnName="OfficeID" msprop:Generator_ColumnVarNameInTable="columnOfficeID" type="xs:int" />
+              <xs:element name="OfficeName" msprop:Generator_ColumnPropNameInTable="OfficeNameColumn" msprop:Generator_ColumnPropNameInRow="OfficeName" msprop:Generator_UserColumnName="OfficeName" msprop:Generator_ColumnVarNameInTable="columnOfficeName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OfficeCode" msprop:Generator_ColumnPropNameInTable="OfficeCodeColumn" msprop:Generator_ColumnPropNameInRow="OfficeCode" msprop:Generator_UserColumnName="OfficeCode" msprop:Generator_ColumnVarNameInTable="columnOfficeCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IndentID" msprop:Generator_ColumnPropNameInTable="IndentIDColumn" msprop:Generator_ColumnPropNameInRow="IndentID" msprop:Generator_UserColumnName="IndentID" msprop:Generator_ColumnVarNameInTable="columnIndentID" type="xs:int" />
+              <xs:element name="IndentNo" msprop:Generator_ColumnPropNameInTable="IndentNoColumn" msprop:Generator_ColumnPropNameInRow="IndentNo" msprop:Generator_UserColumnName="IndentNo" msprop:Generator_ColumnVarNameInTable="columnIndentNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IndentDate" msprop:Generator_ColumnPropNameInTable="IndentDateColumn" msprop:Generator_ColumnPropNameInRow="IndentDate" msprop:Generator_UserColumnName="IndentDate" msprop:Generator_ColumnVarNameInTable="columnIndentDate" type="xs:dateTime" />
+              <xs:element name="IndentStatusID" msprop:Generator_ColumnPropNameInTable="IndentStatusIDColumn" msprop:Generator_ColumnPropNameInRow="IndentStatusID" msprop:Generator_UserColumnName="IndentStatusID" msprop:Generator_ColumnVarNameInTable="columnIndentStatusID" type="xs:int" />
+              <xs:element name="SupplyID" msprop:Generator_ColumnPropNameInTable="SupplyIDColumn" msprop:Generator_ColumnPropNameInRow="SupplyID" msprop:Generator_UserColumnName="SupplyID" msprop:Generator_ColumnVarNameInTable="columnSupplyID" type="xs:int" minOccurs="0" />
+              <xs:element name="SupplyNo" msprop:Generator_ColumnPropNameInTable="SupplyNoColumn" msprop:Generator_ColumnPropNameInRow="SupplyNo" msprop:Generator_UserColumnName="SupplyNo" msprop:Generator_ColumnVarNameInTable="columnSupplyNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SupplyDate" msprop:Generator_ColumnPropNameInTable="SupplyDateColumn" msprop:Generator_ColumnPropNameInRow="SupplyDate" msprop:Generator_UserColumnName="SupplyDate" msprop:Generator_ColumnVarNameInTable="columnSupplyDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="InvoiceNo" msprop:Generator_ColumnPropNameInTable="InvoiceNoColumn" msprop:Generator_ColumnPropNameInRow="InvoiceNo" msprop:Generator_UserColumnName="InvoiceNo" msprop:Generator_ColumnVarNameInTable="columnInvoiceNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="FinancialYear" msprop:Generator_ColumnPropNameInTable="FinancialYearColumn" msprop:Generator_ColumnPropNameInRow="FinancialYear" msprop:Generator_UserColumnName="FinancialYear" msprop:Generator_ColumnVarNameInTable="columnFinancialYear" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SupplyStatusID" msprop:Generator_ColumnPropNameInTable="SupplyStatusIDColumn" msprop:Generator_ColumnPropNameInRow="SupplyStatusID" msprop:Generator_UserColumnName="SupplyStatusID" msprop:Generator_ColumnVarNameInTable="columnSupplyStatusID" type="xs:int" minOccurs="0" />
+              <xs:element name="SupplyType" msprop:Generator_ColumnPropNameInTable="SupplyTypeColumn" msprop:Generator_ColumnPropNameInRow="SupplyType" msprop:Generator_UserColumnName="SupplyType" msprop:Generator_ColumnVarNameInTable="columnSupplyType" type="xs:int" minOccurs="0" />
+              <xs:element name="DispatchMode" msprop:Generator_ColumnPropNameInTable="DispatchModeColumn" msprop:Generator_ColumnPropNameInRow="DispatchMode" msprop:Generator_UserColumnName="DispatchMode" msprop:Generator_ColumnVarNameInTable="columnDispatchMode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PackingType" msprop:Generator_ColumnPropNameInTable="PackingTypeColumn" msprop:Generator_ColumnPropNameInRow="PackingType" msprop:Generator_UserColumnName="PackingType" msprop:Generator_ColumnVarNameInTable="columnPackingType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PackingQty" msprop:Generator_ColumnPropNameInTable="PackingQtyColumn" msprop:Generator_ColumnPropNameInRow="PackingQty" msprop:Generator_UserColumnName="PackingQty" msprop:Generator_ColumnVarNameInTable="columnPackingQty" type="xs:int" minOccurs="0" />
+              <xs:element name="Remarks" msprop:Generator_ColumnPropNameInTable="RemarksColumn" msprop:Generator_ColumnPropNameInRow="Remarks" msprop:Generator_UserColumnName="Remarks" msprop:Generator_ColumnVarNameInTable="columnRemarks" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CategoryID" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_UserColumnName="CategoryID" msprop:Generator_ColumnVarNameInTable="columnCategoryID" type="xs:int" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_UserColumnName="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DenominationID" msprop:Generator_ColumnPropNameInTable="DenominationIDColumn" msprop:Generator_ColumnPropNameInRow="DenominationID" msprop:Generator_UserColumnName="DenominationID" msprop:Generator_ColumnVarNameInTable="columnDenominationID" type="xs:int" />
+              <xs:element name="Denomination" msprop:Generator_ColumnPropNameInTable="DenominationColumn" msprop:Generator_ColumnPropNameInRow="Denomination" msprop:Generator_UserColumnName="Denomination" msprop:Generator_ColumnVarNameInTable="columnDenomination" type="xs:decimal" />
+              <xs:element name="DetailID" msprop:Generator_ColumnPropNameInTable="DetailIDColumn" msprop:Generator_ColumnPropNameInRow="DetailID" msprop:Generator_UserColumnName="DetailID" msprop:Generator_ColumnVarNameInTable="columnDetailID" type="xs:int" />
+              <xs:element name="IndentSheets" msprop:Generator_ColumnPropNameInTable="IndentSheetsColumn" msprop:Generator_ColumnPropNameInRow="IndentSheets" msprop:Generator_UserColumnName="IndentSheets" msprop:Generator_ColumnVarNameInTable="columnIndentSheets" type="xs:int" />
+              <xs:element name="IndentPieces" msprop:Generator_ColumnPropNameInTable="IndentPiecesColumn" msprop:Generator_ColumnPropNameInRow="IndentPieces" msprop:Generator_UserColumnName="IndentPieces" msprop:Generator_ColumnVarNameInTable="columnIndentPieces" type="xs:int" />
+              <xs:element name="IndentTotalPieces" msprop:Generator_ColumnPropNameInTable="IndentTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="IndentTotalPieces" msprop:Generator_UserColumnName="IndentTotalPieces" msprop:Generator_ColumnVarNameInTable="columnIndentTotalPieces" type="xs:int" />
+              <xs:element name="SupplySheets" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="SupplySheetsColumn" msprop:Generator_ColumnPropNameInRow="SupplySheets" msprop:Generator_UserColumnName="SupplySheets" msprop:Generator_ColumnVarNameInTable="columnSupplySheets" type="xs:int" minOccurs="0" />
+              <xs:element name="SupplyPieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="SupplyPiecesColumn" msprop:Generator_ColumnPropNameInRow="SupplyPieces" msprop:Generator_UserColumnName="SupplyPieces" msprop:Generator_ColumnVarNameInTable="columnSupplyPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="SupplyTotalPieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="SupplyTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="SupplyTotalPieces" msprop:Generator_UserColumnName="SupplyTotalPieces" msprop:Generator_ColumnVarNameInTable="columnSupplyTotalPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="BalanceSheets" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalanceSheetsColumn" msprop:Generator_ColumnPropNameInRow="BalanceSheets" msprop:Generator_UserColumnName="BalanceSheets" msprop:Generator_ColumnVarNameInTable="columnBalanceSheets" type="xs:int" minOccurs="0" />
+              <xs:element name="BalancePieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalancePiecesColumn" msprop:Generator_ColumnPropNameInRow="BalancePieces" msprop:Generator_UserColumnName="BalancePieces" msprop:Generator_ColumnVarNameInTable="columnBalancePieces" type="xs:int" minOccurs="0" />
+              <xs:element name="BalanceTotalPieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalanceTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="BalanceTotalPieces" msprop:Generator_UserColumnName="BalanceTotalPieces" msprop:Generator_ColumnVarNameInTable="columnBalanceTotalPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="StatusID" msprop:Generator_UserColumnName="StatusID" msprop:Generator_ColumnPropNameInTable="StatusIDColumn" msprop:Generator_ColumnPropNameInRow="StatusID" msprop:Generator_ColumnVarNameInTable="columnStatusID" type="xs:int" minOccurs="0" />
+              <xs:element name="CaseCode" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseCode" msprop:Generator_ColumnPropNameInTable="CaseCodeColumn" msprop:Generator_ColumnPropNameInRow="CaseCode" msprop:Generator_ColumnVarNameInTable="columnCaseCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CaseNoFrom" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseNoFrom" msprop:Generator_ColumnPropNameInTable="CaseNoFromColumn" msprop:Generator_ColumnPropNameInRow="CaseNoFrom" msprop:Generator_ColumnVarNameInTable="columnCaseNoFrom" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CaseNoTo" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseNoTo" msprop:Generator_ColumnPropNameInTable="CaseNoToColumn" msprop:Generator_ColumnPropNameInRow="CaseNoTo" msprop:Generator_ColumnVarNameInTable="columnCaseNoTo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RunningSupplySheets" msprop:Generator_UserColumnName="RunningSupplySheets" msprop:Generator_ColumnPropNameInTable="RunningSupplySheetsColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplySheets" msprop:Generator_ColumnVarNameInTable="columnRunningSupplySheets" type="xs:int" minOccurs="0" />
+              <xs:element name="RunningSupplyPieces" msprop:Generator_UserColumnName="RunningSupplyPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="RunningSupplyTotalPieces" msprop:Generator_UserColumnName="RunningSupplyTotalPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyTotalPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyTotalPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="CategoryCod" msprop:Generator_ColumnPropNameInRow="CategoryCod" msprop:Generator_ColumnPropNameInTable="CategoryCodColumn" msprop:Generator_ColumnVarNameInTable="columnCategoryCod" msprop:Generator_UserColumnName="CategoryCod" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="vwReportIndentBalance" msprop:Generator_RowEvHandlerName="vwReportIndentBalanceRowChangeEventHandler" msprop:Generator_RowDeletedName="vwReportIndentBalanceRowDeleted" msprop:Generator_RowDeletingName="vwReportIndentBalanceRowDeleting" msprop:Generator_RowEvArgName="vwReportIndentBalanceRowChangeEvent" msprop:Generator_TablePropName="vwReportIndentBalance" msprop:Generator_RowChangedName="vwReportIndentBalanceRowChanged" msprop:Generator_UserTableName="vwReportIndentBalance" msprop:Generator_RowChangingName="vwReportIndentBalanceRowChanging" msprop:Generator_RowClassName="vwReportIndentBalanceRow" msprop:Generator_TableClassName="vwReportIndentBalanceDataTable" msprop:Generator_TableVarName="tablevwReportIndentBalance">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SupplyDetailID" msprop:Generator_ColumnPropNameInTable="SupplyDetailIDColumn" msprop:Generator_ColumnPropNameInRow="SupplyDetailID" msprop:Generator_UserColumnName="SupplyDetailID" msprop:Generator_ColumnVarNameInTable="columnSupplyDetailID" type="xs:int" />
+              <xs:element name="SupplyID" msprop:Generator_ColumnPropNameInTable="SupplyIDColumn" msprop:Generator_ColumnPropNameInRow="SupplyID" msprop:Generator_UserColumnName="SupplyID" msprop:Generator_ColumnVarNameInTable="columnSupplyID" type="xs:int" />
+              <xs:element name="SupplyNo" msprop:Generator_ColumnPropNameInTable="SupplyNoColumn" msprop:Generator_ColumnPropNameInRow="SupplyNo" msprop:Generator_UserColumnName="SupplyNo" msprop:Generator_ColumnVarNameInTable="columnSupplyNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SupplyDate" msprop:Generator_ColumnPropNameInTable="SupplyDateColumn" msprop:Generator_ColumnPropNameInRow="SupplyDate" msprop:Generator_UserColumnName="SupplyDate" msprop:Generator_ColumnVarNameInTable="columnSupplyDate" type="xs:dateTime" />
+              <xs:element name="IndentDetailID" msprop:Generator_ColumnPropNameInTable="IndentDetailIDColumn" msprop:Generator_ColumnPropNameInRow="IndentDetailID" msprop:Generator_UserColumnName="IndentDetailID" msprop:Generator_ColumnVarNameInTable="columnIndentDetailID" type="xs:int" />
+              <xs:element name="IndentID" msprop:Generator_ColumnPropNameInTable="IndentIDColumn" msprop:Generator_ColumnPropNameInRow="IndentID" msprop:Generator_UserColumnName="IndentID" msprop:Generator_ColumnVarNameInTable="columnIndentID" type="xs:int" />
+              <xs:element name="IndentNo" msprop:Generator_ColumnPropNameInTable="IndentNoColumn" msprop:Generator_ColumnPropNameInRow="IndentNo" msprop:Generator_UserColumnName="IndentNo" msprop:Generator_ColumnVarNameInTable="columnIndentNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IndentDate" msprop:Generator_ColumnPropNameInTable="IndentDateColumn" msprop:Generator_ColumnPropNameInRow="IndentDate" msprop:Generator_UserColumnName="IndentDate" msprop:Generator_ColumnVarNameInTable="columnIndentDate" type="xs:dateTime" />
+              <xs:element name="OfficeID" msprop:Generator_ColumnPropNameInTable="OfficeIDColumn" msprop:Generator_ColumnPropNameInRow="OfficeID" msprop:Generator_UserColumnName="OfficeID" msprop:Generator_ColumnVarNameInTable="columnOfficeID" type="xs:int" />
+              <xs:element name="OfficeName" msprop:Generator_ColumnPropNameInTable="OfficeNameColumn" msprop:Generator_ColumnPropNameInRow="OfficeName" msprop:Generator_UserColumnName="OfficeName" msprop:Generator_ColumnVarNameInTable="columnOfficeName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CategoryID" msprop:Generator_ColumnPropNameInTable="CategoryIDColumn" msprop:Generator_ColumnPropNameInRow="CategoryID" msprop:Generator_UserColumnName="CategoryID" msprop:Generator_ColumnVarNameInTable="columnCategoryID" type="xs:int" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_UserColumnName="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DenominationID" msprop:Generator_ColumnPropNameInTable="DenominationIDColumn" msprop:Generator_ColumnPropNameInRow="DenominationID" msprop:Generator_UserColumnName="DenominationID" msprop:Generator_ColumnVarNameInTable="columnDenominationID" type="xs:int" />
+              <xs:element name="Denomination" msprop:Generator_ColumnPropNameInTable="DenominationColumn" msprop:Generator_ColumnPropNameInRow="Denomination" msprop:Generator_UserColumnName="Denomination" msprop:Generator_ColumnVarNameInTable="columnDenomination" type="xs:decimal" />
+              <xs:element name="SheetQty" msprop:Generator_ColumnPropNameInTable="SheetQtyColumn" msprop:Generator_ColumnPropNameInRow="SheetQty" msprop:Generator_UserColumnName="SheetQty" msprop:Generator_ColumnVarNameInTable="columnSheetQty" type="xs:int" />
+              <xs:element name="PieceQty" msprop:Generator_ColumnPropNameInTable="PieceQtyColumn" msprop:Generator_ColumnPropNameInRow="PieceQty" msprop:Generator_UserColumnName="PieceQty" msprop:Generator_ColumnVarNameInTable="columnPieceQty" type="xs:int" />
+              <xs:element name="SupplyQty" msprop:Generator_ColumnPropNameInTable="SupplyQtyColumn" msprop:Generator_ColumnPropNameInRow="SupplyQty" msprop:Generator_UserColumnName="SupplyQty" msprop:Generator_ColumnVarNameInTable="columnSupplyQty" type="xs:int" />
+              <xs:element name="LoosePieces" msprop:Generator_ColumnPropNameInTable="LoosePiecesColumn" msprop:Generator_ColumnPropNameInRow="LoosePieces" msprop:Generator_UserColumnName="LoosePieces" msprop:Generator_ColumnVarNameInTable="columnLoosePieces" type="xs:int" />
+              <xs:element name="RunningSupplySheets" msprop:Generator_ColumnPropNameInTable="RunningSupplySheetsColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplySheets" msprop:Generator_UserColumnName="RunningSupplySheets" msprop:Generator_ColumnVarNameInTable="columnRunningSupplySheets" type="xs:int" minOccurs="0" />
+              <xs:element name="RunningSupplyLoosePieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyLoosePiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyLoosePieces" msprop:Generator_UserColumnName="RunningSupplyLoosePieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyLoosePieces" type="xs:int" minOccurs="0" />
+              <xs:element name="RemainingSheets" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="RemainingSheetsColumn" msprop:Generator_ColumnPropNameInRow="RemainingSheets" msprop:Generator_UserColumnName="RemainingSheets" msprop:Generator_ColumnVarNameInTable="columnRemainingSheets" type="xs:int" minOccurs="0" />
+              <xs:element name="RemainingLoosePieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="RemainingLoosePiecesColumn" msprop:Generator_ColumnPropNameInRow="RemainingLoosePieces" msprop:Generator_UserColumnName="RemainingLoosePieces" msprop:Generator_ColumnVarNameInTable="columnRemainingLoosePieces" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ReportIndent" />
+      <xs:field xpath="mstns:OfficeID" />
+      <xs:field xpath="mstns:IndentID" />
+      <xs:field xpath="mstns:CategoryID" />
+      <xs:field xpath="mstns:DenominationID" />
+      <xs:field xpath="mstns:DetailID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
