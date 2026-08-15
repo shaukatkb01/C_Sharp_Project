@@ -1,2 +1,2 @@
 ﻿1.0.0.1
-https://github.com/shaukatkb01/C_Sharp_Project/raw/refs/heads/SupplyBranch-Only/SupplyBranch_Update.zip
+https://github.com/shaukatkb01/C_Sharp_Project/raw/refs/heads/SupplyBranch-Only/PostalRegistor/SupplyBranch_Update.zip
