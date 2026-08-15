@@ -30,9 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.lblAvalibleVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -48,25 +50,25 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(93, 84);
+            this.label2.Location = new System.Drawing.Point(134, 84);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(189, 39);
             this.label2.TabIndex = 1;
             this.label2.Text = "Supply Branch \nOffice of the Chief Controller of Stamps\nPakistan Post";
             // 
-            // label3
+            // lblVersion
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(93, 133);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Version 1.0";
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(134, 133);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(60, 13);
+            this.lblVersion.TabIndex = 2;
+            this.lblVersion.Text = "Version 1.0";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(93, 158);
+            this.label4.Location = new System.Drawing.Point(134, 180);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(217, 13);
             this.label4.TabIndex = 3;
@@ -74,7 +76,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(205, 225);
+            this.btnClose.Location = new System.Drawing.Point(137, 234);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
@@ -82,14 +84,34 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(231, 234);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // lblAvalibleVersion
+            // 
+            this.lblAvalibleVersion.AutoSize = true;
+            this.lblAvalibleVersion.Location = new System.Drawing.Point(134, 167);
+            this.lblAvalibleVersion.Name = "lblAvalibleVersion";
+            this.lblAvalibleVersion.Size = new System.Drawing.Size(60, 13);
+            this.lblAvalibleVersion.TabIndex = 6;
+            this.lblAvalibleVersion.Text = "Version 1.0";
+            // 
             // frmAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 310);
+            this.Controls.Add(this.lblAvalibleVersion);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -99,6 +121,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Supply Branch";
+            this.Load += new System.EventHandler(this.frmAbout_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,8 +131,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Label lblAvalibleVersion;
     }
 }

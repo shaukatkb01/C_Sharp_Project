@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AppVersionInfo.cs" />
     <Compile Include="Classes\StatusIDs.cs" />
     <Compile Include="Classes\TaskHelper.cs" />
     <Compile Include="DataAccess\DenominationDAL.cs" />
