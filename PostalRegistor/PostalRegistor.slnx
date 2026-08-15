@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SupplyBranch/SupplyBranch.csproj" Id="ce0974fe-d66d-4ebb-ba94-122f6a051c29" />
+  <Project Path="SupplyBranchInstallerHelper/SupplyBranchInstallerHelper.csproj" Id="80d3f405-7a51-442c-a3f9-bf2c62330c23" />
+</Solution>
