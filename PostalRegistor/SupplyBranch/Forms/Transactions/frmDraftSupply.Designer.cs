@@ -47,7 +47,6 @@
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cmbDraftStatus = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDraft)).BeginInit();
             this.SuspendLayout();
             // 
@@ -226,21 +225,11 @@
             this.label5.TabIndex = 16;
             this.label5.Text = "Draft Status";
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(290, 22);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(221, 13);
-            this.lblSubTitle.TabIndex = 17;
-            this.lblSubTitle.Text = "DRAFT/APPROVED ADN ISSUED SUPPLY";
-            // 
             // frmDraftSupply
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 562);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbDraftStatus);
             this.Controls.Add(this.dgvDraft);
@@ -254,7 +243,7 @@
             this.Controls.Add(this.txtSupplyNo);
             this.Controls.Add(this.label1);
             this.Name = "frmDraftSupply";
-            this.Text = "Draft Supplies";
+            this.Text = "DRAFT/APPROVED ADN ISSUED SUPPLY";
             this.Load += new System.EventHandler(this.dgvDraft_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDraft)).EndInit();
             this.ResumeLayout(false);
@@ -282,6 +271,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OfficeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusName;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

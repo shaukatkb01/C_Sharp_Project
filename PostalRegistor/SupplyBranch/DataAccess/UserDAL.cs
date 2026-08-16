@@ -228,11 +228,16 @@ namespace SupplyBranch
             FullName,
             UserName,
             UserEmail,
-            Athu_ID
+            Athu_ID,
+            IsActive
         FROM UsersInfo
+        WHERE UserID <> @CurrentUserID
         ORDER BY UserName";
 
-            SqlParameter[] parameters = Array.Empty<SqlParameter>();
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@CurrentUserID", CurrentUser.UserID)
+    };
 
             return db.ExecuteQuery(query, parameters);
         }
@@ -240,10 +245,14 @@ namespace SupplyBranch
         public bool Login(User user)
         {
             string sql = @"
-        SELECT UserID, UserName, FullName
+        SELECT
+            UserID,
+            UserName,
+            FullName
         FROM UsersInfo
-        WHERE UserName=@UserName
-        AND Password=@Password";
+        WHERE UserName = @UserName
+          AND Password = @Password
+          AND IsActive = 1";
 
             SqlParameter[] parameters =
             {
@@ -253,6 +262,8 @@ namespace SupplyBranch
 
             DataTable dt = db.ExecuteQuery(sql, parameters);
 
+            // User does not exist, password incorrect,
+            // or user is disabled.
             if (dt.Rows.Count == 0)
                 return false;
 
@@ -293,6 +304,118 @@ namespace SupplyBranch
             return rows > 0;
         }
 
+        public bool SetUserActiveStatus(int userID, bool isActive)
+        {
+            try
+            {
+                string sql = @"
+            UPDATE UsersInfo
+            SET IsActive = @IsActive
+            WHERE UserID = @UserID";
+
+                SqlParameter[] parameters =
+                {
+            new SqlParameter("@UserID", userID),
+            new SqlParameter("@IsActive", isActive)
+        };
+
+                int rows = db.ExecuteNonQuery(sql, parameters);
+
+                return rows > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to change user status.\n\n" + ex.Message,
+                    "User Management",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
+        }
+
+        public bool IsUserActive(int userID)
+        {
+            string sql = @"
+        SELECT IsActive
+        FROM UsersInfo
+        WHERE UserID = @UserID";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@UserID", userID)
+    };
+
+            object result = db.ExecuteScalar(sql, parameters);
+
+            if (result == null || result == DBNull.Value)
+                return false;
+
+            return Convert.ToBoolean(result);
+        }
+
+        public bool DisableUser(int userID)
+        {
+            try
+            {
+                string query = @"
+            UPDATE UsersInfo
+            SET IsActive = 0
+            WHERE UserID = @UserID
+              AND UserName <> 'admin'";
+
+                SqlParameter[] parameters =
+                {
+            new SqlParameter("@UserID", userID)
+        };
+
+                int rows = db.ExecuteNonQuery(query, parameters);
+
+                return rows > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to disable user.\n\n" + ex.Message,
+                    "User Management",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
+        }
+
+        public bool ToggleUserStatus(int userID, bool isActive)
+        {
+            try
+            {
+                string sql = @"
+            UPDATE UsersInfo
+            SET IsActive = @IsActive
+            WHERE UserID = @UserID";
+
+                SqlParameter[] parameters =
+                {
+            new SqlParameter("@UserID", userID),
+            new SqlParameter("@IsActive", isActive)
+        };
+
+                int rows = db.ExecuteNonQuery(sql, parameters);
+
+                return rows > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to change user status.\n\n" + ex.Message,
+                    "User Management",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return false;
+            }
+        }
 
     }
 }

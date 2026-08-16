@@ -25,8 +25,12 @@ namespace SupplyBranch.Forms.Masters
             cmbCategory.SelectedIndex = -1;
             cmbDenomination.DataSource = null;
 
+            txtPacketsPerBox.Clear();
+            txtSheetsPerPacket.Clear();
             txtPiecesPerSheet.Clear();
             txtRemarks.Clear();
+
+
 
             btnSave.Enabled = true;
             btnUpdate.Enabled = false;
@@ -69,7 +73,7 @@ namespace SupplyBranch.Forms.Masters
         public frmUnitConversionMaster()
         {
             InitializeComponent();
-            
+
         }
 
         private void UnitConversionMaster_Load(object sender, EventArgs e)
@@ -83,7 +87,7 @@ namespace SupplyBranch.Forms.Masters
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-        
+
             if (cmbCategory.SelectedValue == null)
                 return;
 
@@ -98,45 +102,80 @@ namespace SupplyBranch.Forms.Masters
             if (cmbCategory.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select category.");
-
                 cmbCategory.Focus();
-
                 return false;
             }
 
             if (cmbDenomination.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select denomination.");
-
                 cmbDenomination.Focus();
-
                 return false;
             }
 
+            // Packets Per Box
+            if (string.IsNullOrWhiteSpace(txtPacketsPerBox.Text))
+            {
+                MessageBox.Show("Please enter Packets Per Box.");
+                txtPacketsPerBox.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(txtPacketsPerBox.Text, out int packetsPerBox))
+            {
+                MessageBox.Show("Packets Per Box must be numeric.");
+                txtPacketsPerBox.Focus();
+                return false;
+            }
+
+            if (packetsPerBox <= 0)
+            {
+                MessageBox.Show("Packets Per Box must be greater than zero.");
+                txtPacketsPerBox.Focus();
+                return false;
+            }
+
+            // Sheets Per Packet
+            if (string.IsNullOrWhiteSpace(txtSheetsPerPacket.Text))
+            {
+                MessageBox.Show("Please enter Sheets Per Packet.");
+                txtSheetsPerPacket.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(txtSheetsPerPacket.Text, out int sheetsPerPacket))
+            {
+                MessageBox.Show("Sheets Per Packet must be numeric.");
+                txtSheetsPerPacket.Focus();
+                return false;
+            }
+
+            if (sheetsPerPacket <= 0)
+            {
+                MessageBox.Show("Sheets Per Packet must be greater than zero.");
+                txtSheetsPerPacket.Focus();
+                return false;
+            }
+
+            // Pieces Per Sheet
             if (string.IsNullOrWhiteSpace(txtPiecesPerSheet.Text))
             {
                 MessageBox.Show("Please enter Pieces Per Sheet.");
-
                 txtPiecesPerSheet.Focus();
-
                 return false;
             }
 
-            if (!int.TryParse(txtPiecesPerSheet.Text, out int pieces))
+            if (!int.TryParse(txtPiecesPerSheet.Text, out int piecesPerSheet))
             {
                 MessageBox.Show("Pieces Per Sheet must be numeric.");
-
                 txtPiecesPerSheet.Focus();
-
                 return false;
             }
 
-            if (pieces <= 0)
+            if (piecesPerSheet <= 0)
             {
                 MessageBox.Show("Pieces Per Sheet must be greater than zero.");
-
                 txtPiecesPerSheet.Focus();
-
                 return false;
             }
 
@@ -145,7 +184,7 @@ namespace SupplyBranch.Forms.Masters
 
         private void txtPiecesPerSheet_KeyPress(object sender, KeyPressEventArgs e)
         {
-       
+
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
@@ -154,7 +193,7 @@ namespace SupplyBranch.Forms.Masters
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-       
+
             if (!ValidateData())
                 return;
 
@@ -164,9 +203,13 @@ namespace SupplyBranch.Forms.Masters
 
             model.DenominationID = Convert.ToInt32(cmbDenomination.SelectedValue);
 
-            model.PiecesPerSheet = Convert.ToInt32(txtPiecesPerSheet.Text);
+            model.PacketsPerBox =  Convert.ToInt32(txtPacketsPerBox.Text);
 
-            model.Remarks = txtRemarks.Text.Trim();
+            model.SheetsPerPacket = Convert.ToInt32(txtSheetsPerPacket.Text);
+
+            model.PiecesPerSheet =  Convert.ToInt32(txtPiecesPerSheet.Text);
+
+            model.Remarks =  txtRemarks.Text.Trim();
 
             if (dal.Save(model))
             {
@@ -193,23 +236,54 @@ namespace SupplyBranch.Forms.Masters
             if (dgvConversion.Columns[e.ColumnIndex].Name == "Edit")
             {
                 EditID = Convert.ToInt32(
-                    dgvConversion.Rows[e.RowIndex].Cells["ConversionID"].Value);
+                    dgvConversion.Rows[e.RowIndex]
+                        .Cells["ConversionID"].Value);
 
                 DataRow dr = dal.GetByID(EditID);
 
                 if (dr != null)
                 {
-                    cmbCategory.SelectedValue = dr["CategoryID"];
+                    int categoryID =
+                        Convert.ToInt32(dr["CategoryID"]);
 
-                    cmbDenomination.SelectedValue = dr["DenominationID"];
+                    int denominationID =
+                        Convert.ToInt32(dr["DenominationID"]);
 
-                    txtPiecesPerSheet.Text = dr["PiecesPerSheet"].ToString();
+                    // Load Category
+                    cmbCategory.SelectedValue = categoryID;
 
-                    txtRemarks.Text = dr["Remarks"].ToString();
+                    // Load denominations including the current denomination
+                    cmbDenomination.DataSource =
+                        dal.GetDenominationsForEdit(
+                            categoryID,
+                            denominationID);
+
+                    cmbDenomination.DisplayMember = "Denomination";
+                    cmbDenomination.ValueMember = "DenominationID";
+
+                    // Select current denomination
+                    cmbDenomination.SelectedValue = denominationID;
+
+                    // Load conversion values
+                    txtPacketsPerBox.Text =
+                        dr["PacketsPerBox"].ToString();
+
+                    txtSheetsPerPacket.Text =
+                        dr["SheetsPerPacket"].ToString();
+
+                    txtPiecesPerSheet.Text =
+                        dr["PiecesPerSheet"].ToString();
+
+                    txtRemarks.Text =
+                        dr["Remarks"] == DBNull.Value
+                            ? ""
+                            : dr["Remarks"].ToString();
 
                     btnSave.Enabled = false;
-
                     btnUpdate.Enabled = true;
+
+                    cmbCategory.Enabled = false;
+                    cmbDenomination.Enabled = false;
                 }
             }
 
@@ -253,9 +327,11 @@ namespace SupplyBranch.Forms.Masters
             model.ConversionID = EditID;
             model.CategoryID = Convert.ToInt32(cmbCategory.SelectedValue);
             model.DenominationID = Convert.ToInt32(cmbDenomination.SelectedValue);
+            model.PacketsPerBox = Convert.ToInt32(txtPacketsPerBox.Text);
+            model.SheetsPerPacket = Convert.ToInt32(txtSheetsPerPacket.Text);
             model.PiecesPerSheet = Convert.ToInt32(txtPiecesPerSheet.Text);
             model.Remarks = txtRemarks.Text.Trim();
-            
+
             if (dal.IsDuplicate(EditID,
                     model.CategoryID,
                     model.DenominationID))

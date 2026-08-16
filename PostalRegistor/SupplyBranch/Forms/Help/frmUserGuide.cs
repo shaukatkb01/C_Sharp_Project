@@ -71,11 +71,13 @@ The backup file is saved for database recovery purposes.
 Use Logout to safely exit the current user session.
 
 9. HELP
-Use the Help menu to access this User Guide and About information.
+Use the Help menu to access this User Guide, About information and check Application Updates.
 ";
         }
-       
 
-       
+        private void frmUserGuide_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

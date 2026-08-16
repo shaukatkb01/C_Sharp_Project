@@ -1148,6 +1148,35 @@ AND StatusID IN (2,3)";
                 : Convert.ToInt32(result);
         }
 
+        public bool CanAssignInvoiceSequentially(int supplyID)
+        {
+            string sql = @"
+        SELECT COUNT(*)
+        FROM SupplyMaster
+        WHERE SupplyID < @SupplyID
+          AND StatusID = 1
+          AND GlobalInvoiceSequence IS NULL";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@SupplyID", supplyID)
+    };
+
+            object result = db.ExecuteScalar(sql, parameters);
+
+            int previousPendingDrafts =
+                result == null || result == DBNull.Value
+                    ? 0
+                    : Convert.ToInt32(result);
+
+            // پہلے کوئی Draft موجود ہے جس کا
+            // GlobalInvoiceSequence ابھی NULL ہے
+            if (previousPendingDrafts > 0)
+                return false;
+
+            return true;
+        }
+
         public bool CanApproveDraftSequentially(int supplyID)
 {
     string sql = @"

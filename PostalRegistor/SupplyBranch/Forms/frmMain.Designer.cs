@@ -56,8 +56,12 @@
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuRestoreDatabase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRestoreSafetyBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuKeyboardShortcuts = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblMain = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsUser = new System.Windows.Forms.ToolStripStatusLabel();
@@ -65,10 +69,10 @@
             this.tsTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuKeyboardShortcuts = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuRestoreSafetyBackup = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enterStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockBalanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockAdjustmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +82,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.mastersToolStripMenuItem,
+            this.stockToolStripMenuItem,
             this.transactionsToolStripMenuItem,
             this.reportsToolStripMenuItem,
             this.administrationToolStripMenuItem,
@@ -100,14 +105,14 @@
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
             this.logoutToolStripMenuItem.Text = "Logout";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -297,6 +302,13 @@
             this.mnuRestoreDatabase.Text = "Restore Database";
             this.mnuRestoreDatabase.Click += new System.EventHandler(this.mnuRestoreDatabase_Click);
             // 
+            // mnuRestoreSafetyBackup
+            // 
+            this.mnuRestoreSafetyBackup.Name = "mnuRestoreSafetyBackup";
+            this.mnuRestoreSafetyBackup.Size = new System.Drawing.Size(234, 26);
+            this.mnuRestoreSafetyBackup.Text = "Restore Safety Backup";
+            this.mnuRestoreSafetyBackup.Click += new System.EventHandler(this.mnuRestoreSafetyBackup_Click);
+            // 
             // taskToolStripMenuItem
             // 
             this.taskToolStripMenuItem.Name = "taskToolStripMenuItem";
@@ -314,6 +326,27 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(54, 25);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // userGuideToolStripMenuItem
+            // 
+            this.userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
+            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+            this.userGuideToolStripMenuItem.Text = "User Guide";
+            this.userGuideToolStripMenuItem.Click += new System.EventHandler(this.userGuideToolStripMenuItem_Click);
+            // 
+            // mnuKeyboardShortcuts
+            // 
+            this.mnuKeyboardShortcuts.Name = "mnuKeyboardShortcuts";
+            this.mnuKeyboardShortcuts.Size = new System.Drawing.Size(226, 26);
+            this.mnuKeyboardShortcuts.Text = "Keyboard Shortcuts";
+            this.mnuKeyboardShortcuts.Click += new System.EventHandler(this.keyboardShortcutsToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
+            this.aboutToolStripMenuItem.Text = "About Supply Branch";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // lblMain
             // 
             this.lblMain.BackColor = System.Drawing.Color.White;
@@ -322,7 +355,7 @@
             this.lblMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(43)))), ((int)(((byte)(60)))));
             this.lblMain.Location = new System.Drawing.Point(0, 29);
             this.lblMain.Name = "lblMain";
-            this.lblMain.Size = new System.Drawing.Size(800, 70);
+            this.lblMain.Size = new System.Drawing.Size(800, 82);
             this.lblMain.TabIndex = 7;
             this.lblMain.Text = "Supply Branch Management System ";
             this.lblMain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -367,38 +400,40 @@
             this.pnlMain.AutoSize = true;
             this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 99);
+            this.pnlMain.Location = new System.Drawing.Point(0, 111);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 325);
+            this.pnlMain.Size = new System.Drawing.Size(800, 313);
             this.pnlMain.TabIndex = 10;
             // 
-            // aboutToolStripMenuItem
+            // stockToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-            this.aboutToolStripMenuItem.Text = "About Supply Branch";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.stockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enterStockToolStripMenuItem,
+            this.stockBalanceToolStripMenuItem,
+            this.stockAdjustmentToolStripMenuItem});
+            this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
+            this.stockToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
+            this.stockToolStripMenuItem.Text = "Stock";
             // 
-            // userGuideToolStripMenuItem
+            // enterStockToolStripMenuItem
             // 
-            this.userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
-            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
-            this.userGuideToolStripMenuItem.Text = "User Guide";
-            this.userGuideToolStripMenuItem.Click += new System.EventHandler(this.userGuideToolStripMenuItem_Click);
+            this.enterStockToolStripMenuItem.Name = "enterStockToolStripMenuItem";
+            this.enterStockToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.enterStockToolStripMenuItem.Text = "Stock In";
+            this.enterStockToolStripMenuItem.Click += new System.EventHandler(this.enterStockToolStripMenuItem_Click);
             // 
-            // mnuKeyboardShortcuts
+            // stockBalanceToolStripMenuItem
             // 
-            this.mnuKeyboardShortcuts.Name = "mnuKeyboardShortcuts";
-            this.mnuKeyboardShortcuts.Size = new System.Drawing.Size(226, 26);
-            this.mnuKeyboardShortcuts.Text = "Keyboard Shortcuts";
-            this.mnuKeyboardShortcuts.Click += new System.EventHandler(this.keyboardShortcutsToolStripMenuItem_Click);
+            this.stockBalanceToolStripMenuItem.Name = "stockBalanceToolStripMenuItem";
+            this.stockBalanceToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.stockBalanceToolStripMenuItem.Text = "Stock Balance";
+            this.stockBalanceToolStripMenuItem.Click += new System.EventHandler(this.stockBalanceToolStripMenuItem_Click);
             // 
-            // mnuRestoreSafetyBackup
+            // stockAdjustmentToolStripMenuItem
             // 
-            this.mnuRestoreSafetyBackup.Name = "mnuRestoreSafetyBackup";
-            this.mnuRestoreSafetyBackup.Size = new System.Drawing.Size(234, 26);
-            this.mnuRestoreSafetyBackup.Text = "Restore Safety Backup";
-            this.mnuRestoreSafetyBackup.Click += new System.EventHandler(this.mnuRestoreSafetyBackup_Click);
+            this.stockAdjustmentToolStripMenuItem.Name = "stockAdjustmentToolStripMenuItem";
+            this.stockAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.stockAdjustmentToolStripMenuItem.Text = "Stock Adjustment";
             // 
             // frmMain
             // 
@@ -416,6 +451,7 @@
             this.Text = "Supply Branch Management System";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Shown += new System.EventHandler(this.frmMain_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -468,5 +504,9 @@
         private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuKeyboardShortcuts;
         private System.Windows.Forms.ToolStripMenuItem mnuRestoreSafetyBackup;
+        private System.Windows.Forms.ToolStripMenuItem stockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enterStockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stockBalanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stockAdjustmentToolStripMenuItem;
     }
 }

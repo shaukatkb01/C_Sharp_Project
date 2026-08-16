@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbZone = new System.Windows.Forms.ComboBox();
             this.cmbOffice = new System.Windows.Forms.ComboBox();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
@@ -53,7 +53,6 @@
             this.txtSearchIndentNo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalRecord = new System.Windows.Forms.Label();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndent)).BeginInit();
             this.SuspendLayout();
             // 
@@ -141,14 +140,14 @@
             this.dgvIndent.MultiSelect = false;
             this.dgvIndent.Name = "dgvIndent";
             this.dgvIndent.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIndent.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIndent.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvIndent.RowHeadersVisible = false;
             this.dgvIndent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIndent.Size = new System.Drawing.Size(757, 211);
@@ -287,22 +286,12 @@
             this.lblTotalRecord.Size = new System.Drawing.Size(0, 13);
             this.lblTotalRecord.TabIndex = 20;
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(317, 23);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(122, 13);
-            this.lblSubTitle.TabIndex = 21;
-            this.lblSubTitle.Text = "INDENT CORRECTION";
-            // 
             // frmIndentSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(756, 532);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.lblTotalRecord);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtSearchIndentNo);
@@ -320,7 +309,7 @@
             this.Controls.Add(this.cmbOffice);
             this.Controls.Add(this.cmbZone);
             this.Name = "frmIndentSearch";
-            this.Text = "Indent Search";
+            this.Text = "Indent Correction";
             this.Load += new System.EventHandler(this.frmIndentSearch_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIndent)).EndInit();
             this.ResumeLayout(false);
@@ -354,6 +343,5 @@
         private System.Windows.Forms.DataGridViewButtonColumn colEdit;
         private System.Windows.Forms.DataGridViewButtonColumn colDelete;
         private System.Windows.Forms.Label lblTotalRecord;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

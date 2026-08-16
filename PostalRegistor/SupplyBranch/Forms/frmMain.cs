@@ -1,26 +1,28 @@
-﻿using SupplyBranch.Forms.Administration;
+﻿using SupplyBranch.Classes;
+using SupplyBranch.DataAccess;
+using SupplyBranch.Forms.Administration;
 using SupplyBranch.Forms.Help;
 using SupplyBranch.Forms.Masters;
 using SupplyBranch.Forms.Reports;
+using SupplyBranch.Forms.Stock;
 using SupplyBranch.Forms.Transactions;
 using SupplyBranch.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Reflection;
-using System.Diagnostics;
-using System.Threading;
-using System.Net;
-using System.Net.Http.Headers;
-using SupplyBranch.Classes;
 
 namespace SupplyBranch.Forms
 {
@@ -29,6 +31,8 @@ namespace SupplyBranch.Forms
     public partial class frmMain : Form
     {
         private Form activeForm = null;
+
+       
 
         private async Task<string> GetLatestVersionAsync()
         {
@@ -138,38 +142,60 @@ namespace SupplyBranch.Forms
         private void OpenForm(Form childForm)
         {
             // ==========================================
-            // Check whether same form is already open
+            // 1. Check whether same form is already open
             // ==========================================
-
             Form existingForm = pnlMain.Controls
                 .OfType<Form>()
-                .FirstOrDefault(f =>
-                    f.GetType() == childForm.GetType());
+                .FirstOrDefault(f => f.GetType() == childForm.GetType());
 
             if (existingForm != null)
             {
-                // Close existing form
                 existingForm.Close();
                 existingForm.Dispose();
-
-                // Remove from panel
                 pnlMain.Controls.Remove(existingForm);
             }
 
             // ==========================================
-            // Open new form
+            // 2. Open new form
             // ==========================================
-
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
-
             childForm.Dock = DockStyle.Fill;
             childForm.Margin = new Padding(0);
 
             pnlMain.Controls.Add(childForm);
-
             childForm.BringToFront();
             childForm.Show();
+
+            // ==========================================
+            // 3. Dynamic SubTitle in lblMain (Next Line)
+            // ==========================================
+            string mainTitle = "Supply Branch Management System "; // Line 1 Text
+            string subTitleText = "";
+
+            // Child form ke andar "lblSubTitle" ko dhoondein
+            Control[] foundControls = childForm.Controls.Find("lblSubTitle", true);
+
+            if (foundControls.Length > 0 && foundControls[0] is Label lblSub)
+            {
+                subTitleText = lblSub.Text;
+                
+            }
+            else if (!string.IsNullOrWhiteSpace(childForm.Text))
+            {
+                // Agar lblSubTitle na mile toh form ki Text property istemal karein
+                subTitleText = childForm.Text;
+            }
+
+            // Single Line / Double Line Set Karein
+            if (!string.IsNullOrWhiteSpace(subTitleText))
+            {
+                lblMain.Text = $"{mainTitle}\n{subTitleText}";
+            }
+            else
+            {
+                lblMain.Text = mainTitle;
+            }
         }
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
@@ -233,96 +259,38 @@ namespace SupplyBranch.Forms
 
         public async void frmMain_Load(object sender, EventArgs e)
         {
-      
+     
             UITheme.Apply(this);
 
-            this.Text = "SupplyBranch - Checking Update...";
+            // Form ka default Title
+            this.Text = "SupplyBranch Version " + AppVersion.CurrentVersion;
 
-            try
-            {
-                string currentVersion = AppVersion.CurrentVersion;
-                AppVersionInfo.CurrentVersion = currentVersion;
-                string latestVersion = await GetLatestVersionAsync();
-
-                AppVersionInfo.AvailableVersion = latestVersion;
-
-     
-
-                if (!string.IsNullOrWhiteSpace(latestVersion))
-                {
-                    if (Version.TryParse(AppVersionInfo.CurrentVersion, out Version current) &&
-        Version.TryParse(latestVersion, out Version latest))
-                    {
-                        if (latest > current)
-                        {
-                            DialogResult result = MessageBox.Show(
-                                $"A new version of SupplyBranch is available!\n\n" +
-                                $"Current Version: {AppVersionInfo.CurrentVersion}\n" +
-                                $"Latest Version: {latestVersion}\n\n" +
-                                $"Would you like to open About screen to update?",
-                                "SupplyBranch Update Available",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Information);
-
-                            if (result == DialogResult.Yes)
-                            {
-                                OpenForm(new frmAbout());
-                            }
-                        }
-                    }
-                }
-                
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(
-                    "VERSION CHECK ERROR: " + ex.ToString());
-            }
-
-            this.Text = "SupplyBranch";
-
+            // Header Label Formatting
             lblMain.BackColor = Color.FromArgb(232, 240, 248);
             lblMain.ForeColor = Color.FromArgb(31, 78, 121);
-            lblMain.Font = new Font(
-                "Segoe UI",
-                22F,
-                FontStyle.Bold);
-
+            lblMain.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
             lblMain.TextAlign = ContentAlignment.MiddleCenter;
             lblMain.AutoSize = false;
             lblMain.Dock = DockStyle.Top;
-            lblMain.Height = 70;
+            lblMain.Height = 100;
 
+            // Status Strip Data
             tsUser.Text = "User: " + CurrentUser.UserName;
-            tsDate.Text = "Date: " +
-                          DateTime.Now.ToString("dd-MMM-yyyy");
-
-            tsTime.Text = "Time: " +
-                          DateTime.Now.ToString("hh:mm:ss tt");
+            tsDate.Text = "Date: " + DateTime.Now.ToString("dd-MMM-yyyy");
+            tsTime.Text = "Time: " + DateTime.Now.ToString("hh:mm:ss tt");
 
             tsUser.Padding = new Padding(0, 0, 25, 0);
             tsDate.Padding = new Padding(0, 0, 25, 0);
             tsTime.Padding = new Padding(0, 0, 10, 0);
 
+            // Dashboard Open Karein
             OpenForm(new frmDashBoard());
 
-            mnuRestoreDatabase.Visible =
-                string.Equals(
-                    CurrentUser.UserName,
-                    "admin",
-                    StringComparison.OrdinalIgnoreCase);
-
-            mnuRestoreSafetyBackup.Visible =
-                string.Equals(
-                    CurrentUser.UserName,
-                    "admin",
-                    StringComparison.OrdinalIgnoreCase);
-
-            mnuUserManagement.Visible =
-                string.Equals(
-                    CurrentUser.UserName,
-                    "admin",
-                    StringComparison.OrdinalIgnoreCase);
+            // Admin Menus Control
+            bool isAdmin = string.Equals(CurrentUser.UserName, "admin", StringComparison.OrdinalIgnoreCase);
+            mnuRestoreDatabase.Visible = isAdmin;
+            mnuRestoreSafetyBackup.Visible = isAdmin;
+            mnuUserManagement.Visible = isAdmin;
         }
 
 
@@ -477,6 +445,85 @@ namespace SupplyBranch.Forms
                 //form.ShowDialog(this);
                 OpenForm( new frmUserManagement());
             }
+        }
+
+        private async void frmMain_Shown(object sender, EventArgs e)
+        {
+            // Form open hone ke baad update check start hoga
+            await CheckForUpdatesAsync();
+        }
+       
+
+        private async Task CheckForUpdatesAsync()
+        {
+            this.Text = "SupplyBranch - Checking Update...";
+
+            try
+            {
+                string currentVersion = AppVersion.CurrentVersion;
+                AppVersionInfo.CurrentVersion = currentVersion;
+
+                string latestVersion = await GetLatestVersionAsync();
+                AppVersionInfo.AvailableVersion = latestVersion;
+
+                if (!string.IsNullOrWhiteSpace(latestVersion))
+                {
+                    if (Version.TryParse(AppVersionInfo.CurrentVersion, out Version current) &&
+                        Version.TryParse(latestVersion, out Version latest))
+                    {
+                        if (latest > current)
+                        {
+                            DialogResult result = MessageBox.Show(
+                                $"A new version of SupplyBranch is available!\n\n" +
+                                $"Current Version: {AppVersionInfo.CurrentVersion}\n" +
+                                $"Latest Version: {latestVersion}\n\n" +
+                                $"Would you like to download and install the update now?",
+                                "SupplyBranch Update Available",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                if (string.IsNullOrEmpty(AppVersionInfo.DownloadUrl))
+                                {
+                                    MessageBox.Show("Download URL missing. Please check UpdateInfo.txt on server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                string tempZipPath = Path.Combine(Path.GetTempPath(), "SupplyBranch_Update.zip");
+
+                                using (var downloadForm = new frmUpdateDownload(AppVersionInfo.DownloadUrl, tempZipPath))
+                                {
+                                    if (downloadForm.ShowDialog() == DialogResult.OK)
+                                    {
+                                        // Batch script trigger hoga aur app close ho jayegi
+                                        UpdateDAL.ApplyUpdateAndRestart(tempZipPath);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("VERSION CHECK ERROR: " + ex.ToString());
+            }
+            finally
+            {
+                // Exception aaye ya na aaye, Title reset ho jayega
+                this.Text = "SupplyBranch Version " + AppVersionInfo.CurrentVersion;
+            }
+        }
+
+        private void enterStockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockIn());
+        }
+
+        private void stockBalanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockBalance());
         }
     }
 }

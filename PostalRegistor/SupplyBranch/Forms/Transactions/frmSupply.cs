@@ -1,5 +1,6 @@
 ﻿using SupplyBranch.DataAccess;
 using SupplyBranch.Helpers;
+using SupplyBranch.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,6 +46,7 @@ public partial class frmSupply : Form
 
         private readonly SupplyDAL supplyDAL = new SupplyDAL();
 
+       
         private void SetSupplyTypeByCategory()
         {
             try
@@ -977,6 +979,8 @@ public partial class frmSupply : Form
 
                 _isLoadingDraft = true;
 
+             
+
 
 
                 try
@@ -1003,6 +1007,8 @@ public partial class frmSupply : Form
 
                 if (_currentStatusID == 1)
                 {
+                    this.Text = "Supply - Edit Draft";
+
                     btnSaveDraft.Text = "Update Draft";
                     btnSaveDraft.Enabled = true;
 
@@ -1019,6 +1025,7 @@ public partial class frmSupply : Form
 
                 else if (_currentStatusID == 2)
                 {
+                    this.Text = "Supply - Approved";
                     btnSaveDraft.Enabled = true;
 
                     btnApprove.Visible = false;
@@ -1036,6 +1043,8 @@ public partial class frmSupply : Form
 
                 else if (_currentStatusID == 3)
                 {
+                    this.Text = "Supply - Issued";
+
                     btnSaveDraft.Enabled = false;
 
                     btnApprove.Visible = false;
@@ -1062,6 +1071,7 @@ public partial class frmSupply : Form
 
             else
             {
+                this.Text = "Supply - New Entry";
                 LoadIndentHeader();
 
                 LoadIndentItems();
@@ -1830,13 +1840,28 @@ public partial class frmSupply : Form
 
         private void btnAssignInvoiceNo_Click(object sender, EventArgs e)
         {
+                SupplyDAL dal = new SupplyDAL();
+            if (!dal.CanAssignInvoiceSequentially(_supplyID))
+            {
+                MessageBox.Show(
+                    "Previous draft supply invoice must be assigned first.",
+                    "Invoice Sequence",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
             try
             {
-                SupplyDAL dal = new SupplyDAL();
+
 
                 // پہلے Validation / Generation کرو
                 string invoice = dal.EnsureValidInvoice(_supplyID, true);
 
+                int openedSupplyID = _supplyID;
+
+              
                 txtInvoiceNo.Text = invoice;
 
                 // اب Result Check کرو
@@ -2157,10 +2182,47 @@ public partial class frmSupply : Form
             CheckDraftChanges();
         }
 
+        private void dgvSupplyDetail_CellClick(
+    object sender,
+    DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            DataGridViewRow row = dgvSupplyDetail.Rows[e.RowIndex];
+
+            if (row.Cells["CategoryID"].Value == null ||
+                row.Cells["DenominationID"].Value == null)
+                return;
+
+            int categoryID =
+                Convert.ToInt32(row.Cells["CategoryID"].Value);
+
+            int denominationID =
+                Convert.ToInt32(row.Cells["DenominationID"].Value);
+
+            string category =
+                Convert.ToString(row.Cells["Category"].Value);
+
+            string denomination =
+                Convert.ToString(row.Cells["Denomination"].Value);
+
+            lblStockItem.Text =
+                category + "  |  Rs." + denomination;
+
+            // Next step:
+            // StockTransaction se is CategoryID +
+            // DenominationID ka available balance load hoga.
+        }
+
         private void dgvSupplyDetail_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            this.dgvSupplyDetail.CellClick +=
+    new System.Windows.Forms.DataGridViewCellEventHandler(
+        this.dgvSupplyDetail_CellClick);
 
         }
+
     }
 }
 

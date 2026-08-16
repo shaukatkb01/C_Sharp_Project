@@ -43,7 +43,6 @@
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnOfficeWise
@@ -188,21 +187,11 @@
             this.label7.TabIndex = 15;
             this.label7.Text = "To :";
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(290, 30);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(220, 13);
-            this.lblSubTitle.TabIndex = 16;
-            this.lblSubTitle.Text = "INDENT/SUPPLY REPORTS AND INDENX";
-            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dtTo);
@@ -219,7 +208,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnOfficeWise);
             this.Name = "frmReport";
-            this.Text = " ";
+            this.Text = " INDENT/SUPPLY REPORTS AND INDENX";
             this.Load += new System.EventHandler(this.frmReport_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,6 +232,5 @@
         private System.Windows.Forms.DateTimePicker dtTo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

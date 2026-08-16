@@ -14,6 +14,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\RDLC\rptPendi
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\RDLC\rptSupplyRegister.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\rptSupplyIndentSummary.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\rptSupplyPerforma.rdlc
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\RDLC\rptIndex.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.exe.config
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.pdb
@@ -89,6 +90,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Ma
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmOffice.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmOfficeZone.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmStampCategory.resources
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmStatus.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmUnitConversionMaster.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmUserManagement.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Reports.frmReport.resources

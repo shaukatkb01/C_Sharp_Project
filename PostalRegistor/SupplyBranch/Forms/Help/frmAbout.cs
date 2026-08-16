@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SupplyBranch.DataAccess;
 namespace SupplyBranch.Forms.Help
 {
     public partial class frmAbout : Form
@@ -44,10 +45,10 @@ namespace SupplyBranch.Forms.Help
                 btnUpdate.Enabled = true;
             }
         }
-
+        
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-
+            
             if (string.IsNullOrEmpty(AppVersionInfo.DownloadUrl))
             {
                 MessageBox.Show("Download URL missing. Please check UpdateInfo.txt on server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -62,40 +63,11 @@ namespace SupplyBranch.Forms.Help
             {
                 if (downloadForm.ShowDialog() == DialogResult.OK)
                 {
-                    // Download mukammal hone par auto-installer batch script chalayein
-                    ApplyUpdateAndRestart(tempZipPath);
+                    // Direct update apply karein aur app exit kar dein
+                    UpdateDAL.ApplyUpdateAndRestart(tempZipPath);
                 }
             }
         }
-
-        private void ApplyUpdateAndRestart(string zipFilePath)
-        {
-            string appDir = AppDomain.CurrentDomain.BaseDirectory;
-            string batPath = Path.Combine(Path.GetTempPath(), "update_runner.bat");
-
-            // Temporary Batch Script jo extraction aur app restart ko handle karegi
-            string scriptContent = $@"@echo off
-timeout /t 2 /nobreak > nul
-powershell -Command ""Expand-Archive -Path '{zipFilePath}' -DestinationPath '{appDir}' -Force""
-del ""{zipFilePath}""
-start """" ""{Path.Combine(appDir, "SupplyBranch.exe")}""
-del ""%~f0""
-";
-
-            File.WriteAllText(batPath, scriptContent);
-
-            // Batch script ko background mein execute karein
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = batPath,
-                CreateNoWindow = true,
-                UseShellExecute = false
-            };
-
-            Process.Start(psi);
-
-            // Application close taake files lock free ho sakein
-            Application.Exit();
-        }
+              
     }
 }

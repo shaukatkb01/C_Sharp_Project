@@ -10,6 +10,10 @@ namespace SupplyBranch.Models
 
         public int DenominationID { get; set; }
 
+        public int PacketsPerBox { get; set; }
+
+        public int SheetsPerPacket { get; set; }
+
         public int PiecesPerSheet { get; set; }
 
         public string Remarks { get; set; }

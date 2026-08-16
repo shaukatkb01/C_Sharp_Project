@@ -37,7 +37,6 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblOfficeCode = new System.Windows.Forms.Label();
             this.lblOfficeName = new System.Windows.Forms.Label();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).BeginInit();
             this.SuspendLayout();
@@ -128,18 +127,6 @@
             this.lblOfficeName.TabIndex = 16;
             this.lblOfficeName.Text = "Description";
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(308, 9);
-            this.lblSubTitle.Margin = new System.Windows.Forms.Padding(2);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(184, 13);
-            this.lblSubTitle.TabIndex = 30;
-            this.lblSubTitle.Text = "STAMP CATEGORY INFORMATION";
-            // 
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(207, 189);
@@ -157,7 +144,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvCategory);
             this.Controls.Add(this.btnDelete);
@@ -168,7 +154,7 @@
             this.Controls.Add(this.lblOfficeCode);
             this.Controls.Add(this.lblOfficeName);
             this.Name = "frmStampCategory";
-            this.Text = "frmStampCategory";
+            this.Text = "Stamp Category";
             this.Load += new System.EventHandler(this.frmStampCategory_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).EndInit();
             this.ResumeLayout(false);
@@ -187,7 +173,6 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Label lblOfficeCode;
         private System.Windows.Forms.Label lblOfficeName;
-        private System.Windows.Forms.Label lblSubTitle;
         private System.Windows.Forms.Button btnUpdate;
     }
 }

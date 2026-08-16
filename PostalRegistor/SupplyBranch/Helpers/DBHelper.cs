@@ -111,6 +111,42 @@ namespace SupplyBranch.Helpers
             }
         }
 
+        public SqlTransaction BeginTransaction(out SqlConnection connection)
+        {
+            connection = db.GetConnection();
+
+            connection.Open();
+
+            return connection.BeginTransaction();
+        }
+
+        public bool ExecuteTransaction(Action<SqlConnection, SqlTransaction> action)
+        {
+            using (SqlConnection con = db.GetConnection())
+            {
+                con.Open();
+
+                using (SqlTransaction transaction =
+                       con.BeginTransaction())
+                {
+                    try
+                    {
+                        action(con, transaction);
+
+                        transaction.Commit();
+
+                        return true;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+
+                        throw;
+                    }
+                }
+            }
+        }
+
 
     }
 

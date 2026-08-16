@@ -35,7 +35,6 @@
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.lblConfirmPassword = new System.Windows.Forms.Label();
             this.btnChangePassword = new System.Windows.Forms.Button();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCurrentPassword
@@ -99,21 +98,11 @@
             this.btnChangePassword.UseVisualStyleBackColor = true;
             this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(137, 28);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(118, 13);
-            this.lblSubTitle.TabIndex = 8;
-            this.lblSubTitle.Text = "CHANGE PASSWORD";
-            // 
             // frmChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(410, 450);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.btnChangePassword);
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.lblConfirmPassword);
@@ -122,7 +111,8 @@
             this.Controls.Add(this.txtCurrentPassword);
             this.Controls.Add(this.lblCurrentPassword);
             this.Name = "frmChangePassword";
-            this.Text = "ChangePassword";
+            this.Text = "Change Password";
+            this.Load += new System.EventHandler(this.frmChangePassword_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,6 +127,5 @@
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.Label lblConfirmPassword;
         private System.Windows.Forms.Button btnChangePassword;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

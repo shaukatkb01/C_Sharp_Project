@@ -53,7 +53,8 @@
             this.Name = "frmUserGuide";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Supply Branch - User Guide";
-           this.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.frmUserGuide_Load);
+            this.ResumeLayout(false);
 
         }
 

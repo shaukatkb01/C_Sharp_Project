@@ -140,7 +140,7 @@
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.lblFullName);
             this.Name = "frmEditUser";
-            this.Text = "Edit User";
+            this.Text = "Edit User Infromtion";
             this.Load += new System.EventHandler(this.frmEditUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

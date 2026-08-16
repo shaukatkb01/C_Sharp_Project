@@ -124,5 +124,10 @@ namespace SupplyBranch.Forms.Administration
                     MessageBoxIcon.Error);
             }
         }
+
+        private void frmChangePassword_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

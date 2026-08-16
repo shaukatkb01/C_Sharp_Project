@@ -88,8 +88,10 @@
     <Compile Include="DataAccess\OfficeDAL.cs" />
     <Compile Include="DataAccess\OfficeZoneDAL.cs" />
     <Compile Include="DataAccess\StampCategoryDAL.cs" />
+    <Compile Include="DataAccess\StockDAL.cs" />
     <Compile Include="DataAccess\SupplyDAL.cs" />
     <Compile Include="DataAccess\UnitConversionDAL.cs" />
+    <Compile Include="DataAccess\UpdateDAL.cs" />
     <Compile Include="DataAccess\UserDAL.cs" />
     <Compile Include="Database\DBConnection.cs" />
     <Compile Include="Forms\AddTaskForm.cs">
@@ -225,6 +227,18 @@
     <Compile Include="Forms\Reports\frmReport.Designer.cs">
       <DependentUpon>frmReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Stock\frmStockBalance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stock\frmStockBalance.Designer.cs">
+      <DependentUpon>frmStockBalance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Stock\frmStockIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stock\frmStockIn.Designer.cs">
+      <DependentUpon>frmStockIn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Transactions\frmDraftSupply.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,6 +358,9 @@
     <EmbeddedResource Include="Forms\Masters\frmStampCategory.resx">
       <DependentUpon>frmStampCategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Masters\frmStatus.resx">
+      <DependentUpon>frmStatus.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Masters\frmUnitConversionMaster.resx">
       <DependentUpon>frmUnitConversionMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -389,7 +406,9 @@
     <EmbeddedResource Include="Reports\RDLC\rptIndentRegister.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RDLC\rptIndex.rdlc" />
+    <Content Include="Reports\RDLC\rptIndex.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\RDLC\rptInvoiceRegister.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

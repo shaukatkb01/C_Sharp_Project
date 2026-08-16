@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.cmbDenomination = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,25 +39,30 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.dgvConversion = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPacketsPerBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSheetsPerPacket = new System.Windows.Forms.TextBox();
             this.ConversionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DenominationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Denomination = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PacketsPerBox = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SheetsPerPacket = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PiecesPerSheet = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.lblSubTitle = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtRemarks = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConversion)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbCategory
             // 
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(136, 73);
+            this.cmbCategory.Location = new System.Drawing.Point(136, 12);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(389, 21);
             this.cmbCategory.TabIndex = 0;
@@ -66,7 +71,7 @@
             // cmbDenomination
             // 
             this.cmbDenomination.FormattingEnabled = true;
-            this.cmbDenomination.Location = new System.Drawing.Point(136, 114);
+            this.cmbDenomination.Location = new System.Drawing.Point(136, 46);
             this.cmbDenomination.Name = "cmbDenomination";
             this.cmbDenomination.Size = new System.Drawing.Size(389, 21);
             this.cmbDenomination.TabIndex = 1;
@@ -74,7 +79,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 82);
+            this.label1.Location = new System.Drawing.Point(29, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 2;
@@ -83,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 122);
+            this.label2.Location = new System.Drawing.Point(29, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 3;
@@ -91,7 +96,7 @@
             // 
             // txtPiecesPerSheet
             // 
-            this.txtPiecesPerSheet.Location = new System.Drawing.Point(136, 155);
+            this.txtPiecesPerSheet.Location = new System.Drawing.Point(136, 151);
             this.txtPiecesPerSheet.Name = "txtPiecesPerSheet";
             this.txtPiecesPerSheet.Size = new System.Drawing.Size(389, 20);
             this.txtPiecesPerSheet.TabIndex = 4;
@@ -100,7 +105,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 162);
+            this.label4.Location = new System.Drawing.Point(29, 158);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 13);
             this.label4.TabIndex = 6;
@@ -151,6 +156,8 @@
             this.Category,
             this.DenominationID,
             this.Denomination,
+            this.PacketsPerBox,
+            this.SheetsPerPacket,
             this.PiecesPerSheet,
             this.Remarks,
             this.Edit,
@@ -159,19 +166,68 @@
             this.dgvConversion.MultiSelect = false;
             this.dgvConversion.Name = "dgvConversion";
             this.dgvConversion.ReadOnly = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConversion.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConversion.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvConversion.RowHeadersVisible = false;
             this.dgvConversion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvConversion.Size = new System.Drawing.Size(850, 307);
             this.dgvConversion.TabIndex = 42;
             this.dgvConversion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConversion_CellClick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(29, 195);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Remarks:";
+            // 
+            // txtRemarks
+            // 
+            this.txtRemarks.Location = new System.Drawing.Point(136, 188);
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.Size = new System.Drawing.Size(389, 20);
+            this.txtRemarks.TabIndex = 51;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 54;
+            this.label3.Text = " Packets Per Box";
+            // 
+            // txtPacketsPerBox
+            // 
+            this.txtPacketsPerBox.Location = new System.Drawing.Point(136, 80);
+            this.txtPacketsPerBox.Name = "txtPacketsPerBox";
+            this.txtPacketsPerBox.Size = new System.Drawing.Size(389, 20);
+            this.txtPacketsPerBox.TabIndex = 53;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "Sheets Per Packet";
+            // 
+            // txtSheetsPerPacket
+            // 
+            this.txtSheetsPerPacket.Location = new System.Drawing.Point(136, 113);
+            this.txtSheetsPerPacket.Name = "txtSheetsPerPacket";
+            this.txtSheetsPerPacket.Size = new System.Drawing.Size(389, 20);
+            this.txtSheetsPerPacket.TabIndex = 55;
             // 
             // ConversionID
             // 
@@ -211,6 +267,20 @@
             this.Denomination.Name = "Denomination";
             this.Denomination.ReadOnly = true;
             // 
+            // PacketsPerBox
+            // 
+            this.PacketsPerBox.DataPropertyName = "PacketsPerBox";
+            this.PacketsPerBox.HeaderText = "Packets Per Box";
+            this.PacketsPerBox.Name = "PacketsPerBox";
+            this.PacketsPerBox.ReadOnly = true;
+            // 
+            // SheetsPerPacket
+            // 
+            this.SheetsPerPacket.DataPropertyName = "SheetsPerPacket";
+            this.SheetsPerPacket.HeaderText = "Sheets Per Packet";
+            this.SheetsPerPacket.Name = "SheetsPerPacket";
+            this.SheetsPerPacket.ReadOnly = true;
+            // 
             // PiecesPerSheet
             // 
             this.PiecesPerSheet.DataPropertyName = "PiecesPerSheet";
@@ -244,41 +314,18 @@
             this.Delete.Text = "Delete";
             this.Delete.UseColumnTextForButtonValue = true;
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(343, 21);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(155, 13);
-            this.lblSubTitle.TabIndex = 49;
-            this.lblSubTitle.Text = "UNIT CONVERSION MASTER";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(36, 202);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Remarks:";
-            // 
-            // txtRemarks
-            // 
-            this.txtRemarks.Location = new System.Drawing.Point(136, 195);
-            this.txtRemarks.Multiline = true;
-            this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.Size = new System.Drawing.Size(389, 20);
-            this.txtRemarks.TabIndex = 51;
-            // 
             // frmUnitConversionMaster
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(861, 614);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtSheetsPerPacket);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtPacketsPerBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtRemarks);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnNew);
             this.Controls.Add(this.btnSave);
@@ -290,7 +337,7 @@
             this.Controls.Add(this.cmbDenomination);
             this.Controls.Add(this.cmbCategory);
             this.Name = "frmUnitConversionMaster";
-            this.Text = "UnitConversionMaster";
+            this.Text = "Unit Conversion Master";
             this.Load += new System.EventHandler(this.UnitConversionMaster_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvConversion)).EndInit();
             this.ResumeLayout(false);
@@ -310,14 +357,19 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dgvConversion;
-        private System.Windows.Forms.Label lblSubTitle;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtRemarks;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtPacketsPerBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtSheetsPerPacket;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConversionID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
         private System.Windows.Forms.DataGridViewTextBoxColumn DenominationID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Denomination;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PacketsPerBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SheetsPerPacket;
         private System.Windows.Forms.DataGridViewTextBoxColumn PiecesPerSheet;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
         private System.Windows.Forms.DataGridViewButtonColumn Edit;

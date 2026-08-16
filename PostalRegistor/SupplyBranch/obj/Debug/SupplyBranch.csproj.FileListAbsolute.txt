@@ -14,6 +14,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptPending
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptSupplyRegister.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\rptSupplyIndentSummary.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\rptSupplyPerforma.rdlc
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptIndex.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\SupplyBranch.exe.config
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\SupplyBranch.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\SupplyBranch.pdb
@@ -77,6 +78,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.frmI
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.frmMain.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.frmPostal_Stationery.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.frmReportPreview.resources
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.frmUpdateDownload.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Help.frmAbout.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Help.frmKeyboardShortcuts.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Help.frmUserGuide.resources
@@ -88,6 +90,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Mast
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmOffice.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmOfficeZone.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmStampCategory.resources
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmStatus.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmUnitConversionMaster.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmUserManagement.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Reports.frmReport.resources

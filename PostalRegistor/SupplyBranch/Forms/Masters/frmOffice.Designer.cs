@@ -42,7 +42,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.dgvOffice = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOffice)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,21 +174,11 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Search : ";
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(339, 9);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(122, 13);
-            this.lblSubTitle.TabIndex = 15;
-            this.lblSubTitle.Text = "OFFICE INFORMATION";
-            // 
             // frmOffice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvOffice);
             this.Controls.Add(this.btnDelete);
@@ -205,7 +194,7 @@
             this.Controls.Add(this.lblOfficeName);
             this.Controls.Add(this.lblZone);
             this.Name = "frmOffice";
-            this.Text = "Office";
+            this.Text = "Office Information";
             this.Load += new System.EventHandler(this.frmOffice_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOffice)).EndInit();
             this.ResumeLayout(false);
@@ -229,6 +218,5 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.DataGridView dgvOffice;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

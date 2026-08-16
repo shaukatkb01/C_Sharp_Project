@@ -182,7 +182,7 @@
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.lblFullName);
             this.Name = "frmAddUser";
-            this.Text = "frmAddUser";
+            this.Text = "Add User";
             this.Load += new System.EventHandler(this.frmAddUser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

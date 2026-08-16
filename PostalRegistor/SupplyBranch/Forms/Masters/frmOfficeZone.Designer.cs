@@ -35,7 +35,6 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.dgvZone = new System.Windows.Forms.DataGridView();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZone)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,22 +111,12 @@
             this.dgvZone.TabIndex = 7;
             this.dgvZone.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZone_CellDoubleClick_1);
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(338, 13);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(125, 13);
-            this.lblSubTitle.TabIndex = 8;
-            this.lblSubTitle.Text = "Region/Zone information";
-            // 
             // frmOfficeZone
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.dgvZone);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
@@ -141,7 +130,7 @@
             this.Name = "frmOfficeZone";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Office Zone";
+            this.Text = "Zone Information";
             this.Load += new System.EventHandler(this.frmOfficeZone_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvZone)).EndInit();
             this.ResumeLayout(false);
@@ -158,6 +147,5 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.DataGridView dgvZone;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

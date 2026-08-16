@@ -38,7 +38,6 @@
             this.dgvDenomination = new System.Windows.Forms.DataGridView();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDenomination)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,21 +141,11 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(337, 17);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(127, 13);
-            this.lblSubTitle.TabIndex = 38;
-            this.lblSubTitle.Text = "Denomination Information";
-            // 
             // frmDenomination
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.lblSubTitle);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.dgvDenomination);
             this.Controls.Add(this.btnDelete);
@@ -168,7 +157,7 @@
             this.Controls.Add(this.txtDenomination);
             this.Controls.Add(this.cmbCategory);
             this.Name = "frmDenomination";
-            this.Text = "frmDenomination";
+            this.Text = "Denomination Information";
             this.Load += new System.EventHandler(this.frmDenomination_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDenomination)).EndInit();
             this.ResumeLayout(false);
@@ -188,6 +177,5 @@
         private System.Windows.Forms.DataGridView dgvDenomination;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }
