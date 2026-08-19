@@ -971,6 +971,18 @@ namespace SupplyBranch.Reports.DataSet {
             
             private global::System.Data.DataColumn columnCategoryCod;
             
+            private global::System.Data.DataColumn columnStockID;
+            
+            private global::System.Data.DataColumn columnStockBoxQty;
+            
+            private global::System.Data.DataColumn columnStockPacketQty;
+            
+            private global::System.Data.DataColumn columnStockSheetQty;
+            
+            private global::System.Data.DataColumn columnStockStampQty;
+            
+            private global::System.Data.DataColumn columnStockTransactionType;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public ReportSupplyDataTable() {
@@ -1326,6 +1338,54 @@ namespace SupplyBranch.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockIDColumn {
+                get {
+                    return this.columnStockID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockBoxQtyColumn {
+                get {
+                    return this.columnStockBoxQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockPacketQtyColumn {
+                get {
+                    return this.columnStockPacketQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockSheetQtyColumn {
+                get {
+                    return this.columnStockSheetQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockStampQtyColumn {
+                get {
+                    return this.columnStockStampQty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn StockTransactionTypeColumn {
+                get {
+                    return this.columnStockTransactionType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1401,7 +1461,13 @@ namespace SupplyBranch.Reports.DataSet {
                         int RunningSupplySheets, 
                         int RunningSupplyPieces, 
                         int RunningSupplyTotalPieces, 
-                        string CategoryCod) {
+                        string CategoryCod, 
+                        int StockID, 
+                        int StockBoxQty, 
+                        int StockPacketQty, 
+                        int StockSheetQty, 
+                        int StockStampQty, 
+                        string StockTransactionType) {
                 ReportSupplyRow rowReportSupplyRow = ((ReportSupplyRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OfficeID,
@@ -1443,7 +1509,13 @@ namespace SupplyBranch.Reports.DataSet {
                         RunningSupplySheets,
                         RunningSupplyPieces,
                         RunningSupplyTotalPieces,
-                        CategoryCod};
+                        CategoryCod,
+                        StockID,
+                        StockBoxQty,
+                        StockPacketQty,
+                        StockSheetQty,
+                        StockStampQty,
+                        StockTransactionType};
                 rowReportSupplyRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowReportSupplyRow);
                 return rowReportSupplyRow;
@@ -1506,6 +1578,12 @@ namespace SupplyBranch.Reports.DataSet {
                 this.columnRunningSupplyPieces = base.Columns["RunningSupplyPieces"];
                 this.columnRunningSupplyTotalPieces = base.Columns["RunningSupplyTotalPieces"];
                 this.columnCategoryCod = base.Columns["CategoryCod"];
+                this.columnStockID = base.Columns["StockID"];
+                this.columnStockBoxQty = base.Columns["StockBoxQty"];
+                this.columnStockPacketQty = base.Columns["StockPacketQty"];
+                this.columnStockSheetQty = base.Columns["StockSheetQty"];
+                this.columnStockStampQty = base.Columns["StockStampQty"];
+                this.columnStockTransactionType = base.Columns["StockTransactionType"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1591,6 +1669,18 @@ namespace SupplyBranch.Reports.DataSet {
                 base.Columns.Add(this.columnRunningSupplyTotalPieces);
                 this.columnCategoryCod = new global::System.Data.DataColumn("CategoryCod", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCategoryCod);
+                this.columnStockID = new global::System.Data.DataColumn("StockID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockID);
+                this.columnStockBoxQty = new global::System.Data.DataColumn("StockBoxQty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockBoxQty);
+                this.columnStockPacketQty = new global::System.Data.DataColumn("StockPacketQty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockPacketQty);
+                this.columnStockSheetQty = new global::System.Data.DataColumn("StockSheetQty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockSheetQty);
+                this.columnStockStampQty = new global::System.Data.DataColumn("StockStampQty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockStampQty);
+                this.columnStockTransactionType = new global::System.Data.DataColumn("StockTransactionType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStockTransactionType);
                 this.columnOfficeID.AllowDBNull = false;
                 this.columnOfficeName.AllowDBNull = false;
                 this.columnOfficeName.MaxLength = 500;
@@ -1628,6 +1718,12 @@ namespace SupplyBranch.Reports.DataSet {
                 this.columnCaseNoTo.ReadOnly = true;
                 this.columnCaseNoTo.MaxLength = 50;
                 this.columnCategoryCod.MaxLength = 500;
+                this.columnStockBoxQty.ReadOnly = true;
+                this.columnStockPacketQty.ReadOnly = true;
+                this.columnStockSheetQty.ReadOnly = true;
+                this.columnStockStampQty.ReadOnly = true;
+                this.columnStockTransactionType.ReadOnly = true;
+                this.columnStockTransactionType.MaxLength = 10;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3174,6 +3270,102 @@ namespace SupplyBranch.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int StockID {
+                get {
+                    try {
+                        return ((int)(this[this.tableReportSupply.StockIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockID\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int StockBoxQty {
+                get {
+                    try {
+                        return ((int)(this[this.tableReportSupply.StockBoxQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockBoxQty\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockBoxQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int StockPacketQty {
+                get {
+                    try {
+                        return ((int)(this[this.tableReportSupply.StockPacketQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockPacketQty\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockPacketQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int StockSheetQty {
+                get {
+                    try {
+                        return ((int)(this[this.tableReportSupply.StockSheetQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockSheetQty\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockSheetQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int StockStampQty {
+                get {
+                    try {
+                        return ((int)(this[this.tableReportSupply.StockStampQtyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockStampQty\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockStampQtyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string StockTransactionType {
+                get {
+                    try {
+                        return ((string)(this[this.tableReportSupply.StockTransactionTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'StockTransactionType\' in table \'ReportSupply\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportSupply.StockTransactionTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsOfficeCodeNull() {
                 return this.IsNull(this.tableReportSupply.OfficeCodeColumn);
             }
@@ -3482,6 +3674,78 @@ namespace SupplyBranch.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetCategoryCodNull() {
                 this[this.tableReportSupply.CategoryCodColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockIDNull() {
+                return this.IsNull(this.tableReportSupply.StockIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockIDNull() {
+                this[this.tableReportSupply.StockIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockBoxQtyNull() {
+                return this.IsNull(this.tableReportSupply.StockBoxQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockBoxQtyNull() {
+                this[this.tableReportSupply.StockBoxQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockPacketQtyNull() {
+                return this.IsNull(this.tableReportSupply.StockPacketQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockPacketQtyNull() {
+                this[this.tableReportSupply.StockPacketQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockSheetQtyNull() {
+                return this.IsNull(this.tableReportSupply.StockSheetQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockSheetQtyNull() {
+                this[this.tableReportSupply.StockSheetQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockStampQtyNull() {
+                return this.IsNull(this.tableReportSupply.StockStampQtyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockStampQtyNull() {
+                this[this.tableReportSupply.StockStampQtyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsStockTransactionTypeNull() {
+                return this.IsNull(this.tableReportSupply.StockTransactionTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetStockTransactionTypeNull() {
+                this[this.tableReportSupply.StockTransactionTypeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4282,6 +4546,12 @@ namespace SupplyBranch.Reports.DataSet.dsReportsTableAdapters {
             tableMapping.ColumnMappings.Add("RunningSupplyPieces", "RunningSupplyPieces");
             tableMapping.ColumnMappings.Add("RunningSupplyTotalPieces", "RunningSupplyTotalPieces");
             tableMapping.ColumnMappings.Add("CategoryCod", "CategoryCod");
+            tableMapping.ColumnMappings.Add("StockID", "StockID");
+            tableMapping.ColumnMappings.Add("StockBoxQty", "StockBoxQty");
+            tableMapping.ColumnMappings.Add("StockPacketQty", "StockPacketQty");
+            tableMapping.ColumnMappings.Add("StockSheetQty", "StockSheetQty");
+            tableMapping.ColumnMappings.Add("StockStampQty", "StockStampQty");
+            tableMapping.ColumnMappings.Add("StockTransactionType", "StockTransactionType");
             this._adapter.TableMappings.Add(tableMapping);
         }
         

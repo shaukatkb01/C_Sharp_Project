@@ -261,7 +261,7 @@ namespace SupplyBranch.Forms
         {
      
             UITheme.Apply(this);
-
+            //DatabaseMigrator.ApplyMigrations();
             // Form ka default Title
             this.Text = "SupplyBranch Version " + AppVersion.CurrentVersion;
 

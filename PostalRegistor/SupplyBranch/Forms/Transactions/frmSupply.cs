@@ -1,4 +1,5 @@
-﻿using SupplyBranch.DataAccess;
+﻿using SupplyBranch.DAL;
+using SupplyBranch.DataAccess;
 using SupplyBranch.Helpers;
 using SupplyBranch.Models;
 using System;
@@ -12,12 +13,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace SupplyBranch.Forms.Transactions
 {
     
 
 public partial class frmSupply : Form
     {
+        private DataGridView dgvStockEntry;
+        private DataGridViewTextBoxColumn StockCategoryID;
+        private DataGridViewTextBoxColumn StockDenominationID;
+        private DataGridViewTextBoxColumn StockCategory;
+        private DataGridViewTextBoxColumn StockDenomination;
+        private DataGridViewTextBoxColumn StockCaseQty;
+        private DataGridViewTextBoxColumn StockPacketQty;
+        private DataGridViewTextBoxColumn StockSheetQty;
+        private DataGridViewTextBoxColumn StockStampQty;
+
         private bool _quantityWarningShown = false;
         int indentStatus = 0;
         private Dictionary<string, string> _originalDraftValues =
@@ -46,7 +58,216 @@ public partial class frmSupply : Form
 
         private readonly SupplyDAL supplyDAL = new SupplyDAL();
 
-       
+
+        private StockDAL stockDAL = new StockDAL();
+
+        private void LoadSavedStockTransactions(int supplyID)
+        {
+            // 1. Grid Control Null Check
+            if (dgvStockEntry == null)
+                return;
+            // 2. SupplyID Check
+            if (supplyID <= 0)
+            {
+                dgvStockEntry.DataSource = null;
+                return;
+            }
+
+            try
+            {
+                StockDAL stockDAL = new StockDAL();
+                DataTable dt = stockDAL.GetStockTransactionsBySupplyID(supplyID);
+
+                // 3. Pehle DataSource null karein (Unbound to Bound error se bachne ke liye)
+                dgvStockEntry.DataSource = null;
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    dgvStockEntry.AutoGenerateColumns = false;
+                    dgvStockEntry.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Data load karte waqt error aya: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadStockEntryGrid()
+        {
+            // 1. Pehle DataSource null karein
+            dgvStockEntry.DataSource = null;
+
+            // 2. Schema / Columns wala DataTable banayein
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CategoryID", typeof(int));
+            dt.Columns.Add("DenominationID", typeof(int));
+            dt.Columns.Add("Category", typeof(string));
+            dt.Columns.Add("Denomination", typeof(string));
+            dt.Columns.Add("BoxQty", typeof(int));
+            dt.Columns.Add("PacketQty", typeof(int));
+            dt.Columns.Add("SheetQty", typeof(int));
+            dt.Columns.Add("StampQty", typeof(int));
+
+            foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                int supplySheets = 0, supplyPieces = 0;
+                if (row.Cells["SupplySheets"].Value != null) int.TryParse(row.Cells["SupplySheets"].Value.ToString(), out supplySheets);
+                if (row.Cells["SupplyPieces"].Value != null) int.TryParse(row.Cells["SupplyPieces"].Value.ToString(), out supplyPieces);
+
+                if (supplySheets <= 0 && supplyPieces <= 0) continue;
+
+                int categoryID = 0, denominationID = 0;
+                if (row.Cells["CategoryID"].Value != null) int.TryParse(row.Cells["CategoryID"].Value.ToString(), out categoryID);
+                if (row.Cells["DenominationID"].Value != null) int.TryParse(row.Cells["DenominationID"].Value.ToString(), out denominationID);
+
+                if (categoryID == 0 || denominationID == 0) continue;
+
+                string category = row.Cells["Category"].Value?.ToString() ?? "";
+                string denomination = row.Cells["Denomination"].Value?.ToString() ?? "";
+
+                // Row add karein DataTable me
+                dt.Rows.Add(categoryID, denominationID, category, denomination, 0, 0, 0, 0);
+            }
+
+            // 3. Grid me Bind karein
+            dgvStockEntry.AutoGenerateColumns = false;
+            dgvStockEntry.DataSource = dt;
+        }
+
+        // 1. Event ko Form Load ya Constructor me attach karein
+        private void InitializeGridValidation()
+        {
+            this.dgvStockEntry.EditingControlShowing += dgvStockEntry_EditingControlShowing;
+        }
+
+        // 2. Editing Control Event: Jab user cell me type karna shuru karta hai
+        private void dgvStockEntry_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            // Check karein ke cell TextBox type hai ya nahi
+            if (e.Control is TextBox txt)
+            {
+                // Pehle purana KeyPress event remove karein taake duplicate attach na ho
+                txt.KeyPress -= QuantityColumn_KeyPress;
+
+                // Current column check karein
+                string columnName = dgvStockEntry.Columns[dgvStockEntry.CurrentCell.ColumnIndex].Name;
+
+                // Agar Column Quantity wala hai to KeyPress restrict karein
+                if (columnName == "StockCaseQty" || columnName == "StockPacketQty" ||
+                    columnName == "StockSheetQty" || columnName == "StockStampQty")
+                {
+                    txt.KeyPress += QuantityColumn_KeyPress;
+                }
+            }
+        }
+
+        // 3. KeyPress Event: Non-Numeric Keys ko Block Karne Ke Liye
+        private void QuantityColumn_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow sirf digits (0-9) aur Control keys (jaise Backspace)
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Key input ko block kar do
+            }
+        }
+
+        private void SaveStockTransactions()
+        {
+            if (_supplyID == 0)
+            return;
+            
+
+            foreach (DataGridViewRow row in dgvStockEntry.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                // -----------------------------------------
+                // Get CategoryID & DenominationID
+                // -----------------------------------------
+                int categoryID = 0;
+                int denominationID = 0;
+
+                int.TryParse(Convert.ToString(row.Cells["StockCategoryID"].Value), out categoryID);
+                int.TryParse(Convert.ToString(row.Cells["StockDenominationID"].Value), out denominationID);
+
+
+                if (categoryID == 0 || denominationID == 0)
+                {
+                    MessageBox.Show("Please select a valid category and denomination.",
+                        "Stock Transaction",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    continue;
+                }
+
+                // -----------------------------------------
+                // Get StockID from StockMaster
+                // -----------------------------------------
+                int stockID = stockDAL.GetStockID(categoryID, denominationID);
+
+                if (stockID == 0)
+                {
+                    MessageBox.Show(
+                        "No stock record was found for the selected category/item in StockMaster",
+                        "Stock Transaction",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    continue;
+                }
+
+                // -----------------------------------------
+                // Get quantities from Stock Entry Grid
+                // -----------------------------------------
+                int boxQty = 0, packetQty = 0, sheetQty = 0, stampQty = 0;
+
+                int.TryParse(Convert.ToString(row.Cells["StockCaseQty"].Value), out boxQty);
+                int.TryParse(Convert.ToString(row.Cells["StockPacketQty"].Value), out packetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockSheetQty"].Value), out sheetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockStampQty"].Value), out stampQty);
+
+                // -----------------------------------------
+                // Skip if all quantities are zero
+                // -----------------------------------------
+                if (boxQty == 0 && packetQty == 0 && sheetQty == 0 && stampQty == 0)
+                {
+                    continue;
+                }
+                MessageBox.Show($"Saving Stock Transaction for StockID: {stockID}, BoxQty: {boxQty}, PacketQty: {packetQty}, SheetQty: {sheetQty}, StampQty: {stampQty}");
+                // -----------------------------------------
+                // Insert ya Update Check
+                // -----------------------------------------
+                if (_isEditDraft)
+                {
+                    // Agar edit mode hai to UPDATE chalayein
+                    stockDAL.UpdateStockTransactionOut(
+                        stockID,
+                        boxQty,
+                        packetQty,
+                        sheetQty,
+                        stampQty,
+                        _supplyID,
+                        txtRemarks.Text.Trim());
+                }
+                else
+                {
+                    // Naye draft ke waqt INSERT chalayein
+                    stockDAL.InsertStockTransactionOut(
+                        stockID,
+                        boxQty,
+                        packetQty,
+                        sheetQty,
+                        stampQty,
+                        _supplyID,
+                        txtRemarks.Text.Trim());
+                }
+            }
+        }
+
         private void SetSupplyTypeByCategory()
         {
             try
@@ -111,6 +332,8 @@ public partial class frmSupply : Form
                 btnIssue.Text = "Issue";
             }
         }
+
+      
         private void SaveDraft()
         {
             int packingQty = 0;
@@ -193,6 +416,9 @@ public partial class frmSupply : Form
             //--------------------------------------------------
 
             SaveSupplyDetails();
+
+            // Save Stock Transaction OUT
+            SaveStockTransactions();
         }
 
         private void UpdateDraft()
@@ -207,9 +433,9 @@ public partial class frmSupply : Form
                 Convert.ToInt32(txtPackingQty.Text),
                 txtInvoiceNo?.Text ?? string.Empty,
                 txtRemarks?.Text ?? string.Empty);
-
             // Detail Update
             SaveSupplyDetails();
+            SaveStockTransactions();
 
             MessageBox.Show(
                 "Draft Updated Successfully.",
@@ -526,34 +752,65 @@ public partial class frmSupply : Form
         {
             _originalDraftValues.Clear();
 
-            // Header values
-            _originalDraftValues["SupplyDate"] =
-                dtSupplyDate.Value.ToString("yyyy-MM-dd");
-
-            _originalDraftValues["SupplyType"] =
-                Convert.ToString(cmbSupplyType.SelectedValue);
-
-            _originalDraftValues["DispatchMode"] =
-                cmbDispatchMode.Text;
-
-            _originalDraftValues["PackingType"] =
-                cmbPackingType.Text;
-
-            _originalDraftValues["PackingQty"] =
-                txtPackingQty.Text;
-
-            _originalDraftValues["Remarks"] =
-                txtRemarks.Text;
+            // =========================================
+            // 1. Header Values
+            // =========================================
+            _originalDraftValues["SupplyDate"] = dtSupplyDate.Value.ToString("yyyy-MM-dd");
+            _originalDraftValues["SupplyType"] = Convert.ToString(cmbSupplyType.SelectedValue);
+            _originalDraftValues["DispatchMode"] = cmbDispatchMode.Text;
+            _originalDraftValues["PackingType"] = cmbPackingType.Text;
+            _originalDraftValues["PackingQty"] = txtPackingQty.Text;
+            _originalDraftValues["Remarks"] = txtRemarks.Text;
 
 
-            // Grid values
+            // =========================================
+            // 2. Stock Grid Values (ADDED FIX)
+            // =========================================
+
+
+            foreach (DataGridViewRow row in dgvStockEntry.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                // 1. Quantities safe parsing
+                int caseQty = 0, packetQty = 0, sheetQty = 0, stampQty = 0;
+                int.TryParse(Convert.ToString(row.Cells["StockCaseQty"].Value), out caseQty);
+                int.TryParse(Convert.ToString(row.Cells["StockPacketQty"].Value), out packetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockSheetQty"].Value), out sheetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockStampQty"].Value), out stampQty);
+
+                string value = $"{caseQty}|{packetQty}|{sheetQty}|{stampQty}";
+
+                // 2. IDs extraction
+                string stockCategoryID = Convert.ToString(row.Cells["StockCategoryID"].Value);
+                string stockDenominationID = Convert.ToString(row.Cells["StockDenominationID"].Value);
+
+                // 3. Fallback Key creation (agar ID na mile to Row Index use karein)
+                string key;
+                if (!string.IsNullOrEmpty(stockCategoryID) && !string.IsNullOrEmpty(stockDenominationID))
+                {
+                    key = "StockGrid_" + stockCategoryID + "_" + stockDenominationID;
+                }
+                else
+                {
+                    key = "StockGrid_Row_" + row.Index;
+                }
+
+                // 4. Dictionary me save karein
+                _originalDraftValues[key] = value;
+            }
+
+
+            // =========================================
+            // 3. Supply Detail Grid Values
+            // =========================================
             foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
             {
                 if (row.IsNewRow)
                     continue;
 
-                string detailID =
-                    Convert.ToString(row.Cells["DetailID"].Value);
+                string detailID = Convert.ToString(row.Cells["DetailID"].Value);
 
                 if (string.IsNullOrEmpty(detailID))
                     continue;
@@ -569,6 +826,10 @@ public partial class frmSupply : Form
                 _originalDraftValues["Grid_" + detailID] = value;
             }
 
+
+            // =========================================
+            // 4. Initial State Reset
+            // =========================================
             _draftChanged = false;
 
             btnApprove.Enabled = true;
@@ -577,8 +838,16 @@ public partial class frmSupply : Form
 
         private void CheckDraftChanges()
         {
-            if (!_isEditDraft || _isLoadingDraft)
+            if (!_isEditDraft)
+            {
+                // Agar ye message aata hai to iska matlab _isEditDraft false hai!
                 return;
+            }
+
+            if (_isLoadingDraft)
+            {
+                return;
+            }
 
             bool changed = false;
 
@@ -641,6 +910,46 @@ public partial class frmSupply : Form
             // =========================================
             // Grid
             // =========================================
+
+            // =========================================
+
+            // =========================================
+            // Stock Grid Comparison (Fixed)
+            // =========================================
+            // =========================================
+            // Stock Grid Comparison (Debug-Ready)
+            // =========================================
+            int rowCount = dgvStockEntry.Rows.Count;
+
+            foreach (DataGridViewRow row1 in dgvStockEntry.Rows)
+            {
+                if (row1.IsNewRow)
+                    continue;
+
+                // Direct string conversion without skipping early
+                string stockCategoryID = Convert.ToString(row1.Cells["StockCategoryID"].Value);
+                string stockDenominationID = Convert.ToString(row1.Cells["StockDenominationID"].Value);
+
+                int caseQty = 0, packetQty = 0, sheetQty = 0, stampQty = 0;
+
+                int.TryParse(Convert.ToString(row1.Cells["StockCaseQty"].Value), out caseQty);
+                int.TryParse(Convert.ToString(row1.Cells["StockPacketQty"].Value), out packetQty);
+                int.TryParse(Convert.ToString(row1.Cells["StockSheetQty"].Value), out sheetQty);
+                int.TryParse(Convert.ToString(row1.Cells["StockStampQty"].Value), out stampQty);
+
+                string currentValue = $"{caseQty}|{packetQty}|{sheetQty}|{stampQty}";
+
+                string key = "StockGrid_" + stockCategoryID + "_" + stockDenominationID;
+                string originalValue = GetOriginalValue(key);
+
+                // TEST MESSAGEBOX (Aap ko screen par farq dikhayega)
+
+                if (currentValue != originalValue)
+                {
+                    changed = true;
+                    break;
+                }
+            }
 
             foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
             {
@@ -723,6 +1032,7 @@ public partial class frmSupply : Form
             {
                 // Draft Detail موجود ہیں
                 dgvSupplyDetail.DataSource = dt;
+
             }
             else
             {
@@ -738,6 +1048,7 @@ public partial class frmSupply : Form
             DataTable dt = supplyDAL.GetIndentItems(_indentID);
 
             dgvSupplyDetail.DataSource = dt;
+            //LoadStockEntryGrid();
 
             // پہلے سے Approved / Issued supplies کا total
             int totalSupplyPieces =
@@ -815,14 +1126,126 @@ public partial class frmSupply : Form
             }
         }
 
+
         public frmSupply(int supplyID, bool isDraft)
         {
             InitializeComponent();
 
+
             _supplyID = supplyID;
             _isDraft = isDraft;
-            this.dgvSupplyDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellEndEdit);
-            dgvSupplyDetail.CellEndEdit += dgvSupplyDetail_CellEndEdit;
+
+            // 1. Safe Event Unbind & Re-bind
+            if (this.dgvSupplyDetail != null)
+            {
+                this.dgvSupplyDetail.CellEndEdit -= this.dgvSupplyDetail_CellEndEdit;
+                this.dgvSupplyDetail.CellEndEdit += this.dgvSupplyDetail_CellEndEdit;
+            }
+
+            // 2. DataGridView Check & Instance Creation
+            if (this.dgvStockEntry == null)
+            {
+                this.dgvStockEntry = new System.Windows.Forms.DataGridView();
+            }
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStockEntry)).BeginInit();
+
+            // 3. Columns Null Checks & Instantations (Line 1057 Crash Fix)
+            if (this.StockCategoryID == null) this.StockCategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockDenominationID == null) this.StockDenominationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockCategory == null) this.StockCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockDenomination == null) this.StockDenomination = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockCaseQty == null) this.StockCaseQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockPacketQty == null) this.StockPacketQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockSheetQty == null) this.StockSheetQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            if (this.StockStampQty == null) this.StockStampQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
+            // 4. Grid Properties Setup
+            this.dgvStockEntry.AllowUserToAddRows = false;
+            this.dgvStockEntry.AllowUserToDeleteRows = false;
+            this.dgvStockEntry.AllowUserToResizeRows = false;
+            this.dgvStockEntry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStockEntry.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvStockEntry.BackgroundColor = System.Drawing.Color.White;
+            this.dgvStockEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dgvStockEntry.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStockEntry.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvStockEntry.MultiSelect = false;
+            this.dgvStockEntry.Name = "dgvStockEntry";
+            this.dgvStockEntry.RowHeadersVisible = false;
+            this.dgvStockEntry.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+
+            // 5. Hidden ID Columns
+            this.StockCategoryID.DataPropertyName = "CategoryID";
+            this.StockCategoryID.Name = "StockCategoryID";
+            this.StockCategoryID.Visible = false;
+
+            this.StockDenominationID.DataPropertyName = "DenominationID";
+            this.StockDenominationID.Name = "StockDenominationID";
+            this.StockDenominationID.Visible = false;
+
+            // 6. Visible Columns & SQL Binding Mapping
+            this.StockCategory.DataPropertyName = "Category";
+            this.StockCategory.HeaderText = "Category";
+            this.StockCategory.Name = "StockCategory";
+            this.StockCategory.ReadOnly = true;
+
+            this.StockDenomination.DataPropertyName = "Denomination";
+            this.StockDenomination.HeaderText = "Denomination";
+            this.StockDenomination.Name = "StockDenomination";
+            this.StockDenomination.ReadOnly = true;
+
+            this.StockCaseQty.DataPropertyName = "BoxQty";
+            this.StockCaseQty.HeaderText = "Case Qty";
+            this.StockCaseQty.Name = "StockCaseQty";
+
+            this.StockPacketQty.DataPropertyName = "PacketQty";
+            this.StockPacketQty.HeaderText = "Packet Qty";
+            this.StockPacketQty.Name = "StockPacketQty";
+
+            this.StockSheetQty.DataPropertyName = "SheetQty";
+            this.StockSheetQty.HeaderText = "Sheet Qty";
+            this.StockSheetQty.Name = "StockSheetQty";
+
+            this.StockStampQty.DataPropertyName = "StampQty";
+            this.StockStampQty.HeaderText = "Stamp Qty";
+            this.StockStampQty.Name = "StockStampQty";
+
+            // 7. Add Columns to DataGridView
+            this.dgvStockEntry.Columns.Clear();
+            this.dgvStockEntry.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[]
+            {
+        this.StockCategoryID,
+        this.StockDenominationID,
+        this.StockCategory,
+        this.StockDenomination,
+        this.StockCaseQty,
+        this.StockPacketQty,
+        this.StockSheetQty,
+        this.StockStampQty
+            });
+
+            // 8. Attach Grid to Panel
+            if (this.pnlStockEntry != null)
+            {
+                if (!this.pnlStockEntry.Controls.Contains(this.dgvStockEntry))
+                {
+                    this.pnlStockEntry.Controls.Add(this.dgvStockEntry);
+                }
+            }
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStockEntry)).EndInit();
+
+            InitializeGridValidation();
+            
+
+            // Detach pehle karein, phir attach karein
+            this.dgvStockEntry.CellValueChanged -= dgvStockEntry_CellValueChanged;
+                this.dgvStockEntry.CellValueChanged += dgvStockEntry_CellValueChanged;
+
+                this.dgvStockEntry.CurrentCellDirtyStateChanged -= dgvStockEntry_CurrentCellDirtyStateChanged;
+                this.dgvStockEntry.CurrentCellDirtyStateChanged += dgvStockEntry_CurrentCellDirtyStateChanged;
+
         }
         private void LoadIndentHeader()
         {
@@ -875,11 +1298,124 @@ public partial class frmSupply : Form
         }
         public frmSupply(int indentID)
         {
+
+
             InitializeComponent();
 
             _indentID = indentID;
 
+
+            this.dgvSupplyDetail.CellClick +=
+    new System.Windows.Forms.DataGridViewCellEventHandler(
+        this.dgvSupplyDetail_CellClick);
+
             this.dgvSupplyDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellEndEdit);
+
+            this.dgvStockEntry = new System.Windows.Forms.DataGridView();
+
+            this.StockCategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockDenominationID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockDenomination = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockCaseQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockPacketQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockSheetQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StockStampQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStockEntry)).BeginInit();
+
+            this.dgvSupplyDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellEndEdit);
+            dgvSupplyDetail.CellEndEdit += dgvSupplyDetail_CellEndEdit;
+            this.dgvStockEntry.AllowUserToAddRows = false;
+            this.dgvStockEntry.AllowUserToDeleteRows = false;
+            this.dgvStockEntry.AllowUserToResizeRows = false;
+            // Control ko Parent container ke poore area me fill karne ke liye:
+            this.dgvStockEntry.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvStockEntry.AutoSizeColumnsMode =
+                System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+
+            this.dgvStockEntry.BackgroundColor =
+                System.Drawing.Color.White;
+
+            this.dgvStockEntry.BorderStyle =
+                System.Windows.Forms.BorderStyle.FixedSingle;
+
+            this.dgvStockEntry.ColumnHeadersHeightSizeMode =
+                System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            this.dgvStockEntry.EditMode =
+                System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+
+            this.dgvStockEntry.MultiSelect = false;
+
+            this.dgvStockEntry.Name = "dgvStockEntry";
+
+            this.dgvStockEntry.RowHeadersVisible = false;
+
+            this.dgvStockEntry.SelectionMode =
+                System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+
+            this.dgvStockEntry.Size =
+                new System.Drawing.Size(1430, 150);
+
+            this.dgvStockEntry.Location =
+                new System.Drawing.Point(10, 35);
+
+            this.dgvStockEntry.TabIndex = 41;
+
+            // hidden ID
+
+            this.StockCategoryID.DataPropertyName = "CategoryID";
+            this.StockCategoryID.Name = "StockCategoryID";
+            this.StockCategoryID.Visible = false;
+
+            this.StockDenominationID.DataPropertyName = "DenominationID";
+            this.StockDenominationID.Name = "StockDenominationID";
+            this.StockDenominationID.Visible = false;
+            //visible  columns
+
+            this.StockCategory.DataPropertyName = "Category";
+            this.StockCategory.HeaderText = "Category";
+            this.StockCategory.Name = "StockCategory";
+            this.StockCategory.ReadOnly = true;
+
+            this.StockDenomination.DataPropertyName = "Denomination";
+            this.StockDenomination.HeaderText = "Denomination";
+            this.StockDenomination.Name = "StockDenomination";
+            this.StockDenomination.ReadOnly = true;
+
+            this.StockCaseQty.HeaderText = "Case Qty";
+            this.StockCaseQty.Name = "StockCaseQty";
+
+            this.StockPacketQty.HeaderText = "Packet Qty";
+            this.StockPacketQty.Name = "StockPacketQty";
+
+            this.StockSheetQty.HeaderText = "Sheet Qty";
+            this.StockSheetQty.Name = "StockSheetQty";
+
+            this.StockStampQty.HeaderText = "Stamp Qty";
+            this.StockStampQty.Name = "StockStampQty";
+
+            this.dgvStockEntry.Columns.AddRange(
+    new System.Windows.Forms.DataGridViewColumn[]
+    {
+        this.StockCategoryID,
+        this.StockDenominationID,
+        this.StockCategory,
+        this.StockDenomination,
+        this.StockCaseQty,
+        this.StockPacketQty,
+        this.StockSheetQty,
+        this.StockStampQty
+    });
+
+            this.pnlStockEntry.Controls.Add(this.dgvStockEntry);
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvStockEntry)).EndInit();
+
+            InitializeGridValidation();
+
+
         }
         private void ResetSupplyEntry()
         {
@@ -937,6 +1473,247 @@ public partial class frmSupply : Form
             txtRemarks.TextChanged += FormDataChanged;
 
             dgvSupplyDetail.CellValueChanged += DgvSupplyDetail_CellValueChanged;
+
+
+        }
+
+        private bool ValidateStockEntry()
+        {
+            string packingType = cmbPackingType.Text.Trim();
+
+            bool hasAnyStock = false;
+            bool hasCase = false;
+            bool hasPacket = false;
+            bool hasSheet = false;
+            bool hasStamp = false;
+
+            // =========================================
+            // Check Stock Entry Grid
+            // =========================================
+
+            foreach (DataGridViewRow row in dgvStockEntry.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                int caseQty = 0;
+                int packetQty = 0;
+                int sheetQty = 0;
+                int stampQty = 0;
+
+                int.TryParse(
+                    Convert.ToString(row.Cells["StockCaseQty"].Value),
+                    out caseQty);
+
+                int.TryParse(
+                    Convert.ToString(row.Cells["StockPacketQty"].Value),
+                    out packetQty);
+
+                int.TryParse(
+                    Convert.ToString(row.Cells["StockSheetQty"].Value),
+                    out sheetQty);
+
+                int.TryParse(
+                    Convert.ToString(row.Cells["StockStampQty"].Value),
+                    out stampQty);
+
+                if (caseQty > 0)
+                    hasCase = true;
+
+                if (packetQty > 0)
+                    hasPacket = true;
+
+                if (sheetQty > 0)
+                    hasSheet = true;
+
+                if (stampQty > 0)
+                    hasStamp = true;
+
+                if (caseQty > 0 ||
+                    packetQty > 0 ||
+                    sheetQty > 0 ||
+                    stampQty > 0)
+                {
+                    hasAnyStock = true;
+                }
+            }
+
+
+            // =========================================
+            // No Stock Entry
+            // =========================================
+
+            if (!hasAnyStock)
+            {
+                MessageBox.Show(
+                    "Stock Entry mein kam az kam ek quantity enter karein.",
+                    "Stock Entry",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return false;
+            }
+
+
+            // =========================================
+            // CASE
+            // =========================================
+
+            if (packingType == "Case")
+            {
+                if (!hasCase)
+                {
+                    MessageBox.Show(
+                        "Case packing select hai. Stock Entry Grid mein Case Qty enter karna zaroori hai.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+
+                // Case ke sath koi aur stock allowed nahi
+                if (hasPacket || hasSheet || hasStamp)
+                {
+                    MessageBox.Show(
+                        "Case ke sath Packet, Sheet ya Stamp stock enter nahi kar sakte.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+            }
+
+
+            // =========================================
+            // PACKET
+            // =========================================
+
+            else if (packingType == "Packet")
+            {
+                if (!hasPacket)
+                {
+                    MessageBox.Show(
+                        "Packet packing select hai. Stock Entry Grid mein Packet Qty enter karna zaroori hai.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+
+                // Case ke sath Packet allowed nahi
+                if (hasCase)
+                {
+                    MessageBox.Show(
+                        "Packet ke sath Case stock enter nahi kar sakte.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+            }
+
+
+            // =========================================
+            // SHEETS
+            // =========================================
+
+            else if (packingType == "Sheets")
+            {
+                if (!hasSheet)
+                {
+                    MessageBox.Show(
+                        "Sheets packing select hai. Stock Entry Grid mein Sheet Qty enter karna zaroori hai.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+
+                // Case ke sath Sheet allowed nahi
+                if (hasCase)
+                {
+                    MessageBox.Show(
+                        "Sheets ke sath Case stock enter nahi kar sakte.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+            }
+
+
+            // =========================================
+            // LABELS
+            // =========================================
+
+            else if (packingType == "Labels")
+            {
+                if (!hasStamp)
+                {
+                    MessageBox.Show(
+                        "Labels packing select hai. Stock Entry Grid mein Stamp Qty enter karna zaroori hai.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+
+                // Case ke sath Stamp allowed nahi
+                if (hasCase)
+                {
+                    MessageBox.Show(
+                        "Labels ke sath Case stock enter nahi kar sakte.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+            }
+
+
+            // =========================================
+            // OTHER PACKING TYPES
+            // Bags / Parce / Envelope / Other
+            // =========================================
+
+            else
+            {
+                // Case sirf Case packing ke sath
+                if (hasCase)
+                {
+                    MessageBox.Show(
+                        "Case Qty sirf Case packing type ke sath enter ki ja sakti hai.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+
+                // Packet / Sheet / Stamp mein se kam az kam ek
+                if (!hasPacket &&
+                    !hasSheet &&
+                    !hasStamp)
+                {
+                    MessageBox.Show(
+                        "Stock Entry mein Packet, Sheet ya Stamp mein se kam az kam ek quantity enter karein.",
+                        "Stock Entry",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return false;
+                }
+            }
+
+            return true;
         }
         private void DgvSupplyDetail_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -948,7 +1725,8 @@ public partial class frmSupply : Form
         {
             UITheme.Apply(this);
 
-           
+
+
             //--------------------------------------------------
             // Common Setup
             //--------------------------------------------------
@@ -979,14 +1757,61 @@ public partial class frmSupply : Form
 
                 _isLoadingDraft = true;
 
-             
+             this.Text = "Supply - Edit Draft";
 
+                if (dgvSupplyDetail.Columns.Contains("RemainingPieces"))
+                {
+
+                    dgvSupplyDetail.Columns["RemainingPieces"].Visible = false;
+                }
+                if (dgvSupplyDetail.Columns.Contains("RemainingTotalPieces"))
+                {
+                    dgvSupplyDetail.Columns["RemainingTotalPieces"].HeaderText = "Remaining Sheets";
+                }
+               
+                bool hasValue = false;
+
+                foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    if (row.Cells["IndentLoosePieces"].Value != null &&
+                        row.Cells["IndentLoosePieces"].Value != DBNull.Value)
+                    {
+                        if (int.TryParse(row.Cells["IndentLoosePieces"].Value.ToString(), out int val))
+                        {
+                            if (val > 0)
+                            {
+                                hasValue = true;
+                                break; // 0 se bari value miltay hi loop rok dein
+                            }
+                        }
+                    }
+                }
+
+                // Target column ko show ya hide karein
+                if (dgvSupplyDetail.Columns.Contains("IndentLoosePieces"))
+                {
+                    dgvSupplyDetail.Columns["IndentLoosePieces"].Visible = hasValue;
+                    dgvSupplyDetail.Columns["SupplyPieces"].Visible = hasValue;
+                    dgvSupplyDetail.Columns["IndentTotalPieces"].Visible = hasValue;
+
+                }
 
 
                 try
                 {
                     LoadDraftHeader(_supplyID);
                     LoadDraftItems();
+
+
+                    if (_supplyID > 0)
+                    {
+                        
+
+                        LoadSavedStockTransactions(_supplyID);
+                    }
+                    
 
                     // Original values محفوظ کریں
                     SaveOriginalDraftValues();
@@ -1000,7 +1825,7 @@ public partial class frmSupply : Form
 
                 RegisterChangeEvents();
 
-
+              
                 //--------------------------------------------------
                 // Draft
                 //--------------------------------------------------
@@ -1831,6 +2656,15 @@ public partial class frmSupply : Form
 
                 return;
             }
+            if(string.IsNullOrWhiteSpace(txtInvoiceNo.Text))
+            {
+                MessageBox.Show(
+                    "Please assign Invoice Number first.",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
 
             frmReportPreview frm =
                 new frmReportPreview(_supplyID);
@@ -1897,17 +2731,21 @@ public partial class frmSupply : Form
            if (!ValidateSupply())
                 return;
 
-          
+            if (!ValidateStockEntry())
+                return;
+
+
+
             try
             {
 
                 // =========================================
                 // NEW SUPPLY
                 // =========================================
-              
+
                 if (_supplyID == 0)
                 {
-                   
+
                     SaveDraft();
 
                     MessageBox.Show(
@@ -1945,8 +2783,15 @@ public partial class frmSupply : Form
                 // =========================================
                 // UPDATE
                 // =========================================
+                MessageBox.Show("Updating Draft",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
 
                 UpdateDraft();
+
+                
 
                 _isDataChanged = false;
 
@@ -1978,183 +2823,108 @@ public partial class frmSupply : Form
 
         private void dgvSupplyDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            
-        
             if (e.RowIndex < 0 || _isUpdatingSupplyRow)
                 return;
 
-            if (_isEditDraft)
-            {
-                CheckDraftChanges();
-                _draftChanged = true;
-            }
+            string col = dgvSupplyDetail.Columns[e.ColumnIndex].Name;
 
-            string col =
-                dgvSupplyDetail.Columns[e.ColumnIndex].Name;
-
-            if (col != ColSupplySheets &&
-                col != ColSupplyPieces)
+            if (col != ColSupplySheets && col != ColSupplyPieces)
                 return;
 
             _isUpdatingSupplyRow = true;
 
             try
             {
-                DataGridViewRow row =
-                    dgvSupplyDetail.Rows[e.RowIndex];
+                DataGridViewRow row = dgvSupplyDetail.Rows[e.RowIndex];
+
+                if (_isEditDraft)
+                {
+                    CheckDraftChanges();
+                    _draftChanged = true;
+                }
 
                 //-----------------------------------------
                 // Read Values
                 //-----------------------------------------
+                int supplySheets = NormalizeToNonNegativeInt(row, ColSupplySheets);
+                int supplyPieces = NormalizeToNonNegativeInt(row, ColSupplyPieces);
+                int piecesPerSheet = ParseInt(row.Cells[ColPiecesPerSheet].Value);
+                int originalPending = ParseInt(row.Cells["OriginalPendingPieces"].Value);
+                int indentTotalPieces = ParseInt(row.Cells["IndentTotalPieces"].Value);
 
-                int supplySheets =
-                    NormalizeToNonNegativeInt(
-                        row,
-                        ColSupplySheets);
-
-                int supplyPieces =
-                    NormalizeToNonNegativeInt(
-                        row,
-                        ColSupplyPieces);
-
-                int piecesPerSheet =
-                    ParseInt(
-                        row.Cells[ColPiecesPerSheet].Value);
-
-                int originalPending =
-                    ParseInt(
-                        row.Cells["OriginalPendingPieces"].Value);
-
-                int indentTotalPieces =
-                    ParseInt(
-                        row.Cells["IndentTotalPieces"].Value);
-
-                if (originalPending < 0)
-                    originalPending = 0;
-
-                if (indentTotalPieces < 0)
-                    indentTotalPieces = 0;
-
+                if (originalPending < 0) originalPending = 0;
+                if (indentTotalPieces < 0) indentTotalPieces = 0;
 
                 //-----------------------------------------
-                // Total Supply
+                // Total Supply Calculation
                 //-----------------------------------------
-
-                int totalSupply =
-                    (supplySheets * piecesPerSheet)
-                    + supplyPieces;
-
-                row.Cells[ColSupplyTotalPieces].Value =
-                    totalSupply;
-
+                int totalSupply = (supplySheets * piecesPerSheet) + supplyPieces;
+                row.Cells[ColSupplyTotalPieces].Value = totalSupply;
 
                 //-----------------------------------------
-                // Allowed Quantity
+                // Allowed Quantity Fix
                 //-----------------------------------------
-
                 int allowedQuantity;
 
-                if (_isEditDraft)
+                if (originalPending > 0)
                 {
-                    allowedQuantity =
-                        indentTotalPieces;
-                }
-                else if (originalPending > 0)
-                {
-                    allowedQuantity =
-                        originalPending;
+                    allowedQuantity = originalPending;
                 }
                 else
                 {
-                    allowedQuantity =
-                        indentTotalPieces;
+                    allowedQuantity = indentTotalPieces;
                 }
 
-
                 //-----------------------------------------
-                // Balance
+                // Balance Calculation
                 //-----------------------------------------
-
-                int balance =
-                    allowedQuantity - totalSupply;
+                int balance = allowedQuantity - totalSupply;
 
                 if (balance < 0)
                     balance = 0;
 
-                row.Cells[ColRemainingPieces].Value =
-                    balance;
-
+                row.Cells[ColRemainingPieces].Value = balance;
 
                 //-----------------------------------------
                 // Validation
                 //-----------------------------------------
-
-                // ==================================================
-                // Validation + Partial Supply Message
-                // ==================================================
-
                 if (totalSupply > allowedQuantity)
                 {
-                    // Quantity exceeds allowed quantity
-                    string quantityName;
-
-                    if (_isDraft || _isEditDraft)
-                        quantityName = "Indent Quantity";
-                    else
-                        quantityName = "Pending Quantity";
+                    string quantityName = (_isDraft || _isEditDraft) ? "Indent Quantity" : "Pending Quantity";
 
                     MessageBox.Show(
-                        $"Supply Quantity ({totalSupply:N0}) is greater than " +
-                        $"{quantityName} ({allowedQuantity:N0}).",
-
+                        $"Supply Quantity ({totalSupply:N0}) is greater than {quantityName} ({allowedQuantity:N0}).",
                         "Warning",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                 }
-                else if (totalSupply > 0 &&
-                         totalSupply < allowedQuantity)
+                else if (totalSupply > 0 && totalSupply < allowedQuantity)
                 {
-                    // ==================================================
-                    // Partial Supply
-                    // Message only for the item being partially supplied
-                    // ==================================================
-
                     int remaining = allowedQuantity - totalSupply;
-
-                    string denomination =
-                        Convert.ToString(
-                            row.Cells["Denomination"].Value);
+                    string denomination = Convert.ToString(row.Cells["Denomination"].Value);
 
                     MessageBox.Show(
                         $"Rs.{denomination} remaining {remaining:N0}.",
-
                         "Partial Supply",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // Reset when quantity becomes valid
                     _quantityWarningShown = false;
                 }
-
 
                 //-----------------------------------------
                 // Row Color
                 //-----------------------------------------
+                ApplyStatusColor(row, totalSupply, allowedQuantity);
 
-                ApplyStatusColor(
-                    row,
-                    totalSupply,
-                    allowedQuantity);
+                // Sub Calculation khatam hone ke baad Stock Entry Reload karein
+                LoadStockEntryGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -2223,6 +2993,108 @@ public partial class frmSupply : Form
 
         }
 
+        private void dgvSupplyDetail_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0)
+                return;
+
+            DataGridViewRow row = dgvSupplyDetail.Rows[e.RowIndex];
+
+            if (row.Cells["CategoryID"].Value == null ||
+                row.Cells["DenominationID"].Value == null)
+            {
+                ClearCurrentStockCards();
+                return;
+            }
+
+            int categoryID = Convert.ToInt32(
+                row.Cells["CategoryID"].Value);
+
+            int denominationID = Convert.ToInt32(
+                row.Cells["DenominationID"].Value);
+
+            LoadCurrentStockCards(categoryID, denominationID);
+        }
+
+        private void LoadCurrentStockCards(
+    int categoryID,
+    int denominationID)
+        {
+            DataRow dr = stockDAL.GetStockBalance(
+                categoryID,
+                denominationID);
+
+            if (dr == null)
+            {
+                ClearCurrentStockCards();
+                return;
+            }
+
+            lblBoxBalance.Text =
+                Convert.ToInt32(dr["BoxQty"]).ToString("N0");
+
+            lblPacketBalance.Text =
+                Convert.ToInt32(dr["PacketQty"]).ToString("N0");
+
+            lblSheetBalance.Text =
+                Convert.ToInt32(dr["SheetQty"]).ToString("N0");
+
+            lblStampBalance.Text =
+                Convert.ToInt32(dr["StampQty"]).ToString("N0");
+        }
+
+        private void ClearCurrentStockCards()
+        {
+            lblBoxBalance.Text = "0";
+            lblPacketBalance.Text = "0";
+            lblSheetBalance.Text = "0";
+            lblStampBalance.Text = "0";
+        }
+        // 1. User jab cell me value change kare ya type kare:
+        private void dgvStockEntry_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dgvStockEntry.IsCurrentCellDirty)
+            {
+                // Foran cell ki editing commit karein taake CellValueChanged event fire ho
+                dgvStockEntry.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        // 2. Cell value commit hone par CheckDraftChanges call hoga:
+        private void dgvStockEntry_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ensure karein ke loading ke dauran event na chale
+            if (!_isLoadingDraft && e.RowIndex >= 0)
+            {
+                CheckDraftChanges();
+            }
+        }
+
+        private void StockQty_KeyPress(
+    object sender,
+    KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgvSupplyDetail_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvSupplyDetail.Columns[e.ColumnIndex].Name == "Denomination" && e.Value != null && e.Value != DBNull.Value)
+            {
+                
+                if (decimal.TryParse(e.Value.ToString(), out decimal amount))
+                {
+                    // Decimal ko Integer banakar format apply karein
+                    e.Value = $"Rs.{Convert.ToInt32(amount)}/-";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
     }
 }
 

@@ -235,6 +235,11 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
 
+                case "Stock Register";
+                    reportFile = "rptStockRegister.rdlc";
+                    dt = _dal.GetSupplyRegister(filter);
+                    break;
+
                 default:
 
                     MessageBox.Show(

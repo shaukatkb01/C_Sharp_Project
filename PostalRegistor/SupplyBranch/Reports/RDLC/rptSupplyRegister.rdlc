@@ -2325,7 +2325,7 @@
         </Filters>
         <Top>0.5682in</Top>
         <Height>1.80208in</Height>
-        <Width>10.83098in</Width>
+        <Width>10.83099in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2533,6 +2533,62 @@
         <Field Name="BalanceTotalPieces">
           <DataField>BalanceTotalPieces</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StatusID">
+          <DataField>StatusID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CaseCode">
+          <DataField>CaseCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CaseNoFrom">
+          <DataField>CaseNoFrom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CaseNoTo">
+          <DataField>CaseNoTo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplySheets">
+          <DataField>RunningSupplySheets</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplyPieces">
+          <DataField>RunningSupplyPieces</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplyTotalPieces">
+          <DataField>RunningSupplyTotalPieces</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CategoryCod">
+          <DataField>CategoryCod</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StockID">
+          <DataField>StockID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockBoxQty">
+          <DataField>StockBoxQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockPacketQty">
+          <DataField>StockPacketQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockSheetQty">
+          <DataField>StockSheetQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockStampQty">
+          <DataField>StockStampQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockTransactionType">
+          <DataField>StockTransactionType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

@@ -94,6 +94,12 @@ FROM vw_ReportSupply</CommandText>
               <Mapping SourceColumn="RunningSupplyPieces" DataSetColumn="RunningSupplyPieces" />
               <Mapping SourceColumn="RunningSupplyTotalPieces" DataSetColumn="RunningSupplyTotalPieces" />
               <Mapping SourceColumn="CategoryCod" DataSetColumn="CategoryCod" />
+              <Mapping SourceColumn="StockID" DataSetColumn="StockID" />
+              <Mapping SourceColumn="StockBoxQty" DataSetColumn="StockBoxQty" />
+              <Mapping SourceColumn="StockPacketQty" DataSetColumn="StockPacketQty" />
+              <Mapping SourceColumn="StockSheetQty" DataSetColumn="StockSheetQty" />
+              <Mapping SourceColumn="StockStampQty" DataSetColumn="StockStampQty" />
+              <Mapping SourceColumn="StockTransactionType" DataSetColumn="StockTransactionType" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -298,35 +304,47 @@ FROM vwReportIndentBalance</CommandText>
               <xs:element name="BalanceSheets" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalanceSheetsColumn" msprop:Generator_ColumnPropNameInRow="BalanceSheets" msprop:Generator_UserColumnName="BalanceSheets" msprop:Generator_ColumnVarNameInTable="columnBalanceSheets" type="xs:int" minOccurs="0" />
               <xs:element name="BalancePieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalancePiecesColumn" msprop:Generator_ColumnPropNameInRow="BalancePieces" msprop:Generator_UserColumnName="BalancePieces" msprop:Generator_ColumnVarNameInTable="columnBalancePieces" type="xs:int" minOccurs="0" />
               <xs:element name="BalanceTotalPieces" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="BalanceTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="BalanceTotalPieces" msprop:Generator_UserColumnName="BalanceTotalPieces" msprop:Generator_ColumnVarNameInTable="columnBalanceTotalPieces" type="xs:int" minOccurs="0" />
-              <xs:element name="StatusID" msprop:Generator_UserColumnName="StatusID" msprop:Generator_ColumnPropNameInTable="StatusIDColumn" msprop:Generator_ColumnPropNameInRow="StatusID" msprop:Generator_ColumnVarNameInTable="columnStatusID" type="xs:int" minOccurs="0" />
-              <xs:element name="CaseCode" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseCode" msprop:Generator_ColumnPropNameInTable="CaseCodeColumn" msprop:Generator_ColumnPropNameInRow="CaseCode" msprop:Generator_ColumnVarNameInTable="columnCaseCode" minOccurs="0">
+              <xs:element name="StatusID" msprop:Generator_ColumnPropNameInTable="StatusIDColumn" msprop:Generator_ColumnPropNameInRow="StatusID" msprop:Generator_UserColumnName="StatusID" msprop:Generator_ColumnVarNameInTable="columnStatusID" type="xs:int" minOccurs="0" />
+              <xs:element name="CaseCode" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="CaseCodeColumn" msprop:Generator_ColumnPropNameInRow="CaseCode" msprop:Generator_UserColumnName="CaseCode" msprop:Generator_ColumnVarNameInTable="columnCaseCode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="CaseNoFrom" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseNoFrom" msprop:Generator_ColumnPropNameInTable="CaseNoFromColumn" msprop:Generator_ColumnPropNameInRow="CaseNoFrom" msprop:Generator_ColumnVarNameInTable="columnCaseNoFrom" minOccurs="0">
+              <xs:element name="CaseNoFrom" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="CaseNoFromColumn" msprop:Generator_ColumnPropNameInRow="CaseNoFrom" msprop:Generator_UserColumnName="CaseNoFrom" msprop:Generator_ColumnVarNameInTable="columnCaseNoFrom" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="CaseNoTo" msdata:ReadOnly="true" msprop:Generator_UserColumnName="CaseNoTo" msprop:Generator_ColumnPropNameInTable="CaseNoToColumn" msprop:Generator_ColumnPropNameInRow="CaseNoTo" msprop:Generator_ColumnVarNameInTable="columnCaseNoTo" minOccurs="0">
+              <xs:element name="CaseNoTo" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="CaseNoToColumn" msprop:Generator_ColumnPropNameInRow="CaseNoTo" msprop:Generator_UserColumnName="CaseNoTo" msprop:Generator_ColumnVarNameInTable="columnCaseNoTo" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="RunningSupplySheets" msprop:Generator_UserColumnName="RunningSupplySheets" msprop:Generator_ColumnPropNameInTable="RunningSupplySheetsColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplySheets" msprop:Generator_ColumnVarNameInTable="columnRunningSupplySheets" type="xs:int" minOccurs="0" />
-              <xs:element name="RunningSupplyPieces" msprop:Generator_UserColumnName="RunningSupplyPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyPieces" type="xs:int" minOccurs="0" />
-              <xs:element name="RunningSupplyTotalPieces" msprop:Generator_UserColumnName="RunningSupplyTotalPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyTotalPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyTotalPieces" type="xs:int" minOccurs="0" />
-              <xs:element name="CategoryCod" msprop:Generator_ColumnPropNameInRow="CategoryCod" msprop:Generator_ColumnPropNameInTable="CategoryCodColumn" msprop:Generator_ColumnVarNameInTable="columnCategoryCod" msprop:Generator_UserColumnName="CategoryCod" minOccurs="0">
+              <xs:element name="RunningSupplySheets" msprop:Generator_ColumnPropNameInTable="RunningSupplySheetsColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplySheets" msprop:Generator_UserColumnName="RunningSupplySheets" msprop:Generator_ColumnVarNameInTable="columnRunningSupplySheets" type="xs:int" minOccurs="0" />
+              <xs:element name="RunningSupplyPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyPieces" msprop:Generator_UserColumnName="RunningSupplyPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="RunningSupplyTotalPieces" msprop:Generator_ColumnPropNameInTable="RunningSupplyTotalPiecesColumn" msprop:Generator_ColumnPropNameInRow="RunningSupplyTotalPieces" msprop:Generator_UserColumnName="RunningSupplyTotalPieces" msprop:Generator_ColumnVarNameInTable="columnRunningSupplyTotalPieces" type="xs:int" minOccurs="0" />
+              <xs:element name="CategoryCod" msprop:Generator_UserColumnName="CategoryCod" msprop:Generator_ColumnPropNameInTable="CategoryCodColumn" msprop:Generator_ColumnPropNameInRow="CategoryCod" msprop:Generator_ColumnVarNameInTable="columnCategoryCod" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="StockID" msprop:Generator_ColumnPropNameInRow="StockID" msprop:Generator_ColumnPropNameInTable="StockIDColumn" msprop:Generator_ColumnVarNameInTable="columnStockID" msprop:Generator_UserColumnName="StockID" type="xs:int" minOccurs="0" />
+              <xs:element name="StockBoxQty" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StockBoxQty" msprop:Generator_ColumnPropNameInTable="StockBoxQtyColumn" msprop:Generator_ColumnVarNameInTable="columnStockBoxQty" msprop:Generator_UserColumnName="StockBoxQty" type="xs:int" minOccurs="0" />
+              <xs:element name="StockPacketQty" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StockPacketQty" msprop:Generator_ColumnPropNameInTable="StockPacketQtyColumn" msprop:Generator_ColumnVarNameInTable="columnStockPacketQty" msprop:Generator_UserColumnName="StockPacketQty" type="xs:int" minOccurs="0" />
+              <xs:element name="StockSheetQty" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StockSheetQty" msprop:Generator_ColumnPropNameInTable="StockSheetQtyColumn" msprop:Generator_ColumnVarNameInTable="columnStockSheetQty" msprop:Generator_UserColumnName="StockSheetQty" type="xs:int" minOccurs="0" />
+              <xs:element name="StockStampQty" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StockStampQty" msprop:Generator_ColumnPropNameInTable="StockStampQtyColumn" msprop:Generator_ColumnVarNameInTable="columnStockStampQty" msprop:Generator_UserColumnName="StockStampQty" type="xs:int" minOccurs="0" />
+              <xs:element name="StockTransactionType" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="StockTransactionType" msprop:Generator_ColumnPropNameInTable="StockTransactionTypeColumn" msprop:Generator_ColumnVarNameInTable="columnStockTransactionType" msprop:Generator_UserColumnName="StockTransactionType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

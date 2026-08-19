@@ -14,18 +14,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="SupplyBranchReportsDataSet">
+    <DataSource Name="dsReports">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>d8da2beb-6c9c-4940-90d3-5c1182410ec3</rd:DataSourceID>
+      <rd:DataSourceID>cf879430-2627-4224-a3dd-a10eb6956f23</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="dsSupply">
       <Query>
-        <DataSourceName>SupplyBranchReportsDataSet</DataSourceName>
+        <DataSourceName>dsReports</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -157,14 +157,73 @@
           <DataField>BalanceTotalPieces</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="StatusID">
+          <DataField>StatusID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CaseCode">
+          <DataField>CaseCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CaseNoFrom">
+          <DataField>CaseNoFrom</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CaseNoTo">
+          <DataField>CaseNoTo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplySheets">
+          <DataField>RunningSupplySheets</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplyPieces">
+          <DataField>RunningSupplyPieces</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="RunningSupplyTotalPieces">
+          <DataField>RunningSupplyTotalPieces</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CategoryCod">
+          <DataField>CategoryCod</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StockID">
+          <DataField>StockID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockBoxQty">
+          <DataField>StockBoxQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockPacketQty">
+          <DataField>StockPacketQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockSheetQty">
+          <DataField>StockSheetQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockStampQty">
+          <DataField>StockStampQty</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StockTransactionType">
+          <DataField>StockTransactionType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>SupplyBranch.Reports.DataSet</rd:DataSetName>
-        <rd:TableName>ReportSupplyDataTable</rd:TableName>
-        <rd:ObjectDataSourceType>SupplyBranch.Reports.DataSet.dsReports+ReportSupplyDataTable, Reports.DataSet.dsReports.Designer.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:DataSetName>dsReports</rd:DataSetName>
+        <rd:SchemaPath>D:\C_Sharp_Project\PostalRegistor\SupplyBranch\Reports\DataSet\dsReports.xsd</rd:SchemaPath>
+        <rd:TableName>ReportSupply</rd:TableName>
+        <rd:TableAdapterFillMethod>FillReportSupply</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetReportSupply</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>ReportSupplyTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>9fd5bab5-96bc-486c-a5a2-6df39845f27e</rd:ReportID>
+  <rd:ReportID>94908fb6-6916-4d58-85a6-c77ff1a72bd2</rd:ReportID>
 </Report>

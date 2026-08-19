@@ -39,14 +39,15 @@
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvDraft = new System.Windows.Forms.DataGridView();
+            this.cmbDraftStatus = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SupplyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplyNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvoiceNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SupplyDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OfficeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cmbDraftStatus = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDraft)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,6 +139,7 @@
             this.dgvDraft.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SupplyID,
             this.SupplyNo,
+            this.InvoiceNo,
             this.SupplyDate,
             this.OfficeName,
             this.StatusName,
@@ -161,6 +163,24 @@
             this.dgvDraft.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDraft_CellClick);
             this.dgvDraft.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDraft_CellDoubleClick);
             // 
+            // cmbDraftStatus
+            // 
+            this.cmbDraftStatus.FormattingEnabled = true;
+            this.cmbDraftStatus.Location = new System.Drawing.Point(125, 53);
+            this.cmbDraftStatus.Name = "cmbDraftStatus";
+            this.cmbDraftStatus.Size = new System.Drawing.Size(291, 21);
+            this.cmbDraftStatus.TabIndex = 15;
+            this.cmbDraftStatus.SelectedIndexChanged += new System.EventHandler(this.cmbDraftStatus_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(22, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(63, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Draft Status";
+            // 
             // SupplyID
             // 
             this.SupplyID.DataPropertyName = "SupplyID";
@@ -175,6 +195,13 @@
             this.SupplyNo.HeaderText = "SupplyNo";
             this.SupplyNo.Name = "SupplyNo";
             this.SupplyNo.ReadOnly = true;
+            // 
+            // InvoiceNo
+            // 
+            this.InvoiceNo.DataPropertyName = "InvoiceNo";
+            this.InvoiceNo.HeaderText = "InvoiceNo";
+            this.InvoiceNo.Name = "InvoiceNo";
+            this.InvoiceNo.ReadOnly = true;
             // 
             // SupplyDate
             // 
@@ -206,24 +233,6 @@
             this.Delete.Text = "Delete";
             this.Delete.ToolTipText = "Delete draft";
             this.Delete.UseColumnTextForButtonValue = true;
-            // 
-            // cmbDraftStatus
-            // 
-            this.cmbDraftStatus.FormattingEnabled = true;
-            this.cmbDraftStatus.Location = new System.Drawing.Point(125, 53);
-            this.cmbDraftStatus.Name = "cmbDraftStatus";
-            this.cmbDraftStatus.Size = new System.Drawing.Size(291, 21);
-            this.cmbDraftStatus.TabIndex = 15;
-            this.cmbDraftStatus.SelectedIndexChanged += new System.EventHandler(this.cmbDraftStatus_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 13);
-            this.label5.TabIndex = 16;
-            this.label5.Text = "Draft Status";
             // 
             // frmDraftSupply
             // 
@@ -267,6 +276,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplyID;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplyNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn SupplyDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn OfficeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusName;

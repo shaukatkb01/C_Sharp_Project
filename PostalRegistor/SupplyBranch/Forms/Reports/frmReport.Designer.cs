@@ -103,7 +103,8 @@
             "Pending Supplies",
             "Dispatch Register",
             "Invoice Register",
-            "Index Register"});
+            "Index Register",
+            "Stock Register"});
             this.cmbReportType.Location = new System.Drawing.Point(234, 86);
             this.cmbReportType.Name = "cmbReportType";
             this.cmbReportType.Size = new System.Drawing.Size(175, 21);

@@ -973,6 +973,7 @@ SELECT
 
 SM.SupplyID,
 SM.SupplyNo,
+SM.InvoiceNo,
 SM.SupplyDate,
 O.OfficeName,
 SS.StatusName
