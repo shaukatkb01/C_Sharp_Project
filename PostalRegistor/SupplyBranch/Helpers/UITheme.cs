@@ -312,25 +312,42 @@ namespace SupplyBranch.Helpers
                 ComboBox cmb = (ComboBox)control;
 
                 cmb.Font = NormalFont;
+                cmb.ForeColor = TextForeColor;
+                cmb.BackColor = Color.White;
+                cmb.FlatStyle = FlatStyle.Standard;
 
-                cmb.ForeColor =
-                    TextForeColor;
-
-                // White background so empty combo is visible
-                cmb.BackColor =
-                    Color.White;
-
-                // Standard gives a much clearer boundary
-                cmb.FlatStyle =
-                    FlatStyle.Standard;
-
-                cmb.DropDownStyle =
-                    ComboBoxStyle.DropDownList;
-
+                cmb.DropDownStyle = ComboBoxStyle.DropDownList;
                 cmb.IntegralHeight = true;
+                cmb.Margin = new Padding(3);
 
-                cmb.Margin =
-                    new Padding(3);
+                // 1. AutoCompleteSource ko PEHLE set karein (Error se bachne ke liye)
+                cmb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                // 2. AutoCompleteMode ko BAAD me set karein
+                cmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+                // Dropdown width auto-adjust logic
+                cmb.DropDown += (s, e) =>
+                {
+                    ComboBox cb = s as ComboBox;
+                    if (cb == null || cb.Items.Count == 0) return;
+
+                    int maxWidth = cb.Width;
+                    int scrollBarWidth = SystemInformation.VerticalScrollBarWidth;
+
+                    using (Graphics g = cb.CreateGraphics())
+                    {
+                        foreach (var item in cb.Items)
+                        {
+                            string text = cb.GetItemText(item);
+                            int itemWidth = (int)g.MeasureString(text, cb.Font).Width + scrollBarWidth + 10;
+                            if (itemWidth > maxWidth)
+                            {
+                                maxWidth = itemWidth;
+                            }
+                        }
+                    }
+                    cb.DropDownWidth = maxWidth;
+                };
 
                 AddComboBoxFocusEffect(cmb);
             }

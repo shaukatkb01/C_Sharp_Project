@@ -724,7 +724,15 @@ namespace SupplyBranch.Forms
                         txtIndentNo.Focus();
                         return;
                     }
-
+                    if (dal.HasSupplyRecords(_indentID))
+                    {
+                        MessageBox.Show(
+                        "Supply has already been processed for this indent; therefore, it cannot be modified. Please remove or edit the existing supply record.",
+                           "Update Restricted",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
                     if (dal.UpdateIndent(master, dtItems))
                     {
                         MessageBox.Show(

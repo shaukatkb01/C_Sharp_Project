@@ -54,63 +54,336 @@ namespace SupplyBranch.DataAccess
                 }
             }
         }
+     
         public static void ApplyUpdateAndRestart(string zipPath)
-    {
-        string appDir = AppDomain.CurrentDomain.BaseDirectory;
-        string tempExtractPath = Path.Combine(Path.GetTempPath(), "ExtractedUpdate");
-        string batPath = Path.Combine(Path.GetTempPath(), "update_runner.bat");
-
-        try
         {
-            // 1. Purana Temp Folder Clean Karein
-            if (Directory.Exists(tempExtractPath))
+            string appDir =
+                AppDomain.CurrentDomain.BaseDirectory
+                .TrimEnd(Path.DirectorySeparatorChar);
+
+            string currentExe =
+                Application.ExecutablePath;
+
+            string currentProcessName =
+                Process.GetCurrentProcess().ProcessName;
+
+            string tempRoot =
+                Path.Combine(
+                    Path.GetTempPath(),
+                    "SupplyBranch_Update_" +
+                    Guid.NewGuid().ToString("N"));
+
+            string extractDir =
+                Path.Combine(
+                    tempRoot,
+                    "Extracted");
+
+            string batchFile =
+                Path.Combine(
+                    tempRoot,
+                    "UpdateRunner.bat");
+
+            try
             {
-                Directory.Delete(tempExtractPath, true);
+                // =====================================================
+                // 1. Check ZIP
+                // =====================================================
+
+                if (string.IsNullOrWhiteSpace(zipPath) ||
+                    !File.Exists(zipPath))
+                {
+                    MessageBox.Show(
+                        "Update ZIP file nahi mili.",
+                        "Update",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+
+                // =====================================================
+                // 2. Create temporary folders
+                // =====================================================
+
+                Directory.CreateDirectory(extractDir);
+
+
+                // =====================================================
+                // 3. Extract ZIP
+                // =====================================================
+
+                ZipFile.ExtractToDirectory(
+                    zipPath,
+                    extractDir);
+
+
+                // =====================================================
+                // 4. Find NEW SupplyBranch.exe
+                // =====================================================
+
+                string[] exeFiles =
+                    Directory.GetFiles(
+                        extractDir,
+                        "SupplyBranch.exe",
+                        SearchOption.AllDirectories);
+
+                if (exeFiles.Length == 0)
+                {
+                    MessageBox.Show(
+                        "Update ZIP mein SupplyBranch.exe nahi mila.\r\n\r\n" +
+                        "Extracted folder:\r\n" +
+                        extractDir,
+                        "Update",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+
+                // Agar multiple EXE hon to sab se deep/latest file
+                string sourceExe =
+                    exeFiles
+                        .OrderByDescending(x => x.Length)
+                        .First();
+
+
+                string sourceDir =
+                    Path.GetDirectoryName(sourceExe);
+
+
+                // =====================================================
+                // 5. Check New Version
+                // =====================================================
+
+                FileVersionInfo newVersion =
+                    FileVersionInfo.GetVersionInfo(sourceExe);
+
+                FileVersionInfo oldVersion =
+                    FileVersionInfo.GetVersionInfo(currentExe);
+
+
+                // =====================================================
+                // 6. Debug information
+                // =====================================================
+
+                string debugMessage =
+                    "Current EXE:\r\n" +
+                    currentExe +
+                    "\r\n\r\n" +
+
+                    "Current Version:\r\n" +
+                    oldVersion.FileVersion +
+                    "\r\n\r\n" +
+
+                    "New EXE:\r\n" +
+                    sourceExe +
+                    "\r\n\r\n" +
+
+                    "New Version:\r\n" +
+                    newVersion.FileVersion +
+                    "\r\n\r\n" +
+
+                    "Application Folder:\r\n" +
+                    appDir;
+
+
+                // =====================================================
+                // OPTIONAL DEBUG
+                // Agar zaroorat ho to uncomment karo
+                // =====================================================
+
+                // MessageBox.Show(
+                //     debugMessage,
+                //     "Update Debug",
+                //     MessageBoxButtons.OK,
+                //     MessageBoxIcon.Information);
+
+
+                // =====================================================
+                // 7. Create updater BAT
+                // =====================================================
+
+                string batContent = $@"@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+
+title SupplyBranch Updater
+
+echo.
+echo ================================================
+echo             SupplyBranch Updater
+echo ================================================
+echo.
+
+echo Waiting for application to close...
+echo.
+
+:WAIT
+
+tasklist /FI ""IMAGENAME eq {currentProcessName}.exe"" 2>NUL | find /I ""{currentProcessName}.exe"" >NUL
+
+if not errorlevel 1 (
+    timeout /t 1 /nobreak >nul
+    goto WAIT
+)
+
+echo Application closed.
+echo.
+
+timeout /t 2 /nobreak >nul
+
+
+REM ========================================================
+REM Backup old EXE
+REM ========================================================
+
+if exist ""{appDir}\SupplyBranch.exe"" (
+    echo Creating backup...
+
+    copy /Y ""{appDir}\SupplyBranch.exe"" ""{appDir}\SupplyBranch.exe.old"" >nul
+)
+
+
+REM ========================================================
+REM Copy ALL new application files
+REM ========================================================
+
+echo.
+echo Installing new version...
+echo.
+
+xcopy ""{sourceDir}\*"" ""{appDir}\"" /E /I /Y /H /R /C
+
+if errorlevel 1 (
+    echo.
+    echo ================================================
+    echo ERROR: Files could not be copied.
+    echo ================================================
+    echo.
+    pause
+    exit /b 1
+)
+
+echo.
+echo Files copied successfully.
+echo.
+
+
+REM ========================================================
+REM Verify EXE exists
+REM ========================================================
+
+if not exist ""{appDir}\SupplyBranch.exe"" (
+    echo.
+    echo ERROR: SupplyBranch.exe not found after update.
+    echo.
+    pause
+    exit /b 1
+)
+
+
+REM ========================================================
+REM Delete ZIP
+REM ========================================================
+
+if exist ""{zipPath}"" (
+    del /F /Q ""{zipPath}""
+)
+
+
+REM ========================================================
+REM Cleanup extracted update
+REM ========================================================
+
+if exist ""{tempRoot}"" (
+    rmdir /S /Q ""{tempRoot}""
+)
+
+
+REM ========================================================
+REM Start NEW application
+REM ========================================================
+
+echo.
+echo Starting updated SupplyBranch...
+echo.
+
+timeout /t 2 /nobreak >nul
+
+start """" ""{appDir}\SupplyBranch.exe""
+
+
+REM ========================================================
+REM Exit updater
+REM ========================================================
+
+exit /b 0
+";
+
+
+                File.WriteAllText(
+                    batchFile,
+                    batContent);
+
+
+                // =====================================================
+                // 8. Start BAT as Administrator
+                // =====================================================
+
+                ProcessStartInfo psi =
+                    new ProcessStartInfo
+                    {
+                        FileName = batchFile,
+                        WorkingDirectory = tempRoot,
+                        UseShellExecute = true,
+                        Verb = "runas",
+                        CreateNoWindow = false
+                    };
+
+
+                Process.Start(psi);
+
+
+                // =====================================================
+                // 9. Close current application
+                // =====================================================
+
+                Application.Exit();
             }
-
-            // 2. Zip Ko C# Me Temp Folder Par Extract Karein
-            ZipFile.ExtractToDirectory(zipPath, tempExtractPath);
-
-            // 3. Check Karein Agar Database Script (update.sql) Majood Hai To Run Karein
-            string sqlFilePath = Path.Combine(tempExtractPath, "update.sql");
-            if (File.Exists(sqlFilePath))
+            catch (Exception ex)
             {
-                string sqlContent = File.ReadAllText(sqlFilePath);
-                ExecuteSqlScript(sqlContent); // Database Update Function Call
+                try
+                {
+                    if (Directory.Exists(tempRoot))
+                    {
+                        Directory.Delete(
+                            tempRoot,
+                            true);
+                    }
+                }
+                catch
+                {
+                }
+
+
+                MessageBox.Show(
+                    "Update apply karne mein error aaya:\r\n\r\n" +
+                    ex.Message +
+                    "\r\n\r\n" +
+                    "Current EXE:\r\n" +
+                    currentExe,
+                    "Update Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-
-            // 4. Batch Script Create Karein (Jo Temp Files Ko App Folder Me Copy Karegi)
-            string exePath = Path.Combine(appDir, "SupplyBranch.exe");
-            string batContent = $@"@echo off
-timeout /t 3 /nobreak > nul
-powershell -Command ""Copy-Item -Path '{tempExtractPath}\*' -Destination '{appDir}' -Recurse -Force""
-del ""{zipPath}""
-rmdir /s /q ""{tempExtractPath}""
-start """" ""{exePath}""
-del ""%~f0""";
-
-            File.WriteAllText(batPath, batContent);
-
-            // 5. Batch Script Ko Admin Rights Ke Sath Launch Karein
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = batPath,
-                Verb = "runas",
-                CreateNoWindow = true,
-                UseShellExecute = true
-            };
-
-            Process.Start(psi);
-            Application.Exit(); // Application close karein taakay file replace ho sakein
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Update apply karne mein masla aaya: " + ex.Message,
-                            "Update Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-    }
 
-    private void OnDownloadCompleted()
+
+
+
+
+        private void OnDownloadCompleted()
         {
             string zipPath = Path.Combine(Path.GetTempPath(), "SupplyBranch_Update.zip");
             string appDir = AppDomain.CurrentDomain.BaseDirectory;

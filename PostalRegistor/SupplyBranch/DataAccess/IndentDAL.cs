@@ -47,6 +47,26 @@ namespace SupplyBranch.DAL
             return count > 0;
         }
 
+        public string GetIndentStatus(int indentID)
+        {
+            // IM se StatusID le kar S (Status Table) se Status Name laya gaya hai
+            string query = @"
+        SELECT S.StatusName 
+        FROM IndentMaster IM
+        INNER JOIN Status S ON IM.IndentStatus = S.StatusID
+        WHERE IM.IndentID = @IndentID";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@IndentID", indentID)
+    };
+
+            object result = db.ExecuteScalar(query, parameters);
+
+            // Agar Status Name mil jaye to return karein, warna empty string
+            return (result != null && result != DBNull.Value) ? result.ToString() : string.Empty;
+        }
+
         public DataTable GetZones()
         {
             string query = @"SELECT ZoneID, ZoneName
@@ -213,6 +233,27 @@ namespace SupplyBranch.DAL
             }
         }
 
+        public bool HasSupplyRecords(int indentID)
+        {
+            string query = @"SELECT COUNT(1) 
+                    FROM SupplyMaster SD
+                    INNER JOIN IndentMaster IM ON SD.IndentID = IM.IndentID
+                    WHERE IM.IndentID = @IndentID";
+
+            // DBConnection class ka object banayein
+            DBConnection db = new DBConnection();
+
+            // GetConnection() method se SqlConnection hasil karein
+            using (SqlConnection conn = db.GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@IndentID", indentID);
+                conn.Open();
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
         public bool UpdateIndent(IndentMasterModel master, DataTable dtItems)
         {
             using (SqlConnection con = db.GetConnection())

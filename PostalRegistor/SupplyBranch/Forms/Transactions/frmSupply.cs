@@ -61,6 +61,127 @@ public partial class frmSupply : Form
 
         private StockDAL stockDAL = new StockDAL();
 
+        private void SetSupplyColumnVisibility(string columnName, bool visible)
+        {
+            if (dgvSupplyDetail.Columns.Contains(columnName))
+            {
+                dgvSupplyDetail.Columns[columnName].Visible = visible;
+            }
+        }
+        private void gridcontrolforsupply(bool? draft = null, bool? grid = null)
+        {
+            // 1. اگر Grid کا پیرامیٹر پاس ہوا ہے (true یا false)
+            if (grid.HasValue)
+            {
+                if (grid.Value)
+                {
+                    bool isPackingValid = cmbPackingType.SelectedIndex > -1;
+                    bool isDispatchValid = cmbDispatchMode.SelectedIndex > -1;
+                    dgvSupplyDetail.Visible = isPackingValid && isDispatchValid;
+
+                    string selectedPacking = cmbPackingType.Text;
+
+                    int loosePieces = 0;
+
+                    if (dgvSupplyDetail.CurrentRow != null && dgvSupplyDetail.CurrentRow.Cells["IndentLoosePieces"].Value != null)
+                    {
+                        int.TryParse(dgvSupplyDetail.CurrentRow.Cells["IndentLoosePieces"].Value.ToString(), out loosePieces);
+                    }
+                    if (loosePieces < 1)
+                    {
+                        dgvSupplyDetail.Columns["IndentLoosePieces"].Visible = false;
+                        dgvSupplyDetail.Columns["SupplyPieces"].Visible = false;
+                    }
+                    // Agar Packing Type "Case" NAHI hai to columns hide karein
+                    bool isCase = selectedPacking.Equals("Case", StringComparison.OrdinalIgnoreCase);
+
+                    SetColumnVisibility("CaseCode", isCase);
+                    SetColumnVisibility("CaseNoFrom", isCase);
+                    SetColumnVisibility("CaseNoTo", isCase);
+                }
+            }
+
+            // 2. اگر Draft کا پیرامیٹر پاس ہوا ہے (true یا false)
+            if (draft.HasValue)
+            {
+                if (draft.Value) // اگر Draft true ہے
+                {
+                    this.Text = "Supply - Edit Draft";
+
+                    SetSupplyColumnVisibility("RemainingPieces", false);
+                    SetSupplyColumnVisibility("RemainingTotalPieces", true);
+                    if (dgvSupplyDetail.Columns.Contains("RemainingTotalPieces"))
+                    {
+                        dgvSupplyDetail.Columns["RemainingTotalPieces"].HeaderText = "Remaining Sheets";
+                    }
+
+                    // Loose Pieces چیک کرنے کا لوپ
+                    bool hasValue = false;
+                    foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        if (row.Cells["IndentLoosePieces"]?.Value != null &&
+                            int.TryParse(row.Cells["IndentLoosePieces"].Value.ToString(), out int val))
+                        {
+                            if (val > 0)
+                            {
+                                hasValue = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    SetSupplyColumnVisibility("IndentLoosePieces", hasValue);
+                    SetSupplyColumnVisibility("SupplyPieces", hasValue);
+                    SetSupplyColumnVisibility("IndentTotalPieces", hasValue);
+                }
+                else // اگر Draft false ہے (New Entry)
+                {
+
+                    SetSupplyColumnVisibility("RemainingTotalPieces", false);
+                    SetSupplyColumnVisibility("RemainingPieces", false);
+
+                    if (btnSupplyPerforma != null)
+                    {
+                        btnSupplyPerforma.Visible = false;
+                    }
+                }
+
+                IndentDAL dal = new IndentDAL();
+
+                string status = dal.GetIndentStatus(_indentID);
+
+                if (status == "Open")
+                {
+                    MessageBox.Show(status);
+                    this.Text = "Draft Supply Indent Status: Open";
+                    // Agar status Draft hai to Edit karne dein
+                }
+                else if (status == "Partial")
+                {
+                    this.Text = "Draft Supply Indent Status: Partial";// Agar status Approved hai to Edit na karne dein
+                }
+                else
+                {
+                    this.Text = "Intent Status: Closed";
+                }
+
+            }
+        }
+
+        // Helper method
+        private void SetColumnVisibility(string columnName, bool visible)
+        {
+            if (dgvSupplyDetail.Columns.Contains(columnName))
+            {
+                dgvSupplyDetail.Columns[columnName].Visible = visible;
+            }
+        }
+
+        // کالم کو محفوظ طریقے سے Hide/Show کرنے کے لیے Helper Method
+       
+
         private void LoadSavedStockTransactions(int supplyID)
         {
             // 1. Grid Control Null Check
@@ -1072,13 +1193,7 @@ public partial class frmSupply : Form
 
                 if (indentStatus == 6)
                 {
-                    MessageBox.Show(
-                        $"This Indent has already been partially supplied.\n\n" +
-                        $"Total Supplied: {totalSupplyPieces:N0}\n" +
-                        $"Remaining Quantity: {remainingTotalPieces:N0}",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    
 
                     indentTotalPieces =
        ParseInt(row.Cells["IndentTotalPieces"].Value);
@@ -1091,9 +1206,13 @@ public partial class frmSupply : Form
 
                     row.Cells["OriginalPendingPieces"].Value =
                         originalPendingPieces;
+              int picespersheet = ParseInt(row.Cells["PiecesPerSheet"].Value);
+                    int remainingSheets = totalSupplyPieces / picespersheet;
+
+                    row.Cells["RemainingTotalPieces"].Value = remainingSheets;
 
                     dgvSupplyDetail.Columns["RemainingTotalPieces"]
-                        .HeaderText = "Total Supply";
+                        .HeaderText = "Total Supply test";
                 }
 
 
@@ -1730,7 +1849,7 @@ public partial class frmSupply : Form
             //--------------------------------------------------
             // Common Setup
             //--------------------------------------------------
-
+            dgvSupplyDetail.Columns["DetailID"].Visible = false;
             dgvSupplyDetail.Columns["originalPendingPieces"].Visible = true;
 
             dgvSupplyDetail.Columns["originalPendingPieces"]
@@ -1896,7 +2015,7 @@ public partial class frmSupply : Form
 
             else
             {
-                this.Text = "Supply - New Entry";
+                
                 LoadIndentHeader();
 
                 LoadIndentItems();
@@ -1905,6 +2024,7 @@ public partial class frmSupply : Form
 
                 SetSupplyTypeByCategory();
 
+                gridcontrolforsupply(draft: false);
                 btnApprove.Visible = false;
                 btnIssue.Visible = false;
 
@@ -2095,7 +2215,10 @@ public partial class frmSupply : Form
        
         private void cmbPackingType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(cmbPackingType.SelectedIndex == -1) { return; }
+            gridcontrolforsupply(grid: true);
             CheckDraftChanges();
+
             bool isCase = cmbPackingType.Text == "Case";
 
             dgvSupplyDetail.Columns["CaseNoFrom"].ReadOnly = !isCase;
@@ -2124,7 +2247,9 @@ public partial class frmSupply : Form
                     row.Cells["CaseCode"].Value = "";
                 }
             }
-        }
+
+           
+            }
 
         
 
@@ -2892,22 +3017,22 @@ public partial class frmSupply : Form
                 {
                     string quantityName = (_isDraft || _isEditDraft) ? "Indent Quantity" : "Pending Quantity";
 
-                    MessageBox.Show(
-                        $"Supply Quantity ({totalSupply:N0}) is greater than {quantityName} ({allowedQuantity:N0}).",
-                        "Warning",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+                    //MessageBox.Show(
+                    //    $"Supply Quantity ({totalSupply:N0}) is greater than {quantityName} ({allowedQuantity:N0}).",
+                    //    "Warning",
+                    //    MessageBoxButtons.OK,
+                    //    MessageBoxIcon.Warning);
                 }
                 else if (totalSupply > 0 && totalSupply < allowedQuantity)
                 {
                     int remaining = allowedQuantity - totalSupply;
                     string denomination = Convert.ToString(row.Cells["Denomination"].Value);
 
-                    MessageBox.Show(
-                        $"Rs.{denomination} remaining {remaining:N0}.",
-                        "Partial Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    //MessageBox.Show(
+                    //    $"Rs.{denomination} remaining {remaining:N0}.",
+                    //    "Partial Supply",
+                    //    MessageBoxButtons.OK,
+                    //    MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -2944,7 +3069,14 @@ public partial class frmSupply : Form
 
         private void cmbDispatchMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbDispatchMode.SelectedIndex == -1)
+            {
+                return;
+            }
+           
             CheckDraftChanges();
+             gridcontrolforsupply(grid: true); 
+            
         }
 
         private void txtPackingQty_TextChanged(object sender, EventArgs e)

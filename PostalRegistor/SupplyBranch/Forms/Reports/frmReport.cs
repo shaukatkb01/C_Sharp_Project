@@ -199,7 +199,7 @@ namespace SupplyBranch.Forms.Reports
 
                     reportFile = "rptIndentRegister.rdlc";
 
-                    dt1 = _dal.GetIndentRegister(filter);
+                    dt = _dal.GetIndentRegister(filter);
 
                     break;
 
@@ -235,7 +235,7 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
 
-                case "Stock Register";
+                case "Stock Register":
                     reportFile = "rptStockRegister.rdlc";
                     dt = _dal.GetSupplyRegister(filter);
                     break;
