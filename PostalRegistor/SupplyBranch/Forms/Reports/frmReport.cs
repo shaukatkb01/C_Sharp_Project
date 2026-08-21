@@ -199,7 +199,7 @@ namespace SupplyBranch.Forms.Reports
 
                     reportFile = "rptIndentRegister.rdlc";
 
-                    dt = _dal.GetIndentRegister(filter);
+                    dt = _dal.GetSupplyRegister(filter);
 
                     break;
 

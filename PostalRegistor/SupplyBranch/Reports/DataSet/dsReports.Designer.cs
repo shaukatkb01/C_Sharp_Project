@@ -30,6 +30,8 @@ namespace SupplyBranch.Reports.DataSet {
         
         private vwReportIndentBalanceDataTable tablevwReportIndentBalance;
         
+        private vwIndentTotalSupplyAndBalanceDataTable tablevwIndentTotalSupplyAndBalance;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -66,6 +68,9 @@ namespace SupplyBranch.Reports.DataSet {
                 }
                 if ((ds.Tables["vwReportIndentBalance"] != null)) {
                     base.Tables.Add(new vwReportIndentBalanceDataTable(ds.Tables["vwReportIndentBalance"]));
+                }
+                if ((ds.Tables["vwIndentTotalSupplyAndBalance"] != null)) {
+                    base.Tables.Add(new vwIndentTotalSupplyAndBalanceDataTable(ds.Tables["vwIndentTotalSupplyAndBalance"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -112,6 +117,16 @@ namespace SupplyBranch.Reports.DataSet {
         public vwReportIndentBalanceDataTable vwReportIndentBalance {
             get {
                 return this.tablevwReportIndentBalance;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public vwIndentTotalSupplyAndBalanceDataTable vwIndentTotalSupplyAndBalance {
+            get {
+                return this.tablevwIndentTotalSupplyAndBalance;
             }
         }
         
@@ -191,6 +206,9 @@ namespace SupplyBranch.Reports.DataSet {
                 if ((ds.Tables["vwReportIndentBalance"] != null)) {
                     base.Tables.Add(new vwReportIndentBalanceDataTable(ds.Tables["vwReportIndentBalance"]));
                 }
+                if ((ds.Tables["vwIndentTotalSupplyAndBalance"] != null)) {
+                    base.Tables.Add(new vwIndentTotalSupplyAndBalanceDataTable(ds.Tables["vwIndentTotalSupplyAndBalance"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -242,6 +260,12 @@ namespace SupplyBranch.Reports.DataSet {
                     this.tablevwReportIndentBalance.InitVars();
                 }
             }
+            this.tablevwIndentTotalSupplyAndBalance = ((vwIndentTotalSupplyAndBalanceDataTable)(base.Tables["vwIndentTotalSupplyAndBalance"]));
+            if ((initTable == true)) {
+                if ((this.tablevwIndentTotalSupplyAndBalance != null)) {
+                    this.tablevwIndentTotalSupplyAndBalance.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -258,6 +282,8 @@ namespace SupplyBranch.Reports.DataSet {
             base.Tables.Add(this.tableReportSupply);
             this.tablevwReportIndentBalance = new vwReportIndentBalanceDataTable();
             base.Tables.Add(this.tablevwReportIndentBalance);
+            this.tablevwIndentTotalSupplyAndBalance = new vwIndentTotalSupplyAndBalanceDataTable();
+            base.Tables.Add(this.tablevwIndentTotalSupplyAndBalance);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -275,6 +301,12 @@ namespace SupplyBranch.Reports.DataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private bool ShouldSerializevwReportIndentBalance() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        private bool ShouldSerializevwIndentTotalSupplyAndBalance() {
             return false;
         }
         
@@ -341,6 +373,9 @@ namespace SupplyBranch.Reports.DataSet {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         public delegate void vwReportIndentBalanceRowChangeEventHandler(object sender, vwReportIndentBalanceRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        public delegate void vwIndentTotalSupplyAndBalanceRowChangeEventHandler(object sender, vwIndentTotalSupplyAndBalanceRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -2437,6 +2472,557 @@ namespace SupplyBranch.Reports.DataSet {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class vwIndentTotalSupplyAndBalanceDataTable : global::System.Data.TypedTableBase<vwIndentTotalSupplyAndBalanceRow> {
+            
+            private global::System.Data.DataColumn columnDetailID;
+            
+            private global::System.Data.DataColumn columnIndentID;
+            
+            private global::System.Data.DataColumn columnIndentNo;
+            
+            private global::System.Data.DataColumn columnIndentDate;
+            
+            private global::System.Data.DataColumn columnOfficeID;
+            
+            private global::System.Data.DataColumn columnOfficeName;
+            
+            private global::System.Data.DataColumn columnIndentStatusID;
+            
+            private global::System.Data.DataColumn columnCategoryID;
+            
+            private global::System.Data.DataColumn columnCategoryName;
+            
+            private global::System.Data.DataColumn columnDenominationID;
+            
+            private global::System.Data.DataColumn columnDenomination;
+            
+            private global::System.Data.DataColumn columnIndentSheets;
+            
+            private global::System.Data.DataColumn columnIndentLoosePieces;
+            
+            private global::System.Data.DataColumn columnIndentTotalPieces;
+            
+            private global::System.Data.DataColumn columnTotalSupplySheets;
+            
+            private global::System.Data.DataColumn columnTotalSupplyPieces;
+            
+            private global::System.Data.DataColumn columnCurrentBalanceSheets;
+            
+            private global::System.Data.DataColumn columnCurrentBalancePieces;
+            
+            private global::System.Data.DataColumn columnSupplyStatus;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceDataTable() {
+                this.TableName = "vwIndentTotalSupplyAndBalance";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            internal vwIndentTotalSupplyAndBalanceDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected vwIndentTotalSupplyAndBalanceDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DetailIDColumn {
+                get {
+                    return this.columnDetailID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentIDColumn {
+                get {
+                    return this.columnIndentID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentNoColumn {
+                get {
+                    return this.columnIndentNo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentDateColumn {
+                get {
+                    return this.columnIndentDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn OfficeIDColumn {
+                get {
+                    return this.columnOfficeID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn OfficeNameColumn {
+                get {
+                    return this.columnOfficeName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentStatusIDColumn {
+                get {
+                    return this.columnIndentStatusID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn CategoryIDColumn {
+                get {
+                    return this.columnCategoryID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn CategoryNameColumn {
+                get {
+                    return this.columnCategoryName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DenominationIDColumn {
+                get {
+                    return this.columnDenominationID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn DenominationColumn {
+                get {
+                    return this.columnDenomination;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentSheetsColumn {
+                get {
+                    return this.columnIndentSheets;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentLoosePiecesColumn {
+                get {
+                    return this.columnIndentLoosePieces;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn IndentTotalPiecesColumn {
+                get {
+                    return this.columnIndentTotalPieces;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalSupplySheetsColumn {
+                get {
+                    return this.columnTotalSupplySheets;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn TotalSupplyPiecesColumn {
+                get {
+                    return this.columnTotalSupplyPieces;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn CurrentBalanceSheetsColumn {
+                get {
+                    return this.columnCurrentBalanceSheets;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn CurrentBalancePiecesColumn {
+                get {
+                    return this.columnCurrentBalancePieces;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn SupplyStatusColumn {
+                get {
+                    return this.columnSupplyStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRow this[int index] {
+                get {
+                    return ((vwIndentTotalSupplyAndBalanceRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public event vwIndentTotalSupplyAndBalanceRowChangeEventHandler vwIndentTotalSupplyAndBalanceRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public event vwIndentTotalSupplyAndBalanceRowChangeEventHandler vwIndentTotalSupplyAndBalanceRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public event vwIndentTotalSupplyAndBalanceRowChangeEventHandler vwIndentTotalSupplyAndBalanceRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public event vwIndentTotalSupplyAndBalanceRowChangeEventHandler vwIndentTotalSupplyAndBalanceRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void AddvwIndentTotalSupplyAndBalanceRow(vwIndentTotalSupplyAndBalanceRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRow AddvwIndentTotalSupplyAndBalanceRow(
+                        int DetailID, 
+                        int IndentID, 
+                        string IndentNo, 
+                        System.DateTime IndentDate, 
+                        int OfficeID, 
+                        string OfficeName, 
+                        int IndentStatusID, 
+                        int CategoryID, 
+                        string CategoryName, 
+                        int DenominationID, 
+                        decimal Denomination, 
+                        int IndentSheets, 
+                        int IndentLoosePieces, 
+                        int IndentTotalPieces, 
+                        long TotalSupplySheets, 
+                        long TotalSupplyPieces, 
+                        long CurrentBalanceSheets, 
+                        long CurrentBalancePieces, 
+                        string SupplyStatus) {
+                vwIndentTotalSupplyAndBalanceRow rowvwIndentTotalSupplyAndBalanceRow = ((vwIndentTotalSupplyAndBalanceRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        DetailID,
+                        IndentID,
+                        IndentNo,
+                        IndentDate,
+                        OfficeID,
+                        OfficeName,
+                        IndentStatusID,
+                        CategoryID,
+                        CategoryName,
+                        DenominationID,
+                        Denomination,
+                        IndentSheets,
+                        IndentLoosePieces,
+                        IndentTotalPieces,
+                        TotalSupplySheets,
+                        TotalSupplyPieces,
+                        CurrentBalanceSheets,
+                        CurrentBalancePieces,
+                        SupplyStatus};
+                rowvwIndentTotalSupplyAndBalanceRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowvwIndentTotalSupplyAndBalanceRow);
+                return rowvwIndentTotalSupplyAndBalanceRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRow FindByDetailID(int DetailID) {
+                return ((vwIndentTotalSupplyAndBalanceRow)(this.Rows.Find(new object[] {
+                            DetailID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                vwIndentTotalSupplyAndBalanceDataTable cln = ((vwIndentTotalSupplyAndBalanceDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new vwIndentTotalSupplyAndBalanceDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            internal void InitVars() {
+                this.columnDetailID = base.Columns["DetailID"];
+                this.columnIndentID = base.Columns["IndentID"];
+                this.columnIndentNo = base.Columns["IndentNo"];
+                this.columnIndentDate = base.Columns["IndentDate"];
+                this.columnOfficeID = base.Columns["OfficeID"];
+                this.columnOfficeName = base.Columns["OfficeName"];
+                this.columnIndentStatusID = base.Columns["IndentStatusID"];
+                this.columnCategoryID = base.Columns["CategoryID"];
+                this.columnCategoryName = base.Columns["CategoryName"];
+                this.columnDenominationID = base.Columns["DenominationID"];
+                this.columnDenomination = base.Columns["Denomination"];
+                this.columnIndentSheets = base.Columns["IndentSheets"];
+                this.columnIndentLoosePieces = base.Columns["IndentLoosePieces"];
+                this.columnIndentTotalPieces = base.Columns["IndentTotalPieces"];
+                this.columnTotalSupplySheets = base.Columns["TotalSupplySheets"];
+                this.columnTotalSupplyPieces = base.Columns["TotalSupplyPieces"];
+                this.columnCurrentBalanceSheets = base.Columns["CurrentBalanceSheets"];
+                this.columnCurrentBalancePieces = base.Columns["CurrentBalancePieces"];
+                this.columnSupplyStatus = base.Columns["SupplyStatus"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            private void InitClass() {
+                this.columnDetailID = new global::System.Data.DataColumn("DetailID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDetailID);
+                this.columnIndentID = new global::System.Data.DataColumn("IndentID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentID);
+                this.columnIndentNo = new global::System.Data.DataColumn("IndentNo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentNo);
+                this.columnIndentDate = new global::System.Data.DataColumn("IndentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentDate);
+                this.columnOfficeID = new global::System.Data.DataColumn("OfficeID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOfficeID);
+                this.columnOfficeName = new global::System.Data.DataColumn("OfficeName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOfficeName);
+                this.columnIndentStatusID = new global::System.Data.DataColumn("IndentStatusID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentStatusID);
+                this.columnCategoryID = new global::System.Data.DataColumn("CategoryID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryID);
+                this.columnCategoryName = new global::System.Data.DataColumn("CategoryName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCategoryName);
+                this.columnDenominationID = new global::System.Data.DataColumn("DenominationID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDenominationID);
+                this.columnDenomination = new global::System.Data.DataColumn("Denomination", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDenomination);
+                this.columnIndentSheets = new global::System.Data.DataColumn("IndentSheets", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentSheets);
+                this.columnIndentLoosePieces = new global::System.Data.DataColumn("IndentLoosePieces", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentLoosePieces);
+                this.columnIndentTotalPieces = new global::System.Data.DataColumn("IndentTotalPieces", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIndentTotalPieces);
+                this.columnTotalSupplySheets = new global::System.Data.DataColumn("TotalSupplySheets", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalSupplySheets);
+                this.columnTotalSupplyPieces = new global::System.Data.DataColumn("TotalSupplyPieces", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalSupplyPieces);
+                this.columnCurrentBalanceSheets = new global::System.Data.DataColumn("CurrentBalanceSheets", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCurrentBalanceSheets);
+                this.columnCurrentBalancePieces = new global::System.Data.DataColumn("CurrentBalancePieces", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCurrentBalancePieces);
+                this.columnSupplyStatus = new global::System.Data.DataColumn("SupplyStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSupplyStatus);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnDetailID}, true));
+                this.columnDetailID.AllowDBNull = false;
+                this.columnDetailID.Unique = true;
+                this.columnIndentID.AllowDBNull = false;
+                this.columnIndentNo.AllowDBNull = false;
+                this.columnIndentNo.MaxLength = 50;
+                this.columnIndentDate.AllowDBNull = false;
+                this.columnOfficeID.AllowDBNull = false;
+                this.columnOfficeName.AllowDBNull = false;
+                this.columnOfficeName.MaxLength = 500;
+                this.columnIndentStatusID.AllowDBNull = false;
+                this.columnCategoryID.AllowDBNull = false;
+                this.columnCategoryName.AllowDBNull = false;
+                this.columnCategoryName.MaxLength = 100;
+                this.columnDenominationID.AllowDBNull = false;
+                this.columnDenomination.AllowDBNull = false;
+                this.columnIndentSheets.ReadOnly = true;
+                this.columnIndentLoosePieces.ReadOnly = true;
+                this.columnIndentTotalPieces.ReadOnly = true;
+                this.columnTotalSupplySheets.ReadOnly = true;
+                this.columnTotalSupplyPieces.ReadOnly = true;
+                this.columnCurrentBalanceSheets.ReadOnly = true;
+                this.columnCurrentBalancePieces.ReadOnly = true;
+                this.columnSupplyStatus.ReadOnly = true;
+                this.columnSupplyStatus.MaxLength = 18;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRow NewvwIndentTotalSupplyAndBalanceRow() {
+                return ((vwIndentTotalSupplyAndBalanceRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new vwIndentTotalSupplyAndBalanceRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(vwIndentTotalSupplyAndBalanceRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.vwIndentTotalSupplyAndBalanceRowChanged != null)) {
+                    this.vwIndentTotalSupplyAndBalanceRowChanged(this, new vwIndentTotalSupplyAndBalanceRowChangeEvent(((vwIndentTotalSupplyAndBalanceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.vwIndentTotalSupplyAndBalanceRowChanging != null)) {
+                    this.vwIndentTotalSupplyAndBalanceRowChanging(this, new vwIndentTotalSupplyAndBalanceRowChangeEvent(((vwIndentTotalSupplyAndBalanceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.vwIndentTotalSupplyAndBalanceRowDeleted != null)) {
+                    this.vwIndentTotalSupplyAndBalanceRowDeleted(this, new vwIndentTotalSupplyAndBalanceRowChangeEvent(((vwIndentTotalSupplyAndBalanceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.vwIndentTotalSupplyAndBalanceRowDeleting != null)) {
+                    this.vwIndentTotalSupplyAndBalanceRowDeleting(this, new vwIndentTotalSupplyAndBalanceRowChangeEvent(((vwIndentTotalSupplyAndBalanceRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void RemovevwIndentTotalSupplyAndBalanceRow(vwIndentTotalSupplyAndBalanceRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                dsReports ds = new dsReports();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "vwIndentTotalSupplyAndBalanceDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class ReportIndentRow : global::System.Data.DataRow {
@@ -4096,6 +4682,374 @@ namespace SupplyBranch.Reports.DataSet {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class vwIndentTotalSupplyAndBalanceRow : global::System.Data.DataRow {
+            
+            private vwIndentTotalSupplyAndBalanceDataTable tablevwIndentTotalSupplyAndBalance;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            internal vwIndentTotalSupplyAndBalanceRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablevwIndentTotalSupplyAndBalance = ((vwIndentTotalSupplyAndBalanceDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int DetailID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.DetailIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.DetailIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IndentID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.IndentIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string IndentNo {
+                get {
+                    return ((string)(this[this.tablevwIndentTotalSupplyAndBalance.IndentNoColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentNoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public System.DateTime IndentDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tablevwIndentTotalSupplyAndBalance.IndentDateColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int OfficeID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.OfficeIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.OfficeIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string OfficeName {
+                get {
+                    return ((string)(this[this.tablevwIndentTotalSupplyAndBalance.OfficeNameColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.OfficeNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IndentStatusID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.IndentStatusIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentStatusIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int CategoryID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.CategoryIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.CategoryIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string CategoryName {
+                get {
+                    return ((string)(this[this.tablevwIndentTotalSupplyAndBalance.CategoryNameColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.CategoryNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int DenominationID {
+                get {
+                    return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.DenominationIDColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.DenominationIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public decimal Denomination {
+                get {
+                    return ((decimal)(this[this.tablevwIndentTotalSupplyAndBalance.DenominationColumn]));
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.DenominationColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IndentSheets {
+                get {
+                    try {
+                        return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.IndentSheetsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IndentSheets\' in table \'vwIndentTotalSupplyAndBalance\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentSheetsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IndentLoosePieces {
+                get {
+                    try {
+                        return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.IndentLoosePiecesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IndentLoosePieces\' in table \'vwIndentTotalSupplyAndBalance\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentLoosePiecesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int IndentTotalPieces {
+                get {
+                    try {
+                        return ((int)(this[this.tablevwIndentTotalSupplyAndBalance.IndentTotalPiecesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IndentTotalPieces\' in table \'vwIndentTotalSupplyAndBalance\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.IndentTotalPiecesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public long TotalSupplySheets {
+                get {
+                    try {
+                        return ((long)(this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplySheetsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalSupplySheets\' in table \'vwIndentTotalSupplyAndBalance\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplySheetsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public long TotalSupplyPieces {
+                get {
+                    try {
+                        return ((long)(this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplyPiecesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalSupplyPieces\' in table \'vwIndentTotalSupplyAndBalance\'" +
+                                " is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplyPiecesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public long CurrentBalanceSheets {
+                get {
+                    try {
+                        return ((long)(this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalanceSheetsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CurrentBalanceSheets\' in table \'vwIndentTotalSupplyAndBalan" +
+                                "ce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalanceSheetsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public long CurrentBalancePieces {
+                get {
+                    try {
+                        return ((long)(this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalancePiecesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CurrentBalancePieces\' in table \'vwIndentTotalSupplyAndBalan" +
+                                "ce\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalancePiecesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string SupplyStatus {
+                get {
+                    try {
+                        return ((string)(this[this.tablevwIndentTotalSupplyAndBalance.SupplyStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SupplyStatus\' in table \'vwIndentTotalSupplyAndBalance\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablevwIndentTotalSupplyAndBalance.SupplyStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIndentSheetsNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.IndentSheetsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIndentSheetsNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.IndentSheetsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIndentLoosePiecesNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.IndentLoosePiecesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIndentLoosePiecesNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.IndentLoosePiecesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsIndentTotalPiecesNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.IndentTotalPiecesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetIndentTotalPiecesNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.IndentTotalPiecesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTotalSupplySheetsNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.TotalSupplySheetsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTotalSupplySheetsNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplySheetsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsTotalSupplyPiecesNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.TotalSupplyPiecesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetTotalSupplyPiecesNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.TotalSupplyPiecesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCurrentBalanceSheetsNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.CurrentBalanceSheetsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCurrentBalanceSheetsNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalanceSheetsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCurrentBalancePiecesNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.CurrentBalancePiecesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCurrentBalancePiecesNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.CurrentBalancePiecesColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsSupplyStatusNull() {
+                return this.IsNull(this.tablevwIndentTotalSupplyAndBalance.SupplyStatusColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetSupplyStatusNull() {
+                this[this.tablevwIndentTotalSupplyAndBalance.SupplyStatusColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
@@ -4183,6 +5137,40 @@ namespace SupplyBranch.Reports.DataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public vwReportIndentBalanceRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        public class vwIndentTotalSupplyAndBalanceRowChangeEvent : global::System.EventArgs {
+            
+            private vwIndentTotalSupplyAndBalanceRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRowChangeEvent(vwIndentTotalSupplyAndBalanceRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public vwIndentTotalSupplyAndBalanceRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4780,6 +5768,191 @@ namespace SupplyBranch.Reports.DataSet.dsReportsTableAdapters {
         public virtual dsReports.vwReportIndentBalanceDataTable GetReportIndentBalance() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             dsReports.vwReportIndentBalanceDataTable dataTable = new dsReports.vwReportIndentBalanceDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class vwIndentTotalSupplyAndBalanceTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        public vwIndentTotalSupplyAndBalanceTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "vwIndentTotalSupplyAndBalance";
+            tableMapping.ColumnMappings.Add("DetailID", "DetailID");
+            tableMapping.ColumnMappings.Add("IndentID", "IndentID");
+            tableMapping.ColumnMappings.Add("IndentNo", "IndentNo");
+            tableMapping.ColumnMappings.Add("IndentDate", "IndentDate");
+            tableMapping.ColumnMappings.Add("OfficeID", "OfficeID");
+            tableMapping.ColumnMappings.Add("OfficeName", "OfficeName");
+            tableMapping.ColumnMappings.Add("IndentStatusID", "IndentStatusID");
+            tableMapping.ColumnMappings.Add("CategoryID", "CategoryID");
+            tableMapping.ColumnMappings.Add("CategoryName", "CategoryName");
+            tableMapping.ColumnMappings.Add("DenominationID", "DenominationID");
+            tableMapping.ColumnMappings.Add("Denomination", "Denomination");
+            tableMapping.ColumnMappings.Add("IndentSheets", "IndentSheets");
+            tableMapping.ColumnMappings.Add("IndentLoosePieces", "IndentLoosePieces");
+            tableMapping.ColumnMappings.Add("IndentTotalPieces", "IndentTotalPieces");
+            tableMapping.ColumnMappings.Add("TotalSupplySheets", "TotalSupplySheets");
+            tableMapping.ColumnMappings.Add("TotalSupplyPieces", "TotalSupplyPieces");
+            tableMapping.ColumnMappings.Add("CurrentBalanceSheets", "CurrentBalanceSheets");
+            tableMapping.ColumnMappings.Add("CurrentBalancePieces", "CurrentBalancePieces");
+            tableMapping.ColumnMappings.Add("SupplyStatus", "SupplyStatus");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::SupplyBranch.Properties.Settings.Default.SupplyDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT * FROM vwIndentTotalSupplyAndBalance;";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int FillvwIndentTotalSupplyAndBalance(dsReports.vwIndentTotalSupplyAndBalanceDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual dsReports.vwIndentTotalSupplyAndBalanceDataTable GetvwIndentTotalSupplyAndBalance() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            dsReports.vwIndentTotalSupplyAndBalanceDataTable dataTable = new dsReports.vwIndentTotalSupplyAndBalanceDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

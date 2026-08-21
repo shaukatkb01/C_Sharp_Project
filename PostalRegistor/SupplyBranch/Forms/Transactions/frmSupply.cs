@@ -61,6 +61,7 @@ public partial class frmSupply : Form
 
         private StockDAL stockDAL = new StockDAL();
 
+       
         private void SetSupplyColumnVisibility(string columnName, bool visible)
         {
             if (dgvSupplyDetail.Columns.Contains(columnName))
@@ -230,31 +231,75 @@ public partial class frmSupply : Form
             dt.Columns.Add("SheetQty", typeof(int));
             dt.Columns.Add("StampQty", typeof(int));
 
+            // Packing Qty aur Packing Type nikaalein
+            int packingQty = 0;
+            int.TryParse(txtPackingQty.Text.Trim(), out packingQty);
+
+            string packingType = cmbPackingType.Text.Trim();
+            bool isCase = packingType.Equals("Case", StringComparison.OrdinalIgnoreCase);
+
             foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
             {
                 if (row.IsNewRow) continue;
 
                 int supplySheets = 0, supplyPieces = 0;
-                if (row.Cells["SupplySheets"].Value != null) int.TryParse(row.Cells["SupplySheets"].Value.ToString(), out supplySheets);
-                if (row.Cells["SupplyPieces"].Value != null) int.TryParse(row.Cells["SupplyPieces"].Value.ToString(), out supplyPieces);
+                if (row.Cells["SupplySheets"].Value != null)
+                    int.TryParse(row.Cells["SupplySheets"].Value.ToString(), out supplySheets);
 
-                if (supplySheets <= 0 && supplyPieces <= 0) continue;
+                if (row.Cells["SupplyPieces"].Value != null)
+                    int.TryParse(row.Cells["SupplyPieces"].Value.ToString(), out supplyPieces);
+
+                // --- NAYI LOGIC: Agar SupplySheets aur SupplyPieces dono 0 hain to is denomination ko dgvStock me se HATA DO (Skip kar do) ---
+                if (supplySheets <= 0 && supplyPieces <= 0)
+                {
+                    continue;
+                }
 
                 int categoryID = 0, denominationID = 0;
-                if (row.Cells["CategoryID"].Value != null) int.TryParse(row.Cells["CategoryID"].Value.ToString(), out categoryID);
-                if (row.Cells["DenominationID"].Value != null) int.TryParse(row.Cells["DenominationID"].Value.ToString(), out denominationID);
+                if (row.Cells["CategoryID"].Value != null)
+                    int.TryParse(row.Cells["CategoryID"].Value.ToString(), out categoryID);
+
+                if (row.Cells["DenominationID"].Value != null)
+                    int.TryParse(row.Cells["DenominationID"].Value.ToString(), out denominationID);
 
                 if (categoryID == 0 || denominationID == 0) continue;
 
                 string category = row.Cells["Category"].Value?.ToString() ?? "";
                 string denomination = row.Cells["Denomination"].Value?.ToString() ?? "";
 
+                // Variable values set karein condition ke mutabiq
+                int boxQty = 0;
+                int sheetQty = 0;
+                int stampQty = 0;
+
+                if (isCase)
+                {
+                    // Agar Packing Type "Case" hai to txtPackingQty -> BoxQty
+                    boxQty = 0;
+                }
+                else
+                {
+                    // Agar "Case" ke ilawa kuch aur hai
+                    sheetQty = supplySheets;
+                    stampQty = supplyPieces;
+                }
+
                 // Row add karein DataTable me
-                dt.Rows.Add(categoryID, denominationID, category, denomination, 0, 0, 0, 0);
+                dt.Rows.Add(categoryID, denominationID, category, denomination, boxQty, 0, sheetQty, stampQty);
             }
 
-            // 3. Grid me Bind karein
+            // 3. Auto-Mapping fix (Taake columns UI par sahi nazar aayein)
             dgvStockEntry.AutoGenerateColumns = false;
+
+            foreach (DataColumn col in dt.Columns)
+            {
+                if (dgvStockEntry.Columns.Contains(col.ColumnName))
+                {
+                    dgvStockEntry.Columns[col.ColumnName].DataPropertyName = col.ColumnName;
+                }
+            }
+
+            // 4. Grid me Bind karein
             dgvStockEntry.DataSource = dt;
         }
 
@@ -295,6 +340,85 @@ public partial class frmSupply : Form
             }
         }
 
+        private void UpdateStockTransactions()
+        {
+            if (_supplyID == 0)
+                return;
+
+            // 1. Pahle is SupplyID ke purane tamam stock transactions DELETE karein
+            stockDAL.DeleteStockTransactionsBySupplyID(_supplyID);
+
+            // 2. Phir Grid ka naya data FRESH INSERT karein
+            foreach (DataGridViewRow row in dgvStockEntry.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                // -----------------------------------------
+                // Get CategoryID & DenominationID
+                // -----------------------------------------
+                int categoryID = 0;
+                int denominationID = 0;
+
+                int.TryParse(Convert.ToString(row.Cells["StockCategoryID"].Value), out categoryID);
+                int.TryParse(Convert.ToString(row.Cells["StockDenominationID"].Value), out denominationID);
+
+                if (categoryID == 0 || denominationID == 0)
+                {
+                    MessageBox.Show("Please select a valid category and denomination.",
+                        "Stock Transaction",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    continue;
+                }
+
+                // -----------------------------------------
+                // Get StockID from StockMaster
+                // -----------------------------------------
+                int stockID = stockDAL.GetStockID(categoryID, denominationID);
+
+                if (stockID == 0)
+                {
+                    MessageBox.Show(
+                        "No stock record was found for the selected category/item in StockMaster",
+                        "Stock Transaction",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    continue;
+                }
+
+                // -----------------------------------------
+                // Get quantities from Stock Entry Grid
+                // -----------------------------------------
+                int boxQty = 0, packetQty = 0, sheetQty = 0, stampQty = 0;
+
+                int.TryParse(Convert.ToString(row.Cells["StockCaseQty"].Value), out boxQty);
+                int.TryParse(Convert.ToString(row.Cells["StockPacketQty"].Value), out packetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockSheetQty"].Value), out sheetQty);
+                int.TryParse(Convert.ToString(row.Cells["StockStampQty"].Value), out stampQty);
+
+                // -----------------------------------------
+                // Skip if all quantities are zero
+                // -----------------------------------------
+                if (boxQty == 0 && packetQty == 0 && sheetQty == 0 && stampQty == 0)
+                {
+                    continue;
+                }
+
+                // -----------------------------------------
+                // Fresh Insert (Chahe Naya Ho Ya Edit Mode Ho)
+                // -----------------------------------------
+                stockDAL.InsertStockTransactionOut(
+                    stockID,
+                    boxQty,
+                    packetQty,
+                    sheetQty,
+                    stampQty,
+                    _supplyID,
+                    txtRemarks.Text.Trim());
+            }
+        }
         private void SaveStockTransactions()
         {
             if (_supplyID == 0)
@@ -358,7 +482,6 @@ public partial class frmSupply : Form
                 {
                     continue;
                 }
-                MessageBox.Show($"Saving Stock Transaction for StockID: {stockID}, BoxQty: {boxQty}, PacketQty: {packetQty}, SheetQty: {sheetQty}, StampQty: {stampQty}");
                 // -----------------------------------------
                 // Insert ya Update Check
                 // -----------------------------------------
@@ -563,6 +686,7 @@ public partial class frmSupply : Form
                 "Supply",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+            UpdateStockTransactions();
         }
 
         private bool ValidateSupply(bool checkCase = false)
@@ -1503,15 +1627,19 @@ public partial class frmSupply : Form
             this.StockDenomination.Name = "StockDenomination";
             this.StockDenomination.ReadOnly = true;
 
+            this.StockCaseQty.DataPropertyName = "BoxQty";
             this.StockCaseQty.HeaderText = "Case Qty";
             this.StockCaseQty.Name = "StockCaseQty";
 
+            this.StockPacketQty.DataPropertyName = "PacketQty";
             this.StockPacketQty.HeaderText = "Packet Qty";
             this.StockPacketQty.Name = "StockPacketQty";
 
+            this.StockSheetQty.DataPropertyName = "SheetQty";
             this.StockSheetQty.HeaderText = "Sheet Qty";
             this.StockSheetQty.Name = "StockSheetQty";
 
+            this.StockStampQty.DataPropertyName = "StampQty";
             this.StockStampQty.HeaderText = "Stamp Qty";
             this.StockStampQty.Name = "StockStampQty";
 
@@ -1859,7 +1987,7 @@ public partial class frmSupply : Form
                 .DefaultCellStyle.ForeColor = Color.Black;
 
          
-
+            btnAssignInvoiceNo.Visible = false;
             btnApprove.Visible = false;
             btnIssue.Visible = false;
 
@@ -1875,6 +2003,8 @@ public partial class frmSupply : Form
                 _isEditDraft = true;
 
                 _isLoadingDraft = true;
+
+                
 
              this.Text = "Supply - Edit Draft";
 
@@ -1951,6 +2081,8 @@ public partial class frmSupply : Form
 
                 if (_currentStatusID == 1)
                 {
+                    btnAssignInvoiceNo.Visible = true;
+
                     this.Text = "Supply - Edit Draft";
 
                     btnSaveDraft.Text = "Update Draft";
@@ -3045,14 +3177,15 @@ public partial class frmSupply : Form
                 ApplyStatusColor(row, totalSupply, allowedQuantity);
 
                 // Sub Calculation khatam hone ke baad Stock Entry Reload karein
-                LoadStockEntryGrid();
             }
             catch (Exception ex)
+               
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
+                LoadStockEntryGrid();
                 _isUpdatingSupplyRow = false;
             }
         }

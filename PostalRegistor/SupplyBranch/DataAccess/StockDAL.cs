@@ -9,6 +9,18 @@ namespace SupplyBranch.DAL
     {
         DBHelper db = new DBHelper();
 
+        public bool DeleteStockTransactionsBySupplyID(int supplyID)
+        {
+            string query = "DELETE FROM StockTransaction WHERE SupplyID = @SupplyID";
+
+            SqlParameter[] p =
+            {
+        new SqlParameter("@SupplyID", supplyID)
+    };
+
+            return db.ExecuteNonQuery(query, p) >= 0;
+        }
+
         public DataRow GetStockBalance(int categoryID, int denominationID)
         {
             string query = @"

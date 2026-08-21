@@ -13,6 +13,8 @@ namespace SupplyBranch.DataAccess
     {
         private readonly DBHelper db = new DBHelper();
 
+
+
         public void UpdateIndentStatusAfterSupply(int supplyID, int indentID)
         {
             string sql = @"
@@ -110,21 +112,27 @@ WHERE SM.IndentID = @IndentID;
 
         public bool DeleteDraftSupply(int supplyID)
         {
+            // Pehle StockTransaction aur SupplyDetail se data delete ho ga, phir SupplyMaster se
             string query = @"
+        -- 1. Stock Transactions Delete Karein
+        DELETE FROM StockTransaction 
+        WHERE SupplyID = @SupplyID;
 
-DELETE FROM SupplyDetail
-WHERE SupplyID=@SupplyID
-AND EXISTS
-(
-    SELECT 1
-    FROM SupplyMaster
-    WHERE SupplyID=@SupplyID
-    AND StatusID=1
-);
+        -- 2. Supply Detail Delete Karein (Sirf agar status Draft ho)
+        DELETE FROM SupplyDetail 
+        WHERE SupplyID = @SupplyID 
+          AND EXISTS (
+              SELECT 1 
+              FROM SupplyMaster 
+              WHERE SupplyID = @SupplyID 
+                AND StatusID = 1
+          );
 
-DELETE FROM SupplyMaster
-WHERE SupplyID=@SupplyID
-AND StatusID=1";
+        -- 3. Supply Master Delete Karein (Draft status)
+        DELETE FROM SupplyMaster 
+        WHERE SupplyID = @SupplyID 
+          AND StatusID = 1;
+    ";
 
             SqlParameter[] p =
             {

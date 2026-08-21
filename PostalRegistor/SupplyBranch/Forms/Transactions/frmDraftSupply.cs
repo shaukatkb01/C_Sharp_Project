@@ -21,6 +21,8 @@ namespace SupplyBranch.Forms.Transactions
         OfficeDAL officeDAL = new OfficeDAL();
         private SupplyDAL supplyDAL = new SupplyDAL();
 
+
+
         private void DeleteSupply()
         {
             int supplyID = Convert.ToInt32(

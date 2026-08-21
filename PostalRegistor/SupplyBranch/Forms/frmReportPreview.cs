@@ -83,8 +83,7 @@ namespace SupplyBranch.Forms
                 // Indent Reports
                 //-------------------------------------------------
 
-                if (_reportFile == "rptIndentRegister.rdlc" ||
-                    _reportFile == "rptOfficeWiseIndent.rdlc" ||
+                if (_reportFile == "rptOfficeWiseIndent.rdlc" ||
                     _reportFile == "rptCategoryWiseIndent.rdlc")
                 {
                     reportViewer1.LocalReport.DataSources.Add(
