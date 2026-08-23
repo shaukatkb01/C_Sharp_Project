@@ -6,7 +6,6 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptCategor
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptCategoryWiseSupply.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptDateWiseSupply.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptFinancialYearReport.rdlc
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptIndentRegister.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptInvoiceRegister.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptOfficeWiseIndent.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Debug\Reports\RDLC\rptOfficeWiseSupply.rdlc
@@ -94,6 +93,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Mast
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmUnitConversionMaster.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Masters.frmUserManagement.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Reports.frmReport.resources
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Stock.frmStockBalance.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Transactions.frmDraftSupply.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Transactions.frmIndentSearch.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Debug\SupplyBranch.Forms.Transactions.frmSupply.resources

@@ -34,7 +34,6 @@
             this.dgvTasks = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTasks)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -88,7 +87,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lblSubTitle);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.cmb_Task);
@@ -107,17 +105,6 @@
             this.panel2.Size = new System.Drawing.Size(800, 359);
             this.panel2.TabIndex = 5;
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(357, 12);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(86, 13);
-            this.lblSubTitle.TabIndex = 3;
-            this.lblSubTitle.Text = "Task Dashboard";
-            // 
             // frmDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,11 +113,10 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "frmDashBoard";
-            this.Text = "frmDashBoard";
+            this.Text = "Task Dashboard";
             this.Load += new System.EventHandler(this.frmDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTasks)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -144,6 +130,5 @@
         private System.Windows.Forms.DataGridView dgvTasks;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }

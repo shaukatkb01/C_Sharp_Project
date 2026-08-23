@@ -23,5 +23,7 @@ namespace SupplyBranch.Models
         public DateTime? ToDate { get; set; }
 
         public bool SupplyRegisterOnly { get; set; } = false;
+
+        public bool CurrentBalanceOnly { get; set; }
     }
 }

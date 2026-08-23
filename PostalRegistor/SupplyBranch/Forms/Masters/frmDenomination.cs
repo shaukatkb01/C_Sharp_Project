@@ -50,6 +50,8 @@ namespace SupplyBranch.Forms.Masters
             dgvDenomination.Columns["Category"].HeaderText = "Category";
             dgvDenomination.Columns["Denomination"].HeaderText = "Denomination";
             dgvDenomination.Columns["CategoryID"].Visible = false;
+
+            dgvDenomination.Columns["DenominationID"].Visible=false;
         }
 
         private void ResetForm()

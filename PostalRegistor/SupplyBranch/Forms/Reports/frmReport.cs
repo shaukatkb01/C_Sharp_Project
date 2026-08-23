@@ -8,6 +8,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
+
 namespace SupplyBranch.Forms.Reports
 {
     public partial class frmReport : Form
@@ -219,9 +220,10 @@ namespace SupplyBranch.Forms.Reports
 
                 case "Financial Year Report":
 
-                    reportFile = "rptFinancialYearReport.rdlc";
+                    reportFile = "rptCurrentStock.rdlc";
+                    StockDAL sd = new StockDAL();
 
-                    dt = _dal.GetSupplyRegister(filter);
+                    dt = sd.GetCurrentStockPosition();
 
                     break;
 
@@ -235,7 +237,7 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
 
-                case "Stock Register":
+                case "Current Stock":
                     reportFile = "rptStockRegister.rdlc";
                     dt = _dal.GetSupplyRegister(filter);
                     break;
@@ -336,7 +338,18 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
                 case "Financial Year Report":
-                   
+
+            
+                case "Pending Supplies":
+
+
+                    break;
+
+                case "Current Stock":
+
+                    break;
+
+                case "Index Register":
                     break;
 
 

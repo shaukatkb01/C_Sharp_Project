@@ -371,6 +371,9 @@
     <EmbeddedResource Include="Forms\Reports\frmReport.resx">
       <DependentUpon>frmReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Stock\frmStockBalance.resx">
+      <DependentUpon>frmStockBalance.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Transactions\frmDraftSupply.resx">
       <DependentUpon>frmDraftSupply.cs</DependentUpon>
     </EmbeddedResource>
@@ -392,6 +395,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reports\RDLC\rptCurrentStock.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\rptIndentRegister.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptCategoryWiseIndent.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -404,12 +409,9 @@
     <EmbeddedResource Include="Reports\RDLC\rptFinancialYearReport.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\RDLC\rptIndentRegister.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Content Include="Reports\RDLC\rptIndex.rdlc">
+    <EmbeddedResource Include="Reports\RDLC\rptIndex.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\RDLC\rptInvoiceRegister.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

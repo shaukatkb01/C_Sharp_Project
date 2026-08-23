@@ -9,6 +9,39 @@ namespace SupplyBranch.DAL
     {
         DBHelper db = new DBHelper();
 
+        public DataTable GetCurrentStockPosition()
+        {
+            DataTable dt = new DataTable();
+            string query = @"SELECT 
+                        CategoryName, 
+                        'Rs. ' + FORMAT(CAST(DenominationValue AS INT), '#,##0') + '/-' AS DenominationValue, 
+                        BalanceBoxQty, 
+                        BalancePacketQty, 
+                        BalanceSheetQty, 
+                        BalanceStampQty 
+                     FROM vw_CurrentStockPosition 
+                     ORDER BY CategoryName, DenominationValue";
+
+            try
+            {
+                using (SqlConnection conn = db.GetConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Stock balance data fetch karne mein masla aaya: " + ex.Message);
+            }
+
+            return dt;
+        }
         public bool DeleteStockTransactionsBySupplyID(int supplyID)
         {
             string query = "DELETE FROM StockTransaction WHERE SupplyID = @SupplyID";

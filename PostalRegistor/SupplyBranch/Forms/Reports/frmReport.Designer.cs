@@ -104,6 +104,7 @@
             "Dispatch Register",
             "Invoice Register",
             "Index Register",
+            "Current Stock",
             "Stock Register"});
             this.cmbReportType.Location = new System.Drawing.Point(234, 86);
             this.cmbReportType.Name = "cmbReportType";

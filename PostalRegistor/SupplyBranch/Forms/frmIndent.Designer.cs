@@ -54,7 +54,6 @@
             this.cmbOffice = new System.Windows.Forms.ComboBox();
             this.dgvItems = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblSubTitle = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.panel1.SuspendLayout();
@@ -62,7 +61,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.lblSubTitle);
             this.panel2.Controls.Add(this.lblStampPersheet);
             this.panel2.Controls.Add(this.lblTotalPieces);
             this.panel2.Controls.Add(this.label10);
@@ -359,15 +357,6 @@
             this.panel1.Size = new System.Drawing.Size(852, 269);
             this.panel1.TabIndex = 11;
             // 
-            // lblSubTitle
-            // 
-            this.lblSubTitle.AutoSize = true;
-            this.lblSubTitle.Location = new System.Drawing.Point(382, 18);
-            this.lblSubTitle.Name = "lblSubTitle";
-            this.lblSubTitle.Size = new System.Drawing.Size(88, 13);
-            this.lblSubTitle.TabIndex = 58;
-            this.lblSubTitle.Text = "INDENT ENTRY";
-            // 
             // frmIndent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -418,6 +407,5 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView dgvItems;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblSubTitle;
     }
 }
