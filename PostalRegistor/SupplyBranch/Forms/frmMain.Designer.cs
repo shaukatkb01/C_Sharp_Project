@@ -73,6 +73,8 @@
             this.tsTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.pSBranchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +88,8 @@
             this.transactionsToolStripMenuItem,
             this.reportsToolStripMenuItem,
             this.administrationToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.pSBranchToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 29);
@@ -436,6 +439,21 @@
             this.pnlMain.Size = new System.Drawing.Size(800, 313);
             this.pnlMain.TabIndex = 10;
             // 
+            // pSBranchToolStripMenuItem
+            // 
+            this.pSBranchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileIndexToolStripMenuItem});
+            this.pSBranchToolStripMenuItem.Name = "pSBranchToolStripMenuItem";
+            this.pSBranchToolStripMenuItem.Size = new System.Drawing.Size(92, 25);
+            this.pSBranchToolStripMenuItem.Text = "PS Branch";
+            // 
+            // fileIndexToolStripMenuItem
+            // 
+            this.fileIndexToolStripMenuItem.Name = "fileIndexToolStripMenuItem";
+            this.fileIndexToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.fileIndexToolStripMenuItem.Text = "FileIndex";
+            this.fileIndexToolStripMenuItem.Click += new System.EventHandler(this.fileIndexToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -509,5 +527,7 @@
         private System.Windows.Forms.ToolStripMenuItem enterStockToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stockBalanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stockAdjustmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pSBranchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileIndexToolStripMenuItem;
     }
 }

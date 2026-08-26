@@ -260,6 +260,7 @@
             this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistory.Location = new System.Drawing.Point(3, 342);
             this.dgvHistory.Name = "dgvHistory";
+            this.dgvHistory.ReadOnly = true;
             this.dgvHistory.Size = new System.Drawing.Size(781, 167);
             this.dgvHistory.TabIndex = 5;
             // 

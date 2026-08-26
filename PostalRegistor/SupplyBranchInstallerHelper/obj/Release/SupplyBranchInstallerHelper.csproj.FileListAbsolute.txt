@@ -1,0 +1,7 @@
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\bin\Release\SupplyBranchInstallerHelper.exe.config
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\bin\Release\SupplyBranchInstallerHelper.exe
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\bin\Release\SupplyBranchInstallerHelper.pdb
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\obj\Release\SupplyBranchInstallerHelper.csproj.AssemblyReference.cache
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\obj\Release\SupplyBranchInstallerHelper.csproj.CoreCompileInputs.cache
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\obj\Release\SupplyBranchInstallerHelper.exe
+D:\C_Sharp_Project\PostalRegistor\SupplyBranchInstallerHelper\obj\Release\SupplyBranchInstallerHelper.pdb

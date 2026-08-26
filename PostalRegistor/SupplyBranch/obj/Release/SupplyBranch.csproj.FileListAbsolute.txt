@@ -105,3 +105,6 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.csproj.C
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBr.DF40EA13.Up2Date
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.pdb
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.pdb
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe.config

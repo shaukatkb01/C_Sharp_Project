@@ -25,6 +25,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
 namespace SupplyBranch.Forms
 {
    
@@ -530,6 +532,12 @@ namespace SupplyBranch.Forms
         private void stockAdjustmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenForm(new frmStockAdjustment());
+        }
+
+        private void fileIndexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //FileIndex.Main frm = new FileIndex.Main();
+            //OpenForm(new FileIndex.Main());
         }
     }
 }
