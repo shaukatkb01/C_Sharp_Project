@@ -1,4 +1,5 @@
-﻿using SupplyBranch.Classes;
+﻿using StampStoreApp;
+using SupplyBranch.Classes;
 using SupplyBranch.DataAccess;
 using SupplyBranch.Forms.Administration;
 using SupplyBranch.Forms.Help;
@@ -524,6 +525,11 @@ namespace SupplyBranch.Forms
         private void stockBalanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenForm(new frmStockBalance());
+        }
+
+        private void stockAdjustmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockAdjustment());
         }
     }
 }

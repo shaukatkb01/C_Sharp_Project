@@ -83,6 +83,27 @@ namespace SupplyBranch.Helpers
         }
         DBConnection db = new DBConnection();
 
+        public DataTable GetDataTable(string query, SqlParameter[] parameters = null)
+        {
+            using (SqlConnection con = db.GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                // Agar parameters pass kiye gaye hain toh unhe command mein add karein
+                if (parameters != null)
+                {
+                    cmd.Parameters.AddRange(parameters);
+                }
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                return dt;
+            }
+        }
+
         public DataTable GetDataTable(string query)
         {
             using (SqlConnection con = db.GetConnection())

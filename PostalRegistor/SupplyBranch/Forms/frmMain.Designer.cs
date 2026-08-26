@@ -42,6 +42,10 @@
             this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUserManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enterStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockBalanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockAdjustmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indentEntryerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,10 +73,6 @@
             this.tsTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.stockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.enterStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stockBalanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stockAdjustmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -191,6 +191,37 @@
             this.mnuUserManagement.Size = new System.Drawing.Size(208, 26);
             this.mnuUserManagement.Text = "User Management";
             this.mnuUserManagement.Click += new System.EventHandler(this.mnuUserManagement_Click);
+            // 
+            // stockToolStripMenuItem
+            // 
+            this.stockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enterStockToolStripMenuItem,
+            this.stockBalanceToolStripMenuItem,
+            this.stockAdjustmentToolStripMenuItem});
+            this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
+            this.stockToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
+            this.stockToolStripMenuItem.Text = "Stock";
+            // 
+            // enterStockToolStripMenuItem
+            // 
+            this.enterStockToolStripMenuItem.Name = "enterStockToolStripMenuItem";
+            this.enterStockToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.enterStockToolStripMenuItem.Text = "Stock In";
+            this.enterStockToolStripMenuItem.Click += new System.EventHandler(this.enterStockToolStripMenuItem_Click);
+            // 
+            // stockBalanceToolStripMenuItem
+            // 
+            this.stockBalanceToolStripMenuItem.Name = "stockBalanceToolStripMenuItem";
+            this.stockBalanceToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.stockBalanceToolStripMenuItem.Text = "Stock Balance";
+            this.stockBalanceToolStripMenuItem.Click += new System.EventHandler(this.stockBalanceToolStripMenuItem_Click);
+            // 
+            // stockAdjustmentToolStripMenuItem
+            // 
+            this.stockAdjustmentToolStripMenuItem.Name = "stockAdjustmentToolStripMenuItem";
+            this.stockAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.stockAdjustmentToolStripMenuItem.Text = "Stock Adjustment";
+            this.stockAdjustmentToolStripMenuItem.Click += new System.EventHandler(this.stockAdjustmentToolStripMenuItem_Click);
             // 
             // transactionsToolStripMenuItem
             // 
@@ -404,36 +435,6 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(800, 313);
             this.pnlMain.TabIndex = 10;
-            // 
-            // stockToolStripMenuItem
-            // 
-            this.stockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.enterStockToolStripMenuItem,
-            this.stockBalanceToolStripMenuItem,
-            this.stockAdjustmentToolStripMenuItem});
-            this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
-            this.stockToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
-            this.stockToolStripMenuItem.Text = "Stock";
-            // 
-            // enterStockToolStripMenuItem
-            // 
-            this.enterStockToolStripMenuItem.Name = "enterStockToolStripMenuItem";
-            this.enterStockToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.enterStockToolStripMenuItem.Text = "Stock In";
-            this.enterStockToolStripMenuItem.Click += new System.EventHandler(this.enterStockToolStripMenuItem_Click);
-            // 
-            // stockBalanceToolStripMenuItem
-            // 
-            this.stockBalanceToolStripMenuItem.Name = "stockBalanceToolStripMenuItem";
-            this.stockBalanceToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            this.stockBalanceToolStripMenuItem.Text = "Stock Balance";
-            this.stockBalanceToolStripMenuItem.Click += new System.EventHandler(this.stockBalanceToolStripMenuItem_Click);
-            // 
-            // stockAdjustmentToolStripMenuItem
-            // 
-            this.stockAdjustmentToolStripMenuItem.Name = "stockAdjustmentToolStripMenuItem";
-            this.stockAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
-            this.stockAdjustmentToolStripMenuItem.Text = "Stock Adjustment";
             // 
             // frmMain
             // 

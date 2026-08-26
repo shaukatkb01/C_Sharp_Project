@@ -1565,6 +1565,9 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatColumnHeaders>true</RepeatColumnHeaders>
+        <RepeatRowHeaders>true</RepeatRowHeaders>
+        <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>dsSupply</DataSetName>
         <Top>1.06125in</Top>
         <Left>0.05625in</Left>

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SupplyBranch.DAL.StockDAL;
 
 
 namespace SupplyBranch.Forms.Transactions
@@ -91,7 +92,7 @@ public partial class frmSupply : Form
                     if (loosePieces < 1)
                     {
                         dgvSupplyDetail.Columns["IndentLoosePieces"].Visible = false;
-                        dgvSupplyDetail.Columns["SupplyPieces"].Visible = false;
+                        dgvSupplyDetail.Columns["SupplyPieces"].Visible = true;
                     }
                     // Agar Packing Type "Case" NAHI hai to columns hide karein
                     bool isCase = selectedPacking.Equals("Case", StringComparison.OrdinalIgnoreCase);
@@ -134,7 +135,7 @@ public partial class frmSupply : Form
                     }
 
                     SetSupplyColumnVisibility("IndentLoosePieces", hasValue);
-                    SetSupplyColumnVisibility("SupplyPieces", hasValue);
+                    //SetSupplyColumnVisibility("SupplyPieces", hasValue);
                     SetSupplyColumnVisibility("IndentTotalPieces", hasValue);
                 }
                 else // اگر Draft false ہے (New Entry)
@@ -421,93 +422,47 @@ public partial class frmSupply : Form
         }
         private void SaveStockTransactions()
         {
-            if (_supplyID == 0)
-            return;
+            if (_supplyID == 0) return;
             
-
             foreach (DataGridViewRow row in dgvStockEntry.Rows)
             {
-                if (row.IsNewRow)
-                    continue;
+                if (row.IsNewRow) continue;
 
-                // -----------------------------------------
-                // Get CategoryID & DenominationID
-                // -----------------------------------------
-                int categoryID = 0;
-                int denominationID = 0;
-
+                // 1. Grid se Inputs Read Karein
+                int categoryID = 0, denominationID = 0;
                 int.TryParse(Convert.ToString(row.Cells["StockCategoryID"].Value), out categoryID);
                 int.TryParse(Convert.ToString(row.Cells["StockDenominationID"].Value), out denominationID);
 
+                if (categoryID == 0 || denominationID == 0) continue;
 
-                if (categoryID == 0 || denominationID == 0)
-                {
-                    MessageBox.Show("Please select a valid category and denomination.",
-                        "Stock Transaction",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                    continue;
-                }
-
-                // -----------------------------------------
-                // Get StockID from StockMaster
-                // -----------------------------------------
                 int stockID = stockDAL.GetStockID(categoryID, denominationID);
+                if (stockID == 0) continue;
 
-                if (stockID == 0)
-                {
-                    MessageBox.Show(
-                        "No stock record was found for the selected category/item in StockMaster",
-                        "Stock Transaction",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    continue;
-                }
-
-                // -----------------------------------------
-                // Get quantities from Stock Entry Grid
-                // -----------------------------------------
                 int boxQty = 0, packetQty = 0, sheetQty = 0, stampQty = 0;
-
                 int.TryParse(Convert.ToString(row.Cells["StockCaseQty"].Value), out boxQty);
                 int.TryParse(Convert.ToString(row.Cells["StockPacketQty"].Value), out packetQty);
                 int.TryParse(Convert.ToString(row.Cells["StockSheetQty"].Value), out sheetQty);
                 int.TryParse(Convert.ToString(row.Cells["StockStampQty"].Value), out stampQty);
 
-                // -----------------------------------------
-                // Skip if all quantities are zero
-                // -----------------------------------------
-                if (boxQty == 0 && packetQty == 0 && sheetQty == 0 && stampQty == 0)
+                // Sub Quantities zero hon to skip karein
+                if (boxQty == 0 && packetQty == 0 && sheetQty == 0 && stampQty == 0) continue;
+
+                // 2. StockMaster Mein Auto-Break & Deduction (Box -> Packet -> Sheet -> Stamp)
+                if (_currentStatusID == 2)
                 {
-                    continue;
-                }
-                // -----------------------------------------
-                // Insert ya Update Check
-                // -----------------------------------------
+                    stockDAL.AutoConvertAndDeductStock(categoryID, denominationID, boxQty, packetQty, sheetQty, stampQty);
+
+                }// 3. StockTransaction Log Maintain Karein
                 if (_isEditDraft)
                 {
-                    // Agar edit mode hai to UPDATE chalayein
                     stockDAL.UpdateStockTransactionOut(
-                        stockID,
-                        boxQty,
-                        packetQty,
-                        sheetQty,
-                        stampQty,
-                        _supplyID,
-                        txtRemarks.Text.Trim());
+                        stockID, boxQty, packetQty, sheetQty, stampQty, _supplyID, txtRemarks.Text.Trim());
                 }
                 else
                 {
-                    // Naye draft ke waqt INSERT chalayein
+                   
                     stockDAL.InsertStockTransactionOut(
-                        stockID,
-                        boxQty,
-                        packetQty,
-                        sheetQty,
-                        stampQty,
-                        _supplyID,
-                        txtRemarks.Text.Trim());
+                        stockID, boxQty, packetQty, sheetQty, stampQty, _supplyID, txtRemarks.Text.Trim());
                 }
             }
         }
@@ -662,7 +617,7 @@ public partial class frmSupply : Form
             SaveSupplyDetails();
 
             // Save Stock Transaction OUT
-            SaveStockTransactions();
+            //SaveStockTransactions();
         }
 
         private void UpdateDraft()
@@ -679,7 +634,7 @@ public partial class frmSupply : Form
                 txtRemarks?.Text ?? string.Empty);
             // Detail Update
             SaveSupplyDetails();
-            SaveStockTransactions();
+            //SaveStockTransactions();
 
             MessageBox.Show(
                 "Draft Updated Successfully.",
@@ -740,6 +695,19 @@ public partial class frmSupply : Form
                 cmbPackingType.Focus();
                 return false;
             }
+
+     
+            if (string.IsNullOrEmpty(txtPackingQty?.Text))
+            {
+            MessageBox.Show(
+                    "Please insert PackingQty",
+                    "Validation",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                txtPackingQty?.Focus();
+                txtPackingQty.BackColor = Color.LightBlue;
+                return false;
+             }
 
 
             //=========================================
@@ -1239,8 +1207,8 @@ public partial class frmSupply : Form
 
             // Change موجود ہو تو
             // Approve / Issue بند
-            btnApprove.Enabled = !changed;
-            btnIssue.Enabled = !changed;
+            btnApprove.Visible= !changed;
+            btnIssue.Visible = !changed;
 
 
             // Save Changes صرف change کی صورت میں
@@ -1248,6 +1216,7 @@ public partial class frmSupply : Form
 
             if (changed)
             {
+                
                 btnSaveDraft.Enabled = true;
                 btnSaveDraft.Text = "Save Changes";
                 btnIssue.Text = "Save Changes First";
@@ -1986,10 +1955,31 @@ public partial class frmSupply : Form
             dgvSupplyDetail.Columns["originalPendingPieces"]
                 .DefaultCellStyle.ForeColor = Color.Black;
 
-         
+            // Numbers wale columns ko right align karein
+            dgvSupplyDetail.Columns["IndentSheets"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["IndentLoosePieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["IndentTotalPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dgvSupplyDetail.Columns["RemainingTotalPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["RemainingPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["SupplySheets"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["SupplySheets"].DefaultCellStyle.BackColor = Color.LightGray;
+            dgvSupplyDetail.Columns["SupplyPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["SupplyPieces"].DefaultCellStyle.BackColor = Color.LightGray;
+            dgvSupplyDetail.Columns["SupplyTotalPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvSupplyDetail.Columns["SupplyPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            // Grid Headers Styling
+            dgvSupplyDetail.EnableHeadersVisualStyles = false;
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(64, 40, 110);
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
+
+
             btnAssignInvoiceNo.Visible = false;
             btnApprove.Visible = false;
             btnIssue.Visible = false;
+            btnRefresh.Visible = false;
 
             LoadSupplyTypes();
 
@@ -2162,6 +2152,7 @@ public partial class frmSupply : Form
 
                 btnSaveDraft.Text = "Save Draft";
                 btnSaveDraft.Visible = true;
+                btnRefresh.Visible = true;
 
             }
 
@@ -2385,520 +2376,105 @@ public partial class frmSupply : Form
 
         
 
-        private void btnApprove_Click(object sender, EventArgs e)
-        {
-            if (!ValidateSupply(true))
-                return;
-
-            try
-            {
-                // ==================================================
-                // STEP 1
-                // Draft موجود ہونا چاہیے
-                // ==================================================
-
-                if (_supplyID == 0)
-                {
-                    MessageBox.Show(
-                        "Please save the Draft first.",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-
-                // ==================================================
-                // STEP 2
-                // Approval Confirmation
-                // ==================================================
-
-                DialogResult dr = MessageBox.Show(
-                    "Do you want to approve this Draft?\n\n" +
-                    "Once approved, the Supply Number will be finalized " +
-                    "and the Draft cannot be edited.",
-                    "Approve Supply",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (dr != DialogResult.Yes)
-                    return;
-
-
-                // ==================================================
-                // STEP 3
-                // Save the currently opened SupplyID
-                // ==================================================
-
-                int openedSupplyID = _supplyID;
-
-
-                // ==================================================
-                // STEP 4
-                // Get current Supply Number information
-                // ==================================================
-
-                SupplyNumberInfo currentInfo =
-                    supplyDAL.GetSupplyNumberInfo(openedSupplyID);
-
-                if (currentInfo == null)
-                {
-                    MessageBox.Show(
-                        "Current Supply Number information could not be found.",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-
-                    return;
-                }
-
-
-                // ==================================================
-                // STEP 5
-                // Financial Year
-                // Take it from the CURRENT Draft itself.
-                // ==================================================
-
-                string financialYear =
-                    currentInfo.FinancialYear;
-
-
-                // ==================================================
-                // STEP 6
-                // Get Office information
-                // ==================================================
-
-                var office =
-                    supplyDAL.GetOfficeInfo(_indentID);
-
-                // GetOfficeInfo() returns a value/object in
-                // the current project, therefore we check OfficeID.
-                if (office.OfficeID <= 0)
-                {
-                    MessageBox.Show(
-                        "Office information could not be found.",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-
-                    return;
-                }
-
-
-                // ==================================================
-                // STEP 7
-                // Find FIRST AVAILABLE Global Sequence
-                //
-                // The current SupplyID is excluded inside DAL.
-                // Draft + Approved + Issued are treated as occupied.
-                // ==================================================
-
-                int requiredGlobalSequence =
-                    supplyDAL.GetNextAvailableGlobalSequence(
-                        openedSupplyID,
-                        financialYear);
-
-
-                // ==================================================
-                // STEP 8
-                // Find FIRST AVAILABLE Office Sequence
-                //
-                // The current SupplyID is excluded inside DAL.
-                // ==================================================
-
-                int requiredOfficeSequence =
-                    supplyDAL.GetNextAvailableOfficeSequence(
-                        openedSupplyID,
-                        office.OfficeID,
-                        financialYear);
-
-
-                // ==================================================
-                // STEP 9
-                // Compare current number with required number
-                //
-                // If current Draft number is wrong:
-                //
-                // 1. Correct ONLY this Draft
-                // 2. Do NOT approve
-                // 3. Inform the user
-                // 4. Close the form
-                //
-                // User will reopen the Draft and approve it.
-                // ==================================================
-
-                if (currentInfo.GlobalSequence != requiredGlobalSequence ||
-                    currentInfo.OfficeSequence != requiredOfficeSequence)
-                {
-                    bool updated =
-                        supplyDAL.UpdateDraftSupplyNumber(
-                            openedSupplyID,
-                            requiredGlobalSequence,
-                            requiredOfficeSequence,
-                            office.OfficeCode,
-                            financialYear);
-
-                    if (!updated)
-                    {
-                        MessageBox.Show(
-                            "Unable to correct the Supply Number.",
-                            "Supply",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-
-                        this.DialogResult = DialogResult.Cancel;
-                        this.Close();
-
-                        return;
-                    }
-
-                    MessageBox.Show(
-                        "The Supply Number has been corrected according to the current sequence.\n\n" +
-                        "Please reopen this Draft and approve it.",
-                        "Supply Number Corrected",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-
-                    return;
-                }
-
-
-                // ==================================================
-                // STEP 10
-                // Now check LOWEST DRAFT
-                //
-                // Number is already correct.
-                // Now determine whether this Draft is next in line.
-                // ==================================================
-
-                if (!supplyDAL.CanApproveDraftSequentially(openedSupplyID))
-                {
-                    MessageBox.Show(
-                        "This Supply cannot be approved yet because an earlier Draft Supply is still pending approval.\n\n" +
-                        "Please approve the Draft Supplies in sequence.",
-                        "Approval Sequence",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-
-                    return;
-                }
-
-
-                // ==================================================
-                // STEP 11
-                // Save latest Draft Header changes
-                // ==================================================
-
-                supplyDAL.UpdateSupplyMaster(
-                    openedSupplyID,
-                    Convert.ToInt32(cmbSupplyType.SelectedValue),
-                    dtSupplyDate.Value,
-                    cmbDispatchMode.Text,
-                    cmbPackingType.Text,
-                    Convert.ToInt32(txtPackingQty.Text),
-                    txtInvoiceNo?.Text ?? string.Empty,
-                    txtRemarks.Text);
-
-
-                // ==================================================
-                // STEP 12
-                // Save Grid Details
-                // ==================================================
-
-                SaveSupplyDetails();
-
-
-                // ==================================================
-                // STEP 13
-                // Generate Final Approved Supply Number
-                // ==================================================
-
-                SupplyNumberGenerator generator =
-                    new SupplyNumberGenerator();
-
-                SupplyNumberInfo info =
-                    generator.GenerateApprovedSupplyNumber(_indentID);
-
-
-                // ==================================================
-                // STEP 14
-                // Ensure Invoice Number
-                // ==================================================
-
-                SupplyDAL dal =
-                    new SupplyDAL();
-
-                string invoice =
-                    dal.EnsureValidInvoice(
-                        openedSupplyID,
-                        false);
-
-                txtInvoiceNo.Text = invoice;
-
-
-                // ==================================================
-                // STEP 15
-                // Approve Supply
-                // ==================================================
-
-                supplyDAL.ApproveSupply(
-                    openedSupplyID,
-                    info,
-                    Convert.ToInt32(cmbSupplyType.SelectedValue),
-                    cmbDispatchMode.Text,
-                    cmbPackingType.Text,
-                    Convert.ToInt32(txtPackingQty.Text),
-                    txtRemarks.Text);
-
-
-                // ==================================================
-                // STEP 16
-                // Update Indent Status
-                // ==================================================
-
-                supplyDAL.UpdateIndentStatusAfterSupply(
-                    openedSupplyID,
-                    _indentID);
-
-
-                // ==================================================
-                // STEP 17
-                // Refresh Screen
-                // ==================================================
-
-                txtSupplyNo.Text =
-                    info.SupplyNo;
-
-                txtFinancialYear.Text =
-                    info.FinancialYear;
-
-                txtSupplyStatus.Text =
-                    "Approved";
-
-
-                // ==================================================
-                // STEP 18
-                // Success Message
-                // ==================================================
-
-                MessageBox.Show(
-                    "Supply Approved Successfully.",
-                    "Supply",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-
-                // ==================================================
-                // STEP 19
-                // Close Form
-                // ==================================================
-
-                this.DialogResult =
-                    DialogResult.OK;
-
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnIssue_Click(object sender, EventArgs e)
-        {
-            if (!Validate(true))
-                return;
-            try
-            {
-                if (_supplyID == 0)
-                {
-                    MessageBox.Show(
-                        "Supply record not found.",
-                        "Issue Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-                // صرف Approved Supply ہی Issue ہوگی
-                if (_currentStatusID != 2)
-                {
-                    SupplyDAL dal = new SupplyDAL();
-                    string invoice = dal.EnsureValidInvoice(_supplyID, false);
-                    txtInvoiceNo.Text = invoice;
-                    MessageBox.Show(
-                        "Only Approved Supply can be Issued.",
-                        "Issue Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-                DialogResult dr = MessageBox.Show(
-                    "Do you want to Issue this Supply?\n\nOnce Issued, it cannot be edited.",
-                    "Issue Supply",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (dr != DialogResult.Yes)
-                    return;
-
-                // Status = Issued
-                supplyDAL.IssueSupply(_supplyID);
-
-                _currentStatusID = 3;
-                txtSupplyStatus.Text = "Issued";
-
-                MessageBox.Show(
-                    "Supply Issued Successfully.",
-                    "Issue Supply",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                // Form Lock
-                btnSaveDraft.Enabled = false;
-                btnApprove.Enabled = false;
-                btnIssue.Enabled = false;
-
-                cmbSupplyType.Enabled = false;
-                cmbDispatchMode.Enabled = false;
-                cmbPackingType.Enabled = false;
-
-                txtPackingQty.ReadOnly = true;
-                txtRemarks.ReadOnly = true;
-
-                dgvSupplyDetail.ReadOnly = true;
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            switch (_currentStatusID)
-            {
-                case 1: // Draft
-                    btnSaveDraft.Visible = true;
-                    btnApprove.Visible = true;
-                    btnIssue.Visible = false;
-                    btnCancel.Visible = true;
-
-                    break;
-
-                case 2: // Approved
-                    btnSaveDraft.Visible = true;
-                    btnApprove.Visible = false;
-                    btnIssue.Visible = true;
-                    btnCancel.Visible = false;
-                    break;
-
-                case 3: // Issued
-                    btnSaveDraft.Visible = false;
-                    btnApprove.Visible = false;
-                    btnIssue.Visible = false;
-                    btnCancel.Visible = false;
-                    dgvSupplyDetail.ReadOnly = true;
-                    break;
-
-                case 4: // Cancelled
-                    btnSaveDraft.Visible = false;
-                    btnApprove.Visible = false;
-                    btnIssue.Visible = false;
-                    btnCancel.Visible = false;
-                    dgvSupplyDetail.ReadOnly = true;
-                    break;
-            }
-            try
-            {
-                if (_supplyID == 0)
-                {
-                    MessageBox.Show(
-                        "No Supply selected.",
-                        "Cancel Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-                // صرف Draft Cancel ہوگی
-                if (_currentStatusID != 1)
-                {
-                    MessageBox.Show(
-                        "Only Draft Supply can be Cancelled.",
-                        "Cancel Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-
-                    return;
-                }
-
-                DialogResult dr = MessageBox.Show(
-                    "Do you want to Cancel this Draft?\n\nThis Draft will no longer be available for processing.",
-                    "Cancel Draft",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (dr != DialogResult.Yes)
-                    return;
-
-                // Status = Cancelled
-                supplyDAL.CancelSupply(_supplyID);
-
-                _currentStatusID = 4;
-                txtSupplyStatus.Text = "Cancelled";
-
-                MessageBox.Show(
-                    "Draft Cancelled Successfully.",
-                    "Cancel Supply",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
+
+       
+
+        //private void btnCancel_Click(object sender, EventArgs e)
+        //{
+        //    switch (_currentStatusID)
+        //    {
+        //        case 1: // Draft
+        //            btnSaveDraft.Visible = true;
+        //            btnApprove.Visible = true;
+        //            btnIssue.Visible = false;
+        //            btnCancel.Visible = true;
+
+        //            break;
+
+        //        case 2: // Approved
+        //            btnSaveDraft.Visible = true;
+        //            btnApprove.Visible = false;
+        //            btnIssue.Visible = true;
+        //            btnCancel.Visible = false;
+        //            break;
+
+        //        case 3: // Issued
+        //            btnSaveDraft.Visible = false;
+        //            btnApprove.Visible = false;
+        //            btnIssue.Visible = false;
+        //            btnCancel.Visible = false;
+        //            dgvSupplyDetail.ReadOnly = true;
+        //            break;
+
+        //        case 4: // Cancelled
+        //            btnSaveDraft.Visible = false;
+        //            btnApprove.Visible = false;
+        //            btnIssue.Visible = false;
+        //            btnCancel.Visible = false;
+        //            dgvSupplyDetail.ReadOnly = true;
+        //            break;
+        //    }
+        //    try
+        //    {
+        //        if (_supplyID == 0)
+        //        {
+        //            MessageBox.Show(
+        //                "No Supply selected.",
+        //                "Cancel Supply",
+        //                MessageBoxButtons.OK,
+        //                MessageBoxIcon.Warning);
+
+        //            return;
+        //        }
+
+        //        // صرف Draft Cancel ہوگی
+        //        if (_currentStatusID != 1)
+        //        {
+        //            MessageBox.Show(
+        //                "Only Draft Supply can be Cancelled.",
+        //                "Cancel Supply",
+        //                MessageBoxButtons.OK,
+        //                MessageBoxIcon.Warning);
+
+        //            return;
+        //        }
+
+        //        DialogResult dr = MessageBox.Show(
+        //            "Do you want to Cancel this Draft?\n\nThis Draft will no longer be available for processing.",
+        //            "Cancel Draft",
+        //            MessageBoxButtons.YesNo,
+        //            MessageBoxIcon.Question);
+
+        //        if (dr != DialogResult.Yes)
+        //            return;
+
+        //        // Status = Cancelled
+        //        supplyDAL.CancelSupply(_supplyID);
+
+        //        _currentStatusID = 4;
+        //        txtSupplyStatus.Text = "Cancelled";
+
+        //        MessageBox.Show(
+        //            "Draft Cancelled Successfully.",
+        //            "Cancel Supply",
+        //            MessageBoxButtons.OK,
+        //            MessageBoxIcon.Information);
+
+        //        this.DialogResult = DialogResult.OK;
+        //        this.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(
+        //            ex.Message,
+        //            "Error",
+        //            MessageBoxButtons.OK,
+        //            MessageBoxIcon.Error);
+        //    }
+        //}
+
+       
 
         private void rptSupplyPerforma_Click(object sender, EventArgs e)
         {
@@ -2929,154 +2505,9 @@ public partial class frmSupply : Form
             frm.ShowDialog();
         }
 
-        private void btnAssignInvoiceNo_Click(object sender, EventArgs e)
-        {
-                SupplyDAL dal = new SupplyDAL();
-            if (!dal.CanAssignInvoiceSequentially(_supplyID))
-            {
-                MessageBox.Show(
-                    "Previous draft supply invoice must be assigned first.",
-                    "Invoice Sequence",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+      
 
-                return;
-            }
-
-            try
-            {
-
-
-                // پہلے Validation / Generation کرو
-                string invoice = dal.EnsureValidInvoice(_supplyID, true);
-
-                int openedSupplyID = _supplyID;
-
-              
-                txtInvoiceNo.Text = invoice;
-
-                // اب Result Check کرو
-                if (dal.InvoiceRegenerated)
-                {
-                    MessageBox.Show(
-                        "Invoice Number was invalid and has been reassigned.",
-                        "Invoice",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(
-                        "Invoice Number is already valid.",
-                        "Invoice",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnSaveDraft_Click(object sender, EventArgs e)
-        {
-           if (!ValidateSupply())
-                return;
-
-            if (!ValidateStockEntry())
-                return;
-
-
-
-            try
-            {
-
-                // =========================================
-                // NEW SUPPLY
-                // =========================================
-
-                if (_supplyID == 0)
-                {
-
-                    SaveDraft();
-
-                    MessageBox.Show(
-                        "Draft Saved Successfully.",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-
-                    return;
-                }
-
-
-                // =========================================
-                // EXISTING SUPPLY
-                // =========================================
-
-                // پہلے check کریں کہ واقعی کوئی change ہوا ہے یا نہیں
-                CheckDraftChanges();
-
-                if (!_isDataChanged)
-                {
-                    MessageBox.Show(
-                        "No changes found.",
-                        "Supply",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    return;
-                }
-
-
-                // =========================================
-                // UPDATE
-                // =========================================
-                MessageBox.Show("Updating Draft",
-                    "Supply",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-
-                UpdateDraft();
-
-                
-
-                _isDataChanged = false;
-
-                // دوبارہ current values کا snapshot لے لیں
-                SaveOriginalDraftValues();
-
-                btnIssue.Enabled = true;
-                btnIssue.Text = "Issue";
-
-
-                MessageBox.Show(
-                    "Changes Saved Successfully.",
-                    "Supply",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    ex.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
+       
 
         private void dgvSupplyDetail_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -3358,6 +2789,644 @@ public partial class frmSupply : Form
                     e.Value = $"Rs.{Convert.ToInt32(amount)}/-";
                     e.FormattingApplied = true;
                 }
+            }
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnApprove_Click(object sender, EventArgs e)
+        {
+            if (!ValidateSupply(true))
+                return;
+
+            try
+            {
+                // ==================================================
+                // STEP 1
+                // Draft موجود ہونا چاہیے
+                // ==================================================
+
+                if (_supplyID == 0)
+                {
+                    MessageBox.Show(
+                        "Please save the Draft first.",
+                        "Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+
+                // ==================================================
+                // STEP 2
+                // Approval Confirmation
+                // ==================================================
+
+                DialogResult dr = MessageBox.Show(
+                    "Do you want to approve this Draft?\n\n" +
+                    "Once approved, the Supply Number will be finalized " +
+                    "and the Draft cannot be edited.",
+                    "Approve Supply",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (dr != DialogResult.Yes)
+                    return;
+
+
+                // ==================================================
+                // STEP 3
+                // Save the currently opened SupplyID
+                // ==================================================
+
+                int openedSupplyID = _supplyID;
+
+
+                // ==================================================
+                // STEP 4
+                // Get current Supply Number information
+                // ==================================================
+
+                SupplyNumberInfo currentInfo =
+                    supplyDAL.GetSupplyNumberInfo(openedSupplyID);
+
+                if (currentInfo == null)
+                {
+                    MessageBox.Show(
+                        "Current Supply Number information could not be found.",
+                        "Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+
+                    return;
+                }
+
+
+                // ==================================================
+                // STEP 5
+                // Financial Year
+                // Take it from the CURRENT Draft itself.
+                // ==================================================
+
+                string financialYear =
+                    currentInfo.FinancialYear;
+
+
+                // ==================================================
+                // STEP 6
+                // Get Office information
+                // ==================================================
+
+                var office =
+                    supplyDAL.GetOfficeInfo(_indentID);
+
+                // GetOfficeInfo() returns a value/object in
+                // the current project, therefore we check OfficeID.
+                if (office.OfficeID <= 0)
+                {
+                    MessageBox.Show(
+                        "Office information could not be found.",
+                        "Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+
+                    return;
+                }
+
+
+                // ==================================================
+                // STEP 7
+                // Find FIRST AVAILABLE Global Sequence
+                //
+                // The current SupplyID is excluded inside DAL.
+                // Draft + Approved + Issued are treated as occupied.
+                // ==================================================
+
+                int requiredGlobalSequence =
+                    supplyDAL.GetNextAvailableGlobalSequence(
+                        openedSupplyID,
+                        financialYear);
+
+
+                // ==================================================
+                // STEP 8
+                // Find FIRST AVAILABLE Office Sequence
+                //
+                // The current SupplyID is excluded inside DAL.
+                // ==================================================
+
+                int requiredOfficeSequence =
+                    supplyDAL.GetNextAvailableOfficeSequence(
+                        openedSupplyID,
+                        office.OfficeID,
+                        financialYear);
+
+
+                // ==================================================
+                // STEP 9
+                // Compare current number with required number
+                //
+                // If current Draft number is wrong:
+                //
+                // 1. Correct ONLY this Draft
+                // 2. Do NOT approve
+                // 3. Inform the user
+                // 4. Close the form
+                //
+                // User will reopen the Draft and approve it.
+                // ==================================================
+
+                if (currentInfo.GlobalSequence != requiredGlobalSequence ||
+                    currentInfo.OfficeSequence != requiredOfficeSequence)
+                {
+                    bool updated =
+                        supplyDAL.UpdateDraftSupplyNumber(
+                            openedSupplyID,
+                            requiredGlobalSequence,
+                            requiredOfficeSequence,
+                            office.OfficeCode,
+                            financialYear);
+
+                    if (!updated)
+                    {
+                        MessageBox.Show(
+                            "Unable to correct the Supply Number.",
+                            "Supply",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+                        this.DialogResult = DialogResult.Cancel;
+                        this.Close();
+
+                        return;
+                    }
+
+                    MessageBox.Show(
+                        "The Supply Number has been corrected according to the current sequence.\n\n" +
+                        "Please reopen this Draft and approve it.",
+                        "Supply Number Corrected",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+
+                    return;
+                }
+
+
+                // ==================================================
+                // STEP 10
+                // Now check LOWEST DRAFT
+                //
+                // Number is already correct.
+                // Now determine whether this Draft is next in line.
+                // ==================================================
+
+                if (!supplyDAL.CanApproveDraftSequentially(openedSupplyID))
+                {
+                    MessageBox.Show(
+                        "This Supply cannot be approved yet because an earlier Draft Supply is still pending approval.\n\n" +
+                        "Please approve the Draft Supplies in sequence.",
+                        "Approval Sequence",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+
+                    return;
+                }
+
+
+                // ==================================================
+                // STEP 11
+                // Save latest Draft Header changes
+                // ==================================================
+
+                supplyDAL.UpdateSupplyMaster(
+                    openedSupplyID,
+                    Convert.ToInt32(cmbSupplyType.SelectedValue),
+                    dtSupplyDate.Value,
+                    cmbDispatchMode.Text,
+                    cmbPackingType.Text,
+                    Convert.ToInt32(txtPackingQty.Text),
+                    txtInvoiceNo?.Text ?? string.Empty,
+                    txtRemarks.Text);
+
+                // ==================================================
+                // STEP 12
+                // Save Grid Details
+                // ==================================================
+
+                SaveSupplyDetails();
+
+
+
+                // ==================================================
+                // STEP 13
+                // Generate Final Approved Supply Number
+                // ==================================================
+
+                SupplyNumberGenerator generator =
+                    new SupplyNumberGenerator();
+
+                SupplyNumberInfo info =
+                    generator.GenerateApprovedSupplyNumber(_indentID);
+
+
+                // ==================================================
+                // STEP 14
+                // Ensure Invoice Number
+                // ==================================================
+
+                SupplyDAL dal =
+                    new SupplyDAL();
+
+                string invoice =
+                    dal.EnsureValidInvoice(
+                        openedSupplyID,
+                        false);
+
+                txtInvoiceNo.Text = invoice;
+
+
+                // ==================================================
+                // STEP 15
+                // Approve Supply
+                // ==================================================
+
+                supplyDAL.ApproveSupply(
+                    openedSupplyID,
+                    info,
+                    Convert.ToInt32(cmbSupplyType.SelectedValue),
+                    cmbDispatchMode.Text,
+                    cmbPackingType.Text,
+                    Convert.ToInt32(txtPackingQty.Text),
+                    txtRemarks.Text);
+
+
+                // ==================================================
+                // STEP 16
+                // Update Indent Status
+                // ==================================================
+
+                supplyDAL.UpdateIndentStatusAfterSupply(
+                    openedSupplyID,
+                    _indentID);
+
+
+                // ==================================================
+                // STEP 17
+                // Refresh Screen
+                // ==================================================
+
+                txtSupplyNo.Text =
+                    info.SupplyNo;
+
+                txtFinancialYear.Text =
+                    info.FinancialYear;
+
+                txtSupplyStatus.Text =
+                    "Approved";
+
+
+                // ==================================================
+                // STEP 18
+                // Success Message
+                // ==================================================
+
+                MessageBox.Show(
+                    "Supply Approved Successfully.",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+
+                // ==================================================
+                // STEP 19
+                // Close Form
+                // ==================================================
+
+                this.DialogResult =
+                    DialogResult.OK;
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnAssignInvoiceNo_Click(object sender, EventArgs e)
+        {
+            SupplyDAL dal = new SupplyDAL();
+            if (!dal.CanAssignInvoiceSequentially(_supplyID))
+            {
+                MessageBox.Show(
+                    "Previous draft supply invoice must be assigned first.",
+                    "Invoice Sequence",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+
+
+                // پہلے Validation / Generation کرو
+                string invoice = dal.EnsureValidInvoice(_supplyID, true);
+
+                int openedSupplyID = _supplyID;
+
+
+                txtInvoiceNo.Text = invoice;
+
+                // اب Result Check کرو
+                if (dal.InvoiceRegenerated)
+                {
+                    MessageBox.Show(
+                        "Invoice Number was invalid and has been reassigned.",
+                        "Invoice",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Invoice Number is already valid.",
+                        "Invoice",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSaveDraft_Click(object sender, EventArgs e)
+        {
+
+            if (!ValidateSupply())
+                return;
+
+            if (!ValidateStockEntry())
+                return;
+
+
+
+            try
+            {
+
+                // =========================================
+                // NEW SUPPLY
+                // =========================================
+
+                if (_supplyID == 0)
+                {
+
+                    SaveDraft();
+                    SaveStockTransactions();
+                    MessageBox.Show(
+                        "Draft Saved Successfully.",
+                        "Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+
+                    return;
+                }
+
+
+                // =========================================
+                // EXISTING SUPPLY
+                // =========================================
+
+                // پہلے check کریں کہ واقعی کوئی change ہوا ہے یا نہیں
+                CheckDraftChanges();
+
+                if (!_isDataChanged)
+                {
+                    MessageBox.Show(
+                        "No changes found.",
+                        "Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    return;
+                }
+
+
+                // =========================================
+                // UPDATE
+                // =========================================
+
+
+                UpdateDraft();
+
+                SaveStockTransactions();
+
+
+
+
+
+
+                _isDataChanged = false;
+
+                // دوبارہ current values کا snapshot لے لیں
+                SaveOriginalDraftValues();
+
+                btnIssue.Enabled = true;
+                btnIssue.Text = "Issue";
+
+
+                MessageBox.Show(
+                    "Changes Saved Successfully.",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnIssue_Click(object sender, EventArgs e)
+        {
+
+            if (!Validate(true))
+                return;
+            try
+            {
+                if (_supplyID == 0)
+                {
+                    MessageBox.Show(
+                        "Supply record not found.",
+                        "Issue Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                // صرف Approved Supply ہی Issue ہوگی
+                if (_currentStatusID != 2)
+                {
+                    SupplyDAL dal = new SupplyDAL();
+                    string invoice = dal.EnsureValidInvoice(_supplyID, false);
+                    txtInvoiceNo.Text = invoice;
+                    MessageBox.Show(
+                        "Only Approved Supply can be Issued.",
+                        "Issue Supply",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                DialogResult dr = MessageBox.Show(
+                    "Do you want to Issue this Supply?\n\nOnce Issued, it cannot be edited.",
+                    "Issue Supply",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (dr != DialogResult.Yes)
+                    return;
+
+                // Status = Issued
+                supplyDAL.IssueSupply(_supplyID);
+                SaveStockTransactions();
+
+                _currentStatusID = 3;
+                txtSupplyStatus.Text = "Issued";
+
+                MessageBox.Show(
+                    "Supply Issued Successfully.",
+                    "Issue Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                // Form Lock
+                btnSaveDraft.Enabled = false;
+                btnApprove.Enabled = false;
+                btnIssue.Enabled = false;
+
+                cmbSupplyType.Enabled = false;
+                cmbDispatchMode.Enabled = false;
+                cmbPackingType.Enabled = false;
+
+                txtPackingQty.ReadOnly = true;
+                txtRemarks.ReadOnly = true;
+
+                dgvSupplyDetail.ReadOnly = true;
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            ResetSupplyEntry();
+        }
+
+        private void btnSupplyPerforma_Click(object sender, EventArgs e)
+        {
+            if (_supplyID == 0)
+            {
+                MessageBox.Show(
+                    "Please save Draft first.",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtInvoiceNo.Text))
+            {
+                MessageBox.Show(
+                    "Please assign Invoice Number first.",
+                    "Supply",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            frmReportPreview frm =
+                new frmReportPreview(_supplyID);
+
+            frm.ShowDialog();
+        }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void SupplySheets_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Agar pressed key number nahi hai aur Backspace bhi nahi hai to block kar dein
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Key input cancel ho jayegi
+            }
+        }
+        private void dgvSupplyDetail_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= SupplySheets_KeyPress;
+
+            // Direct Column Index ya Column Name se check karein
+            if (dgvSupplyDetail.CurrentCell.OwningColumn.Name == "SupplySheets"&& dgvSupplyDetail.CurrentCell.OwningColumn.Name == "SupplyPieces")
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    // Naya KeyPress Event Attach Karein
+                    tb.KeyPress += SupplySheets_KeyPress;
+                }
+
+               
+                
             }
         }
     }

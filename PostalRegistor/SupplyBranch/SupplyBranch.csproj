@@ -228,6 +228,12 @@
     <Compile Include="Forms\Reports\frmReport.Designer.cs">
       <DependentUpon>frmReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Stock\frmStockAdjustment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Stock\frmStockAdjustment.Designer.cs">
+      <DependentUpon>frmStockAdjustment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Stock\frmStockBalance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reports\frmReport.resx">
       <DependentUpon>frmReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Stock\frmStockAdjustment.resx">
+      <DependentUpon>frmStockAdjustment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Stock\frmStockBalance.resx">
       <DependentUpon>frmStockBalance.cs</DependentUpon>
