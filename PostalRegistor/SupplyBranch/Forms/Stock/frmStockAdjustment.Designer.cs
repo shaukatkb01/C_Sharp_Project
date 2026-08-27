@@ -234,7 +234,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(289, 268);
+            this.btnSave.Location = new System.Drawing.Point(283, 241);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(91, 42);
             this.btnSave.TabIndex = 2;
@@ -244,7 +244,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(404, 268);
+            this.btnClear.Location = new System.Drawing.Point(398, 241);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(91, 42);
             this.btnClear.TabIndex = 3;
@@ -257,17 +257,20 @@
             this.dgvHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvHistory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistory.Location = new System.Drawing.Point(3, 342);
+            this.dgvHistory.Location = new System.Drawing.Point(3, 289);
             this.dgvHistory.Name = "dgvHistory";
             this.dgvHistory.ReadOnly = true;
-            this.dgvHistory.Size = new System.Drawing.Size(781, 167);
+            this.dgvHistory.Size = new System.Drawing.Size(781, 220);
             this.dgvHistory.TabIndex = 5;
             // 
             // frmStockAdjustment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(784, 510);
             this.Controls.Add(this.dgvHistory);
             this.Controls.Add(this.btnClear);

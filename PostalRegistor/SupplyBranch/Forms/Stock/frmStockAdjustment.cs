@@ -73,6 +73,7 @@ namespace StampStoreApp
         {
             DataTable dt = stockDAL.GetAdjustmentHistory();
             dgvHistory.DataSource = dt;
+            dgvHistory.Columns["AdjustmentID"].Visible = false;
         }
 
          private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)

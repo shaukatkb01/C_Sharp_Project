@@ -2267,47 +2267,47 @@ public partial class frmSupply : Form
         private void dgvSupplyDetail_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
 
-            if (e.RowIndex < 0)
-                return;
+    //        if (e.RowIndex < 0)
+    //            return;
 
-            string col = dgvSupplyDetail.Columns[e.ColumnIndex].Name;
+    //        string col = dgvSupplyDetail.Columns[e.ColumnIndex].Name;
 
-            if (col != "SupplySheets" && col != "SupplyPieces")
-                return;
+    //        if (col != "SupplySheets" && col != "SupplyPieces")
+    //            return;
 
-            string value = e.FormattedValue.ToString().Trim();
+    //        string value = e.FormattedValue.ToString().Trim();
 
-            // اگر Cell خالی ہے تو Allow کریں
-            if (string.IsNullOrWhiteSpace(value))
-                return;
+    //        // اگر Cell خالی ہے تو Allow کریں
+    //        if (string.IsNullOrWhiteSpace(value))
+    //            return;
 
-            int number;
+    //        int number;
 
-            if (!int.TryParse(value, out number))
-            {
-                MessageBox.Show(
-    "Column : " + dgvSupplyDetail.Columns[e.ColumnIndex].Name +
-    "\nValue = [" + e.FormattedValue.ToString() + "]");
-                MessageBox.Show(
-                    "Only numeric values are allowed.",
-                    "Validation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+    //        if (!int.TryParse(value, out number))
+    //        {
+    //            MessageBox.Show(
+    //"Column : " + dgvSupplyDetail.Columns[e.ColumnIndex].Name +
+    //"\nValue = [" + e.FormattedValue.ToString() + "]");
+    //            MessageBox.Show(
+    //                "Only numeric values are allowed.",
+    //                "Validation",
+    //                MessageBoxButtons.OK,
+    //                MessageBoxIcon.Warning);
 
-                e.Cancel = true;
-                return;
-            }
+    //            e.Cancel = true;
+    //            return;
+    //        }
 
-            if (number < 0)
-            {
-                MessageBox.Show(
-                    "Negative values are not allowed.",
-                    "Validation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+    //        if (number < 0)
+    //        {
+    //            MessageBox.Show(
+    //                "Negative values are not allowed.",
+    //                "Validation",
+    //                MessageBoxButtons.OK,
+    //                MessageBoxIcon.Warning);
 
-                e.Cancel = true;
-            }
+    //            e.Cancel = true;
+    //        }
         }
 
         private void dgvSupplyDetail_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -3428,6 +3428,21 @@ public partial class frmSupply : Form
                
                 
             }
+        }
+
+        private void dgvSupplyDetail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //// Check karein ke user kis column mein typing kar raha hai
+            //// "SupplySheet" ki jagah apne column ka naam ya index likhein
+            //if (dgvSupplyDetail.CurrentCell != null &&
+            //    dgvSupplyDetail.Columns[dgvSupplyDetail.CurrentCell.ColumnIndex].Name == "SupplySheets")
+            //{
+            //    // Allow ONLY numbers (0-9) and Backspace (to allow deletion)
+            //    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            //    {
+            //        e.Handled = true; // Input ko reject kar dega
+            //    }
+            //}
         }
     }
 }

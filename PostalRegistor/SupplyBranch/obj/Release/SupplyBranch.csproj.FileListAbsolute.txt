@@ -26,8 +26,11 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.ProcessingObjectModel.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.WinForms.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.SqlServer.Types.dll
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\EnvDTE.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\stdole.dll
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.pdb
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe.config
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\FastReport.xml
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\de\Microsoft.ReportViewer.Common.resources.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\es\Microsoft.ReportViewer.Common.resources.dll
@@ -105,6 +108,3 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.csproj.C
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBr.DF40EA13.Up2Date
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.pdb
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.pdb
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe.config

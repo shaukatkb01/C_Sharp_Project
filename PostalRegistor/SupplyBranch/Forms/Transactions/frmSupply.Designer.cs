@@ -29,21 +29,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlStockEntry1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -106,30 +106,30 @@
             this.CaseNoTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlStockEntry = new System.Windows.Forms.Panel();
             this.pnlCurrentStock = new System.Windows.Forms.Panel();
-            this.lblStockTitle = new System.Windows.Forms.Label();
-            this.lblStockItem = new System.Windows.Forms.Label();
-            this.pnlBox = new System.Windows.Forms.Panel();
-            this.lblBoxTitle = new System.Windows.Forms.Label();
-            this.lblBoxBalance = new System.Windows.Forms.Label();
-            this.pnlPacket = new System.Windows.Forms.Panel();
-            this.lblPacketTitle = new System.Windows.Forms.Label();
-            this.lblPacketBalance = new System.Windows.Forms.Label();
-            this.pnlSheet = new System.Windows.Forms.Panel();
-            this.lblSheetTitle = new System.Windows.Forms.Label();
-            this.lblSheetBalance = new System.Windows.Forms.Label();
             this.pnlStamp = new System.Windows.Forms.Panel();
-            this.lblStampTitle = new System.Windows.Forms.Label();
             this.lblStampBalance = new System.Windows.Forms.Label();
+            this.lblStampTitle = new System.Windows.Forms.Label();
+            this.pnlSheet = new System.Windows.Forms.Panel();
+            this.lblSheetBalance = new System.Windows.Forms.Label();
+            this.lblSheetTitle = new System.Windows.Forms.Label();
+            this.pnlPacket = new System.Windows.Forms.Panel();
+            this.lblPacketBalance = new System.Windows.Forms.Label();
+            this.lblPacketTitle = new System.Windows.Forms.Label();
+            this.pnlBox = new System.Windows.Forms.Panel();
+            this.lblBoxBalance = new System.Windows.Forms.Label();
+            this.lblBoxTitle = new System.Windows.Forms.Label();
+            this.lblStockItem = new System.Windows.Forms.Label();
+            this.lblStockTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTop.SuspendLayout();
             this.fpnlButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).BeginInit();
             this.pnlCurrentStock.SuspendLayout();
-            this.pnlBox.SuspendLayout();
-            this.pnlPacket.SuspendLayout();
-            this.pnlSheet.SuspendLayout();
             this.pnlStamp.SuspendLayout();
+            this.pnlSheet.SuspendLayout();
+            this.pnlPacket.SuspendLayout();
+            this.pnlBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -440,7 +440,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTop.Location = new System.Drawing.Point(3, 3);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(784, 364);
+            this.pnlTop.Size = new System.Drawing.Size(761, 364);
             this.pnlTop.TabIndex = 51;
             // 
             // fpnlButton
@@ -454,7 +454,7 @@
             this.fpnlButton.Controls.Add(this.btnClose);
             this.fpnlButton.Location = new System.Drawing.Point(7, 309);
             this.fpnlButton.Name = "fpnlButton";
-            this.fpnlButton.Size = new System.Drawing.Size(743, 47);
+            this.fpnlButton.Size = new System.Drawing.Size(735, 47);
             this.fpnlButton.TabIndex = 52;
             // 
             // btnSaveDraft
@@ -576,14 +576,14 @@
             this.dgvSupplyDetail.Location = new System.Drawing.Point(3, 3);
             this.dgvSupplyDetail.MultiSelect = false;
             this.dgvSupplyDetail.Name = "dgvSupplyDetail";
-            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle60.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle60.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle60.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle60.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle60.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle60.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSupplyDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle60;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSupplyDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle30;
             this.dgvSupplyDetail.RowHeadersVisible = false;
             this.dgvSupplyDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSupplyDetail.Size = new System.Drawing.Size(1734, 374);
@@ -597,6 +597,7 @@
             this.dgvSupplyDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSupplyDetail_CellValidating);
             this.dgvSupplyDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSupplyDetail_DataError);
             this.dgvSupplyDetail.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSupplyDetail_EditingControlShowing);
+            this.dgvSupplyDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvSupplyDetail_KeyPress);
             // 
             // DetailID
             // 
@@ -631,8 +632,8 @@
             // Category
             // 
             this.Category.DataPropertyName = "CategoryName";
-            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Category.DefaultCellStyle = dataGridViewCellStyle46;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Category.DefaultCellStyle = dataGridViewCellStyle16;
             this.Category.HeaderText = "Category";
             this.Category.Name = "Category";
             this.Category.ReadOnly = true;
@@ -640,8 +641,8 @@
             // Denomination
             // 
             this.Denomination.DataPropertyName = "Denomination";
-            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Denomination.DefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Denomination.DefaultCellStyle = dataGridViewCellStyle17;
             this.Denomination.HeaderText = "Denomination";
             this.Denomination.Name = "Denomination";
             this.Denomination.ReadOnly = true;
@@ -649,8 +650,8 @@
             // PiecesPerSheet
             // 
             this.PiecesPerSheet.DataPropertyName = "PiecesPerSheet";
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PiecesPerSheet.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PiecesPerSheet.DefaultCellStyle = dataGridViewCellStyle18;
             this.PiecesPerSheet.HeaderText = "PiecesPerSheet";
             this.PiecesPerSheet.Name = "PiecesPerSheet";
             this.PiecesPerSheet.ReadOnly = true;
@@ -658,8 +659,8 @@
             // IndentSheets
             // 
             this.IndentSheets.DataPropertyName = "IndentSheets";
-            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentSheets.DefaultCellStyle = dataGridViewCellStyle49;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentSheets.DefaultCellStyle = dataGridViewCellStyle19;
             this.IndentSheets.HeaderText = "Indent Sheets";
             this.IndentSheets.Name = "IndentSheets";
             this.IndentSheets.ReadOnly = true;
@@ -667,8 +668,8 @@
             // IndentLoosePieces
             // 
             this.IndentLoosePieces.DataPropertyName = "IndentLoosePieces";
-            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentLoosePieces.DefaultCellStyle = dataGridViewCellStyle50;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentLoosePieces.DefaultCellStyle = dataGridViewCellStyle20;
             this.IndentLoosePieces.HeaderText = "Indent Loose Pieces";
             this.IndentLoosePieces.Name = "IndentLoosePieces";
             this.IndentLoosePieces.ReadOnly = true;
@@ -676,8 +677,8 @@
             // IndentTotalPieces
             // 
             this.IndentTotalPieces.DataPropertyName = "IndentTotalPieces";
-            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentTotalPieces.DefaultCellStyle = dataGridViewCellStyle51;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentTotalPieces.DefaultCellStyle = dataGridViewCellStyle21;
             this.IndentTotalPieces.HeaderText = "Indent Total Pieces";
             this.IndentTotalPieces.Name = "IndentTotalPieces";
             this.IndentTotalPieces.ReadOnly = true;
@@ -692,8 +693,8 @@
             // RemainingPieces
             // 
             this.RemainingPieces.DataPropertyName = "RemainingPieces";
-            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RemainingPieces.DefaultCellStyle = dataGridViewCellStyle52;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RemainingPieces.DefaultCellStyle = dataGridViewCellStyle22;
             this.RemainingPieces.HeaderText = "RemainingPieces";
             this.RemainingPieces.Name = "RemainingPieces";
             this.RemainingPieces.ReadOnly = true;
@@ -701,26 +702,26 @@
             // SupplySheets
             // 
             this.SupplySheets.DataPropertyName = "SupplySheets";
-            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle53.NullValue = "0";
-            this.SupplySheets.DefaultCellStyle = dataGridViewCellStyle53;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.NullValue = "0";
+            this.SupplySheets.DefaultCellStyle = dataGridViewCellStyle23;
             this.SupplySheets.HeaderText = "Supply Sheets";
             this.SupplySheets.Name = "SupplySheets";
             // 
             // SupplyPieces
             // 
             this.SupplyPieces.DataPropertyName = "SupplyPieces";
-            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle54.NullValue = "0";
-            this.SupplyPieces.DefaultCellStyle = dataGridViewCellStyle54;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle24.NullValue = "0";
+            this.SupplyPieces.DefaultCellStyle = dataGridViewCellStyle24;
             this.SupplyPieces.HeaderText = "Supply Pieces";
             this.SupplyPieces.Name = "SupplyPieces";
             // 
             // SupplyTotalPieces
             // 
             this.SupplyTotalPieces.DataPropertyName = "SupplyTotalPieces";
-            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SupplyTotalPieces.DefaultCellStyle = dataGridViewCellStyle55;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SupplyTotalPieces.DefaultCellStyle = dataGridViewCellStyle25;
             this.SupplyTotalPieces.HeaderText = "Total Supply Qty";
             this.SupplyTotalPieces.Name = "SupplyTotalPieces";
             this.SupplyTotalPieces.ReadOnly = true;
@@ -728,36 +729,36 @@
             // LedgerFolio
             // 
             this.LedgerFolio.DataPropertyName = "LedgerFolio";
-            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.LedgerFolio.DefaultCellStyle = dataGridViewCellStyle56;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.LedgerFolio.DefaultCellStyle = dataGridViewCellStyle26;
             this.LedgerFolio.HeaderText = "LedgerFolio";
             this.LedgerFolio.Name = "LedgerFolio";
             // 
             // CaseCode
             // 
             this.CaseCode.DataPropertyName = "CaseCode";
-            dataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.CaseCode.DefaultCellStyle = dataGridViewCellStyle57;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.CaseCode.DefaultCellStyle = dataGridViewCellStyle27;
             this.CaseCode.HeaderText = "Case Code";
             this.CaseCode.Name = "CaseCode";
             // 
             // CaseNoFrom
             // 
             this.CaseNoFrom.DataPropertyName = "CaseNoFrom";
-            dataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle58.Format = "N0";
-            dataGridViewCellStyle58.NullValue = "-";
-            this.CaseNoFrom.DefaultCellStyle = dataGridViewCellStyle58;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle28.Format = "N0";
+            dataGridViewCellStyle28.NullValue = "-";
+            this.CaseNoFrom.DefaultCellStyle = dataGridViewCellStyle28;
             this.CaseNoFrom.HeaderText = "Case No From";
             this.CaseNoFrom.Name = "CaseNoFrom";
             // 
             // CaseNoTo
             // 
             this.CaseNoTo.DataPropertyName = "CaseNoTo";
-            dataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle59.Format = "N0";
-            dataGridViewCellStyle59.NullValue = "-";
-            this.CaseNoTo.DefaultCellStyle = dataGridViewCellStyle59;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle29.Format = "N0";
+            dataGridViewCellStyle29.NullValue = "-";
+            this.CaseNoTo.DefaultCellStyle = dataGridViewCellStyle29;
             this.CaseNoTo.HeaderText = "Case No To";
             this.CaseNoTo.Name = "CaseNoTo";
             // 
@@ -766,9 +767,9 @@
             this.pnlStockEntry.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlStockEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlStockEntry.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlStockEntry.Location = new System.Drawing.Point(793, 3);
+            this.pnlStockEntry.Location = new System.Drawing.Point(770, 3);
             this.pnlStockEntry.Name = "pnlStockEntry";
-            this.pnlStockEntry.Size = new System.Drawing.Size(515, 364);
+            this.pnlStockEntry.Size = new System.Drawing.Size(652, 364);
             this.pnlStockEntry.TabIndex = 49;
             // 
             // pnlCurrentStock
@@ -782,20 +783,130 @@
             this.pnlCurrentStock.Controls.Add(this.lblStockItem);
             this.pnlCurrentStock.Controls.Add(this.lblStockTitle);
             this.pnlCurrentStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCurrentStock.Location = new System.Drawing.Point(1314, 3);
+            this.pnlCurrentStock.Location = new System.Drawing.Point(1428, 3);
             this.pnlCurrentStock.Name = "pnlCurrentStock";
-            this.pnlCurrentStock.Size = new System.Drawing.Size(423, 364);
+            this.pnlCurrentStock.Size = new System.Drawing.Size(309, 364);
             this.pnlCurrentStock.TabIndex = 41;
             // 
-            // lblStockTitle
+            // pnlStamp
             // 
-            this.lblStockTitle.AutoSize = true;
-            this.lblStockTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.lblStockTitle.Location = new System.Drawing.Point(15, 10);
-            this.lblStockTitle.Name = "lblStockTitle";
-            this.lblStockTitle.Size = new System.Drawing.Size(151, 18);
-            this.lblStockTitle.TabIndex = 0;
-            this.lblStockTitle.Text = "CURRENT STOCK";
+            this.pnlStamp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlStamp.Controls.Add(this.lblStampBalance);
+            this.pnlStamp.Controls.Add(this.lblStampTitle);
+            this.pnlStamp.Location = new System.Drawing.Point(229, 78);
+            this.pnlStamp.Name = "pnlStamp";
+            this.pnlStamp.Size = new System.Drawing.Size(60, 67);
+            this.pnlStamp.TabIndex = 5;
+            // 
+            // lblStampBalance
+            // 
+            this.lblStampBalance.AutoSize = true;
+            this.lblStampBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblStampBalance.Location = new System.Drawing.Point(22, 28);
+            this.lblStampBalance.Name = "lblStampBalance";
+            this.lblStampBalance.Size = new System.Drawing.Size(15, 15);
+            this.lblStampBalance.TabIndex = 0;
+            this.lblStampBalance.Text = "0";
+            // 
+            // lblStampTitle
+            // 
+            this.lblStampTitle.AutoSize = true;
+            this.lblStampTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F, System.Drawing.FontStyle.Bold);
+            this.lblStampTitle.Location = new System.Drawing.Point(9, 10);
+            this.lblStampTitle.Name = "lblStampTitle";
+            this.lblStampTitle.Size = new System.Drawing.Size(43, 12);
+            this.lblStampTitle.TabIndex = 1;
+            this.lblStampTitle.Text = "STAMP";
+            // 
+            // pnlSheet
+            // 
+            this.pnlSheet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSheet.Controls.Add(this.lblSheetBalance);
+            this.pnlSheet.Controls.Add(this.lblSheetTitle);
+            this.pnlSheet.Location = new System.Drawing.Point(158, 78);
+            this.pnlSheet.Name = "pnlSheet";
+            this.pnlSheet.Size = new System.Drawing.Size(60, 67);
+            this.pnlSheet.TabIndex = 4;
+            // 
+            // lblSheetBalance
+            // 
+            this.lblSheetBalance.AutoSize = true;
+            this.lblSheetBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblSheetBalance.Location = new System.Drawing.Point(22, 28);
+            this.lblSheetBalance.Name = "lblSheetBalance";
+            this.lblSheetBalance.Size = new System.Drawing.Size(15, 15);
+            this.lblSheetBalance.TabIndex = 0;
+            this.lblSheetBalance.Text = "0";
+            // 
+            // lblSheetTitle
+            // 
+            this.lblSheetTitle.AutoSize = true;
+            this.lblSheetTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F, System.Drawing.FontStyle.Bold);
+            this.lblSheetTitle.Location = new System.Drawing.Point(9, 10);
+            this.lblSheetTitle.Name = "lblSheetTitle";
+            this.lblSheetTitle.Size = new System.Drawing.Size(40, 12);
+            this.lblSheetTitle.TabIndex = 1;
+            this.lblSheetTitle.Text = "SHEET";
+            // 
+            // pnlPacket
+            // 
+            this.pnlPacket.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlPacket.Controls.Add(this.lblPacketBalance);
+            this.pnlPacket.Controls.Add(this.lblPacketTitle);
+            this.pnlPacket.Location = new System.Drawing.Point(87, 78);
+            this.pnlPacket.Name = "pnlPacket";
+            this.pnlPacket.Size = new System.Drawing.Size(60, 67);
+            this.pnlPacket.TabIndex = 3;
+            // 
+            // lblPacketBalance
+            // 
+            this.lblPacketBalance.AutoSize = true;
+            this.lblPacketBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblPacketBalance.Location = new System.Drawing.Point(22, 28);
+            this.lblPacketBalance.Name = "lblPacketBalance";
+            this.lblPacketBalance.Size = new System.Drawing.Size(15, 15);
+            this.lblPacketBalance.TabIndex = 0;
+            this.lblPacketBalance.Text = "0";
+            // 
+            // lblPacketTitle
+            // 
+            this.lblPacketTitle.AutoSize = true;
+            this.lblPacketTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F, System.Drawing.FontStyle.Bold);
+            this.lblPacketTitle.Location = new System.Drawing.Point(2, 10);
+            this.lblPacketTitle.Name = "lblPacketTitle";
+            this.lblPacketTitle.Size = new System.Drawing.Size(48, 12);
+            this.lblPacketTitle.TabIndex = 1;
+            this.lblPacketTitle.Text = "PACKET";
+            // 
+            // pnlBox
+            // 
+            this.pnlBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlBox.Controls.Add(this.lblBoxBalance);
+            this.pnlBox.Controls.Add(this.lblBoxTitle);
+            this.pnlBox.Location = new System.Drawing.Point(16, 78);
+            this.pnlBox.Name = "pnlBox";
+            this.pnlBox.Size = new System.Drawing.Size(60, 67);
+            this.pnlBox.TabIndex = 2;
+            // 
+            // lblBoxBalance
+            // 
+            this.lblBoxBalance.AutoSize = true;
+            this.lblBoxBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblBoxBalance.Location = new System.Drawing.Point(22, 28);
+            this.lblBoxBalance.Name = "lblBoxBalance";
+            this.lblBoxBalance.Size = new System.Drawing.Size(15, 15);
+            this.lblBoxBalance.TabIndex = 0;
+            this.lblBoxBalance.Text = "0";
+            // 
+            // lblBoxTitle
+            // 
+            this.lblBoxTitle.AutoSize = true;
+            this.lblBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.25F, System.Drawing.FontStyle.Bold);
+            this.lblBoxTitle.Location = new System.Drawing.Point(16, 10);
+            this.lblBoxTitle.Name = "lblBoxTitle";
+            this.lblBoxTitle.Size = new System.Drawing.Size(27, 12);
+            this.lblBoxTitle.TabIndex = 1;
+            this.lblBoxTitle.Text = "BOX";
             // 
             // lblStockItem
             // 
@@ -807,133 +918,23 @@
             this.lblStockItem.TabIndex = 1;
             this.lblStockItem.Text = "Select an item from grid";
             // 
-            // pnlBox
+            // lblStockTitle
             // 
-            this.pnlBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlBox.Controls.Add(this.lblBoxBalance);
-            this.pnlBox.Controls.Add(this.lblBoxTitle);
-            this.pnlBox.Location = new System.Drawing.Point(31, 81);
-            this.pnlBox.Name = "pnlBox";
-            this.pnlBox.Size = new System.Drawing.Size(90, 80);
-            this.pnlBox.TabIndex = 2;
-            // 
-            // lblBoxTitle
-            // 
-            this.lblBoxTitle.AutoSize = true;
-            this.lblBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblBoxTitle.Location = new System.Drawing.Point(25, 10);
-            this.lblBoxTitle.Name = "lblBoxTitle";
-            this.lblBoxTitle.Size = new System.Drawing.Size(32, 13);
-            this.lblBoxTitle.TabIndex = 1;
-            this.lblBoxTitle.Text = "BOX";
-            // 
-            // lblBoxBalance
-            // 
-            this.lblBoxBalance.AutoSize = true;
-            this.lblBoxBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblBoxBalance.Location = new System.Drawing.Point(25, 35);
-            this.lblBoxBalance.Name = "lblBoxBalance";
-            this.lblBoxBalance.Size = new System.Drawing.Size(19, 20);
-            this.lblBoxBalance.TabIndex = 0;
-            this.lblBoxBalance.Text = "0";
-            // 
-            // pnlPacket
-            // 
-            this.pnlPacket.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlPacket.Controls.Add(this.lblPacketBalance);
-            this.pnlPacket.Controls.Add(this.lblPacketTitle);
-            this.pnlPacket.Location = new System.Drawing.Point(126, 81);
-            this.pnlPacket.Name = "pnlPacket";
-            this.pnlPacket.Size = new System.Drawing.Size(90, 80);
-            this.pnlPacket.TabIndex = 3;
-            // 
-            // lblPacketTitle
-            // 
-            this.lblPacketTitle.AutoSize = true;
-            this.lblPacketTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblPacketTitle.Location = new System.Drawing.Point(18, 10);
-            this.lblPacketTitle.Name = "lblPacketTitle";
-            this.lblPacketTitle.Size = new System.Drawing.Size(55, 13);
-            this.lblPacketTitle.TabIndex = 1;
-            this.lblPacketTitle.Text = "PACKET";
-            // 
-            // lblPacketBalance
-            // 
-            this.lblPacketBalance.AutoSize = true;
-            this.lblPacketBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblPacketBalance.Location = new System.Drawing.Point(25, 35);
-            this.lblPacketBalance.Name = "lblPacketBalance";
-            this.lblPacketBalance.Size = new System.Drawing.Size(19, 20);
-            this.lblPacketBalance.TabIndex = 0;
-            this.lblPacketBalance.Text = "0";
-            // 
-            // pnlSheet
-            // 
-            this.pnlSheet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlSheet.Controls.Add(this.lblSheetBalance);
-            this.pnlSheet.Controls.Add(this.lblSheetTitle);
-            this.pnlSheet.Location = new System.Drawing.Point(221, 81);
-            this.pnlSheet.Name = "pnlSheet";
-            this.pnlSheet.Size = new System.Drawing.Size(90, 80);
-            this.pnlSheet.TabIndex = 4;
-            // 
-            // lblSheetTitle
-            // 
-            this.lblSheetTitle.AutoSize = true;
-            this.lblSheetTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblSheetTitle.Location = new System.Drawing.Point(25, 10);
-            this.lblSheetTitle.Name = "lblSheetTitle";
-            this.lblSheetTitle.Size = new System.Drawing.Size(48, 13);
-            this.lblSheetTitle.TabIndex = 1;
-            this.lblSheetTitle.Text = "SHEET";
-            // 
-            // lblSheetBalance
-            // 
-            this.lblSheetBalance.AutoSize = true;
-            this.lblSheetBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSheetBalance.Location = new System.Drawing.Point(25, 35);
-            this.lblSheetBalance.Name = "lblSheetBalance";
-            this.lblSheetBalance.Size = new System.Drawing.Size(19, 20);
-            this.lblSheetBalance.TabIndex = 0;
-            this.lblSheetBalance.Text = "0";
-            // 
-            // pnlStamp
-            // 
-            this.pnlStamp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlStamp.Controls.Add(this.lblStampBalance);
-            this.pnlStamp.Controls.Add(this.lblStampTitle);
-            this.pnlStamp.Location = new System.Drawing.Point(316, 81);
-            this.pnlStamp.Name = "pnlStamp";
-            this.pnlStamp.Size = new System.Drawing.Size(90, 80);
-            this.pnlStamp.TabIndex = 5;
-            // 
-            // lblStampTitle
-            // 
-            this.lblStampTitle.AutoSize = true;
-            this.lblStampTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.lblStampTitle.Location = new System.Drawing.Point(25, 10);
-            this.lblStampTitle.Name = "lblStampTitle";
-            this.lblStampTitle.Size = new System.Drawing.Size(49, 13);
-            this.lblStampTitle.TabIndex = 1;
-            this.lblStampTitle.Text = "STAMP";
-            // 
-            // lblStampBalance
-            // 
-            this.lblStampBalance.AutoSize = true;
-            this.lblStampBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblStampBalance.Location = new System.Drawing.Point(25, 35);
-            this.lblStampBalance.Name = "lblStampBalance";
-            this.lblStampBalance.Size = new System.Drawing.Size(19, 20);
-            this.lblStampBalance.TabIndex = 0;
-            this.lblStampBalance.Text = "0";
+            this.lblStockTitle.AutoSize = true;
+            this.lblStockTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.lblStockTitle.Location = new System.Drawing.Point(15, 10);
+            this.lblStockTitle.Name = "lblStockTitle";
+            this.lblStockTitle.Size = new System.Drawing.Size(151, 18);
+            this.lblStockTitle.TabIndex = 0;
+            this.lblStockTitle.Text = "CURRENT STOCK";
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.26646F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.73354F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 428F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.78682F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.21318F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 314F));
             this.tableLayoutPanel1.Controls.Add(this.pnlCurrentStock, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlStockEntry, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.pnlTop, 0, 0);
@@ -977,14 +978,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).EndInit();
             this.pnlCurrentStock.ResumeLayout(false);
             this.pnlCurrentStock.PerformLayout();
-            this.pnlBox.ResumeLayout(false);
-            this.pnlBox.PerformLayout();
-            this.pnlPacket.ResumeLayout(false);
-            this.pnlPacket.PerformLayout();
-            this.pnlSheet.ResumeLayout(false);
-            this.pnlSheet.PerformLayout();
             this.pnlStamp.ResumeLayout(false);
             this.pnlStamp.PerformLayout();
+            this.pnlSheet.ResumeLayout(false);
+            this.pnlSheet.PerformLayout();
+            this.pnlPacket.ResumeLayout(false);
+            this.pnlPacket.PerformLayout();
+            this.pnlBox.ResumeLayout(false);
+            this.pnlBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
