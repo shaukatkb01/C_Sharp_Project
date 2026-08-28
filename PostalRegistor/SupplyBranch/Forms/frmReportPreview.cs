@@ -26,6 +26,7 @@ namespace SupplyBranch.Forms
 
         private DataTable _reportData = null;
         private DataTable _reportData1 = null;
+        private DataTable _reportData2 = null;
 
         //=========================================
         // Constructor
@@ -47,7 +48,7 @@ namespace SupplyBranch.Forms
         // Generic Report Loader
         //=========================================
 
-        public void LoadReport(string reportFile, DataTable dt, DataTable dt1)
+        public void LoadReport(string reportFile, DataTable dt, DataTable dt1, DataTable dt2)
         {
             _isRegisterReport = true;
 
@@ -55,6 +56,7 @@ namespace SupplyBranch.Forms
 
             _reportData = dt;
             _reportData1 = dt1;
+            _reportData2 = dt2;
         }
 
         //=========================================
@@ -64,7 +66,7 @@ namespace SupplyBranch.Forms
         private void frmReportPreview_Load(object sender, EventArgs e)
         {
 
-       
+
             //-----------------------------------------------------
             // Register Reports
             //-----------------------------------------------------
@@ -80,9 +82,8 @@ namespace SupplyBranch.Forms
 
 
                 //-------------------------------------------------
-                // Indent Reports
+                // 1. Indent Reports (Office / Category Wise)
                 //-------------------------------------------------
-
                 if (_reportFile == "rptOfficeWiseIndent.rdlc" ||
                     _reportFile == "rptCategoryWiseIndent.rdlc")
                 {
@@ -92,24 +93,21 @@ namespace SupplyBranch.Forms
                             _reportData1));
                 }
 
+                //-------------------------------------------------
+                // 2. Indent Register (Current Balance Report)
+                //-------------------------------------------------
+                else if (_reportFile == "rptIndentRegister.rdlc")
+                {
+                    // Yahan RDLC ka Dataset name dein (Check karein RDLC mein "dsIndent" hai ya "dsIndentCurrentBalance")
+                    reportViewer1.LocalReport.DataSources.Add(
+                        new ReportDataSource(
+                            "dsSupply",  // <-- RDLC Designer mein jo Dataset ka naam rakha hua hai wo likhein
+                            _reportData2));
+                }
 
                 //-------------------------------------------------
-                // Office Wise Indent
+                // 3. Other Supply Register Reports
                 //-------------------------------------------------
-
-                //else if (_reportFile == "rptOfficeWiseIndent.rdlc")
-                //{
-                //    reportViewer1.LocalReport.DataSources.Add(
-                //        new ReportDataSource(
-                //            "dsSupply",
-                //            _reportData));
-                //}
-
-
-                //-------------------------------------------------
-                // Other Supply Register Reports
-                //-------------------------------------------------
-
                 else
                 {
                     reportViewer1.LocalReport.DataSources.Add(

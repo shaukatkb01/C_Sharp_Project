@@ -131,6 +131,7 @@ namespace SupplyBranch.Forms.Reports
             string reportFile = "";
             DataTable dt = null;
             DataTable dt1 = null;
+            DataTable dt2 = null;
 
 
             //----------------------------
@@ -200,7 +201,7 @@ namespace SupplyBranch.Forms.Reports
 
                     reportFile = "rptIndentRegister.rdlc";
 
-                    dt = _dal.GetSupplyRegister(filter);
+                    dt2 = _dal.GetIndentCurrentBalanceReport(filter);
 
                     break;
 
@@ -259,7 +260,8 @@ namespace SupplyBranch.Forms.Reports
             //----------------------------
 
             if ((dt == null || dt.Rows.Count == 0) &&
-                (dt1 == null || dt1.Rows.Count == 0))
+                (dt1 == null || dt1.Rows.Count == 0) &&
+                (dt2 == null || dt2.Rows.Count == 0)) 
             {
                 MessageBox.Show(
                     "No Record Found.",
@@ -280,7 +282,8 @@ namespace SupplyBranch.Forms.Reports
             frm.LoadReport(
                 reportFile,
                 dt,
-                dt1);
+                dt1,
+                dt2);
 
             frm.ShowDialog();
         }
