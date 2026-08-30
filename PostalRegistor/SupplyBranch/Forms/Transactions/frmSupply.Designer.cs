@@ -29,21 +29,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlStockEntry1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,6 +82,22 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnSupplyPerforma = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.pnlCurrentStock = new System.Windows.Forms.Panel();
+            this.pnlStamp = new System.Windows.Forms.Panel();
+            this.lblStampBalance = new System.Windows.Forms.Label();
+            this.lblStampTitle = new System.Windows.Forms.Label();
+            this.pnlSheet = new System.Windows.Forms.Panel();
+            this.lblSheetBalance = new System.Windows.Forms.Label();
+            this.lblSheetTitle = new System.Windows.Forms.Label();
+            this.pnlPacket = new System.Windows.Forms.Panel();
+            this.lblPacketBalance = new System.Windows.Forms.Label();
+            this.lblPacketTitle = new System.Windows.Forms.Label();
+            this.pnlBox = new System.Windows.Forms.Panel();
+            this.lblBoxBalance = new System.Windows.Forms.Label();
+            this.lblBoxTitle = new System.Windows.Forms.Label();
+            this.lblStockItem = new System.Windows.Forms.Label();
+            this.lblStockTitle = new System.Windows.Forms.Label();
+            this.pnlStockEntry = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.txtInvoiceNo = new System.Windows.Forms.TextBox();
             this.dgvSupplyDetail = new System.Windows.Forms.DataGridView();
@@ -104,33 +120,15 @@
             this.CaseCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CaseNoFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CaseNoTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pnlStockEntry = new System.Windows.Forms.Panel();
-            this.pnlCurrentStock = new System.Windows.Forms.Panel();
-            this.pnlStamp = new System.Windows.Forms.Panel();
-            this.lblStampBalance = new System.Windows.Forms.Label();
-            this.lblStampTitle = new System.Windows.Forms.Label();
-            this.pnlSheet = new System.Windows.Forms.Panel();
-            this.lblSheetBalance = new System.Windows.Forms.Label();
-            this.lblSheetTitle = new System.Windows.Forms.Label();
-            this.pnlPacket = new System.Windows.Forms.Panel();
-            this.lblPacketBalance = new System.Windows.Forms.Label();
-            this.lblPacketTitle = new System.Windows.Forms.Label();
-            this.pnlBox = new System.Windows.Forms.Panel();
-            this.lblBoxBalance = new System.Windows.Forms.Label();
-            this.lblBoxTitle = new System.Windows.Forms.Label();
-            this.lblStockItem = new System.Windows.Forms.Label();
-            this.lblStockTitle = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlTop.SuspendLayout();
             this.fpnlButton.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).BeginInit();
             this.pnlCurrentStock.SuspendLayout();
             this.pnlStamp.SuspendLayout();
             this.pnlSheet.SuspendLayout();
             this.pnlPacket.SuspendLayout();
             this.pnlBox.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,7 +191,7 @@
             this.txtSupplyNo.Name = "txtSupplyNo";
             this.txtSupplyNo.ReadOnly = true;
             this.txtSupplyNo.Size = new System.Drawing.Size(254, 20);
-            this.txtSupplyNo.TabIndex = 5;
+            this.txtSupplyNo.TabIndex = 0;
             // 
             // dtSupplyDate
             // 
@@ -201,7 +199,7 @@
             this.dtSupplyDate.Location = new System.Drawing.Point(125, 93);
             this.dtSupplyDate.Name = "dtSupplyDate";
             this.dtSupplyDate.Size = new System.Drawing.Size(254, 20);
-            this.dtSupplyDate.TabIndex = 6;
+            this.dtSupplyDate.TabIndex = 1;
             // 
             // txtFinancialYear
             // 
@@ -209,7 +207,7 @@
             this.txtFinancialYear.Name = "txtFinancialYear";
             this.txtFinancialYear.ReadOnly = true;
             this.txtFinancialYear.Size = new System.Drawing.Size(254, 20);
-            this.txtFinancialYear.TabIndex = 7;
+            this.txtFinancialYear.TabIndex = 2;
             // 
             // txtSupplyStatus
             // 
@@ -217,14 +215,14 @@
             this.txtSupplyStatus.Name = "txtSupplyStatus";
             this.txtSupplyStatus.ReadOnly = true;
             this.txtSupplyStatus.Size = new System.Drawing.Size(254, 20);
-            this.txtSupplyStatus.TabIndex = 8;
+            this.txtSupplyStatus.TabIndex = 3;
             // 
             // txtRemarks
             // 
             this.txtRemarks.Location = new System.Drawing.Point(125, 241);
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.Size = new System.Drawing.Size(616, 20);
-            this.txtRemarks.TabIndex = 9;
+            this.txtRemarks.TabIndex = 10;
             // 
             // txtIndentNo
             // 
@@ -232,7 +230,7 @@
             this.txtIndentNo.Name = "txtIndentNo";
             this.txtIndentNo.ReadOnly = true;
             this.txtIndentNo.Size = new System.Drawing.Size(253, 20);
-            this.txtIndentNo.TabIndex = 10;
+            this.txtIndentNo.TabIndex = 5;
             // 
             // txtOfficeName
             // 
@@ -240,7 +238,7 @@
             this.txtOfficeName.Name = "txtOfficeName";
             this.txtOfficeName.ReadOnly = true;
             this.txtOfficeName.Size = new System.Drawing.Size(253, 20);
-            this.txtOfficeName.TabIndex = 11;
+            this.txtOfficeName.TabIndex = 6;
             // 
             // txtIndentStatus
             // 
@@ -248,7 +246,7 @@
             this.txtIndentStatus.Name = "txtIndentStatus";
             this.txtIndentStatus.ReadOnly = true;
             this.txtIndentStatus.Size = new System.Drawing.Size(253, 20);
-            this.txtIndentStatus.TabIndex = 12;
+            this.txtIndentStatus.TabIndex = 7;
             // 
             // label6
             // 
@@ -292,7 +290,7 @@
             this.txtIndentDate.Name = "txtIndentDate";
             this.txtIndentDate.ReadOnly = true;
             this.txtIndentDate.Size = new System.Drawing.Size(254, 20);
-            this.txtIndentDate.TabIndex = 17;
+            this.txtIndentDate.TabIndex = 8;
             // 
             // label10
             // 
@@ -326,7 +324,7 @@
             this.cmbDispatchMode.Location = new System.Drawing.Point(125, 282);
             this.cmbDispatchMode.Name = "cmbDispatchMode";
             this.cmbDispatchMode.Size = new System.Drawing.Size(129, 21);
-            this.cmbDispatchMode.TabIndex = 21;
+            this.cmbDispatchMode.TabIndex = 11;
             this.cmbDispatchMode.SelectedIndexChanged += new System.EventHandler(this.cmbDispatchMode_SelectedIndexChanged);
             // 
             // label12
@@ -354,7 +352,7 @@
             this.cmbPackingType.Location = new System.Drawing.Point(386, 281);
             this.cmbPackingType.Name = "cmbPackingType";
             this.cmbPackingType.Size = new System.Drawing.Size(129, 21);
-            this.cmbPackingType.TabIndex = 23;
+            this.cmbPackingType.TabIndex = 12;
             this.cmbPackingType.SelectedIndexChanged += new System.EventHandler(this.cmbPackingType_SelectedIndexChanged);
             // 
             // label13
@@ -371,7 +369,7 @@
             this.txtPackingQty.Location = new System.Drawing.Point(637, 282);
             this.txtPackingQty.Name = "txtPackingQty";
             this.txtPackingQty.Size = new System.Drawing.Size(102, 20);
-            this.txtPackingQty.TabIndex = 25;
+            this.txtPackingQty.TabIndex = 13;
             this.txtPackingQty.TextChanged += new System.EventHandler(this.txtPackingQty_TextChanged);
             this.txtPackingQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPackingQty_KeyPress);
             // 
@@ -400,13 +398,15 @@
             this.cmbSupplyType.Location = new System.Drawing.Point(125, 203);
             this.cmbSupplyType.Name = "cmbSupplyType";
             this.cmbSupplyType.Size = new System.Drawing.Size(254, 21);
-            this.cmbSupplyType.TabIndex = 33;
+            this.cmbSupplyType.TabIndex = 4;
             this.cmbSupplyType.SelectedIndexChanged += new System.EventHandler(this.cmbSupplyType_SelectedIndexChanged);
             // 
             // pnlTop
             // 
             this.pnlTop.AutoScroll = true;
             this.pnlTop.Controls.Add(this.fpnlButton);
+            this.pnlTop.Controls.Add(this.pnlCurrentStock);
+            this.pnlTop.Controls.Add(this.pnlStockEntry);
             this.pnlTop.Controls.Add(this.label16);
             this.pnlTop.Controls.Add(this.txtInvoiceNo);
             this.pnlTop.Controls.Add(this.cmbSupplyType);
@@ -437,10 +437,10 @@
             this.pnlTop.Controls.Add(this.label3);
             this.pnlTop.Controls.Add(this.label2);
             this.pnlTop.Controls.Add(this.label1);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTop.Location = new System.Drawing.Point(3, 3);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(761, 364);
+            this.pnlTop.Size = new System.Drawing.Size(1553, 364);
             this.pnlTop.TabIndex = 51;
             // 
             // fpnlButton
@@ -463,7 +463,7 @@
             this.btnSaveDraft.Location = new System.Drawing.Point(3, 3);
             this.btnSaveDraft.Name = "btnSaveDraft";
             this.btnSaveDraft.Size = new System.Drawing.Size(141, 40);
-            this.btnSaveDraft.TabIndex = 44;
+            this.btnSaveDraft.TabIndex = 0;
             this.btnSaveDraft.Text = "Save Draft";
             this.btnSaveDraft.UseVisualStyleBackColor = false;
             this.btnSaveDraft.Click += new System.EventHandler(this.btnSaveDraft_Click);
@@ -473,7 +473,7 @@
             this.btnApprove.Location = new System.Drawing.Point(150, 3);
             this.btnApprove.Name = "btnApprove";
             this.btnApprove.Size = new System.Drawing.Size(141, 40);
-            this.btnApprove.TabIndex = 45;
+            this.btnApprove.TabIndex = 1;
             this.btnApprove.Text = "Approve Draft";
             this.btnApprove.UseVisualStyleBackColor = true;
             this.btnApprove.Click += new System.EventHandler(this.btnApprove_Click);
@@ -483,7 +483,7 @@
             this.btnIssue.Location = new System.Drawing.Point(297, 3);
             this.btnIssue.Name = "btnIssue";
             this.btnIssue.Size = new System.Drawing.Size(141, 40);
-            this.btnIssue.TabIndex = 43;
+            this.btnIssue.TabIndex = 2;
             this.btnIssue.Text = "Issue Supply";
             this.btnIssue.UseVisualStyleBackColor = true;
             this.btnIssue.Click += new System.EventHandler(this.btnIssue_Click);
@@ -493,7 +493,7 @@
             this.btnAssignInvoiceNo.Location = new System.Drawing.Point(444, 3);
             this.btnAssignInvoiceNo.Name = "btnAssignInvoiceNo";
             this.btnAssignInvoiceNo.Size = new System.Drawing.Size(141, 40);
-            this.btnAssignInvoiceNo.TabIndex = 47;
+            this.btnAssignInvoiceNo.TabIndex = 3;
             this.btnAssignInvoiceNo.Text = "Assign Invoice No";
             this.btnAssignInvoiceNo.UseVisualStyleBackColor = true;
             this.btnAssignInvoiceNo.Click += new System.EventHandler(this.btnAssignInvoiceNo_Click);
@@ -503,7 +503,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(591, 3);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(141, 40);
-            this.btnRefresh.TabIndex = 42;
+            this.btnRefresh.TabIndex = 4;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -528,250 +528,6 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click_1);
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(407, 211);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(62, 13);
-            this.label16.TabIndex = 38;
-            this.label16.Text = "Invoice No.";
-            // 
-            // txtInvoiceNo
-            // 
-            this.txtInvoiceNo.Location = new System.Drawing.Point(487, 208);
-            this.txtInvoiceNo.Name = "txtInvoiceNo";
-            this.txtInvoiceNo.Size = new System.Drawing.Size(252, 20);
-            this.txtInvoiceNo.TabIndex = 37;
-            this.txtInvoiceNo.TextChanged += new System.EventHandler(this.txtInvoiceNo_TextChanged);
-            // 
-            // dgvSupplyDetail
-            // 
-            this.dgvSupplyDetail.AllowUserToAddRows = false;
-            this.dgvSupplyDetail.AllowUserToDeleteRows = false;
-            this.dgvSupplyDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvSupplyDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSupplyDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DetailID,
-            this.RemainingTotalPieces,
-            this.CategoryID,
-            this.DenominationID,
-            this.Category,
-            this.Denomination,
-            this.PiecesPerSheet,
-            this.IndentSheets,
-            this.IndentLoosePieces,
-            this.IndentTotalPieces,
-            this.OriginalPendingPieces,
-            this.RemainingPieces,
-            this.SupplySheets,
-            this.SupplyPieces,
-            this.SupplyTotalPieces,
-            this.LedgerFolio,
-            this.CaseCode,
-            this.CaseNoFrom,
-            this.CaseNoTo});
-            this.dgvSupplyDetail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSupplyDetail.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgvSupplyDetail.Location = new System.Drawing.Point(3, 3);
-            this.dgvSupplyDetail.MultiSelect = false;
-            this.dgvSupplyDetail.Name = "dgvSupplyDetail";
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSupplyDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle30;
-            this.dgvSupplyDetail.RowHeadersVisible = false;
-            this.dgvSupplyDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSupplyDetail.Size = new System.Drawing.Size(1734, 374);
-            this.dgvSupplyDetail.TabIndex = 20;
-            this.dgvSupplyDetail.Visible = false;
-            this.dgvSupplyDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellClick_1);
-            this.dgvSupplyDetail.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellContentClick);
-            this.dgvSupplyDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellEndEdit);
-            this.dgvSupplyDetail.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSupplyDetail_CellFormatting);
-            this.dgvSupplyDetail.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.dgvSupplyDetail_CellParsing);
-            this.dgvSupplyDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSupplyDetail_CellValidating);
-            this.dgvSupplyDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSupplyDetail_DataError);
-            this.dgvSupplyDetail.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSupplyDetail_EditingControlShowing);
-            this.dgvSupplyDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvSupplyDetail_KeyPress);
-            // 
-            // DetailID
-            // 
-            this.DetailID.DataPropertyName = "DetailID";
-            this.DetailID.HeaderText = "DetailID";
-            this.DetailID.Name = "DetailID";
-            this.DetailID.ReadOnly = true;
-            this.DetailID.Visible = false;
-            // 
-            // RemainingTotalPieces
-            // 
-            this.RemainingTotalPieces.DataPropertyName = "RemainingTotalPieces";
-            this.RemainingTotalPieces.HeaderText = "RemainingTotalPieces";
-            this.RemainingTotalPieces.Name = "RemainingTotalPieces";
-            // 
-            // CategoryID
-            // 
-            this.CategoryID.DataPropertyName = "CategoryID";
-            this.CategoryID.HeaderText = "CategoryID";
-            this.CategoryID.Name = "CategoryID";
-            this.CategoryID.ReadOnly = true;
-            this.CategoryID.Visible = false;
-            // 
-            // DenominationID
-            // 
-            this.DenominationID.DataPropertyName = "DenominationID";
-            this.DenominationID.HeaderText = "DenominationID";
-            this.DenominationID.Name = "DenominationID";
-            this.DenominationID.ReadOnly = true;
-            this.DenominationID.Visible = false;
-            // 
-            // Category
-            // 
-            this.Category.DataPropertyName = "CategoryName";
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.Category.DefaultCellStyle = dataGridViewCellStyle16;
-            this.Category.HeaderText = "Category";
-            this.Category.Name = "Category";
-            this.Category.ReadOnly = true;
-            // 
-            // Denomination
-            // 
-            this.Denomination.DataPropertyName = "Denomination";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Denomination.DefaultCellStyle = dataGridViewCellStyle17;
-            this.Denomination.HeaderText = "Denomination";
-            this.Denomination.Name = "Denomination";
-            this.Denomination.ReadOnly = true;
-            // 
-            // PiecesPerSheet
-            // 
-            this.PiecesPerSheet.DataPropertyName = "PiecesPerSheet";
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PiecesPerSheet.DefaultCellStyle = dataGridViewCellStyle18;
-            this.PiecesPerSheet.HeaderText = "PiecesPerSheet";
-            this.PiecesPerSheet.Name = "PiecesPerSheet";
-            this.PiecesPerSheet.ReadOnly = true;
-            // 
-            // IndentSheets
-            // 
-            this.IndentSheets.DataPropertyName = "IndentSheets";
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentSheets.DefaultCellStyle = dataGridViewCellStyle19;
-            this.IndentSheets.HeaderText = "Indent Sheets";
-            this.IndentSheets.Name = "IndentSheets";
-            this.IndentSheets.ReadOnly = true;
-            // 
-            // IndentLoosePieces
-            // 
-            this.IndentLoosePieces.DataPropertyName = "IndentLoosePieces";
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentLoosePieces.DefaultCellStyle = dataGridViewCellStyle20;
-            this.IndentLoosePieces.HeaderText = "Indent Loose Pieces";
-            this.IndentLoosePieces.Name = "IndentLoosePieces";
-            this.IndentLoosePieces.ReadOnly = true;
-            // 
-            // IndentTotalPieces
-            // 
-            this.IndentTotalPieces.DataPropertyName = "IndentTotalPieces";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IndentTotalPieces.DefaultCellStyle = dataGridViewCellStyle21;
-            this.IndentTotalPieces.HeaderText = "Indent Total Pieces";
-            this.IndentTotalPieces.Name = "IndentTotalPieces";
-            this.IndentTotalPieces.ReadOnly = true;
-            // 
-            // OriginalPendingPieces
-            // 
-            this.OriginalPendingPieces.DataPropertyName = "RemainingTotalPieces";
-            this.OriginalPendingPieces.HeaderText = "OriginalPendingPieces";
-            this.OriginalPendingPieces.Name = "OriginalPendingPieces";
-            this.OriginalPendingPieces.ReadOnly = true;
-            // 
-            // RemainingPieces
-            // 
-            this.RemainingPieces.DataPropertyName = "RemainingPieces";
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RemainingPieces.DefaultCellStyle = dataGridViewCellStyle22;
-            this.RemainingPieces.HeaderText = "RemainingPieces";
-            this.RemainingPieces.Name = "RemainingPieces";
-            this.RemainingPieces.ReadOnly = true;
-            // 
-            // SupplySheets
-            // 
-            this.SupplySheets.DataPropertyName = "SupplySheets";
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.NullValue = "0";
-            this.SupplySheets.DefaultCellStyle = dataGridViewCellStyle23;
-            this.SupplySheets.HeaderText = "Supply Sheets";
-            this.SupplySheets.Name = "SupplySheets";
-            // 
-            // SupplyPieces
-            // 
-            this.SupplyPieces.DataPropertyName = "SupplyPieces";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.NullValue = "0";
-            this.SupplyPieces.DefaultCellStyle = dataGridViewCellStyle24;
-            this.SupplyPieces.HeaderText = "Supply Pieces";
-            this.SupplyPieces.Name = "SupplyPieces";
-            // 
-            // SupplyTotalPieces
-            // 
-            this.SupplyTotalPieces.DataPropertyName = "SupplyTotalPieces";
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SupplyTotalPieces.DefaultCellStyle = dataGridViewCellStyle25;
-            this.SupplyTotalPieces.HeaderText = "Total Supply Qty";
-            this.SupplyTotalPieces.Name = "SupplyTotalPieces";
-            this.SupplyTotalPieces.ReadOnly = true;
-            // 
-            // LedgerFolio
-            // 
-            this.LedgerFolio.DataPropertyName = "LedgerFolio";
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.LedgerFolio.DefaultCellStyle = dataGridViewCellStyle26;
-            this.LedgerFolio.HeaderText = "LedgerFolio";
-            this.LedgerFolio.Name = "LedgerFolio";
-            // 
-            // CaseCode
-            // 
-            this.CaseCode.DataPropertyName = "CaseCode";
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.CaseCode.DefaultCellStyle = dataGridViewCellStyle27;
-            this.CaseCode.HeaderText = "Case Code";
-            this.CaseCode.Name = "CaseCode";
-            // 
-            // CaseNoFrom
-            // 
-            this.CaseNoFrom.DataPropertyName = "CaseNoFrom";
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.Format = "N0";
-            dataGridViewCellStyle28.NullValue = "-";
-            this.CaseNoFrom.DefaultCellStyle = dataGridViewCellStyle28;
-            this.CaseNoFrom.HeaderText = "Case No From";
-            this.CaseNoFrom.Name = "CaseNoFrom";
-            // 
-            // CaseNoTo
-            // 
-            this.CaseNoTo.DataPropertyName = "CaseNoTo";
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.Format = "N0";
-            dataGridViewCellStyle29.NullValue = "-";
-            this.CaseNoTo.DefaultCellStyle = dataGridViewCellStyle29;
-            this.CaseNoTo.HeaderText = "Case No To";
-            this.CaseNoTo.Name = "CaseNoTo";
-            // 
-            // pnlStockEntry
-            // 
-            this.pnlStockEntry.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pnlStockEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlStockEntry.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlStockEntry.Location = new System.Drawing.Point(770, 3);
-            this.pnlStockEntry.Name = "pnlStockEntry";
-            this.pnlStockEntry.Size = new System.Drawing.Size(652, 364);
-            this.pnlStockEntry.TabIndex = 49;
-            // 
             // pnlCurrentStock
             // 
             this.pnlCurrentStock.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -782,10 +538,9 @@
             this.pnlCurrentStock.Controls.Add(this.pnlBox);
             this.pnlCurrentStock.Controls.Add(this.lblStockItem);
             this.pnlCurrentStock.Controls.Add(this.lblStockTitle);
-            this.pnlCurrentStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCurrentStock.Location = new System.Drawing.Point(1428, 3);
+            this.pnlCurrentStock.Location = new System.Drawing.Point(1229, 3);
             this.pnlCurrentStock.Name = "pnlCurrentStock";
-            this.pnlCurrentStock.Size = new System.Drawing.Size(309, 364);
+            this.pnlCurrentStock.Size = new System.Drawing.Size(301, 349);
             this.pnlCurrentStock.TabIndex = 41;
             // 
             // pnlStamp
@@ -928,35 +683,275 @@
             this.lblStockTitle.TabIndex = 0;
             this.lblStockTitle.Text = "CURRENT STOCK";
             // 
-            // tableLayoutPanel1
+            // pnlStockEntry
             // 
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.78682F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.21318F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 314F));
-            this.tableLayoutPanel1.Controls.Add(this.pnlCurrentStock, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlStockEntry, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlTop, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1740, 370);
-            this.tableLayoutPanel1.TabIndex = 53;
+            this.pnlStockEntry.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlStockEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlStockEntry.Location = new System.Drawing.Point(757, 0);
+            this.pnlStockEntry.Name = "pnlStockEntry";
+            this.pnlStockEntry.Size = new System.Drawing.Size(466, 352);
+            this.pnlStockEntry.TabIndex = 49;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(407, 211);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 13);
+            this.label16.TabIndex = 38;
+            this.label16.Text = "Invoice No.";
+            // 
+            // txtInvoiceNo
+            // 
+            this.txtInvoiceNo.Location = new System.Drawing.Point(487, 208);
+            this.txtInvoiceNo.Name = "txtInvoiceNo";
+            this.txtInvoiceNo.Size = new System.Drawing.Size(252, 20);
+            this.txtInvoiceNo.TabIndex = 9;
+            this.txtInvoiceNo.TextChanged += new System.EventHandler(this.txtInvoiceNo_TextChanged);
+            // 
+            // dgvSupplyDetail
+            // 
+            this.dgvSupplyDetail.AllowUserToAddRows = false;
+            this.dgvSupplyDetail.AllowUserToDeleteRows = false;
+            this.dgvSupplyDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvSupplyDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSupplyDetail.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DetailID,
+            this.RemainingTotalPieces,
+            this.CategoryID,
+            this.DenominationID,
+            this.Category,
+            this.Denomination,
+            this.PiecesPerSheet,
+            this.IndentSheets,
+            this.IndentLoosePieces,
+            this.IndentTotalPieces,
+            this.OriginalPendingPieces,
+            this.RemainingPieces,
+            this.SupplySheets,
+            this.SupplyPieces,
+            this.SupplyTotalPieces,
+            this.LedgerFolio,
+            this.CaseCode,
+            this.CaseNoFrom,
+            this.CaseNoTo});
+            this.dgvSupplyDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSupplyDetail.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvSupplyDetail.Location = new System.Drawing.Point(3, 3);
+            this.dgvSupplyDetail.MultiSelect = false;
+            this.dgvSupplyDetail.Name = "dgvSupplyDetail";
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSupplyDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            this.dgvSupplyDetail.RowHeadersVisible = false;
+            this.dgvSupplyDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSupplyDetail.Size = new System.Drawing.Size(1529, 315);
+            this.dgvSupplyDetail.TabIndex = 20;
+            this.dgvSupplyDetail.Visible = false;
+            this.dgvSupplyDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellClick_1);
+            this.dgvSupplyDetail.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellContentClick);
+            this.dgvSupplyDetail.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellEndEdit);
+            this.dgvSupplyDetail.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSupplyDetail_CellFormatting);
+            this.dgvSupplyDetail.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.dgvSupplyDetail_CellParsing);
+            this.dgvSupplyDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSupplyDetail_CellValidating);
+            this.dgvSupplyDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSupplyDetail_DataError);
+            this.dgvSupplyDetail.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSupplyDetail_EditingControlShowing);
+            this.dgvSupplyDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvSupplyDetail_KeyPress);
+            // 
+            // DetailID
+            // 
+            this.DetailID.DataPropertyName = "DetailID";
+            this.DetailID.HeaderText = "DetailID";
+            this.DetailID.Name = "DetailID";
+            this.DetailID.ReadOnly = true;
+            this.DetailID.Visible = false;
+            // 
+            // RemainingTotalPieces
+            // 
+            this.RemainingTotalPieces.DataPropertyName = "RemainingTotalPieces";
+            this.RemainingTotalPieces.FillWeight = 99.67919F;
+            this.RemainingTotalPieces.HeaderText = "RemainingTotalPieces";
+            this.RemainingTotalPieces.Name = "RemainingTotalPieces";
+            // 
+            // CategoryID
+            // 
+            this.CategoryID.DataPropertyName = "CategoryID";
+            this.CategoryID.HeaderText = "CategoryID";
+            this.CategoryID.Name = "CategoryID";
+            this.CategoryID.ReadOnly = true;
+            this.CategoryID.Visible = false;
+            // 
+            // DenominationID
+            // 
+            this.DenominationID.DataPropertyName = "DenominationID";
+            this.DenominationID.HeaderText = "DenominationID";
+            this.DenominationID.Name = "DenominationID";
+            this.DenominationID.ReadOnly = true;
+            this.DenominationID.Visible = false;
+            // 
+            // Category
+            // 
+            this.Category.DataPropertyName = "CategoryName";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.Category.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Category.FillWeight = 100.9557F;
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
+            this.Category.ReadOnly = true;
+            // 
+            // Denomination
+            // 
+            this.Denomination.DataPropertyName = "Denomination";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Denomination.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Denomination.FillWeight = 99.68027F;
+            this.Denomination.HeaderText = "Denomination";
+            this.Denomination.Name = "Denomination";
+            this.Denomination.ReadOnly = true;
+            // 
+            // PiecesPerSheet
+            // 
+            this.PiecesPerSheet.DataPropertyName = "PiecesPerSheet";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PiecesPerSheet.DefaultCellStyle = dataGridViewCellStyle3;
+            this.PiecesPerSheet.FillWeight = 99.68136F;
+            this.PiecesPerSheet.HeaderText = "PiecesPerSheet";
+            this.PiecesPerSheet.Name = "PiecesPerSheet";
+            this.PiecesPerSheet.ReadOnly = true;
+            // 
+            // IndentSheets
+            // 
+            this.IndentSheets.DataPropertyName = "IndentSheets";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentSheets.DefaultCellStyle = dataGridViewCellStyle4;
+            this.IndentSheets.FillWeight = 99.68105F;
+            this.IndentSheets.HeaderText = "Indent Sheets";
+            this.IndentSheets.Name = "IndentSheets";
+            this.IndentSheets.ReadOnly = true;
+            // 
+            // IndentLoosePieces
+            // 
+            this.IndentLoosePieces.DataPropertyName = "IndentLoosePieces";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentLoosePieces.DefaultCellStyle = dataGridViewCellStyle5;
+            this.IndentLoosePieces.FillWeight = 100.9572F;
+            this.IndentLoosePieces.HeaderText = "Indent Loose Pieces";
+            this.IndentLoosePieces.Name = "IndentLoosePieces";
+            this.IndentLoosePieces.ReadOnly = true;
+            // 
+            // IndentTotalPieces
+            // 
+            this.IndentTotalPieces.DataPropertyName = "IndentTotalPieces";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IndentTotalPieces.DefaultCellStyle = dataGridViewCellStyle6;
+            this.IndentTotalPieces.FillWeight = 99.68147F;
+            this.IndentTotalPieces.HeaderText = "Indent Total Pieces";
+            this.IndentTotalPieces.Name = "IndentTotalPieces";
+            this.IndentTotalPieces.ReadOnly = true;
+            // 
+            // OriginalPendingPieces
+            // 
+            this.OriginalPendingPieces.DataPropertyName = "RemainingTotalPieces";
+            this.OriginalPendingPieces.FillWeight = 99.68223F;
+            this.OriginalPendingPieces.HeaderText = "OriginalPendingPieces";
+            this.OriginalPendingPieces.Name = "OriginalPendingPieces";
+            this.OriginalPendingPieces.ReadOnly = true;
+            // 
+            // RemainingPieces
+            // 
+            this.RemainingPieces.DataPropertyName = "RemainingPieces";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RemainingPieces.DefaultCellStyle = dataGridViewCellStyle7;
+            this.RemainingPieces.FillWeight = 99.68164F;
+            this.RemainingPieces.HeaderText = "RemainingPieces";
+            this.RemainingPieces.Name = "RemainingPieces";
+            this.RemainingPieces.ReadOnly = true;
+            // 
+            // SupplySheets
+            // 
+            this.SupplySheets.DataPropertyName = "SupplySheets";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.NullValue = "0";
+            this.SupplySheets.DefaultCellStyle = dataGridViewCellStyle8;
+            this.SupplySheets.FillWeight = 100.9575F;
+            this.SupplySheets.HeaderText = "Supply Sheets";
+            this.SupplySheets.Name = "SupplySheets";
+            // 
+            // SupplyPieces
+            // 
+            this.SupplyPieces.DataPropertyName = "SupplyPieces";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.NullValue = "0";
+            this.SupplyPieces.DefaultCellStyle = dataGridViewCellStyle9;
+            this.SupplyPieces.FillWeight = 99.68147F;
+            this.SupplyPieces.HeaderText = "Supply Pieces";
+            this.SupplyPieces.Name = "SupplyPieces";
+            // 
+            // SupplyTotalPieces
+            // 
+            this.SupplyTotalPieces.DataPropertyName = "SupplyTotalPieces";
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SupplyTotalPieces.DefaultCellStyle = dataGridViewCellStyle10;
+            this.SupplyTotalPieces.FillWeight = 99.68197F;
+            this.SupplyTotalPieces.HeaderText = "Total Supply Qty";
+            this.SupplyTotalPieces.Name = "SupplyTotalPieces";
+            this.SupplyTotalPieces.ReadOnly = true;
+            // 
+            // LedgerFolio
+            // 
+            this.LedgerFolio.DataPropertyName = "LedgerFolio";
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.LedgerFolio.DefaultCellStyle = dataGridViewCellStyle11;
+            this.LedgerFolio.FillWeight = 99.68106F;
+            this.LedgerFolio.HeaderText = "LedgerFolio";
+            this.LedgerFolio.Name = "LedgerFolio";
+            // 
+            // CaseCode
+            // 
+            this.CaseCode.DataPropertyName = "CaseCode";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.CaseCode.DefaultCellStyle = dataGridViewCellStyle12;
+            this.CaseCode.FillWeight = 100.9567F;
+            this.CaseCode.HeaderText = "Case Code";
+            this.CaseCode.Name = "CaseCode";
+            // 
+            // CaseNoFrom
+            // 
+            this.CaseNoFrom.DataPropertyName = "CaseNoFrom";
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.Format = "N0";
+            dataGridViewCellStyle13.NullValue = "-";
+            this.CaseNoFrom.DefaultCellStyle = dataGridViewCellStyle13;
+            this.CaseNoFrom.FillWeight = 99.68031F;
+            this.CaseNoFrom.HeaderText = "Case No From";
+            this.CaseNoFrom.Name = "CaseNoFrom";
+            // 
+            // CaseNoTo
+            // 
+            this.CaseNoTo.DataPropertyName = "CaseNoTo";
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.Format = "N0";
+            dataGridViewCellStyle14.NullValue = "-";
+            this.CaseNoTo.DefaultCellStyle = dataGridViewCellStyle14;
+            this.CaseNoTo.FillWeight = 99.68048F;
+            this.CaseNoTo.HeaderText = "Case No To";
+            this.CaseNoTo.Name = "CaseNoTo";
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.dgvSupplyDetail, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 370);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 373);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1740, 380);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1535, 321);
             this.tableLayoutPanel2.TabIndex = 54;
             // 
             // frmSupply
@@ -965,9 +960,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1740, 750);
+            this.ClientSize = new System.Drawing.Size(1553, 750);
+            this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.HelpButton = true;
             this.Name = "frmSupply";
             this.Text = "Supply Information";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -975,7 +971,6 @@
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.fpnlButton.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).EndInit();
             this.pnlCurrentStock.ResumeLayout(false);
             this.pnlCurrentStock.PerformLayout();
             this.pnlStamp.ResumeLayout(false);
@@ -986,7 +981,7 @@
             this.pnlPacket.PerformLayout();
             this.pnlBox.ResumeLayout(false);
             this.pnlBox.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1056,7 +1051,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoFrom;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoTo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel pnlCurrentStock;
         private System.Windows.Forms.Panel pnlStamp;
         private System.Windows.Forms.Label lblStampBalance;

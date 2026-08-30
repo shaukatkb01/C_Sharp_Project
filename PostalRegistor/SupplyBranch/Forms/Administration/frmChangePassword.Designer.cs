@@ -51,7 +51,7 @@
             this.txtCurrentPassword.Location = new System.Drawing.Point(156, 75);
             this.txtCurrentPassword.Name = "txtCurrentPassword";
             this.txtCurrentPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtCurrentPassword.TabIndex = 1;
+            this.txtCurrentPassword.TabIndex = 0;
             this.txtCurrentPassword.UseSystemPasswordChar = true;
             // 
             // txtNewPassword
@@ -59,7 +59,7 @@
             this.txtNewPassword.Location = new System.Drawing.Point(156, 114);
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtNewPassword.TabIndex = 3;
+            this.txtNewPassword.TabIndex = 1;
             this.txtNewPassword.UseSystemPasswordChar = true;
             // 
             // lblNewPassword
@@ -76,7 +76,7 @@
             this.txtConfirmPassword.Location = new System.Drawing.Point(156, 153);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtConfirmPassword.TabIndex = 5;
+            this.txtConfirmPassword.TabIndex = 2;
             this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // lblConfirmPassword
@@ -93,7 +93,7 @@
             this.btnChangePassword.Location = new System.Drawing.Point(156, 194);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(136, 28);
-            this.btnChangePassword.TabIndex = 6;
+            this.btnChangePassword.TabIndex = 3;
             this.btnChangePassword.Text = "Change";
             this.btnChangePassword.UseVisualStyleBackColor = true;
             this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);

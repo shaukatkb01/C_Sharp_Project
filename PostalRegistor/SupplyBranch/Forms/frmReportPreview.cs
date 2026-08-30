@@ -27,6 +27,8 @@ namespace SupplyBranch.Forms
         private DataTable _reportData = null;
         private DataTable _reportData1 = null;
         private DataTable _reportData2 = null;
+        private DataTable _reportData3 = null;
+        private DataTable _reportData4 = null;
 
         //=========================================
         // Constructor
@@ -48,7 +50,7 @@ namespace SupplyBranch.Forms
         // Generic Report Loader
         //=========================================
 
-        public void LoadReport(string reportFile, DataTable dt, DataTable dt1, DataTable dt2)
+        public void LoadReport(string reportFile, DataTable dt, DataTable dt1, DataTable dt2, DataTable dt3, DataTable dt4)
         {
             _isRegisterReport = true;
 
@@ -57,6 +59,8 @@ namespace SupplyBranch.Forms
             _reportData = dt;
             _reportData1 = dt1;
             _reportData2 = dt2;
+            _reportData3 = dt3;
+            _reportData4 = dt4;
         }
 
         //=========================================
@@ -105,6 +109,18 @@ namespace SupplyBranch.Forms
                             _reportData2));
                 }
 
+                //-----------------------------------------------
+                // 3. Current Stock Position
+                //-----------------------------------------------
+
+                else if (_reportFile == "rptCurrentStock.rdlc" ||
+                         _reportFile == "rptStockRegister.rdlc")
+                {
+                    reportViewer1.LocalReport.DataSources.Add(
+                        new ReportDataSource(
+                            "dsStock",
+                            _reportData3));
+                }
                 //-------------------------------------------------
                 // 3. Other Supply Register Reports
                 //-------------------------------------------------

@@ -1,4 +1,5 @@
-﻿using SupplyBranch.Helpers;
+﻿using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using SupplyBranch.Helpers;
 using SupplyBranch.Models;
 using SupplyBranch.Reports;
 using System;
@@ -15,6 +16,26 @@ namespace SupplyBranch.DataAccess
         private DBHelper db = new DBHelper();
 
 
+        public DataTable GetDenominations(int? categoryID)
+        {
+            string query = @"
+                        SELECT
+                            ST.DenominationID,
+        'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS DisplayDenomination                           
+                            
+                        FROM StockMaster ST
+                        INNER JOIN Denomination D
+                            ON ST.DenominationID = D.DenominationID
+                        WHERE ST.CategoryID = @CategoryID
+                        ORDER BY D.Denomination";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@CategoryID", categoryID)
+    };
+
+            return db.ExecuteQuery(query, parameters);
+        }
         public DataTable GetCategories()
         {
             string query = @"
@@ -229,6 +250,88 @@ namespace SupplyBranch.DataAccess
 
             return db.ExecuteQuery(query.ToString(), parameters.ToArray());
         }
+
+
+
+        public DataTable GetStockTransaction(int categoryID, int denominationID, string transactionType)
+        {
+            StringBuilder query = new StringBuilder();
+
+            query.Append(@"
+        SELECT 
+            ST.TransactionType,
+            ST.BoxQty,
+            ST.PacketQty,
+            ST.SheetQty,
+            ST.StampQty,
+            ST.TransactionDate,
+            ST.ReferenceType,
+            ST.Remarks,
+            SM.CategoryID,
+            SC.Name AS StampCategory
+        FROM StockTransaction ST
+        INNER JOIN StockMaster SM ON SM.StockID = ST.StockID
+        INNER JOIN StampCategory SC ON SC.CategoryID = SM.CategoryID
+        WHERE 1=1 ");
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            // 1. Category Filter
+            if (categoryID > 0)
+            {
+                query.Append(" AND SM.CategoryID = @CategoryID");
+                parameters.Add(new SqlParameter("@CategoryID", SqlDbType.Int) { Value = categoryID });
+            }
+
+            // 2. Denomination Filter
+            if (denominationID > 0)
+            {
+                query.Append(" AND SM.DenominationID = @DenominationID");
+                parameters.Add(new SqlParameter("@DenominationID", SqlDbType.Int) { Value = denominationID });
+            }
+
+            // 3. Transaction Type Filter
+            if (!string.IsNullOrEmpty(transactionType) && transactionType != "All")
+            {
+                query.Append(" AND ST.TransactionType = @TransactionType");
+                parameters.Add(new SqlParameter("@TransactionType", SqlDbType.VarChar) { Value = transactionType });
+            }
+
+            // 4. Sorting
+            query.Append(" ORDER BY ST.TransactionDate DESC");
+
+            return db.ExecuteQuery(query.ToString(), parameters.ToArray());
+        }
+
+        public DataTable GetCurrentStockReport(int categoryID, int denominationID)
+        {
+            StringBuilder query = new StringBuilder();
+
+            // Base query from View
+            query.Append("SELECT * FROM vw_CurrentStockPosition WHERE 1=1");
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            // 1. Category ID Check
+            if (categoryID > 0)
+            {
+                query.Append(" AND CategoryID = @CategoryID");
+                parameters.Add(new SqlParameter("@CategoryID", SqlDbType.Int) { Value = categoryID });
+            }
+
+            // 2. Denomination ID Check
+            if (denominationID > 0)
+            {
+                query.Append(" AND DenominationID = @DenominationID");
+                parameters.Add(new SqlParameter("@DenominationID", SqlDbType.Int) { Value = denominationID });
+            }
+
+            // 3. Sorting
+            query.Append(" ORDER BY CategoryName, DenominationValue");
+
+            return db.ExecuteQuery(query.ToString(), parameters.ToArray());
+        }
+
         public DataTable GetSupplyRegister(ReportFilter filter)
         {
             StringBuilder query = new StringBuilder();

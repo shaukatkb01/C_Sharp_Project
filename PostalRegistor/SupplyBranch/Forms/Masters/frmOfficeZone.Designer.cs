@@ -52,14 +52,14 @@
             this.txtZoneName.Location = new System.Drawing.Point(100, 54);
             this.txtZoneName.Name = "txtZoneName";
             this.txtZoneName.Size = new System.Drawing.Size(396, 20);
-            this.txtZoneName.TabIndex = 1;
+            this.txtZoneName.TabIndex = 0;
             // 
             // btnNew
             // 
             this.btnNew.Location = new System.Drawing.Point(100, 94);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 28);
-            this.btnNew.TabIndex = 2;
+            this.btnNew.TabIndex = 1;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -69,7 +69,7 @@
             this.btnSave.Location = new System.Drawing.Point(207, 94);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 28);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -79,7 +79,7 @@
             this.btnEdit.Location = new System.Drawing.Point(314, 94);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 28);
-            this.btnEdit.TabIndex = 4;
+            this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             // 
@@ -88,7 +88,7 @@
             this.btnDelete.Location = new System.Drawing.Point(421, 94);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 28);
-            this.btnDelete.TabIndex = 5;
+            this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);

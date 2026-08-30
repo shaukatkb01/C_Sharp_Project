@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.cmbDenomination = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,12 +39,6 @@
             this.btnNew = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.dgvConversion = new System.Windows.Forms.DataGridView();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtRemarks = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPacketsPerBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtSheetsPerPacket = new System.Windows.Forms.TextBox();
             this.ConversionID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +50,12 @@
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtRemarks = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPacketsPerBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSheetsPerPacket = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConversion)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,7 +116,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(390, 236);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(79, 33);
-            this.btnUpdate.TabIndex = 46;
+            this.btnUpdate.TabIndex = 8;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -126,7 +126,7 @@
             this.btnNew.Location = new System.Drawing.Point(170, 236);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(79, 33);
-            this.btnNew.TabIndex = 44;
+            this.btnNew.TabIndex = 6;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -136,7 +136,7 @@
             this.btnSave.Location = new System.Drawing.Point(280, 236);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 33);
-            this.btnSave.TabIndex = 43;
+            this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -166,68 +166,19 @@
             this.dgvConversion.MultiSelect = false;
             this.dgvConversion.Name = "dgvConversion";
             this.dgvConversion.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvConversion.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvConversion.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvConversion.RowHeadersVisible = false;
             this.dgvConversion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvConversion.Size = new System.Drawing.Size(850, 307);
             this.dgvConversion.TabIndex = 42;
             this.dgvConversion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConversion_CellClick);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(29, 195);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Remarks:";
-            // 
-            // txtRemarks
-            // 
-            this.txtRemarks.Location = new System.Drawing.Point(136, 188);
-            this.txtRemarks.Multiline = true;
-            this.txtRemarks.Name = "txtRemarks";
-            this.txtRemarks.Size = new System.Drawing.Size(389, 20);
-            this.txtRemarks.TabIndex = 51;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
-            this.label3.TabIndex = 54;
-            this.label3.Text = " Packets Per Box";
-            // 
-            // txtPacketsPerBox
-            // 
-            this.txtPacketsPerBox.Location = new System.Drawing.Point(136, 80);
-            this.txtPacketsPerBox.Name = "txtPacketsPerBox";
-            this.txtPacketsPerBox.Size = new System.Drawing.Size(389, 20);
-            this.txtPacketsPerBox.TabIndex = 53;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 120);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 13);
-            this.label5.TabIndex = 56;
-            this.label5.Text = "Sheets Per Packet";
-            // 
-            // txtSheetsPerPacket
-            // 
-            this.txtSheetsPerPacket.Location = new System.Drawing.Point(136, 113);
-            this.txtSheetsPerPacket.Name = "txtSheetsPerPacket";
-            this.txtSheetsPerPacket.Size = new System.Drawing.Size(389, 20);
-            this.txtSheetsPerPacket.TabIndex = 55;
             // 
             // ConversionID
             // 
@@ -313,6 +264,55 @@
             this.Delete.ReadOnly = true;
             this.Delete.Text = "Delete";
             this.Delete.UseColumnTextForButtonValue = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(29, 195);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 52;
+            this.label6.Text = "Remarks:";
+            // 
+            // txtRemarks
+            // 
+            this.txtRemarks.Location = new System.Drawing.Point(136, 188);
+            this.txtRemarks.Multiline = true;
+            this.txtRemarks.Name = "txtRemarks";
+            this.txtRemarks.Size = new System.Drawing.Size(389, 20);
+            this.txtRemarks.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 13);
+            this.label3.TabIndex = 54;
+            this.label3.Text = " Packets Per Box";
+            // 
+            // txtPacketsPerBox
+            // 
+            this.txtPacketsPerBox.Location = new System.Drawing.Point(136, 80);
+            this.txtPacketsPerBox.Name = "txtPacketsPerBox";
+            this.txtPacketsPerBox.Size = new System.Drawing.Size(389, 20);
+            this.txtPacketsPerBox.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(29, 120);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 13);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "Sheets Per Packet";
+            // 
+            // txtSheetsPerPacket
+            // 
+            this.txtSheetsPerPacket.Location = new System.Drawing.Point(136, 113);
+            this.txtSheetsPerPacket.Name = "txtSheetsPerPacket";
+            this.txtSheetsPerPacket.Size = new System.Drawing.Size(389, 20);
+            this.txtSheetsPerPacket.TabIndex = 3;
             // 
             // frmUnitConversionMaster
             // 

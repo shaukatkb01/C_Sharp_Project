@@ -72,7 +72,7 @@
             this.btnDelete.Location = new System.Drawing.Point(302, 189);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(79, 34);
-            this.btnDelete.TabIndex = 26;
+            this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -82,7 +82,7 @@
             this.btnSave.Location = new System.Drawing.Point(112, 189);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 34);
-            this.btnSave.TabIndex = 25;
+            this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -92,7 +92,7 @@
             this.txtSearch.Location = new System.Drawing.Point(112, 148);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(269, 20);
-            this.txtSearch.TabIndex = 23;
+            this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged_1);
             // 
             // txtCategoryName
@@ -100,14 +100,14 @@
             this.txtCategoryName.Location = new System.Drawing.Point(112, 54);
             this.txtCategoryName.Name = "txtCategoryName";
             this.txtCategoryName.Size = new System.Drawing.Size(269, 20);
-            this.txtCategoryName.TabIndex = 21;
+            this.txtCategoryName.TabIndex = 0;
             // 
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(112, 101);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(269, 20);
-            this.txtDescription.TabIndex = 20;
+            this.txtDescription.TabIndex = 1;
             // 
             // lblOfficeCode
             // 
@@ -132,7 +132,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(207, 189);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(79, 34);
-            this.btnUpdate.TabIndex = 32;
+            this.btnUpdate.TabIndex = 4;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);

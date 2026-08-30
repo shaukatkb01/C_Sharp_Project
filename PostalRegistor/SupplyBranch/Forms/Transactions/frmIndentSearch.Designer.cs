@@ -79,7 +79,7 @@
             this.dtFrom.Location = new System.Drawing.Point(83, 151);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.Size = new System.Drawing.Size(118, 20);
-            this.dtFrom.TabIndex = 2;
+            this.dtFrom.TabIndex = 3;
             this.dtFrom.Value = new System.DateTime(2026, 8, 10, 22, 0, 0, 0);
             // 
             // dtTo
@@ -88,7 +88,7 @@
             this.dtTo.Location = new System.Drawing.Point(275, 151);
             this.dtTo.Name = "dtTo";
             this.dtTo.Size = new System.Drawing.Size(118, 20);
-            this.dtTo.TabIndex = 3;
+            this.dtTo.TabIndex = 4;
             // 
             // cmbIndentNo
             // 
@@ -96,14 +96,14 @@
             this.cmbIndentNo.Location = new System.Drawing.Point(83, 115);
             this.cmbIndentNo.Name = "cmbIndentNo";
             this.cmbIndentNo.Size = new System.Drawing.Size(310, 21);
-            this.cmbIndentNo.TabIndex = 4;
+            this.cmbIndentNo.TabIndex = 2;
             // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(139, 218);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 35);
-            this.btnSearch.TabIndex = 5;
+            this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -113,7 +113,7 @@
             this.btnClear.Location = new System.Drawing.Point(234, 218);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 35);
-            this.btnClear.TabIndex = 6;
+            this.btnClear.TabIndex = 7;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -266,7 +266,7 @@
             this.txtSearchIndentNo.Location = new System.Drawing.Point(83, 189);
             this.txtSearchIndentNo.Name = "txtSearchIndentNo";
             this.txtSearchIndentNo.Size = new System.Drawing.Size(310, 20);
-            this.txtSearchIndentNo.TabIndex = 17;
+            this.txtSearchIndentNo.TabIndex = 5;
             this.txtSearchIndentNo.TextChanged += new System.EventHandler(this.txtSearchIndentNo_TextChanged);
             // 
             // label6

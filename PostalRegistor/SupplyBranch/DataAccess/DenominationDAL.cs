@@ -72,8 +72,8 @@ namespace SupplyBranch.DAL
                         d.DenominationID,
                         d.CategoryID,
                         c.Name AS Category,
-                        d.Denomination
-                     FROM Denomination d
+                        'Rs. ' + FORMAT(d.Denomination, '0.##') + '/-' AS Denomination
+                        FROM Denomination d
                      INNER JOIN StampCategory c
                         ON d.CategoryID = c.CategoryID
                      ORDER BY c.Name, d.Denomination";

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbOffice = new System.Windows.Forms.ComboBox();
             this.cmbZone = new System.Windows.Forms.ComboBox();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
@@ -63,7 +63,7 @@
             this.cmbZone.Location = new System.Drawing.Point(57, 55);
             this.cmbZone.Name = "cmbZone";
             this.cmbZone.Size = new System.Drawing.Size(340, 21);
-            this.cmbZone.TabIndex = 2;
+            this.cmbZone.TabIndex = 0;
             this.cmbZone.SelectedIndexChanged += new System.EventHandler(this.cmbZone_SelectedIndexChanged);
             // 
             // dtFrom
@@ -71,21 +71,21 @@
             this.dtFrom.Location = new System.Drawing.Point(57, 140);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.Size = new System.Drawing.Size(131, 20);
-            this.dtFrom.TabIndex = 3;
+            this.dtFrom.TabIndex = 2;
             // 
             // dtTo
             // 
             this.dtTo.Location = new System.Drawing.Point(266, 140);
             this.dtTo.Name = "dtTo";
             this.dtTo.Size = new System.Drawing.Size(131, 20);
-            this.dtTo.TabIndex = 4;
+            this.dtTo.TabIndex = 3;
             // 
             // txtSearchIndentNo
             // 
             this.txtSearchIndentNo.Location = new System.Drawing.Point(57, 181);
             this.txtSearchIndentNo.Name = "txtSearchIndentNo";
             this.txtSearchIndentNo.Size = new System.Drawing.Size(340, 20);
-            this.txtSearchIndentNo.TabIndex = 5;
+            this.txtSearchIndentNo.TabIndex = 4;
             // 
             // rbPending
             // 
@@ -130,7 +130,7 @@
             this.btnSearch.Location = new System.Drawing.Point(57, 207);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(340, 34);
-            this.btnSearch.TabIndex = 9;
+            this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -140,7 +140,7 @@
             this.btnNewSupply.Location = new System.Drawing.Point(57, 247);
             this.btnNewSupply.Name = "btnNewSupply";
             this.btnNewSupply.Size = new System.Drawing.Size(340, 34);
-            this.btnNewSupply.TabIndex = 10;
+            this.btnNewSupply.TabIndex = 6;
             this.btnNewSupply.Text = "New Supply";
             this.btnNewSupply.UseVisualStyleBackColor = true;
             this.btnNewSupply.Click += new System.EventHandler(this.btnNewSupply_Click);
@@ -158,14 +158,14 @@
             this.dgvSupply.MultiSelect = false;
             this.dgvSupply.Name = "dgvSupply";
             this.dgvSupply.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSupply.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSupply.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSupply.RowHeadersVisible = false;
             this.dgvSupply.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSupply.Size = new System.Drawing.Size(862, 328);

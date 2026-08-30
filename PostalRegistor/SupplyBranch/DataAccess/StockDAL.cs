@@ -696,11 +696,7 @@ WHERE CategoryID = @CategoryID
         SELECT
             T.TransactionID,
             C.Name AS Category,
-            'Rs.' +
-            CAST(
-                CAST(D.Denomination AS DECIMAL(18,2))
-                AS VARCHAR(20)
-            ) + '/-' AS Denomination,
+           'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS Denomination,
 
             T.BoxQty,
             T.PacketQty,

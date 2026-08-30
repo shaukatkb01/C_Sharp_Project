@@ -89,11 +89,7 @@ namespace SupplyBranch.DAL
             string query = @"
                 SELECT
                     D.DenominationID,
-                    'Rs.' +
-                    CAST(
-                        CAST(D.Denomination AS DECIMAL(18,2))
-                        AS VARCHAR(20)
-                    ) + '/-' AS Denomination
+                    'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS Denomination
                 FROM Denomination D
                 WHERE D.CategoryID = @CategoryID
                   AND NOT EXISTS
@@ -165,7 +161,7 @@ namespace SupplyBranch.DAL
                     U.CategoryID,
                     C.Name AS Category,
                     U.DenominationID,
-                    D.Denomination,
+                    'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS Denomination,
                     U.PacketsPerBox,
                     U.SheetsPerPacket,
                     U.PiecesPerSheet,
@@ -281,11 +277,7 @@ namespace SupplyBranch.DAL
             string query = @"
         SELECT
             U.DenominationID,
-            'Rs.' +
-            CAST(
-                CAST(D.Denomination AS DECIMAL(18,2))
-                AS VARCHAR(20)
-            ) + '/-' AS Denomination
+           'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS Denomination
         FROM UnitConversionMaster U
         INNER JOIN Denomination D
             ON U.DenominationID = D.DenominationID

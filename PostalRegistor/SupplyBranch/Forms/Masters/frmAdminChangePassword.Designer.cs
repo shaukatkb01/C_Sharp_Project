@@ -45,7 +45,7 @@
             this.btnSave.Location = new System.Drawing.Point(125, 223);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(136, 28);
-            this.btnSave.TabIndex = 15;
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -55,7 +55,7 @@
             this.txtConfirmPassword.Location = new System.Drawing.Point(125, 182);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtConfirmPassword.TabIndex = 14;
+            this.txtConfirmPassword.TabIndex = 3;
             this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // lblConfirmPassword
@@ -72,7 +72,7 @@
             this.txtNewPassword.Location = new System.Drawing.Point(125, 143);
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtNewPassword.TabIndex = 12;
+            this.txtNewPassword.TabIndex = 2;
             this.txtNewPassword.UseSystemPasswordChar = true;
             // 
             // lblNewPassword
@@ -89,7 +89,7 @@
             this.txtCurrentPassword.Location = new System.Drawing.Point(125, 104);
             this.txtCurrentPassword.Name = "txtCurrentPassword";
             this.txtCurrentPassword.Size = new System.Drawing.Size(136, 20);
-            this.txtCurrentPassword.TabIndex = 10;
+            this.txtCurrentPassword.TabIndex = 1;
             this.txtCurrentPassword.UseSystemPasswordChar = true;
             // 
             // lblCurrentPassword
@@ -106,7 +106,7 @@
             this.btnCancel.Location = new System.Drawing.Point(125, 267);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 28);
-            this.btnCancel.TabIndex = 17;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -116,7 +116,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(136, 20);
-            this.txtUserName.TabIndex = 19;
+            this.txtUserName.TabIndex = 0;
             // 
             // label1
             // 

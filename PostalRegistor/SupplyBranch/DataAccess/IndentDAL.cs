@@ -105,7 +105,7 @@ namespace SupplyBranch.DAL
             string query = @"
                         SELECT
                             UCM.DenominationID,
-                            'Rs.' + CAST(CAST(D.Denomination AS DECIMAL(18,2)) AS VARCHAR(20)) + '/-' AS DisplayDenomination,
+        'Rs. ' + FORMAT(D.Denomination, '0.##') + '/-' AS DisplayDenomination,                           
                             UCM.PiecesPerSheet
                         FROM UnitConversionMaster UCM
                         INNER JOIN Denomination D

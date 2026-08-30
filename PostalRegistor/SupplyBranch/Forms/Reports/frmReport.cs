@@ -88,6 +88,37 @@ namespace SupplyBranch.Forms.Reports
 
         }
 
+        public void LoadDenominationCombo(int categoryID)
+        {
+            DataTable dt = _dal.GetDenominations(categoryID);
+
+            // Dynamic Top Row 'All' Insert
+            DataRow dr = dt.NewRow();
+            dr["DenominationID"] = 0;
+            dr["DisplayDenomination"] = "-- All Denominations --";
+            dt.Rows.InsertAt(dr, 0);
+
+            // ComboBox Binding
+            cmbDenomination.DataSource = dt;
+            cmbDenomination.DisplayMember = "DisplayDenomination";
+            cmbDenomination.ValueMember = "DenominationID";
+        }
+
+        private void LoadAllDenominationsOnly()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("DenominationID", typeof(int));
+            dt.Columns.Add("DisplayDenomination", typeof(string));
+
+            // Sirf Single Row "All Denominations"
+            dt.Rows.Add(0, "-- All Denominations --");
+
+            cmbDenomination.DataSource = dt;
+            cmbDenomination.DisplayMember = "DisplayDenomination";
+            cmbDenomination.ValueMember = "DenominationID";
+        }
+
+
         private void btnOfficeWise_Click(object sender, EventArgs e)
         {
             ReportFilter filter = new ReportFilter();
@@ -132,6 +163,8 @@ namespace SupplyBranch.Forms.Reports
             DataTable dt = null;
             DataTable dt1 = null;
             DataTable dt2 = null;
+            DataTable dt3 = null;
+            DataTable dt4 = null;
 
 
             //----------------------------
@@ -239,8 +272,47 @@ namespace SupplyBranch.Forms.Reports
 
 
                 case "Current Stock":
+                    reportFile = "rptCurrentStock.rdlc";
+
+                    int selectedCategory = 0;
+                    int selectedDenomination = 0;
+
+                    if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int cId))
+                        selectedCategory = cId;
+
+                    if (cmbDenomination.SelectedValue != null && int.TryParse(cmbDenomination.SelectedValue.ToString(), out int dId))
+                        selectedDenomination = dId;
+
+                    dt3 = _dal.GetCurrentStockReport(selectedCategory, selectedDenomination);
+
+                    
+                    break;
+
+                case "Stock Register":
+
                     reportFile = "rptStockRegister.rdlc";
-                    dt = _dal.GetSupplyRegister(filter);
+
+                    int selectedCategory1 = 0;
+                    int selectedDenomination1 = 0;
+                    string transactionType = "";
+
+                    // 1. Category ID Read
+                    if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int cId1))
+                        selectedCategory1 = cId1;
+
+                    // 2. Denomination ID Read
+                    if (cmbDenomination.SelectedValue != null && int.TryParse(cmbDenomination.SelectedValue.ToString(), out int dId1))
+                        selectedDenomination1 = dId1;
+
+                    // 3. Transaction Type Read (FIXED SYNTAX)
+                    if (cmbTransactionType.SelectedItem != null)
+                    {
+                        transactionType = cmbTransactionType.Text.Trim();
+                    }
+
+                    // Call DAL Method
+                    dt3 = _dal.GetStockTransaction(selectedCategory1, selectedDenomination1, transactionType);
+
                     break;
 
                 default:
@@ -261,7 +333,9 @@ namespace SupplyBranch.Forms.Reports
 
             if ((dt == null || dt.Rows.Count == 0) &&
                 (dt1 == null || dt1.Rows.Count == 0) &&
-                (dt2 == null || dt2.Rows.Count == 0)) 
+                (dt2 == null || dt2.Rows.Count == 0) &&
+                (dt3 == null || dt3.Rows.Count == 0) &&
+                (dt4 == null || dt4.Rows.Count == 0))
             {
                 MessageBox.Show(
                     "No Record Found.",
@@ -283,7 +357,9 @@ namespace SupplyBranch.Forms.Reports
                 reportFile,
                 dt,
                 dt1,
-                dt2);
+                dt2,
+                dt3,
+                dt4);
 
             frm.ShowDialog();
         }
@@ -300,16 +376,30 @@ namespace SupplyBranch.Forms.Reports
             cmbStatus.Enabled = true;
             cmbCategory.SelectedIndex = 0;
             cmbCategory.Enabled = true;
+            lblDenomination.Visible = false;
+            cmbDenomination.Visible = false;
+
+            lblOffice.Visible = true;
+            lblStatus.Visible = true;
+            lblFincialYear.Visible = true;
+            lblFrom.Visible = true;
+            lblTo.Visible = true;
+            // combo
+            cmbOffice.Visible = true;
+            cmbStatus.Visible = true;
+            cmbFinancialYear.Visible = true;
+            dtFrom.Visible = true;
+            dtTo.Visible = true;
 
             switch (cmbReportType.Text)
             {
 
-                case "Office Wise Supply": 
+                case "Office Wise Supply":
 
                     cmbStatus.SelectedValue = 3;
-                    cmbStatus.Enabled = false;  
-                    
-                    
+                    cmbStatus.Enabled = false;
+
+
                     break;
 
                 case "Category Wise Supply":
@@ -328,27 +418,42 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
                 case "Category Wise Indent":
-                    
+
                     break;
 
 
                 case "Indent Register":
-                   
+
                     break;
 
                 case "Invoice Register":
-                   
+
                     break;
 
                 case "Financial Year Report":
 
-            
+
                 case "Pending Supplies":
 
 
                     break;
 
                 case "Current Stock":
+                    lblDenomination.Visible = true;
+                    cmbDenomination.Visible = true;
+
+                    // lable
+                    lblOffice.Visible = false;
+                    lblStatus.Visible = false;
+                    lblFincialYear.Visible = false;
+                    lblFrom.Visible = false;
+                    lblTo.Visible = false;
+                    // combo
+                    cmbOffice.Visible = false;
+                    cmbStatus.Visible = false;
+                    cmbFinancialYear.Visible = false;
+                    dtFrom.Visible = false;
+                    dtTo.Visible = false;
 
                     break;
 
@@ -357,12 +462,31 @@ namespace SupplyBranch.Forms.Reports
 
 
                 case "Performa":
-                    
+
                     break;
 
                 default:
                     MessageBox.Show("Please Select Report.");
                     return;
+            }
+        }
+
+        private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int categoryID))
+            {
+                if (categoryID > 0)
+                {
+                    // Jab koi specific Category select ho, to us ke Denominations load karein
+                    LoadDenominationCombo(categoryID);
+                    
+                }
+                else
+                {
+                    // Jab "All Categories" (0) select ho, to Denomination mein bhi sirf "All" set kar dein
+                    LoadAllDenominationsOnly();
+                }
             }
         }
     }

@@ -237,7 +237,7 @@
             this.btnSave.Location = new System.Drawing.Point(283, 241);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(91, 42);
-            this.btnSave.TabIndex = 2;
+            this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save Adjustment";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -247,7 +247,7 @@
             this.btnClear.Location = new System.Drawing.Point(398, 241);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(91, 42);
-            this.btnClear.TabIndex = 3;
+            this.btnClear.TabIndex = 1;
             this.btnClear.Text = "Clear / Reset";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);

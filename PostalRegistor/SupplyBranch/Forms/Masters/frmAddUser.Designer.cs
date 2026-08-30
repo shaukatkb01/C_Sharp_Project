@@ -58,7 +58,7 @@
             this.txtFullName.Location = new System.Drawing.Point(158, 39);
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(227, 20);
-            this.txtFullName.TabIndex = 1;
+            this.txtFullName.TabIndex = 0;
             // 
             // lblUserName
             // 
@@ -74,7 +74,7 @@
             this.txtUserName.Location = new System.Drawing.Point(158, 89);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(227, 20);
-            this.txtUserName.TabIndex = 3;
+            this.txtUserName.TabIndex = 1;
             // 
             // lblPassword
             // 
@@ -90,7 +90,7 @@
             this.txtPassword.Location = new System.Drawing.Point(158, 139);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(227, 20);
-            this.txtPassword.TabIndex = 5;
+            this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // lblConfirmPassword
@@ -107,7 +107,7 @@
             this.txtConfirmPassword.Location = new System.Drawing.Point(158, 189);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(227, 20);
-            this.txtConfirmPassword.TabIndex = 7;
+            this.txtConfirmPassword.TabIndex = 3;
             this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // lblEmail
@@ -124,7 +124,7 @@
             this.txtEmail.Location = new System.Drawing.Point(158, 239);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(227, 20);
-            this.txtEmail.TabIndex = 9;
+            this.txtEmail.TabIndex = 4;
             // 
             // lblAuthorityID
             // 
@@ -140,14 +140,14 @@
             this.txtAuthorityID.Location = new System.Drawing.Point(158, 289);
             this.txtAuthorityID.Name = "txtAuthorityID";
             this.txtAuthorityID.Size = new System.Drawing.Size(227, 20);
-            this.txtAuthorityID.TabIndex = 11;
+            this.txtAuthorityID.TabIndex = 5;
             // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(184, 334);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 35);
-            this.btnSave.TabIndex = 12;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -157,7 +157,7 @@
             this.btnCancel.Location = new System.Drawing.Point(291, 334);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 35);
-            this.btnCancel.TabIndex = 13;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);

@@ -142,7 +142,7 @@
             this.btnClearItem.Location = new System.Drawing.Point(508, 233);
             this.btnClearItem.Name = "btnClearItem";
             this.btnClearItem.Size = new System.Drawing.Size(93, 32);
-            this.btnClearItem.TabIndex = 10;
+            this.btnClearItem.TabIndex = 11;
             this.btnClearItem.Text = "Clear";
             this.btnClearItem.UseVisualStyleBackColor = true;
             this.btnClearItem.Click += new System.EventHandler(this.btnClearItem_Click);
@@ -171,7 +171,7 @@
             this.btnSave.Location = new System.Drawing.Point(252, 233);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 32);
-            this.btnSave.TabIndex = 11;
+            this.btnSave.TabIndex = 9;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -217,7 +217,7 @@
             this.cmbCategory.Location = new System.Drawing.Point(440, 112);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(209, 26);
-            this.cmbCategory.TabIndex = 4;
+            this.cmbCategory.TabIndex = 5;
             this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
             // 
             // btnAddItem
@@ -225,7 +225,7 @@
             this.btnAddItem.Location = new System.Drawing.Point(373, 233);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(93, 32);
-            this.btnAddItem.TabIndex = 9;
+            this.btnAddItem.TabIndex = 10;
             this.btnAddItem.Text = "Add";
             this.btnAddItem.UseVisualStyleBackColor = true;
             this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
@@ -241,7 +241,7 @@
             this.cmbDenomination.Location = new System.Drawing.Point(114, 154);
             this.cmbDenomination.Name = "cmbDenomination";
             this.cmbDenomination.Size = new System.Drawing.Size(209, 26);
-            this.cmbDenomination.TabIndex = 5;
+            this.cmbDenomination.TabIndex = 3;
             this.cmbDenomination.SelectedIndexChanged += new System.EventHandler(this.cmbDenomination_SelectedIndexChanged);
             // 
             // label5
@@ -272,7 +272,7 @@
             this.dtpIndentDate.Location = new System.Drawing.Point(440, 72);
             this.dtpIndentDate.Name = "dtpIndentDate";
             this.dtpIndentDate.Size = new System.Drawing.Size(209, 24);
-            this.dtpIndentDate.TabIndex = 1;
+            this.dtpIndentDate.TabIndex = 4;
             this.dtpIndentDate.Value = new System.DateTime(2026, 7, 15, 18, 46, 0, 0);
             // 
             // label3
@@ -316,7 +316,7 @@
             this.cmbZone.Location = new System.Drawing.Point(115, 75);
             this.cmbZone.Name = "cmbZone";
             this.cmbZone.Size = new System.Drawing.Size(209, 26);
-            this.cmbZone.TabIndex = 2;
+            this.cmbZone.TabIndex = 1;
             this.cmbZone.SelectedIndexChanged += new System.EventHandler(this.cmbZone_SelectedIndexChanged_1);
             // 
             // cmbOffice
@@ -327,7 +327,7 @@
             this.cmbOffice.Location = new System.Drawing.Point(115, 112);
             this.cmbOffice.Name = "cmbOffice";
             this.cmbOffice.Size = new System.Drawing.Size(209, 26);
-            this.cmbOffice.TabIndex = 3;
+            this.cmbOffice.TabIndex = 2;
             // 
             // dgvItems
             // 

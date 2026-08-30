@@ -87,35 +87,35 @@
             this.cmbZone.Location = new System.Drawing.Point(133, 36);
             this.cmbZone.Name = "cmbZone";
             this.cmbZone.Size = new System.Drawing.Size(285, 21);
-            this.cmbZone.TabIndex = 4;
+            this.cmbZone.TabIndex = 0;
             // 
             // txtOfficeName
             // 
             this.txtOfficeName.Location = new System.Drawing.Point(133, 73);
             this.txtOfficeName.Name = "txtOfficeName";
             this.txtOfficeName.Size = new System.Drawing.Size(285, 20);
-            this.txtOfficeName.TabIndex = 5;
+            this.txtOfficeName.TabIndex = 1;
             // 
             // txtOfficeCode
             // 
             this.txtOfficeCode.Location = new System.Drawing.Point(133, 145);
             this.txtOfficeCode.Name = "txtOfficeCode";
             this.txtOfficeCode.Size = new System.Drawing.Size(285, 20);
-            this.txtOfficeCode.TabIndex = 6;
+            this.txtOfficeCode.TabIndex = 3;
             // 
             // txtOfficeFileNo
             // 
             this.txtOfficeFileNo.Location = new System.Drawing.Point(133, 109);
             this.txtOfficeFileNo.Name = "txtOfficeFileNo";
             this.txtOfficeFileNo.Size = new System.Drawing.Size(285, 20);
-            this.txtOfficeFileNo.TabIndex = 7;
+            this.txtOfficeFileNo.TabIndex = 2;
             // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(133, 181);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(285, 20);
-            this.txtSearch.TabIndex = 8;
+            this.txtSearch.TabIndex = 4;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnNew
@@ -123,7 +123,7 @@
             this.btnNew.Location = new System.Drawing.Point(137, 213);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(79, 40);
-            this.btnNew.TabIndex = 9;
+            this.btnNew.TabIndex = 5;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -133,7 +133,7 @@
             this.btnSave.Location = new System.Drawing.Point(238, 213);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 40);
-            this.btnSave.TabIndex = 10;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -143,7 +143,7 @@
             this.btnDelete.Location = new System.Drawing.Point(339, 213);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(79, 40);
-            this.btnDelete.TabIndex = 11;
+            this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);

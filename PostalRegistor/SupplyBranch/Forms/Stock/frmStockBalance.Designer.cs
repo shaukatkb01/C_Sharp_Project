@@ -124,7 +124,7 @@
             this.btnPrint.Location = new System.Drawing.Point(651, 22);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(101, 37);
-            this.btnPrint.TabIndex = 4;
+            this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
