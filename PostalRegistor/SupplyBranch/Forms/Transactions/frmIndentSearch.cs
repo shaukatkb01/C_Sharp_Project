@@ -168,6 +168,41 @@ namespace SupplyBranch.Forms.Transactions
 
         private void txtSearchIndentNo_TextChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(txtSearchIndentNo.Text))
+            {
+                dtFrom.Value = new DateTime(1947, 8, 1);
+            }
+            else
+            { 
+                dtFrom.Value = DateTime.Today;
+            }
+
+
+            int? zoneID = null;
+            int? officeID = null;
+
+            if (cmbZone.SelectedValue != null &&
+                !(cmbZone.SelectedValue is DataRowView))
+            {
+                zoneID = Convert.ToInt32(cmbZone.SelectedValue);
+            }
+
+            if (cmbOffice.SelectedValue != null &&
+                !(cmbOffice.SelectedValue is DataRowView))
+            {
+                officeID = Convert.ToInt32(cmbOffice.SelectedValue);
+            }
+
+            DataTable dt = dal.SearchIndent(
+                zoneID,
+                officeID,
+                dtFrom.Value.Date,
+                dtTo.Value.Date,
+                txtSearchIndentNo.Text.Trim());
+
+            dgvIndent.DataSource = dt;
+
+            lblTotalRecord.Text = $"Total Records: {dt.Rows.Count}";
 
         }
 
@@ -179,5 +214,7 @@ namespace SupplyBranch.Forms.Transactions
             dtFrom.Value = DateTime.Now.AddMonths(-200);
             dtTo.Value = DateTime.Now;
         }
+
+      
     }
 }

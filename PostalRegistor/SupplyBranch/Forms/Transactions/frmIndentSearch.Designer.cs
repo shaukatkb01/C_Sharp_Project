@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbZone = new System.Windows.Forms.ComboBox();
             this.cmbOffice = new System.Windows.Forms.ComboBox();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
@@ -59,7 +59,7 @@
             // cmbZone
             // 
             this.cmbZone.FormattingEnabled = true;
-            this.cmbZone.Location = new System.Drawing.Point(83, 51);
+            this.cmbZone.Location = new System.Drawing.Point(91, 51);
             this.cmbZone.Name = "cmbZone";
             this.cmbZone.Size = new System.Drawing.Size(310, 21);
             this.cmbZone.TabIndex = 0;
@@ -68,7 +68,7 @@
             // cmbOffice
             // 
             this.cmbOffice.FormattingEnabled = true;
-            this.cmbOffice.Location = new System.Drawing.Point(83, 83);
+            this.cmbOffice.Location = new System.Drawing.Point(91, 83);
             this.cmbOffice.Name = "cmbOffice";
             this.cmbOffice.Size = new System.Drawing.Size(310, 21);
             this.cmbOffice.TabIndex = 1;
@@ -76,7 +76,7 @@
             // dtFrom
             // 
             this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFrom.Location = new System.Drawing.Point(83, 151);
+            this.dtFrom.Location = new System.Drawing.Point(91, 151);
             this.dtFrom.Name = "dtFrom";
             this.dtFrom.Size = new System.Drawing.Size(118, 20);
             this.dtFrom.TabIndex = 3;
@@ -85,7 +85,7 @@
             // dtTo
             // 
             this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtTo.Location = new System.Drawing.Point(275, 151);
+            this.dtTo.Location = new System.Drawing.Point(283, 151);
             this.dtTo.Name = "dtTo";
             this.dtTo.Size = new System.Drawing.Size(118, 20);
             this.dtTo.TabIndex = 4;
@@ -93,14 +93,14 @@
             // cmbIndentNo
             // 
             this.cmbIndentNo.FormattingEnabled = true;
-            this.cmbIndentNo.Location = new System.Drawing.Point(83, 115);
+            this.cmbIndentNo.Location = new System.Drawing.Point(91, 115);
             this.cmbIndentNo.Name = "cmbIndentNo";
             this.cmbIndentNo.Size = new System.Drawing.Size(310, 21);
             this.cmbIndentNo.TabIndex = 2;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(139, 218);
+            this.btnSearch.Location = new System.Drawing.Point(147, 218);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 35);
             this.btnSearch.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(234, 218);
+            this.btnClear.Location = new System.Drawing.Point(242, 218);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 35);
             this.btnClear.TabIndex = 7;
@@ -140,14 +140,14 @@
             this.dgvIndent.MultiSelect = false;
             this.dgvIndent.Name = "dgvIndent";
             this.dgvIndent.ReadOnly = true;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIndent.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIndent.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvIndent.RowHeadersVisible = false;
             this.dgvIndent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIndent.Size = new System.Drawing.Size(757, 211);
@@ -255,7 +255,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(222, 158);
+            this.label5.Location = new System.Drawing.Point(230, 158);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 16;
@@ -263,7 +263,7 @@
             // 
             // txtSearchIndentNo
             // 
-            this.txtSearchIndentNo.Location = new System.Drawing.Point(83, 189);
+            this.txtSearchIndentNo.Location = new System.Drawing.Point(91, 189);
             this.txtSearchIndentNo.Name = "txtSearchIndentNo";
             this.txtSearchIndentNo.Size = new System.Drawing.Size(310, 20);
             this.txtSearchIndentNo.TabIndex = 5;
@@ -281,7 +281,7 @@
             // lblTotalRecord
             // 
             this.lblTotalRecord.AutoSize = true;
-            this.lblTotalRecord.Location = new System.Drawing.Point(398, 168);
+            this.lblTotalRecord.Location = new System.Drawing.Point(406, 168);
             this.lblTotalRecord.Name = "lblTotalRecord";
             this.lblTotalRecord.Size = new System.Drawing.Size(0, 13);
             this.lblTotalRecord.TabIndex = 20;

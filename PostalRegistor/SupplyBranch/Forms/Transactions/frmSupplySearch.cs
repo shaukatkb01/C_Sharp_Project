@@ -193,12 +193,26 @@ namespace SupplyBranch.Forms.Transactions
 
         private void btnNewSupply_Click(object sender, EventArgs e)
         {
-            cmbZone.SelectedIndex = 0;
-            cmbOffice.SelectedIndex = 0;
+            cmbZone.SelectedIndex = -0;
+            cmbOffice.SelectedIndex = -1;
             dtFrom.Value = DateTime.Today;
             dtTo.Value = DateTime.Today;
             txtSearchIndentNo.Text = string.Empty;
 
+
+        }
+
+        private void txtSearchIndentNo_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtSearchIndentNo.Text))
+            {
+                dtFrom.Value = new DateTime(1947, 8, 1);
+            }
+            else
+            {
+                dtFrom.Value = DateTime.Today;
+            }
+            SearchIndent();
 
         }
     }

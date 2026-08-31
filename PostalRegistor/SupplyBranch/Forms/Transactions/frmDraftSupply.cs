@@ -187,5 +187,23 @@ namespace SupplyBranch.Forms.Transactions
                 DeleteSupply();
             }
         }
+
+        private void txtSupplyNo_TextChanged(object sender, EventArgs e)
+        {
+            // Check karein ke TextBox khali toh nahi hai
+            if (!string.IsNullOrWhiteSpace(txtSupplyNo.Text))
+            {
+                // Supply No darj ho toh Date 1st August 1947 par set ho jaye
+                dtFrom.Value = new DateTime(1947, 8, 1);
+            }
+            else
+            {
+                // Agar TextBox khali ho jaye toh Aaj ki tareekh set ho jaye
+                dtFrom.Value = DateTime.Today;
+            }
+
+            SearchDraft();
+
+        }
     }
 }
