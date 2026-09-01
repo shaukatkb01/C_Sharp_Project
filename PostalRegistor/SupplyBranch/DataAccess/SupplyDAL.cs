@@ -1380,12 +1380,10 @@ WHERE
             db.ExecuteNonQuery(query, param);
         }
 
-        public DataTable GetSupplyPerformaHeader(int supplyID)
+        public DataTable GetSupplyPerformaHeader(int supplyID, bool? adddate)
         {
             string query = @"
-
 SELECT
-
     SM.SupplyID,
     SM.SupplyNo,
     SM.SupplyDate,
@@ -1401,7 +1399,9 @@ SELECT
     SM.PackingType,
     SM.PackingQty,
     SM.DispatchMode,
-    SM.InvoiceNo
+    SM.InvoiceNo,
+
+    @AddDate AS AddDate
 
 FROM SupplyMaster SM
 
@@ -1415,7 +1415,8 @@ WHERE SM.SupplyID = @SupplyID";
 
             SqlParameter[] param =
             {
-        new SqlParameter("@SupplyID", supplyID)
+        new SqlParameter("@SupplyID", supplyID),
+        new SqlParameter("@AddDate", adddate)
     };
 
             return db.ExecuteQuery(query, param);

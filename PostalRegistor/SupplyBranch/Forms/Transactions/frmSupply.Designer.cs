@@ -121,6 +121,7 @@
             this.CaseNoFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CaseNoTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.chkAddDate = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
             this.fpnlButton.SuspendLayout();
             this.pnlCurrentStock.SuspendLayout();
@@ -323,7 +324,7 @@
             "Other"});
             this.cmbDispatchMode.Location = new System.Drawing.Point(125, 282);
             this.cmbDispatchMode.Name = "cmbDispatchMode";
-            this.cmbDispatchMode.Size = new System.Drawing.Size(129, 21);
+            this.cmbDispatchMode.Size = new System.Drawing.Size(254, 21);
             this.cmbDispatchMode.TabIndex = 11;
             this.cmbDispatchMode.SelectedIndexChanged += new System.EventHandler(this.cmbDispatchMode_SelectedIndexChanged);
             // 
@@ -349,16 +350,16 @@
             "Parce",
             "Envelope",
             "Other"});
-            this.cmbPackingType.Location = new System.Drawing.Point(386, 281);
+            this.cmbPackingType.Location = new System.Drawing.Point(125, 315);
             this.cmbPackingType.Name = "cmbPackingType";
-            this.cmbPackingType.Size = new System.Drawing.Size(129, 21);
+            this.cmbPackingType.Size = new System.Drawing.Size(254, 21);
             this.cmbPackingType.TabIndex = 12;
             this.cmbPackingType.SelectedIndexChanged += new System.EventHandler(this.cmbPackingType_SelectedIndexChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(288, 288);
+            this.label13.Location = new System.Drawing.Point(405, 289);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 13);
             this.label13.TabIndex = 24;
@@ -366,9 +367,9 @@
             // 
             // txtPackingQty
             // 
-            this.txtPackingQty.Location = new System.Drawing.Point(637, 282);
+            this.txtPackingQty.Location = new System.Drawing.Point(488, 282);
             this.txtPackingQty.Name = "txtPackingQty";
-            this.txtPackingQty.Size = new System.Drawing.Size(102, 20);
+            this.txtPackingQty.Size = new System.Drawing.Size(253, 20);
             this.txtPackingQty.TabIndex = 13;
             this.txtPackingQty.TextChanged += new System.EventHandler(this.txtPackingQty_TextChanged);
             this.txtPackingQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPackingQty_KeyPress);
@@ -376,7 +377,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(545, 289);
+            this.label14.Location = new System.Drawing.Point(9, 323);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(65, 13);
             this.label14.TabIndex = 26;
@@ -404,6 +405,7 @@
             // pnlTop
             // 
             this.pnlTop.AutoScroll = true;
+            this.pnlTop.Controls.Add(this.chkAddDate);
             this.pnlTop.Controls.Add(this.fpnlButton);
             this.pnlTop.Controls.Add(this.pnlCurrentStock);
             this.pnlTop.Controls.Add(this.pnlStockEntry);
@@ -440,7 +442,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1553, 364);
+            this.pnlTop.Size = new System.Drawing.Size(1553, 399);
             this.pnlTop.TabIndex = 51;
             // 
             // fpnlButton
@@ -452,7 +454,7 @@
             this.fpnlButton.Controls.Add(this.btnRefresh);
             this.fpnlButton.Controls.Add(this.btnSupplyPerforma);
             this.fpnlButton.Controls.Add(this.btnClose);
-            this.fpnlButton.Location = new System.Drawing.Point(7, 309);
+            this.fpnlButton.Location = new System.Drawing.Point(5, 346);
             this.fpnlButton.Name = "fpnlButton";
             this.fpnlButton.Size = new System.Drawing.Size(735, 47);
             this.fpnlButton.TabIndex = 52;
@@ -750,7 +752,7 @@
             this.dgvSupplyDetail.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvSupplyDetail.RowHeadersVisible = false;
             this.dgvSupplyDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSupplyDetail.Size = new System.Drawing.Size(1529, 315);
+            this.dgvSupplyDetail.Size = new System.Drawing.Size(1529, 337);
             this.dgvSupplyDetail.TabIndex = 20;
             this.dgvSupplyDetail.Visible = false;
             this.dgvSupplyDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellClick_1);
@@ -947,12 +949,23 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.dgvSupplyDetail, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 373);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 405);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1535, 321);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1535, 343);
             this.tableLayoutPanel2.TabIndex = 54;
+            // 
+            // chkAddDate
+            // 
+            this.chkAddDate.AutoSize = true;
+            this.chkAddDate.Location = new System.Drawing.Point(488, 323);
+            this.chkAddDate.Name = "chkAddDate";
+            this.chkAddDate.Size = new System.Drawing.Size(106, 17);
+            this.chkAddDate.TabIndex = 53;
+            this.chkAddDate.Text = "Add Supply Data";
+            this.chkAddDate.UseVisualStyleBackColor = true;
+            this.chkAddDate.CheckedChanged += new System.EventHandler(this.chkAddDate_CheckedChanged);
             // 
             // frmSupply
             // 
@@ -1068,5 +1081,6 @@
         private System.Windows.Forms.Label lblStockTitle;
         private System.Windows.Forms.Panel pnlStockEntry;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox chkAddDate;
     }
 }

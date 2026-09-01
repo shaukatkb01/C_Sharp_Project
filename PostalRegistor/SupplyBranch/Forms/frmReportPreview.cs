@@ -1,5 +1,6 @@
 ﻿using Microsoft.Reporting.WinForms;
 using SupplyBranch.DataAccess;
+using SupplyBranch.Forms.Transactions;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -8,6 +9,9 @@ namespace SupplyBranch.Forms
 {
     public partial class frmReportPreview : Form
     {
+        private frmSupply supply;
+
+        private bool _addDate;
         private readonly SupplyDAL supplyDAL = new SupplyDAL();
 
         //=========================================
@@ -34,16 +38,18 @@ namespace SupplyBranch.Forms
         // Constructor
         //=========================================
 
+        
         public frmReportPreview()
         {
             InitializeComponent();
         }
 
-        public frmReportPreview(int supplyID)
+        public frmReportPreview(int supplyID, bool? addDate)
         {
             InitializeComponent();
 
             _supplyID = supplyID;
+            _addDate = addDate ?? false;
         }
 
         //=========================================
@@ -150,7 +156,7 @@ namespace SupplyBranch.Forms
 
 
             DataTable dtHeader =
-                supplyDAL.GetSupplyPerformaHeader(_supplyID);
+                supplyDAL.GetSupplyPerformaHeader(_supplyID, _addDate);
 
             DataTable dtDetail =
                 supplyDAL.GetSupplyPerformaDetail(_supplyID);
@@ -169,6 +175,11 @@ namespace SupplyBranch.Forms
                 new ReportDataSource(
                     "dsDetail",
                     dtDetail));
+
+
+            reportViewer1.LocalReport.SetParameters(
+    new ReportParameter("AddDate", _addDate.ToString())
+);
 
 
             reportViewer1.RefreshReport();

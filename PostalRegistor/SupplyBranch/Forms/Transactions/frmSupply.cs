@@ -30,7 +30,8 @@ public partial class frmSupply : Form
         private DataGridViewTextBoxColumn StockPacketQty;
         private DataGridViewTextBoxColumn StockSheetQty;
         private DataGridViewTextBoxColumn StockStampQty;
-
+        
+        public bool addDate=false;
         private bool _quantityWarningShown = false;
         int indentStatus = 0;
         private Dictionary<string, string> _originalDraftValues =
@@ -56,6 +57,7 @@ public partial class frmSupply : Form
         private bool _isEditDraftWarningShown = false;
 
         private bool _draftChanged = false;
+
 
         private readonly SupplyDAL supplyDAL = new SupplyDAL();
 
@@ -1940,7 +1942,7 @@ public partial class frmSupply : Form
         private void frmSupply_Load(object sender, EventArgs e)
         {
             UITheme.Apply(this);
-
+            chkAddDate.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
 
 
             //--------------------------------------------------
@@ -2153,6 +2155,7 @@ public partial class frmSupply : Form
                 btnSaveDraft.Text = "Save Draft";
                 btnSaveDraft.Visible = true;
                 btnRefresh.Visible = true;
+                chkAddDate.Visible=false;
 
             }
 
@@ -2500,7 +2503,7 @@ public partial class frmSupply : Form
             }
 
             frmReportPreview frm =
-                new frmReportPreview(_supplyID);
+                new frmReportPreview(_supplyID,addDate);
 
             frm.ShowDialog();
         }
@@ -3393,8 +3396,10 @@ public partial class frmSupply : Form
                 return;
             }
 
-            frmReportPreview frm =
-                new frmReportPreview(_supplyID);
+           
+
+                frmReportPreview frm =
+                new frmReportPreview(_supplyID, addDate);
 
             frm.ShowDialog();
         }
@@ -3443,6 +3448,12 @@ public partial class frmSupply : Form
             //        e.Handled = true; // Input ko reject kar dega
             //    }
             //}
+        }
+
+        private void chkAddDate_CheckedChanged(object sender, EventArgs e)
+        {
+            addDate = chkAddDate.Checked;
+           
         }
     }
 }

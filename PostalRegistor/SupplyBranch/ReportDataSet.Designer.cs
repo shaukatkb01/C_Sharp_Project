@@ -338,6 +338,8 @@ namespace SupplyBranch {
             
             private global::System.Data.DataColumn columnInvoiceNo;
             
+            private global::System.Data.DataColumn columnAddDate;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public SupplyHeaderDataTable() {
@@ -469,6 +471,14 @@ namespace SupplyBranch {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn AddDateColumn {
+                get {
+                    return this.columnAddDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -504,7 +514,7 @@ namespace SupplyBranch {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public SupplyHeaderRow AddSupplyHeaderRow(string SupplyNo, string FinancialYear, string SupplyDate, string IndentNo, string IndentDate, string OfficeName, string OfficeCode, string FileNo, string PackingType, string PackingQty, string DispatchMode, string InvoiceNo) {
+            public SupplyHeaderRow AddSupplyHeaderRow(string SupplyNo, string FinancialYear, string SupplyDate, string IndentNo, string IndentDate, string OfficeName, string OfficeCode, string FileNo, string PackingType, string PackingQty, string DispatchMode, string InvoiceNo, string AddDate) {
                 SupplyHeaderRow rowSupplyHeaderRow = ((SupplyHeaderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         SupplyNo,
@@ -518,7 +528,8 @@ namespace SupplyBranch {
                         PackingType,
                         PackingQty,
                         DispatchMode,
-                        InvoiceNo};
+                        InvoiceNo,
+                        AddDate};
                 rowSupplyHeaderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSupplyHeaderRow);
                 return rowSupplyHeaderRow;
@@ -553,6 +564,7 @@ namespace SupplyBranch {
                 this.columnPackingQty = base.Columns["PackingQty"];
                 this.columnDispatchMode = base.Columns["DispatchMode"];
                 this.columnInvoiceNo = base.Columns["InvoiceNo"];
+                this.columnAddDate = base.Columns["AddDate"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -582,6 +594,8 @@ namespace SupplyBranch {
                 base.Columns.Add(this.columnDispatchMode);
                 this.columnInvoiceNo = new global::System.Data.DataColumn("InvoiceNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInvoiceNo);
+                this.columnAddDate = new global::System.Data.DataColumn("AddDate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddDate);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1289,6 +1303,22 @@ namespace SupplyBranch {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string AddDate {
+                get {
+                    try {
+                        return ((string)(this[this.tableSupplyHeader.AddDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AddDate\' in table \'SupplyHeader\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSupplyHeader.AddDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsSupplyNoNull() {
                 return this.IsNull(this.tableSupplyHeader.SupplyNoColumn);
             }
@@ -1429,6 +1459,18 @@ namespace SupplyBranch {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetInvoiceNoNull() {
                 this[this.tableSupplyHeader.InvoiceNoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsAddDateNull() {
+                return this.IsNull(this.tableSupplyHeader.AddDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetAddDateNull() {
+                this[this.tableSupplyHeader.AddDateColumn] = global::System.Convert.DBNull;
             }
         }
         
