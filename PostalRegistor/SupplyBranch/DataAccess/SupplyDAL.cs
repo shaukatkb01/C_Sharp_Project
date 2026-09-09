@@ -185,6 +185,94 @@ WHERE SM.IndentID = @IndentID;
             return db.ExecuteQuery(sql, parameters);
         }
 
+        /// <summary>
+        /// Returns supplies filtered by StatusIDs (eg. Draft=1, Approved=2)
+        /// </summary>
+        public DataTable GetSuppliesByStatusIDs(int[] statusIDs)
+        {
+            if (statusIDs == null || statusIDs.Length == 0)
+                return new DataTable();
+
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append(@"
+SELECT
+    SM.SupplyID,
+    SM.SupplyNo,
+    SM.SupplyDate,
+    SM.IndentID,
+    ISNULL(IM.IndentNo, '') AS IndentNo,
+    ISNULL(O.OfficeName, '') AS OfficeName,
+    SM.StatusID,
+    ISNULL((SELECT SUM(SD.TotalPieces) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalPieces
+FROM SupplyMaster SM
+LEFT JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
+LEFT JOIN Office O ON IM.OfficeID = O.OfficeID
+WHERE SM.StatusID IN (");
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            for (int i = 0; i < statusIDs.Length; i++)
+            {
+                string paramName = "@s" + i;
+                sql.Append(paramName);
+                if (i < statusIDs.Length - 1)
+                    sql.Append(",");
+
+                parameters.Add(new SqlParameter(paramName, statusIDs[i]));
+            }
+
+            sql.Append(@")
+ORDER BY SM.SupplyDate DESC, SM.SupplyNo DESC");
+
+            return db.ExecuteQuery(sql.ToString(), parameters.ToArray());
+        }
+
+        /// <summary>
+        /// Returns supplies filtered by Status names (eg. 'Draft', 'Approve')
+        /// </summary>
+        public DataTable GetSuppliesByStatusNames(string[] statusNames)
+        {
+            if (statusNames == null || statusNames.Length == 0)
+                return new DataTable();
+
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append(@"
+SELECT
+    SM.SupplyID,
+    SM.SupplyNo,
+    SM.SupplyDate,
+    SM.IndentID,
+    ISNULL(IM.IndentNo, '') AS IndentNo,
+    ISNULL(O.OfficeName, '') AS OfficeName,
+    SM.StatusID,
+    ISNULL((SELECT SUM(SD.TotalPieces) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalPieces,
+    ISNULL(SS.StatusName, '') AS StatusName
+FROM SupplyMaster SM
+LEFT JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
+LEFT JOIN Office O ON IM.OfficeID = O.OfficeID
+LEFT JOIN Status SS ON SM.StatusID = SS.StatusID
+WHERE SS.StatusName IN (");
+
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            for (int i = 0; i < statusNames.Length; i++)
+            {
+                string paramName = "@n" + i;
+                sql.Append(paramName);
+                if (i < statusNames.Length - 1)
+                    sql.Append(",");
+
+                parameters.Add(new SqlParameter(paramName, statusNames[i]));
+            }
+
+            sql.Append(@")
+ORDER BY SM.SupplyDate DESC, SM.SupplyNo DESC");
+
+            return db.ExecuteQuery(sql.ToString(), parameters.ToArray());
+        }
+
         public DataTable GetPendingIndent(
                             int officeId,
                             DateTime? fromDate,

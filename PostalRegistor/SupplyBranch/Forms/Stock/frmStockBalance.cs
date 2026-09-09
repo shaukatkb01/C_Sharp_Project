@@ -65,7 +65,7 @@ namespace SupplyBranch.Forms.Stock
 
             if (dtStockPrint == null || dtStockPrint.Rows.Count == 0)
             {
-                MessageBox.Show("Print ke liye data majood nahi hai.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No data available for printing.", "No Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

@@ -74,6 +74,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.cmbSupplyType = new System.Windows.Forms.ComboBox();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.chkAddDate = new System.Windows.Forms.CheckBox();
             this.fpnlButton = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveDraft = new System.Windows.Forms.Button();
             this.btnApprove = new System.Windows.Forms.Button();
@@ -121,7 +122,6 @@
             this.CaseNoFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CaseNoTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.chkAddDate = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
             this.fpnlButton.SuspendLayout();
             this.pnlCurrentStock.SuspendLayout();
@@ -444,6 +444,17 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(1553, 399);
             this.pnlTop.TabIndex = 51;
+            // 
+            // chkAddDate
+            // 
+            this.chkAddDate.AutoSize = true;
+            this.chkAddDate.Location = new System.Drawing.Point(488, 323);
+            this.chkAddDate.Name = "chkAddDate";
+            this.chkAddDate.Size = new System.Drawing.Size(106, 17);
+            this.chkAddDate.TabIndex = 53;
+            this.chkAddDate.Text = "Add Supply Data";
+            this.chkAddDate.UseVisualStyleBackColor = true;
+            this.chkAddDate.CheckedChanged += new System.EventHandler(this.chkAddDate_CheckedChanged);
             // 
             // fpnlButton
             // 
@@ -860,7 +871,7 @@
             // 
             this.OriginalPendingPieces.DataPropertyName = "RemainingTotalPieces";
             this.OriginalPendingPieces.FillWeight = 99.68223F;
-            this.OriginalPendingPieces.HeaderText = "OriginalPendingPieces";
+            this.OriginalPendingPieces.HeaderText = "OriginalPendingSheets";
             this.OriginalPendingPieces.Name = "OriginalPendingPieces";
             this.OriginalPendingPieces.ReadOnly = true;
             // 
@@ -956,17 +967,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1535, 343);
             this.tableLayoutPanel2.TabIndex = 54;
             // 
-            // chkAddDate
-            // 
-            this.chkAddDate.AutoSize = true;
-            this.chkAddDate.Location = new System.Drawing.Point(488, 323);
-            this.chkAddDate.Name = "chkAddDate";
-            this.chkAddDate.Size = new System.Drawing.Size(106, 17);
-            this.chkAddDate.TabIndex = 53;
-            this.chkAddDate.Text = "Add Supply Data";
-            this.chkAddDate.UseVisualStyleBackColor = true;
-            this.chkAddDate.CheckedChanged += new System.EventHandler(this.chkAddDate_CheckedChanged);
-            // 
             // frmSupply
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1045,6 +1045,24 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtInvoiceNo;
         private System.Windows.Forms.DataGridView dgvSupplyDetail;
+        private System.Windows.Forms.Panel pnlCurrentStock;
+        private System.Windows.Forms.Panel pnlStamp;
+        private System.Windows.Forms.Label lblStampBalance;
+        private System.Windows.Forms.Label lblStampTitle;
+        private System.Windows.Forms.Panel pnlSheet;
+        private System.Windows.Forms.Label lblSheetBalance;
+        private System.Windows.Forms.Label lblSheetTitle;
+        private System.Windows.Forms.Panel pnlPacket;
+        private System.Windows.Forms.Label lblPacketBalance;
+        private System.Windows.Forms.Label lblPacketTitle;
+        private System.Windows.Forms.Panel pnlBox;
+        private System.Windows.Forms.Label lblBoxBalance;
+        private System.Windows.Forms.Label lblBoxTitle;
+        private System.Windows.Forms.Label lblStockItem;
+        private System.Windows.Forms.Label lblStockTitle;
+        private System.Windows.Forms.Panel pnlStockEntry;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.CheckBox chkAddDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn DetailID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RemainingTotalPieces;
         private System.Windows.Forms.DataGridViewTextBoxColumn CategoryID;
@@ -1064,23 +1082,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoFrom;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoTo;
-        private System.Windows.Forms.Panel pnlCurrentStock;
-        private System.Windows.Forms.Panel pnlStamp;
-        private System.Windows.Forms.Label lblStampBalance;
-        private System.Windows.Forms.Label lblStampTitle;
-        private System.Windows.Forms.Panel pnlSheet;
-        private System.Windows.Forms.Label lblSheetBalance;
-        private System.Windows.Forms.Label lblSheetTitle;
-        private System.Windows.Forms.Panel pnlPacket;
-        private System.Windows.Forms.Label lblPacketBalance;
-        private System.Windows.Forms.Label lblPacketTitle;
-        private System.Windows.Forms.Panel pnlBox;
-        private System.Windows.Forms.Label lblBoxBalance;
-        private System.Windows.Forms.Label lblBoxTitle;
-        private System.Windows.Forms.Label lblStockItem;
-        private System.Windows.Forms.Label lblStockTitle;
-        private System.Windows.Forms.Panel pnlStockEntry;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.CheckBox chkAddDate;
     }
 }

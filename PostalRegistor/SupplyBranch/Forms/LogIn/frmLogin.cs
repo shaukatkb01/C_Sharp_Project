@@ -24,6 +24,7 @@ namespace SupplyBranch.Forms
         public frmLogin()
         {
             InitializeComponent();
+            UITheme.Apply(this);
         }
 
         private void InitializeComponent()
@@ -107,7 +108,6 @@ namespace SupplyBranch.Forms
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,9 +163,6 @@ namespace SupplyBranch.Forms
         
     }
 
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            UITheme.Apply(this);
-        }
+
     }
 }

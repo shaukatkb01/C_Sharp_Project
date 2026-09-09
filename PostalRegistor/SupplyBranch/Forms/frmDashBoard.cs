@@ -25,6 +25,45 @@ namespace SupplyBranch.Forms
 
         #endregion
 
+        #region Supplies Bottom Grid
+
+        private void LoadSuppliesBottom()
+        {
+            try
+            {
+                // Use status names instead of numeric IDs
+                string[] statuses = new string[] { "Draft", "Approve" };
+
+                SupplyBranch.DataAccess.SupplyDAL dal = new SupplyBranch.DataAccess.SupplyDAL();
+
+                DataTable dt = dal.GetSuppliesByStatusNames(statuses);
+
+                dgvSuppliesBottom.DataSource = dt;
+
+                // Configure some common columns if present
+                if (dgvSuppliesBottom.Columns.Contains("SupplyID"))
+                    dgvSuppliesBottom.Columns["SupplyID"].Visible = false;
+
+                if (dgvSuppliesBottom.Columns.Contains("SupplyNo"))
+                    dgvSuppliesBottom.Columns["SupplyNo"].HeaderText = "Supply No";
+
+                if (dgvSuppliesBottom.Columns.Contains("SupplyDate"))
+                    dgvSuppliesBottom.Columns["SupplyDate"].HeaderText = "Supply Date";
+
+                if (dgvSuppliesBottom.Columns.Contains("OfficeName"))
+                    dgvSuppliesBottom.Columns["OfficeName"].HeaderText = "Office";
+
+                if (dgvSuppliesBottom.Columns.Contains("TotalPieces"))
+                    dgvSuppliesBottom.Columns["TotalPieces"].HeaderText = "Total Pieces";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to load supplies:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
         #region Constructor & Form Load
 
         public frmDashBoard()
@@ -55,6 +94,9 @@ namespace SupplyBranch.Forms
 
                 // 6. Statistics update karo (optional)
                 UpdateStatistics();
+
+                // 7. Supplies bottom grid (Draft / Approved)
+                LoadSuppliesBottom();
             }
             catch (Exception ex)
             {

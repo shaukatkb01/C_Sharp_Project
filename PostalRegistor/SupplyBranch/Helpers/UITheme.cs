@@ -361,34 +361,8 @@ namespace SupplyBranch.Helpers
             {
                 Button btn = (Button)control;
 
-                btn.Font =
-                    ButtonFont;
-
-                btn.ForeColor =
-                    Color.White;
-
-                btn.BackColor =
-                    ButtonColor;
-
-                btn.FlatStyle =
-                    FlatStyle.Flat;
-
-                btn.FlatAppearance.BorderSize =
-                    0;
-
-                btn.FlatAppearance.MouseOverBackColor =
-                    ButtonHoverColor;
-
-                btn.FlatAppearance.MouseDownBackColor =
-                    ButtonPressedColor;
-
-                btn.Cursor =
-                    Cursors.Hand;
-
-                btn.Padding =
-                    new Padding(10, 5, 10, 5);
-
-                AddButtonHover(btn);
+                // Enforce consistent styling at runtime (designer values won't override these)
+                ApplyButtonDefaults(btn);
             }
 
 
@@ -688,7 +662,7 @@ namespace SupplyBranch.Helpers
                 NormalFont;
 
             dgv.BackgroundColor =
-                Color.White;
+                FormBackColor;
 
             dgv.BorderStyle =
                 BorderStyle.None;
@@ -697,8 +671,9 @@ namespace SupplyBranch.Helpers
                 DataGridViewCellBorderStyle.SingleHorizontal;
 
             dgv.GridColor =
-                Color.FromArgb(225, 228, 234);
+                BorderColor;
 
+            // Ensure header styles are applied
             dgv.EnableHeadersVisualStyles =
                 false;
 
@@ -720,7 +695,7 @@ namespace SupplyBranch.Helpers
                         GridHeaderFont,
 
                     Alignment =
-                        DataGridViewContentAlignment.MiddleCenter,
+                        DataGridViewContentAlignment.MiddleLeft,
 
                     SelectionBackColor =
                         HeaderColor,
@@ -729,7 +704,7 @@ namespace SupplyBranch.Helpers
                         Color.White,
 
                     Padding =
-                        new Padding(5, 6, 5, 6)
+                        new Padding(8, 6, 8, 6)
                 };
 
 
@@ -747,7 +722,7 @@ namespace SupplyBranch.Helpers
                         TextForeColor,
 
                     SelectionBackColor =
-                        Color.FromArgb(225, 222, 245),
+                        Color.FromArgb(220, 225, 235),
 
                     SelectionForeColor =
                         TextForeColor,
@@ -756,7 +731,7 @@ namespace SupplyBranch.Helpers
                         NormalFont,
 
                     Padding =
-                        new Padding(5, 4, 5, 4)
+                        new Padding(8, 6, 8, 6)
                 };
 
 
@@ -768,13 +743,13 @@ namespace SupplyBranch.Helpers
                 new DataGridViewCellStyle
                 {
                     BackColor =
-                        Color.FromArgb(248, 249, 252),
+                        Color.FromArgb(250, 251, 253),
 
                     ForeColor =
                         TextForeColor,
 
                     SelectionBackColor =
-                        Color.FromArgb(225, 222, 245),
+                        Color.FromArgb(220, 225, 235),
 
                     SelectionForeColor =
                         TextForeColor
@@ -801,6 +776,10 @@ namespace SupplyBranch.Helpers
 
             dgv.ColumnHeadersHeight =
                 34;
+
+            // Disable visual styles for headers to ensure consistent header rendering across Windows themes
+            dgv.EnableHeadersVisualStyles =
+                false;
         }
 
 
@@ -846,6 +825,25 @@ namespace SupplyBranch.Helpers
                         ButtonHoverColor;
                 }
             };
+        }
+
+        //==================================================
+        // Ensure button defaults are applied at runtime
+        //==================================================
+
+        private static void ApplyButtonDefaults(Button btn)
+        {
+            if (btn == null) return;
+
+            btn.Font = ButtonFont;
+            btn.ForeColor = Color.White;
+            btn.BackColor = ButtonColor;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Cursor = Cursors.Hand;
+            btn.Padding = new Padding(10, 5, 10, 5);
+
+            AddButtonHover(btn);
         }
 
 

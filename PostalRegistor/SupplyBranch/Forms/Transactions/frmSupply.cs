@@ -2157,6 +2157,8 @@ public partial class frmSupply : Form
                 btnRefresh.Visible = true;
                 chkAddDate.Visible=false;
 
+                dgvSupplyDetail.Columns["RemainingTotalPieces"].HeaderText = "Remaining Sheets";
+
             }
 
             dgvSupplyDetail.AutoSizeColumnsMode =
