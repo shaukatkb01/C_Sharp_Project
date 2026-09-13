@@ -40,9 +40,15 @@ namespace SupplyBranch.Forms
 
                 dgvSuppliesBottom.DataSource = dt;
 
-                // Configure some common columns if present
+                // Basic visibility and header text
                 if (dgvSuppliesBottom.Columns.Contains("SupplyID"))
                     dgvSuppliesBottom.Columns["SupplyID"].Visible = false;
+
+                if (dgvSuppliesBottom.Columns.Contains("IndentID"))
+                    dgvSuppliesBottom.Columns["IndentID"].Visible = false; // hide completely
+
+                if (dgvSuppliesBottom.Columns.Contains("StatusID"))
+                    dgvSuppliesBottom.Columns["StatusID"].Visible = false; // hide completely
 
                 if (dgvSuppliesBottom.Columns.Contains("SupplyNo"))
                     dgvSuppliesBottom.Columns["SupplyNo"].HeaderText = "Supply No";
@@ -53,8 +59,64 @@ namespace SupplyBranch.Forms
                 if (dgvSuppliesBottom.Columns.Contains("OfficeName"))
                     dgvSuppliesBottom.Columns["OfficeName"].HeaderText = "Office";
 
-                if (dgvSuppliesBottom.Columns.Contains("TotalPieces"))
-                    dgvSuppliesBottom.Columns["TotalPieces"].HeaderText = "Total Pieces";
+                // Replace TotalPieces with TotalSheet for display. Prefer TotalSheet if present.
+                if (dgvSuppliesBottom.Columns.Contains("TotalSheet"))
+                {
+                    dgvSuppliesBottom.Columns["TotalSheet"].HeaderText = "Total Sheet";
+                    dgvSuppliesBottom.Columns["TotalSheet"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvSuppliesBottom.Columns["TotalSheet"].Width = 100;
+                }
+                else if (dgvSuppliesBottom.Columns.Contains("TotalPieces"))
+                {
+                    // Fallback: keep existing data but show as Total Sheet
+                    dgvSuppliesBottom.Columns["TotalPieces"].HeaderText = "Total Sheet";
+                    dgvSuppliesBottom.Columns["TotalPieces"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvSuppliesBottom.Columns["TotalPieces"].Width = 100;
+                }
+
+                // Hide the original TotalPieces column if both exist
+                if (dgvSuppliesBottom.Columns.Contains("TotalPieces") && dgvSuppliesBottom.Columns.Contains("TotalSheet"))
+                    dgvSuppliesBottom.Columns["TotalPieces"].Visible = false;
+
+                // Visual improvements
+                dgvSuppliesBottom.EnableHeadersVisualStyles = false;
+                dgvSuppliesBottom.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 62, 80);
+                dgvSuppliesBottom.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dgvSuppliesBottom.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                dgvSuppliesBottom.RowTemplate.Height = 30;
+                dgvSuppliesBottom.DefaultCellStyle.SelectionBackColor = Color.FromArgb(30, 144, 255);
+                dgvSuppliesBottom.DefaultCellStyle.SelectionForeColor = Color.White;
+                dgvSuppliesBottom.BackgroundColor = Color.WhiteSmoke;
+                dgvSuppliesBottom.BorderStyle = BorderStyle.None;
+                dgvSuppliesBottom.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                dgvSuppliesBottom.RowHeadersVisible = false;
+
+                // Column sizing and alignment tweaks
+                foreach (DataGridViewColumn col in dgvSuppliesBottom.Columns)
+                {
+                    if (col.Name == "OfficeName" || col.Name == "IndentNo")
+                    {
+                        col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        col.MinimumWidth = 150;
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    }
+                    else if (col.ValueType == typeof(DateTime) || col.Name.ToLower().Contains("date"))
+                    {
+                        col.Width = 110;
+                        col.DefaultCellStyle.Format = "dd-MMM-yyyy";
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+                    else if (col.ValueType == typeof(int) || col.ValueType == typeof(decimal) || col.Name.ToLower().Contains("total") || col.Name.ToLower().Contains("sheet"))
+                    {
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        if (col.Width < 80) col.Width = 90;
+                    }
+                    else
+                    {
+                        // default small padding for readability
+                        col.MinimumWidth = 80;
+                    }
+                }
             }
             catch (Exception ex)
             {

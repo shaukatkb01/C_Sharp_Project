@@ -7,6 +7,9 @@ using SupplyBranch.Models;
 using System;
 using System.Data;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Reflection;
 
 
 namespace SupplyBranch.Forms.Reports
@@ -17,7 +20,157 @@ namespace SupplyBranch.Forms.Reports
 
         private readonly ReportDAL _dal = new ReportDAL();
 
-       
+        private ToolTip _toolTip;
+
+        /// <summary>
+        /// Apply modern visual adjustments to frmReport controls at runtime.
+        /// Does not modify control names, handlers or behavior — only appearance, layout and accessibility hints.
+        /// </summary>
+        private void ApplyModernReportUI()
+        {
+            try
+            {
+                // 1. FlowLayoutPanel layouting ko PAUSE karein taake controls hilein nahi
+                if (flowLayoutPanel1 != null)
+                {
+                    flowLayoutPanel1.SuspendLayout();
+
+                    // Double Buffering enable karein flickering khatam karne ke liye
+                    typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                                   ?.SetValue(flowLayoutPanel1, true, null);
+                }
+
+                // Form ki drawing bhi pause karein
+                this.SuspendLayout();
+
+                // ToolTip initialization
+                _toolTip = new ToolTip
+                {
+                    ShowAlways = true,
+                    AutoPopDelay = 8000,
+                    InitialDelay = 400,
+                    ReshowDelay = 200,
+                    IsBalloon = false,
+                    BackColor = Color.White,
+                    ForeColor = Color.FromArgb(34, 34, 34)
+                };
+
+                // Base fonts and colors
+                var labelFont = new Font("Segoe UI", 9F, FontStyle.Regular);
+                var labelBold = new Font("Segoe UI", 9F, FontStyle.Bold);
+                var controlFont = new Font("Segoe UI", 10F, FontStyle.Regular);
+                var primary = Color.FromArgb(31, 78, 121);
+
+                // Flow panel visual improvements
+                if (flowLayoutPanel1 != null)
+                {
+                    flowLayoutPanel1.BackColor = Color.Transparent;
+                    flowLayoutPanel1.WrapContents = false;
+                    flowLayoutPanel1.AutoScroll = true;
+                    flowLayoutPanel1.Padding = new Padding(10);
+                    flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+                    flowLayoutPanel1.Width = Math.Max(360, flowLayoutPanel1.Width);
+                }
+
+                // Styling logic
+                Action<Control> styleControl = (ctrl) =>
+                {
+                    if (ctrl is Label lbl)
+                    {
+                        lbl.Font = labelFont;
+                        lbl.ForeColor = Color.FromArgb(45, 45, 45);
+                        lbl.Margin = new Padding(3, 6, 3, 4);
+                    }
+                    else if (ctrl is ComboBox cb)
+                    {
+                        cb.Font = controlFont;
+                        cb.FlatStyle = FlatStyle.Flat;
+                        cb.BackColor = Color.White;
+                        cb.ForeColor = Color.FromArgb(34, 34, 34);
+                        cb.Margin = new Padding(3, 3, 3, 8);
+                        cb.Padding = new Padding(6);
+                        cb.DropDownHeight = 200;
+                        cb.IntegralHeight = false;
+                        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+                        string targetName = (cb.Tag != null)
+                            ? cb.Tag.ToString()
+                            : cb.Name.Replace("cmb", "").Replace("Combo", "").Trim();
+                        _toolTip.SetToolTip(cb, "Select " + targetName);
+                    }
+                    else if (ctrl is DateTimePicker dt)
+                    {
+                        dt.Font = controlFont;
+                        dt.Format = DateTimePickerFormat.Custom;
+                        dt.CustomFormat = "dd-MMM-yyyy";
+                        dt.Width = 200;
+                        dt.Margin = new Padding(3, 3, 3, 8);
+                        _toolTip.SetToolTip(dt, "Choose date");
+                    }
+                    else if (ctrl is Button btn)
+                    {
+                        btn.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+                        btn.FlatStyle = FlatStyle.Flat;
+                        btn.FlatAppearance.BorderSize = 0;
+                        btn.BackColor = primary;
+                        btn.ForeColor = Color.White;
+                        btn.Padding = new Padding(12, 6, 12, 6);
+                        btn.Height = 36;
+                        btn.Cursor = Cursors.Hand;
+                        btn.Margin = new Padding(6, 12, 6, 6);
+                        _toolTip.SetToolTip(btn, btn.Text);
+                    }
+                };
+
+                // Standardize all controls in flowLayoutPanel1
+                if (flowLayoutPanel1 != null)
+                {
+                    foreach (Control ctrl in flowLayoutPanel1.Controls)
+                    {
+                        styleControl(ctrl);
+                    }
+                }
+
+                // Specific adjustments
+                if (label3 != null)
+                {
+                    label3.Font = labelBold;
+                    label3.ForeColor = primary;
+                    label3.Margin = new Padding(3, 2, 3, 6);
+                }
+
+                if (cmbReportType != null) { cmbReportType.Width = 320; _toolTip.SetToolTip(cmbReportType, "Select the report type to generate"); }
+                if (cmbCategory != null) { cmbCategory.Width = 320; cmbCategory.DropDownHeight = 240; }
+                if (cmbDenomination != null) cmbDenomination.Width = 320;
+                if (cmbOffice != null) cmbOffice.Width = 320;
+                if (cmbStatus != null) cmbStatus.Width = 320;
+                if (cmbFinancialYear != null) cmbFinancialYear.Width = 320;
+                if (dtFrom != null) dtFrom.Width = 200;
+                if (dtTo != null) dtTo.Width = 200;
+
+                if (cmbReportType != null && string.IsNullOrWhiteSpace(cmbReportType.AccessibilityObject.Name))
+                    cmbReportType.AccessibleName = "Report Type";
+
+                if (btnOfficeWise != null)
+                {
+                    btnOfficeWise.Anchor = AnchorStyles.Top;
+                }
+            }
+            catch
+            {
+                // Non-blocking catch
+            }
+            finally
+            {
+                // 2. Layout rendering ko RESUME karein taake sab aik saath display ho
+                if (flowLayoutPanel1 != null)
+                {
+                    flowLayoutPanel1.ResumeLayout(true);
+                }
+                this.ResumeLayout(true);
+            }
+        }
 
         private void UpdateCombo()
         {
@@ -31,31 +184,62 @@ namespace SupplyBranch.Forms.Reports
 
             //btnEdit.Enabled = !IsEditMode;
         }
+        // Constructor: enable double-buffering on heavy panels and keep existing InitializeComponent call
         public frmReport()
         {
             InitializeComponent();
+
+            // reduce flicker / repaint overhead on complex layouts
+            try
+            {
+                if (flowLayoutPanel1 != null)
+                {
+                    // set protected DoubleBuffered property via reflection
+                    typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
+                        .SetValue(flowLayoutPanel1, true, null);
+                }
+            }
+            catch
+            {
+                // non-fatal
+            }
         }
 
-        private void frmReport_Load(object sender, EventArgs e)
+        // Make Load async and move blocking data calls off the UI thread
+        private async void frmReport_Load(object sender, EventArgs e)
         {
             UITheme.Apply(this);
 
-            if (dtFrom !=null)
+            // Apply modern UI improvements (runtime only) — keep quick UI ops on UI thread
+            ApplyModernReportUI();
+
+            if (dtFrom != null)
             {
                 dtFrom.Value = new DateTime(2026, 1, 1);
             }
 
-
             //----------------------------
-            // Office
+            // Office (load off UI thread)
             //----------------------------
+            try
+            {
+                OfficeDAL officeDAL = new OfficeDAL();
 
-            OfficeDAL officeDAL = new OfficeDAL();
+                // fetch on threadpool, then marshal result to UI thread
+                var offices = await Task.Run(() => officeDAL.GetAllOffices());
 
-            cmbOffice.DataSource = officeDAL.GetAllOffices();
-            cmbOffice.DisplayMember = "OfficeName";
-            cmbOffice.ValueMember = "OfficeID";
-            cmbOffice.SelectedIndex = 0;
+                if (cmbOffice != null)
+                {
+                    cmbOffice.DataSource = offices;
+                    cmbOffice.DisplayMember = "OfficeName";
+                    cmbOffice.ValueMember = "OfficeID";
+                    cmbOffice.SelectedIndex = 0;
+                }
+            }
+            catch
+            {
+                // handle/log as needed
+            }
 
             // Financial Year
             OfficeDAL officeDAL1 = new OfficeDAL();

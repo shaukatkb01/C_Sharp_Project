@@ -25,17 +25,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-
 namespace SupplyBranch.Forms
 {
-   
-
     public partial class frmMain : Form
     {
         private Form activeForm = null;
-
-       
 
         private async Task<string> GetLatestVersionAsync()
         {
@@ -246,10 +240,6 @@ namespace SupplyBranch.Forms
         {
             InitializeComponent();
 
-
-
-
-
             this.KeyPreview = true;
             this.KeyDown += frmMain_KeyDown;
         }
@@ -455,7 +445,7 @@ namespace SupplyBranch.Forms
             // Form open hone ke baad update check start hoga
             await CheckForUpdatesAsync();
         }
-       
+      
 
         private async Task CheckForUpdatesAsync()
         {

@@ -322,7 +322,7 @@
             "By Courier",
             "By Hand",
             "Other"});
-            this.cmbDispatchMode.Location = new System.Drawing.Point(125, 282);
+            this.cmbDispatchMode.Location = new System.Drawing.Point(125, 316);
             this.cmbDispatchMode.Name = "cmbDispatchMode";
             this.cmbDispatchMode.Size = new System.Drawing.Size(254, 21);
             this.cmbDispatchMode.TabIndex = 11;
@@ -331,7 +331,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 290);
+            this.label12.Location = new System.Drawing.Point(8, 324);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(91, 13);
             this.label12.TabIndex = 22;
@@ -350,7 +350,7 @@
             "Parce",
             "Envelope",
             "Other"});
-            this.cmbPackingType.Location = new System.Drawing.Point(125, 315);
+            this.cmbPackingType.Location = new System.Drawing.Point(125, 282);
             this.cmbPackingType.Name = "cmbPackingType";
             this.cmbPackingType.Size = new System.Drawing.Size(254, 21);
             this.cmbPackingType.TabIndex = 12;
@@ -359,7 +359,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(405, 289);
+            this.label13.Location = new System.Drawing.Point(8, 290);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(73, 13);
             this.label13.TabIndex = 24;
@@ -377,7 +377,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 323);
+            this.label14.Location = new System.Drawing.Point(410, 290);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(65, 13);
             this.label14.TabIndex = 26;
@@ -772,6 +772,7 @@
             this.dgvSupplyDetail.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvSupplyDetail_CellFormatting);
             this.dgvSupplyDetail.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.dgvSupplyDetail_CellParsing);
             this.dgvSupplyDetail.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvSupplyDetail_CellValidating);
+            this.dgvSupplyDetail.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSupplyDetail_CellValueChanged_1);
             this.dgvSupplyDetail.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvSupplyDetail_DataError);
             this.dgvSupplyDetail.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvSupplyDetail_EditingControlShowing);
             this.dgvSupplyDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvSupplyDetail_KeyPress);

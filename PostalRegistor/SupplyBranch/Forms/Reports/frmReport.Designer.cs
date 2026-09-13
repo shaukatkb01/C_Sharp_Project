@@ -41,13 +41,13 @@
             this.cmbCategory = new System.Windows.Forms.ComboBox();
             this.lblDenomination = new System.Windows.Forms.Label();
             this.cmbDenomination = new System.Windows.Forms.ComboBox();
+            this.lblTransactionType = new System.Windows.Forms.Label();
+            this.cmbTransactionType = new System.Windows.Forms.ComboBox();
             this.lblFrom = new System.Windows.Forms.Label();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.lblTo = new System.Windows.Forms.Label();
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.btnOfficeWise = new System.Windows.Forms.Button();
-            this.cmbTransactionType = new System.Windows.Forms.ComboBox();
-            this.lblTransactionType = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +76,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(178, 31);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(238, 424);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(238, 511);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // label3
@@ -199,6 +199,26 @@
             this.cmbDenomination.TabIndex = 5;
             this.cmbDenomination.Visible = false;
             // 
+            // lblTransactionType
+            // 
+            this.lblTransactionType.AutoSize = true;
+            this.lblTransactionType.Location = new System.Drawing.Point(3, 240);
+            this.lblTransactionType.Name = "lblTransactionType";
+            this.lblTransactionType.Size = new System.Drawing.Size(87, 13);
+            this.lblTransactionType.TabIndex = 18;
+            this.lblTransactionType.Text = "TransactionType";
+            // 
+            // cmbTransactionType
+            // 
+            this.cmbTransactionType.FormattingEnabled = true;
+            this.cmbTransactionType.Items.AddRange(new object[] {
+            "IN",
+            "OUT"});
+            this.cmbTransactionType.Location = new System.Drawing.Point(3, 256);
+            this.cmbTransactionType.Name = "cmbTransactionType";
+            this.cmbTransactionType.Size = new System.Drawing.Size(203, 21);
+            this.cmbTransactionType.TabIndex = 17;
+            // 
             // lblFrom
             // 
             this.lblFrom.AutoSize = true;
@@ -242,26 +262,6 @@
             this.btnOfficeWise.Text = "Print Report";
             this.btnOfficeWise.UseVisualStyleBackColor = true;
             this.btnOfficeWise.Click += new System.EventHandler(this.btnOfficeWise_Click);
-            // 
-            // cmbTransactionType
-            // 
-            this.cmbTransactionType.FormattingEnabled = true;
-            this.cmbTransactionType.Items.AddRange(new object[] {
-            "IN",
-            "OUT"});
-            this.cmbTransactionType.Location = new System.Drawing.Point(3, 256);
-            this.cmbTransactionType.Name = "cmbTransactionType";
-            this.cmbTransactionType.Size = new System.Drawing.Size(203, 21);
-            this.cmbTransactionType.TabIndex = 17;
-            // 
-            // lblTransactionType
-            // 
-            this.lblTransactionType.AutoSize = true;
-            this.lblTransactionType.Location = new System.Drawing.Point(3, 240);
-            this.lblTransactionType.Name = "lblTransactionType";
-            this.lblTransactionType.Size = new System.Drawing.Size(87, 13);
-            this.lblTransactionType.TabIndex = 18;
-            this.lblTransactionType.Text = "TransactionType";
             // 
             // frmReport
             // 

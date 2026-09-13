@@ -13,6 +13,27 @@ namespace SupplyBranch.DataAccess
     {
         private readonly DBHelper db = new DBHelper();
 
+        public int GetSheetsPerCase(int categoryID, int denominationID)
+        {
+            // PacketsPerBox aur SheetsPerPacket ko multiply karke Sheets Per Case calculate kar rahe hain
+            string query = @"SELECT ISNULL(PacketsPerBox * SheetsPerPacket, 0) 
+                    FROM UnitConversionMaster 
+                    WHERE CategoryID = @CategoryID AND DenominationID = @DenominationID";
+
+            SqlParameter[] param = {
+        new SqlParameter("@CategoryID", categoryID),
+        new SqlParameter("@DenominationID", denominationID)
+    };
+
+            object result = db.ExecuteScalar(query, param);
+
+            if (result != null && result != DBNull.Value && int.TryParse(result.ToString(), out int sheetsPerCase))
+            {
+                return sheetsPerCase;
+            }
+
+            return 0;
+        }
 
 
         public void UpdateIndentStatusAfterSupply(int supplyID, int indentID)
@@ -204,7 +225,8 @@ SELECT
     ISNULL(IM.IndentNo, '') AS IndentNo,
     ISNULL(O.OfficeName, '') AS OfficeName,
     SM.StatusID,
-    ISNULL((SELECT SUM(SD.TotalPieces) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalPieces
+    ISNULL((SELECT SUM(SD.TotalPieces) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalPieces,
+    ISNULL((SELECT SUM(SD.SupplyQty) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalSheet
 FROM SupplyMaster SM
 LEFT JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
 LEFT JOIN Office O ON IM.OfficeID = O.OfficeID
@@ -248,6 +270,7 @@ SELECT
     ISNULL(O.OfficeName, '') AS OfficeName,
     SM.StatusID,
     ISNULL((SELECT SUM(SD.TotalPieces) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalPieces,
+    ISNULL((SELECT SUM(SD.SupplyQty) FROM SupplyDetail SD WHERE SD.SupplyID = SM.SupplyID), 0) AS TotalSheet,
     ISNULL(SS.StatusName, '') AS StatusName
 FROM SupplyMaster SM
 LEFT JOIN IndentMaster IM ON SM.IndentID = IM.IndentID

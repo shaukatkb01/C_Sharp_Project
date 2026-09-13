@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SupplyBranch.DAL.StockDAL;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace SupplyBranch.Forms.Transactions
@@ -63,6 +64,7 @@ public partial class frmSupply : Form
 
 
         private StockDAL stockDAL = new StockDAL();
+
 
        
         private void SetSupplyColumnVisibility(string columnName, bool visible)
@@ -278,7 +280,9 @@ public partial class frmSupply : Form
                 if (isCase)
                 {
                     // Agar Packing Type "Case" hai to txtPackingQty -> BoxQty
-                    boxQty = 0;
+                    //boxQty = 0;
+                    sheetQty = supplySheets;
+                    stampQty = supplyPieces;
                 }
                 else
                 {
@@ -316,7 +320,7 @@ public partial class frmSupply : Form
         private void dgvStockEntry_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             // Check karein ke cell TextBox type hai ya nahi
-            if (e.Control is TextBox txt)
+            if (e.Control is System.Windows.Forms.TextBox txt)
             {
                 // Pehle purana KeyPress event remove karein taake duplicate attach na ho
                 txt.KeyPress -= QuantityColumn_KeyPress;
@@ -1777,31 +1781,31 @@ public partial class frmSupply : Form
             // CASE
             // =========================================
 
-            if (packingType == "Case")
-            {
-                if (!hasCase)
-                {
-                    MessageBox.Show(
-                        "Case packing select hai. Stock Entry Grid mein Case Qty enter karna zaroori hai.",
-                        "Stock Entry",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+            //if (packingType == "Case")
+            //{
+            //    if (!hasCase)
+            //    {
+            //        MessageBox.Show(
+            //            "Case packing select hai. Stock Entry Grid mein Case Qty enter karna zaroori hai.",
+            //            "Stock Entry",
+            //            MessageBoxButtons.OK,
+            //            MessageBoxIcon.Warning);
 
-                    return false;
-                }
+            //        return false;
+            //    }
 
-                // Case ke sath koi aur stock allowed nahi
-                if (hasPacket || hasSheet || hasStamp)
-                {
-                    MessageBox.Show(
-                        "Case ke sath Packet, Sheet ya Stamp stock enter nahi kar sakte.",
-                        "Stock Entry",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
+            //    // Case ke sath koi aur stock allowed nahi
+            //    if (hasPacket || hasSheet || hasStamp)
+            //    {
+            //        MessageBox.Show(
+            //            "Case ke sath Packet, Sheet ya Stamp stock enter nahi kar sakte.",
+            //            "Stock Entry",
+            //            MessageBoxButtons.OK,
+            //            MessageBoxIcon.Warning);
 
-                    return false;
-                }
-            }
+            //        return false;
+            //    }
+            //}
 
 
             // =========================================
@@ -2343,6 +2347,20 @@ public partial class frmSupply : Form
        
         private void cmbPackingType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(cmbPackingType.Text == "Case")
+            {
+               cmbDispatchMode.SelectedIndex = 2;
+                cmbDispatchMode.Enabled = false;
+            }
+            else
+            {
+                txtPackingQty.Text = "1";
+                cmbDispatchMode.SelectedIndex = 0;
+                cmbDispatchMode.Enabled = true;
+            }
+
+            CalculateTotalCasePackingQty();
+        
             if(cmbPackingType.SelectedIndex == -1) { return; }
             gridcontrolforsupply(grid: true);
             CheckDraftChanges();
@@ -3202,6 +3220,27 @@ public partial class frmSupply : Form
                 return;
 
 
+            string input = txtPackingQty.Text.Trim();
+
+            if (cmbPackingType.SelectedIndex == 1)
+            {
+                // Pehle check karein ke kya valid number hai
+                if (decimal.TryParse(input, out decimal decimalResult))
+                {
+                    // Agar number mein ashariya (.5, .6) shamil hai
+                    if (decimalResult % 1 != 0)
+                    {
+                        MessageBox.Show($"Case quantity {decimalResult} is incorrect. Correct supply quantity.");
+                        dgvSupplyDetail.Focus();
+                        txtPackingQty.BackColor = Color.LightPink;
+                        return;
+                    }
+                }
+            }
+
+
+
+
 
             try
             {
@@ -3425,7 +3464,7 @@ public partial class frmSupply : Form
             // Direct Column Index ya Column Name se check karein
             if (dgvSupplyDetail.CurrentCell.OwningColumn.Name == "SupplySheets"&& dgvSupplyDetail.CurrentCell.OwningColumn.Name == "SupplyPieces")
             {
-                TextBox tb = e.Control as TextBox;
+                System.Windows.Forms.TextBox tb = e.Control as System.Windows.Forms.TextBox;
                 if (tb != null)
                 {
                     // Naya KeyPress Event Attach Karein
@@ -3452,10 +3491,68 @@ public partial class frmSupply : Form
             //}
         }
 
+        private void CalculateTotalCasePackingQty()
+        {
+            bool isCasePacking = cmbPackingType.Text.Trim().Equals("Case", StringComparison.OrdinalIgnoreCase);
+
+            if (isCasePacking)
+            {
+                txtPackingQty.ReadOnly = true;
+                decimal totalCasesSum = 0;
+
+                foreach (DataGridViewRow row in dgvSupplyDetail.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    int.TryParse(Convert.ToString(row.Cells["CategoryID"]?.Value), out int categoryID);
+                    int.TryParse(Convert.ToString(row.Cells["DenominationID"]?.Value), out int denominationID);
+                    int.TryParse(Convert.ToString(row.Cells["SupplySheets"]?.Value), out int supplySheets);
+
+                    if (categoryID > 0 && denominationID > 0 && supplySheets > 0)
+                    {
+                        // Is method se (PacketsPerBox * SheetsPerPacket) ki calculated value milegi
+                        int sheetsPerCase = supplyDAL.GetSheetsPerCase(categoryID, denominationID);
+
+                        if (sheetsPerCase > 0)
+                        {
+                            decimal itemCaseQty = (decimal)supplySheets / sheetsPerCase;
+                            totalCasesSum += itemCaseQty;
+                        }
+                    }
+                }
+
+                txtPackingQty.Text = totalCasesSum.ToString("0.##");
+            }
+            else
+            {
+                txtPackingQty.ReadOnly = false;
+            }
+        }
+
         private void chkAddDate_CheckedChanged(object sender, EventArgs e)
         {
             addDate = chkAddDate.Checked;
            
+        }
+
+        private void dgvSupplyDetail_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
+        {
+          
+            if (e.RowIndex >= 0)
+            {
+                CalculateTotalCasePackingQty();
+            }
+        }
+
+        // Row add ya remove hone par automatically calculate ho
+        private void dgvSupplyDetail_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            CalculateTotalCasePackingQty();
+        }
+
+        private void dgvSupplyDetail_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            CalculateTotalCasePackingQty();
         }
     }
 }

@@ -369,8 +369,9 @@ namespace SupplyBranch.Forms
 
         private void ClearItem()
         {
-            cmbCategory.SelectedIndex = -1;
-
+            //cmbCategory.SelectedIndex = -1;
+            cmbCategory.Focus();
+            cmbCategory.MouseHover += (s, e) => { cmbCategory.DroppedDown = true; };
             cmbDenomination.DataSource = null;
             txtIndentRemarks.Clear();
             txtSheetQty.Text = "0";
