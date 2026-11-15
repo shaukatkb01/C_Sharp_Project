@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>9.34438in</Width>
+              <Width>7.65688in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -27,7 +27,6 @@
                                   <Value>No.CCS </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -38,7 +37,6 @@
                                   <Value>=Fields!FileNo.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -49,7 +47,6 @@
                                   <Value>Genl/26-27</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -85,7 +82,6 @@
                                   <Value>Dated:</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -112,8 +108,8 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox5</rd:DefaultName>
-                          <Top>2.10006in</Top>
-                          <Left>6.89458in</Left>
+                          <Top>2.11395in</Top>
+                          <Left>5.34831in</Left>
                           <Height>0.29688in</Height>
                           <Width>2.22917in</Width>
                           <ZIndex>1</ZIndex>
@@ -134,22 +130,18 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Subject:             </Value>
+                                  <Value>Subject: </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>SUPPLY OF POSTAL STAMPS (PUBLIC &amp; SERVICE POSTAGE STAMPS AND STATIONERY)</Value>
+                                  <Value>SUPPLY OF POSTAL STAMPS (PUBLIC &amp; SERVICE POSTAGE STAMPS AND STATIONERY</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>Underline</TextDecoration>
                                     <Color>#000000</Color>
@@ -163,7 +155,7 @@
                           <Top>2.43861in</Top>
                           <Left>0.48833in</Left>
                           <Height>0.25in</Height>
-                          <Width>8.595in</Width>
+                          <Width>7.08915in</Width>
                           <ZIndex>2</ZIndex>
                           <Style>
                             <Border>
@@ -179,19 +171,19 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>1in</Width>
+                                <Width>0.65625in</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>2.90688in</Width>
+                                <Width>2.7754in</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>1.15625in</Width>
+                                <Width>0.64583in</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>1.98895in</Width>
+                                <Width>1.91603in</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>1.49604in</Width>
+                                <Width>1.19396in</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -210,7 +202,6 @@
                                                 <Value>S.No</Value>
                                                 <Style>
                                                   <FontStyle>Normal</FontStyle>
-                                                  <FontFamily>Arial</FontFamily>
                                                   <FontSize>11pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
                                                   <TextDecoration>None</TextDecoration>
@@ -317,7 +308,6 @@
                                                 <Value>Set</Value>
                                                 <Style>
                                                   <FontStyle>Normal</FontStyle>
-                                                  <FontFamily>Arial</FontFamily>
                                                   <FontSize>11pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
                                                   <TextDecoration>None</TextDecoration>
@@ -373,7 +363,6 @@
                                                 <Value>Quantity in Sheets</Value>
                                                 <Style>
                                                   <FontStyle>Normal</FontStyle>
-                                                  <FontFamily>Arial</FontFamily>
                                                   <FontSize>11pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
                                                   <TextDecoration>None</TextDecoration>
@@ -429,7 +418,6 @@
                                                 <Value>Quantity in Pieces</Value>
                                                 <Style>
                                                   <FontStyle>Normal</FontStyle>
-                                                  <FontFamily>Arial</FontFamily>
                                                   <FontSize>11pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
                                                   <TextDecoration>None</TextDecoration>
@@ -527,7 +515,6 @@
                                           <PaddingBottom>2pt</PaddingBottom>
                                         </Style>
                                       </Textbox>
-                                      <rd:Selected>true</rd:Selected>
                                     </CellContents>
                                   </TablixCell>
                                   <TablixCell>
@@ -756,7 +743,7 @@
                           <Top>4.10292in</Top>
                           <Left>0.39001in</Left>
                           <Height>0.79167in</Height>
-                          <Width>8.54812in</Width>
+                          <Width>7.18747in</Width>
                           <ZIndex>3</ZIndex>
                           <Style>
                             <Border>
@@ -774,7 +761,6 @@
                                   <Value>For CHIEF CONTROLLER OF STAMPS</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -787,7 +773,7 @@
                           </Paragraphs>
                           <rd:DefaultName>Textbox41</rd:DefaultName>
                           <Top>5.94333in</Top>
-                          <Left>5.82355in</Left>
+                          <Left>4.4629in</Left>
                           <Height>0.25in</Height>
                           <Width>3.11458in</Width>
                           <ZIndex>4</ZIndex>
@@ -811,7 +797,6 @@
                                   <Value>=Fields!OfficeName.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -848,7 +833,6 @@
                                   <Value>PAKISTAN POST </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -866,7 +850,6 @@
                                   <Value>OFFICE OF THE CHIEF CONTROLLER OF STAMPS </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -884,7 +867,6 @@
                                   <Value>ST-3, SECTOR-26,G.P.O. COMPOUND </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -902,7 +884,6 @@
                                   <Value>KORANGI INDUSTRAIL AREA KARACHI.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -920,7 +901,6 @@
                                   <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -938,7 +918,6 @@
                                   <Value>DESPATCH MEMO</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>20pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -954,7 +933,7 @@
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Left>0.25521in</Left>
                           <Height>1.40452in</Height>
-                          <Width>8.82812in</Width>
+                          <Width>7.32227in</Width>
                           <ZIndex>6</ZIndex>
                           <Style>
                             <Border>
@@ -976,7 +955,6 @@
                                   <Value>Reference: Your office indent No </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -987,7 +965,6 @@
                                   <Value>=Fields!IndentNo.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -998,7 +975,6 @@
                                   <Value> Dated </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1009,7 +985,6 @@
                                   <Value>=Code.FormatReportDate(Fields!IndentDate.Value)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1024,7 +999,7 @@
                           <Top>2.80208in</Top>
                           <Left>0.48833in</Left>
                           <Height>0.25in</Height>
-                          <Width>8.595in</Width>
+                          <Width>7.08915in</Width>
                           <ZIndex>7</ZIndex>
                           <Style>
                             <Border>
@@ -1046,7 +1021,6 @@
                                   <Value>                          The following Postal Stamps (Public &amp; Service Postage Stamps and Stationery) have been despatched to your office under this office despatch Note </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1057,7 +1031,6 @@
                                   <Value>=Fields!SupplyNo.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1068,7 +1041,6 @@
                                   <Value> through </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1079,7 +1051,6 @@
                                   <Value>=Fields!DispatchMode.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1090,7 +1061,6 @@
                                   <Value> in </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1101,7 +1071,6 @@
                                   <Value>=Format(Fields!PackingQty.Value, "00")</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1112,7 +1081,6 @@
                                   <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1123,7 +1091,6 @@
                                   <Value>=Fields!PackingType.Value</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1134,7 +1101,6 @@
                                   <Value> on </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1145,7 +1111,6 @@
                                   <Value>=Code.FormatReportDate(Fields!SupplyDate.Value)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Arial</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
@@ -1160,7 +1125,7 @@
                           <Top>3.12153in</Top>
                           <Left>0.55083in</Left>
                           <Height>0.74181in</Height>
-                          <Width>8.5325in</Width>
+                          <Width>7.02665in</Width>
                           <ZIndex>8</ZIndex>
                           <Style>
                             <Border>
@@ -1208,7 +1173,7 @@
         </TablixRowHierarchy>
         <DataSetName>SupplyDetail</DataSetName>
         <Height>6.78125in</Height>
-        <Width>9.34438in</Width>
+        <Width>7.65688in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1216,14 +1181,14 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>6.875in</Height>
+    <Height>6.78125in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>9.34438in</Width>
+  <Width>7.68813in</Width>
   <Page>
     <PageHeight>11.69in</PageHeight>
     <PageWidth>8.27in</PageWidth>

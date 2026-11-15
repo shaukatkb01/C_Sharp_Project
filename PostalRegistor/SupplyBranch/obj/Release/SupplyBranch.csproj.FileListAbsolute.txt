@@ -1,3 +1,8 @@
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.exe
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.Common.dll
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.ProcessingObjectModel.dll
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.WinForms.dll
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.SqlServer.Types.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SqlServerTypes\x64\msvcr120.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SqlServerTypes\x64\SqlServerSpatial140.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SqlServerTypes\x86\msvcr120.dll
@@ -15,17 +20,12 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\rptSupplyInde
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\rptSupplyPerforma.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Reports\RDLC\rptIndex.rdlc
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.exe.config
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranch.pdb
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\FastReport.Compat.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\FastReport.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\FastReport.OpenSource.Export.PdfSimple.dll
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.Common.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.DataVisualization.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.Design.dll
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.ProcessingObjectModel.dll
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.ReportViewer.WinForms.dll
-D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\Microsoft.SqlServer.Types.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\SupplyBranchInstallerHelper.exe
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\EnvDTE.dll
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\bin\Release\stdole.dll
