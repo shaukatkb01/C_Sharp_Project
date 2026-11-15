@@ -222,6 +222,12 @@
     <Compile Include="Forms\Masters\frmUserManagement.Designer.cs">
       <DependentUpon>frmUserManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Reports\frmDemandPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\frmDemandPrint.Designer.cs">
+      <DependentUpon>frmDemandPrint.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Reports\frmReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,6 +383,9 @@
     <EmbeddedResource Include="Forms\Masters\frmUserManagement.resx">
       <DependentUpon>frmUserManagement.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reports\frmDemandPrint.resx">
+      <DependentUpon>frmDemandPrint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reports\frmReport.resx">
       <DependentUpon>frmReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -408,6 +417,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reports\RDLC\rptCurrentStock.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\rptDemand.rdlc" />
+    <EmbeddedResource Include="Reports\RDLC\rptDispatch.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptIndentRegister.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptCategoryWiseIndent.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -424,9 +435,11 @@
     <EmbeddedResource Include="Reports\RDLC\rptIndex.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RDLC\rptInvoice.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptInvoiceRegister.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RDLC\rptMemo.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptOfficeWiseIndent.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -65,6 +65,26 @@ public partial class frmSupply : Form
 
         private StockDAL stockDAL = new StockDAL();
 
+        private void ApplySupplyGridStyle()
+        {
+            if (dgvSupplyDetail == null)
+                return;
+
+            dgvSupplyDetail.BackgroundColor = Color.White;
+            dgvSupplyDetail.BorderStyle = BorderStyle.FixedSingle;
+            dgvSupplyDetail.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvSupplyDetail.EnableHeadersVisualStyles = false;
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(31, 78, 121);
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvSupplyDetail.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(31, 78, 121);
+            dgvSupplyDetail.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            dgvSupplyDetail.DefaultCellStyle.SelectionBackColor = Color.FromArgb(221, 235, 247);
+            dgvSupplyDetail.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvSupplyDetail.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 248, 252);
+            dgvSupplyDetail.RowTemplate.Height = 28;
+        }
+
 
        
         private void SetSupplyColumnVisibility(string columnName, bool visible)
@@ -1348,6 +1368,7 @@ public partial class frmSupply : Form
         public frmSupply(int supplyID, bool isDraft)
         {
             InitializeComponent();
+            ApplySupplyGridStyle();
 
 
             _supplyID = supplyID;
@@ -1519,6 +1540,7 @@ public partial class frmSupply : Form
 
 
             InitializeComponent();
+            ApplySupplyGridStyle();
 
             _indentID = indentID;
 

@@ -95,6 +95,7 @@ D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Ma
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmStatus.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmUnitConversionMaster.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Masters.frmUserManagement.resources
+D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Reports.frmDemandPrint.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Reports.frmReport.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\StampStoreApp.frmStockAdjustment.resources
 D:\C_Sharp_Project\PostalRegistor\SupplyBranch\obj\Release\SupplyBranch.Forms.Stock.frmStockBalance.resources

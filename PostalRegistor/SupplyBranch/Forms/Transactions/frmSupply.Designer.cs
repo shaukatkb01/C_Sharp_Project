@@ -467,7 +467,7 @@
             this.fpnlButton.Controls.Add(this.btnClose);
             this.fpnlButton.Location = new System.Drawing.Point(5, 346);
             this.fpnlButton.Name = "fpnlButton";
-            this.fpnlButton.Size = new System.Drawing.Size(735, 47);
+            this.fpnlButton.Size = new System.Drawing.Size(878, 47);
             this.fpnlButton.TabIndex = 52;
             // 
             // btnSaveDraft
@@ -551,9 +551,9 @@
             this.pnlCurrentStock.Controls.Add(this.pnlBox);
             this.pnlCurrentStock.Controls.Add(this.lblStockItem);
             this.pnlCurrentStock.Controls.Add(this.lblStockTitle);
-            this.pnlCurrentStock.Location = new System.Drawing.Point(1229, 3);
+            this.pnlCurrentStock.Location = new System.Drawing.Point(979, 12);
             this.pnlCurrentStock.Name = "pnlCurrentStock";
-            this.pnlCurrentStock.Size = new System.Drawing.Size(301, 349);
+            this.pnlCurrentStock.Size = new System.Drawing.Size(301, 328);
             this.pnlCurrentStock.TabIndex = 41;
             // 
             // pnlStamp
@@ -700,9 +700,9 @@
             // 
             this.pnlStockEntry.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pnlStockEntry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlStockEntry.Location = new System.Drawing.Point(757, 0);
+            this.pnlStockEntry.Location = new System.Drawing.Point(757, 12);
             this.pnlStockEntry.Name = "pnlStockEntry";
-            this.pnlStockEntry.Size = new System.Drawing.Size(466, 352);
+            this.pnlStockEntry.Size = new System.Drawing.Size(216, 328);
             this.pnlStockEntry.TabIndex = 49;
             // 
             // label16

@@ -1533,6 +1533,81 @@ WHERE SM.SupplyID = @SupplyID";
             return db.ExecuteQuery(query, param);
         }
 
+        public DataTable GetSupplyPerformaHeaderForMultiple(string supplyIDs, bool? adddate)
+        {
+            // Yahan IN clause ke sath query banayi hai taake multiple SupplyIDs ek sath aa sakein
+            if (string.IsNullOrWhiteSpace(supplyIDs))
+                return new DataTable();
+
+            string query = @"SELECT    
+                SM.SupplyID,    
+                SM.SupplyNo,    
+                SM.SupplyDate,    
+                SM.FinancialYear,    
+                IM.IndentNo,    
+                IM.IndentDate,    
+                O.OfficeName,    
+                O.OfficeFileNo AS FileNo,    
+                O.OfficeCode,    
+                SM.PackingType,    
+                SM.PackingQty,    
+                SM.DispatchMode,    
+                SM.InvoiceNo,    
+                @AddDate AS AddDate
+            FROM SupplyMaster SM
+            INNER JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
+            INNER JOIN Office O ON IM.OfficeID = O.OfficeID
+            WHERE SM.SupplyID IN (" + supplyIDs + @")";
+
+            SqlParameter[] param =
+            {
+        new SqlParameter("@AddDate", (object)adddate ?? DBNull.Value)
+    };
+
+            return db.ExecuteQuery(query, param);
+        }
+        public DataTable GetSupplyDemandDetailForMultiple(string supplyIDs)
+        {
+            if (string.IsNullOrWhiteSpace(supplyIDs))
+                return new DataTable();
+            // supplyIDs misal ke taur par "1, 2, 5" ki form mein honge
+            string query = @"SELECT    
+                ROW_NUMBER() OVER(ORDER BY SD.SupplyDetailID) AS SrNo,    
+                ((ROW_NUMBER() OVER(PARTITION BY SD.SupplyID ORDER BY SD.SupplyDetailID) - 1) / 20) + 1 AS PageNo,
+                SD.SupplyID,    
+                SM.SupplyNo,    
+                SM.SupplyDate,
+                IM.IndentNo,
+                IM.IndentDate,
+                SM.DispatchMode,
+                SM.InvoiceNo,
+                SM.PackingQty,
+                SM.PackingType,
+                O.OfficeName,
+                O.OfficeFileNo AS FileNo,
+                SC.Name AS CategoryName,    
+                D.Denomination,    
+                SD.PiecesPerSheet,    
+                SD.SupplyQty AS SupplySheets,    
+                SD.LoosePieces AS SupplyPieces,    
+                SD.LedgerFolio,    
+                SD.CaseNoFrom,    
+                SD.CaseNoTo,    
+                SD.CaseCode
+            FROM SupplyDetail SD
+            INNER JOIN SupplyMaster SM ON SD.SupplyID = SM.SupplyID
+            INNER JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
+            INNER JOIN Office O ON IM.OfficeID = O.OfficeID
+            INNER JOIN StampCategory SC ON SD.CategoryID = SC.CategoryID
+            INNER JOIN Denomination D ON SD.DenominationID = D.DenominationID
+            WHERE SD.SupplyID IN (" + supplyIDs + @") AND D.Denomination > 0 
+            ORDER BY SD.SupplyID, SD.SupplyDetailID";
+
+            // Yahan parameters ki bajaye direct string is liye construct ki hai kyun ke IN clause mein array pass karna DBHelper mein thoda alag tarike se handle hota hai, ya aap DBHelper ko modify kar sakte hain.
+            DataTable dt = db.ExecuteQuery(query, null);
+            return dt;
+        }
+
         public DataTable GetSupplyPerformaDetail(int supplyID)
         {
             string query = @"

@@ -12,6 +12,8 @@ namespace SupplyBranch.Models
 
         public int? CategoryID { get; set; }
 
+        public int? DenominationID { get; set; }
+
         public int? SupplyType { get; set; }
 
         public int? StatusID { get; set; }

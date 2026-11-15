@@ -327,6 +327,21 @@ namespace SupplyBranch.Forms.Reports
                     filter.CategoryID = categoryID;
             }
 
+            if (cmbDenomination.SelectedValue != null)
+            {
+                int denominationID = Convert.ToInt32(cmbDenomination.SelectedValue);
+
+                if (denominationID != 0)
+                    filter.DenominationID = denominationID;
+            }
+
+            if (cmbFinancialYear.SelectedValue != null)
+            {
+                string financialYear = cmbFinancialYear.SelectedValue.ToString();
+                if (!string.IsNullOrWhiteSpace(financialYear))
+                    filter.FinancialYear = financialYear;
+            }
+
             if (cmbStatus.SelectedValue != null)
             {
                 int statusID = Convert.ToInt32(cmbStatus.SelectedValue);
@@ -602,11 +617,12 @@ namespace SupplyBranch.Forms.Reports
                     break;
 
                 case "Category Wise Indent":
-
+                    cmbDenomination.Visible = true;
                     break;
 
 
                 case "Indent Register":
+                    cmbDenomination.Visible = true;
 
                     break;
 
@@ -618,12 +634,13 @@ namespace SupplyBranch.Forms.Reports
 
 
                 case "Pending Supplies":
-
+                    cmbDenomination.Visible = true;
 
                     break;
 
                 case "Current Stock":
                     lblDenomination.Visible = true;
+                    cmbDenomination.Visible = true;
                     cmbDenomination.Visible = true;
 
                     // lable

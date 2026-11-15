@@ -230,8 +230,15 @@ namespace SupplyBranch.DataAccess
                 query.Append(" AND CategoryID = @CategoryID");
                 parameters.Add(new SqlParameter("@CategoryID", filter.CategoryID.Value));
             }
+            // 4. Denomination Filtering
+            if (filter.DenominationID.HasValue)
+            {   
+                query.Append(" AND DenominationID = @DenominationID");
 
-            // 4. Date Filtering (IndentDate)
+                parameters.Add(
+                    new SqlParameter("@DenominationID", filter.DenominationID.Value));
+            }
+            // 5. Date Filtering (IndentDate)
             if (filter.FromDate.HasValue)
             {
                 query.Append(" AND IndentDate >= @FromDate");
@@ -245,7 +252,7 @@ namespace SupplyBranch.DataAccess
                 parameters.Add(new SqlParameter("@ToDate", nextDay));
             }
 
-            // 5. Sorting
+            // 6. Sorting
             query.Append(" ORDER BY OfficeName, IndentDate, IndentNo, CategoryID, Denomination");
 
             return db.ExecuteQuery(query.ToString(), parameters.ToArray());
@@ -375,6 +382,13 @@ namespace SupplyBranch.DataAccess
             {
                 query.Append(" AND CategoryID = @CategoryID");
                 parameters.Add(new SqlParameter("@CategoryID", filter.CategoryID.Value));
+            }
+            if (filter.DenominationID.HasValue)
+            {
+                query.Append(" AND DenominationID = @DenominationID");
+
+                parameters.Add(
+                    new SqlParameter("@DenominationID", filter.DenominationID.Value));
             }
 
             //--------------------------------------------------
@@ -507,6 +521,18 @@ WHERE 1=1");
             }
 
             //--------------------------------------------------
+            // Denomination
+            //--------------------------------------------------
+
+            if (filter.DenominationID.HasValue)
+            {
+                query.Append(" AND DenominationID=@DenominationID");
+
+                parameters.Add(
+                    new SqlParameter("@DenominationID", filter.DenominationID.Value));
+            }
+
+            //--------------------------------------------------
             // Status
             //--------------------------------------------------
 
@@ -580,6 +606,40 @@ WHERE 1=1");
 
             // 3. Result return kar dein
             return dt;
+        }
+
+        public DataTable GetSupplyMasterByDate(DateTime fromDate, DateTime toDate)
+        {
+            string query = @"
+        SELECT
+            SupplyID,
+            SupplyNo,
+            SupplyDate,
+
+            CASE StatusID
+                WHEN 1 THEN 'Draft'
+                WHEN 2 THEN 'Approved'
+                WHEN 3 THEN 'Issued'
+                ELSE 'Unknown'
+            END AS StatusName,
+
+            Remarks,
+            InvoiceNo,
+            DispatchMode,
+            PackingType,
+            PackingQty
+        FROM SupplyMaster
+        WHERE SupplyDate >= @FromDate
+          AND SupplyDate < @ToDate
+        ORDER BY SupplyDate, SupplyNo";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@FromDate", fromDate.Date),
+        new SqlParameter("@ToDate", toDate.Date.AddDays(1))
+    };
+
+            return db.ExecuteQuery(query, parameters);
         }
     }
 }

@@ -53,6 +53,7 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanel1.Controls.Add(this.label3);
             this.flowLayoutPanel1.Controls.Add(this.cmbReportType);
@@ -76,7 +77,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(178, 31);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(238, 511);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(238, 568);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // label3
@@ -197,7 +198,6 @@
             this.cmbDenomination.Name = "cmbDenomination";
             this.cmbDenomination.Size = new System.Drawing.Size(203, 21);
             this.cmbDenomination.TabIndex = 5;
-            this.cmbDenomination.Visible = false;
             // 
             // lblTransactionType
             // 
@@ -267,7 +267,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(800, 542);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(800, 611);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "frmReport";
             this.Text = " INDENT/SUPPLY REPORTS AND INDENX";

@@ -25,9 +25,10 @@ namespace SupplyBranch.Forms
         //=========================================
 
         private bool _isRegisterReport = false;
+        private bool _isSupplyDocumentReport = false;
 
         private string _reportFile = "";
-
+        private string _supplyIDs;
         private DataTable _reportData = null;
         private DataTable _reportData1 = null;
         private DataTable _reportData2 = null;
@@ -69,20 +70,61 @@ namespace SupplyBranch.Forms
             _reportData4 = dt4;
         }
 
+        public void LoadSupplyDocumentReport(
+            string reportFile,
+            int supplyID)
+        {
+            _isSupplyDocumentReport = true;
+            _isRegisterReport = false;
+
+            _reportFile = reportFile;
+            _supplyID = supplyID;
+        }
+
         //=========================================
         // Form Load
         //=========================================
 
         private void frmReportPreview_Load(object sender, EventArgs e)
         {
+            if (_isSupplyDocumentReport)
+            {
+                reportViewer1.Reset();
 
+                reportViewer1.LocalReport.ReportEmbeddedResource =
+                    "SupplyBranch.Reports.RDLC." + _reportFile;
 
-            //-----------------------------------------------------
-            // Register Reports
-            //-----------------------------------------------------
+                // 1. Header ke liye header method (Agar aap multiple IDs ke liye header lana chahte hain)
+                DataTable documentHeader =
+                    supplyDAL.GetSupplyPerformaHeaderForMultiple(_supplyIDs, false); // _supplyIDs agar comma-separated string hai
+
+                // 2. Detail ke liye detail method (Yahan pehle ghalti se header method call ho gaya tha)
+                DataTable documentDetail =
+                    supplyDAL.GetSupplyDemandDetailForMultiple(_supplyIDs);
+
+                reportViewer1.LocalReport.DataSources.Clear();
+
+                reportViewer1.LocalReport.DataSources.Add(
+                    new ReportDataSource(
+                        "SupplyHeader",
+                        documentHeader));
+
+                reportViewer1.LocalReport.DataSources.Add(
+                    new ReportDataSource(
+                        "SupplyDetail",
+                        documentDetail));
+
+                reportViewer1.RefreshReport();
+
+                return;
+            }
 
             if (_isRegisterReport)
             {
+                //-----------------------------------------------------
+                // Register Reports
+                //-----------------------------------------------------
+
                 reportViewer1.Reset();
 
                 reportViewer1.LocalReport.ReportEmbeddedResource =
@@ -181,6 +223,27 @@ namespace SupplyBranch.Forms
     new ReportParameter("AddDate", _addDate.ToString())
 );
 
+
+            reportViewer1.RefreshReport();
+        }
+
+        public void LoadMultipleSupplyDocumentReport(string reportFile, string supplyIDs)
+        {
+            _isSupplyDocumentReport = true;
+            _isRegisterReport = false; 
+            _reportFile = reportFile;
+            _supplyIDs = supplyIDs;
+
+            reportViewer1.Reset();
+            reportViewer1.LocalReport.ReportEmbeddedResource =
+                "SupplyBranch.Reports.RDLC." + reportFile;
+
+            DataTable documentDetail = supplyDAL.GetSupplyDemandDetailForMultiple(supplyIDs);
+
+            reportViewer1.LocalReport.DataSources.Clear();
+
+            reportViewer1.LocalReport.DataSources.Add(
+                new ReportDataSource("SupplyDetail", documentDetail));
 
             reportViewer1.RefreshReport();
         }

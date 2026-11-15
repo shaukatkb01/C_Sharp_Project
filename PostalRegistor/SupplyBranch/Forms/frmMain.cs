@@ -529,5 +529,10 @@ namespace SupplyBranch.Forms
             //FileIndex.Main frm = new FileIndex.Main();
             //OpenForm(new FileIndex.Main());
         }
+
+        private void demandPrintOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmDemandPrint());
+        }
     }
 }
