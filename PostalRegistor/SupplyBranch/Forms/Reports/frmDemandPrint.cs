@@ -32,13 +32,20 @@ namespace SupplyBranch.Forms.Reports
         {
             Text = "Supply Number Selection";
             StartPosition = FormStartPosition.CenterScreen;
-            Size = new Size(1100, 650);
-            MinimumSize = new Size(900, 500);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScroll = true;
+            FormBorderStyle = FormBorderStyle.Sizable;
+            MaximizeBox = true;
+            Size = new Size(
+                Math.Min(1100, Screen.PrimaryScreen.WorkingArea.Width),
+                Math.Min(650, Screen.PrimaryScreen.WorkingArea.Height));
+            MinimumSize = new Size(650, 400);
             BackColor = Color.White;
 
             TableLayoutPanel mainLayout = new TableLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                AutoSize = false,
                 ColumnCount = 1,
                 RowCount = 3,
                 Padding = new Padding(12),
@@ -49,10 +56,10 @@ namespace SupplyBranch.Forms.Reports
                 new RowStyle(SizeType.Absolute, 55F));
 
             mainLayout.RowStyles.Add(
-                new RowStyle(SizeType.Percent, 100F));
+                new RowStyle(SizeType.Absolute, 55F));
 
             mainLayout.RowStyles.Add(
-                new RowStyle(SizeType.Absolute, 55F));
+                new RowStyle(SizeType.Percent, 100F));
 
             // Date filter panel
             FlowLayoutPanel datePanel = new FlowLayoutPanel
@@ -225,14 +232,15 @@ namespace SupplyBranch.Forms.Reports
             dgvSupply.Columns.Add(officeColumn);
             dgvSupply.Columns.Add(invoiceColumn);
 
-            mainLayout.Controls.Add(dgvSupply, 0, 1);
+            mainLayout.Controls.Add(dgvSupply, 0, 2);
 
             // Report buttons
             FlowLayoutPanel buttonPanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.RightToLeft,
-                WrapContents = false,
+                WrapContents = true,
+                AutoScroll = true,
                 Padding = new Padding(0, 8, 0, 0)
             };
 
@@ -251,7 +259,7 @@ namespace SupplyBranch.Forms.Reports
             buttonPanel.Controls.Add(btnDispatch);
             buttonPanel.Controls.Add(btnDemand);
 
-            mainLayout.Controls.Add(buttonPanel, 0, 2);
+            mainLayout.Controls.Add(buttonPanel, 0, 1);
 
             Controls.Add(mainLayout);
 

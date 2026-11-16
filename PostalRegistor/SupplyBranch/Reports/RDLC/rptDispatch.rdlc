@@ -440,7 +440,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>QTY In Sheet</Value>
+                                                <Value>QTY </Value>
                                                 <Style>
                                                   <FontWeight>Bold</FontWeight>
                                                 </Style>
@@ -1054,7 +1054,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Format(((Fields!SupplySheets.Value * Fields!PiecesPerSheet.Value) + Fields!SupplyPieces.Value) * Fields!Denomination.Value, "#,##0.00")</Value>
+                                                <Value>=Format(((Fields!SupplySheets.Value * Fields!PiecesPerSheet.Value) + Fields!SupplyPieces.Value) * Fields!Denomination.Value, "#,##0")</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1104,11 +1104,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>0</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>SrNo</rd:DefaultName>
@@ -1154,11 +1156,13 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>0</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>SupplySheets1</rd:DefaultName>
@@ -1204,7 +1208,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; Fields!PackingType.Value</Value>
+                                                <Value>=Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "case", "Box(es)", Fields!PackingType.Value)</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1398,14 +1402,12 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>
-                                                  =Format(
+                                                <Value>=Format(
                                                   Sum(
                                                   ((Val(Fields!SupplySheets.Value) * Val(Fields!PiecesPerSheet.Value)) + Val(Fields!SupplyPieces.Value)) * Val(Fields!Denomination.Value)
                                                   ),
-                                                  "#,##0.00"
-                                                  )
-                                                </Value>
+                                                  "#,##0"
+                                                  )</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1478,7 +1480,7 @@
                                               </TextRun>
                                             </TextRuns>
                                             <Style>
-                                              <TextAlign>Right</TextAlign>
+                                              <TextAlign>Center</TextAlign>
                                             </Style>
                                           </Paragraph>
                                         </Paragraphs>
@@ -1596,15 +1598,15 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Right</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Top>5.53501in</Top>
-                          <Left>4.50713in</Left>
+                          <Left>4.2363in</Left>
                           <Height>0.23959in</Height>
-                          <Width>1.1995in</Width>
+                          <Width>1.32103in</Width>
                           <ZIndex>7</ZIndex>
                           <Style>
                             <Border>
@@ -1637,7 +1639,7 @@
                           <Top>5.54543in</Top>
                           <Left>5.73441in</Left>
                           <Height>0.22917in</Height>
-                          <Width>1.35417in</Width>
+                          <Width>0.78125in</Width>
                           <ZIndex>8</ZIndex>
                           <Style>
                             <Border>
@@ -1673,15 +1675,15 @@
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Right</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Top>5.76418in</Top>
-                          <Left>4.50713in</Left>
+                          <Left>4.2363in</Left>
                           <Height>0.25in</Height>
-                          <Width>1.1995in</Width>
+                          <Width>1.32103in</Width>
                           <ZIndex>9</ZIndex>
                           <Style>
                             <Border>
@@ -1714,7 +1716,7 @@
                           <Top>5.7746in</Top>
                           <Left>5.73441in</Left>
                           <Height>0.23958in</Height>
-                          <Width>1.35417in</Width>
+                          <Width>0.78125in</Width>
                           <ZIndex>10</ZIndex>
                           <Style>
                             <Border>
@@ -1753,10 +1755,10 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox19</rd:DefaultName>
-                          <Top>6.21557in</Top>
-                          <Left>0.13149in</Left>
+                          <Top>6.12182in</Top>
+                          <Left>0.12106in</Left>
                           <Height>0.23958in</Height>
-                          <Width>4.235in</Width>
+                          <Width>4.19334in</Width>
                           <ZIndex>11</ZIndex>
                           <Style>
                             <Border>
@@ -1789,8 +1791,8 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox21</rd:DefaultName>
-                          <Top>6.5246in</Top>
-                          <Left>0.13149in</Left>
+                          <Top>6.43085in</Top>
+                          <Left>0.12106in</Left>
                           <Height>0.2882in</Height>
                           <Width>4.19334in</Width>
                           <ZIndex>12</ZIndex>
@@ -1825,8 +1827,8 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox34</rd:DefaultName>
-                          <Top>6.88224in</Top>
-                          <Left>0.13149in</Left>
+                          <Top>6.78849in</Top>
+                          <Left>0.12106in</Left>
                           <Height>0.26042in</Height>
                           <Width>4.18291in</Width>
                           <ZIndex>13</ZIndex>
@@ -1847,7 +1849,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Entered in sales day book by __________________________</Value>
+                                  <Value>Entered in sales day book by _____________________</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>11pt</FontSize>
@@ -1861,10 +1863,10 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox38</rd:DefaultName>
-                          <Top>7.2121in</Top>
-                          <Left>0.13149in</Left>
+                          <Top>7.11835in</Top>
+                          <Left>0.12106in</Left>
                           <Height>0.25in</Height>
-                          <Width>4.16209in</Width>
+                          <Width>4.19334in</Width>
                           <ZIndex>14</ZIndex>
                           <Style>
                             <Border>
@@ -1910,7 +1912,7 @@
                           <Top>6.01418in</Top>
                           <Left>4.50713in</Left>
                           <Height>0.21875in</Height>
-                          <Width>3.03978in</Width>
+                          <Width>2.74811in</Width>
                           <ZIndex>15</ZIndex>
                           <Style>
                             <Border>

@@ -209,7 +209,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox6</rd:DefaultName>
@@ -237,6 +239,7 @@
                                             <Style>Solid</Style>
                                             <Width>1pt</Width>
                                           </RightBorder>
+                                          <VerticalAlign>Middle</VerticalAlign>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -256,11 +259,14 @@
                                               <TextRun>
                                                 <Value>Description</Value>
                                                 <Style>
+                                                  <FontSize>11pt</FontSize>
                                                   <FontWeight>Bold</FontWeight>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox8</rd:DefaultName>
@@ -288,6 +294,7 @@
                                             <Style>Solid</Style>
                                             <Width>1pt</Width>
                                           </RightBorder>
+                                          <VerticalAlign>Middle</VerticalAlign>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -315,7 +322,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox10</rd:DefaultName>
@@ -343,6 +352,7 @@
                                             <Style>Solid</Style>
                                             <Width>1pt</Width>
                                           </RightBorder>
+                                          <VerticalAlign>Middle</VerticalAlign>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -370,7 +380,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox12</rd:DefaultName>
@@ -398,6 +410,7 @@
                                             <Style>Solid</Style>
                                             <Width>1pt</Width>
                                           </RightBorder>
+                                          <VerticalAlign>Middle</VerticalAlign>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -425,7 +438,9 @@
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
-                                            <Style />
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
                                           </Paragraph>
                                         </Paragraphs>
                                         <rd:DefaultName>Textbox14</rd:DefaultName>
@@ -453,6 +468,7 @@
                                             <Style>Solid</Style>
                                             <Width>1pt</Width>
                                           </RightBorder>
+                                          <VerticalAlign>Middle</VerticalAlign>
                                           <PaddingLeft>2pt</PaddingLeft>
                                           <PaddingRight>2pt</PaddingRight>
                                           <PaddingTop>2pt</PaddingTop>
@@ -811,7 +827,7 @@
                           <Top>6.46021in</Top>
                           <Left>0.55083in</Left>
                           <Height>0.25in</Height>
-                          <Width>3.11458in</Width>
+                          <Width>5.83269in</Width>
                           <ZIndex>5</ZIndex>
                           <Style>
                             <Border>
@@ -919,7 +935,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>20pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
                                   </Style>

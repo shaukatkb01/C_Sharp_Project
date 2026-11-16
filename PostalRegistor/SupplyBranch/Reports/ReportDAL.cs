@@ -612,26 +612,29 @@ WHERE 1=1");
         {
             string query = @"
         SELECT
-            SupplyID,
-            SupplyNo,
-            SupplyDate,
+            SM.SupplyID,
+            SM.SupplyNo,
+            SM.SupplyDate,
+            ISNULL(O.OfficeName, '') AS OfficeName,
 
-            CASE StatusID
+            CASE SM.StatusID
                 WHEN 1 THEN 'Draft'
                 WHEN 2 THEN 'Approved'
                 WHEN 3 THEN 'Issued'
                 ELSE 'Unknown'
             END AS StatusName,
 
-            Remarks,
-            InvoiceNo,
-            DispatchMode,
-            PackingType,
-            PackingQty
-        FROM SupplyMaster
-        WHERE SupplyDate >= @FromDate
-          AND SupplyDate < @ToDate
-        ORDER BY SupplyDate, SupplyNo";
+            SM.Remarks,
+            SM.InvoiceNo,
+            SM.DispatchMode,
+            SM.PackingType,
+            SM.PackingQty
+        FROM SupplyMaster SM
+        LEFT JOIN IndentMaster IM ON SM.IndentID = IM.IndentID
+        LEFT JOIN Office O ON IM.OfficeID = O.OfficeID
+        WHERE SM.SupplyDate >= @FromDate
+          AND SM.SupplyDate < @ToDate
+        ORDER BY SM.SupplyNo DESC";
 
             SqlParameter[] parameters =
             {
