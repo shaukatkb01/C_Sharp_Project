@@ -218,57 +218,50 @@ namespace SupplyBranch.Forms.Reports
                 dtFrom.Value = new DateTime(2026, 1, 1);
             }
 
-            //----------------------------
-            // Office (load off UI thread)
-            //----------------------------
+            btnOfficeWise.Enabled = false;
+
             try
             {
-                OfficeDAL officeDAL = new OfficeDAL();
-
-                // fetch on threadpool, then marshal result to UI thread
-                var offices = await Task.Run(() => officeDAL.GetAllOffices());
-
-                if (cmbOffice != null)
+                var reportLookups = await Task.Run(() => new
                 {
-                    cmbOffice.DataSource = offices;
-                    cmbOffice.DisplayMember = "OfficeName";
-                    cmbOffice.ValueMember = "OfficeID";
-                    cmbOffice.SelectedIndex = 0;
-                }
+                    Offices = new OfficeDAL().GetAllOffices(),
+                    FinancialYears = new OfficeDAL().GetFinancialYear(),
+                    Statuses = new SupplyDAL().GetDraftStatus(),
+                    Categories = new ReportDAL().GetCategories()
+                });
+
+                cmbOffice.DataSource = reportLookups.Offices;
+                cmbOffice.DisplayMember = "OfficeName";
+                cmbOffice.ValueMember = "OfficeID";
+                cmbOffice.SelectedIndex = 0;
+
+                cmbFinancialYear.DataSource = reportLookups.FinancialYears;
+                cmbFinancialYear.DisplayMember = "FinancialYearName";
+                cmbFinancialYear.ValueMember = "FinancialYear";
+                cmbFinancialYear.SelectedIndex = 0;
+
+                cmbStatus.DataSource = reportLookups.Statuses;
+                cmbStatus.DisplayMember = "StatusName";
+                cmbStatus.ValueMember = "StatusID";
+                cmbStatus.SelectedIndex = 0;
+
+                cmbCategory.DisplayMember = "Name";
+                cmbCategory.ValueMember = "CategoryID";
+                cmbCategory.DataSource = reportLookups.Categories;
+                cmbCategory.Enabled = true;
             }
-            catch
+            catch (Exception ex)
             {
-                // handle/log as needed
+                MessageBox.Show(
+                    "Report filters could not be loaded. Please try again or contact support.\n\n" + ex.Message,
+                    "Report Filters",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-
-            // Financial Year
-            OfficeDAL officeDAL1 = new OfficeDAL();
-            cmbFinancialYear.DataSource = officeDAL1.GetFinancialYear();
-
-            cmbFinancialYear.DisplayMember = "FinancialYearName";
-
-            cmbFinancialYear.ValueMember = "FinancialYear";
-
-            cmbFinancialYear.SelectedIndex = 0;
-            //----------------------------
-            // Status
-            //----------------------------
-
-            SupplyDAL supplyDAL = new SupplyDAL();
-
-            cmbStatus.DataSource = supplyDAL.GetDraftStatus();
-            cmbStatus.DisplayMember = "StatusName";
-            cmbStatus.ValueMember = "StatusID";
-            cmbStatus.SelectedIndex = 0;
-
-            //----------------------------
-            // Category
-            //----------------------------
-            cmbCategory.DisplayMember = "Name";
-            cmbCategory.ValueMember = "CategoryID";
-            cmbCategory.DataSource = _dal.GetCategories();
-            //cmbCategory.SelectedIndex = 0;
-            cmbCategory.Enabled = true;
+            finally
+            {
+                btnOfficeWise.Enabled = true;
+            }
 
         }
 
@@ -571,8 +564,6 @@ namespace SupplyBranch.Forms.Reports
             cmbStatus.Enabled = true;
             cmbOffice.SelectedIndex = 0;
             cmbOffice.Enabled = true;
-            cmbStatus.SelectedValue = 0;
-            cmbStatus.Enabled = true;
             cmbCategory.SelectedIndex = 0;
             cmbCategory.Enabled = true;
             lblDenomination.Visible = false;
@@ -623,6 +614,10 @@ namespace SupplyBranch.Forms.Reports
 
                 case "Indent Register":
                     cmbDenomination.Visible = true;
+                    lblStatus.Visible = false;
+                    cmbStatus.Visible = false;
+                    cmbFinancialYear.Visible = false;
+                    lblFincialYear.Visible = false;
 
                     break;
 
@@ -640,7 +635,6 @@ namespace SupplyBranch.Forms.Reports
 
                 case "Current Stock":
                     lblDenomination.Visible = true;
-                    cmbDenomination.Visible = true;
                     cmbDenomination.Visible = true;
 
                     // lable

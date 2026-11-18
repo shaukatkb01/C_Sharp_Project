@@ -1084,7 +1084,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Format(Fields!PackingQty.Value, "00")</Value>
+                                  <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", IIF(IsNothing(Fields!OtherPackingType.Value) OrElse Trim(CStr(Fields!OtherPackingType.Value)) = "", "Other", CStr(Fields!OtherPackingType.Value)), Format(Fields!PackingQty.Value, "00"))</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>11pt</FontSize>
@@ -1104,7 +1104,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!PackingType.Value</Value>
+                                  <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", "", CStr(Fields!PackingType.Value))</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>11pt</FontSize>
@@ -1271,6 +1271,10 @@
           <DataField>PackingType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="OtherPackingType">
+          <DataField>OtherPackingType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PackingQty">
           <DataField>PackingQty</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -1333,6 +1337,10 @@
         </Field>
         <Field Name="PackingType">
           <DataField>PackingType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtherPackingType">
+          <DataField>OtherPackingType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PackingQty">

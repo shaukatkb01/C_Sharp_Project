@@ -9,9 +9,10 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Indent Registor </Value>
+                <Value>Indent Register</Value>
                 <Style>
-                  <FontSize>48pt</FontSize>
+                  <FontFamily>Segoe UI</FontFamily>
+                  <FontSize>24pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
@@ -1928,7 +1929,7 @@
     <Height>2.64667in</Height>
     <Style />
   </Body>
-  <Width>13.34375in</Width>
+  <Width>11.6875in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>

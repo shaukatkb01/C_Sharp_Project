@@ -53,6 +53,10 @@
           <DataField>PackingType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="OtherPackingType">
+          <DataField>OtherPackingType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PackingQty">
           <DataField>PackingQty</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -710,9 +714,9 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=Format(CInt(First(Fields!PackingQty.Value, "dsHeader")), "00") &amp; " - " &amp; First(Fields!PackingType.Value, "dsHeader")</Value>
+                        <Value>=IIF(LCase(Trim(CStr(First(Fields!PackingType.Value, "dsHeader")))) = "other", IIF(IsNothing(First(Fields!OtherPackingType.Value, "dsHeader")) OrElse Trim(CStr(First(Fields!OtherPackingType.Value, "dsHeader"))) = "", "Other", CStr(First(Fields!OtherPackingType.Value, "dsHeader"))), CStr(CInt(First(Fields!PackingQty.Value, "dsHeader"))) &amp; " - " &amp; CStr(First(Fields!PackingType.Value, "dsHeader")))</Value>
                         <Style>
-                          <FontSize>11pt</FontSize>
+                          <FontSize>9pt</FontSize>
                         </Style>
                       </TextRun>
                     </TextRuns>

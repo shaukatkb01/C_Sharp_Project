@@ -1208,7 +1208,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "case", "Box(es)", Fields!PackingType.Value)</Value>
+                                                <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", IIF(IsNothing(Fields!OtherPackingType.Value) OrElse Trim(CStr(Fields!OtherPackingType.Value)) = "", "Other", CStr(Fields!OtherPackingType.Value)), Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "case", "Box(es)", CStr(Fields!PackingType.Value)))</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>
@@ -1931,7 +1931,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Asst. Suptd. (Stamps)</Value>
+                                  <Value>Asst. Supdt. (Stamps)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>11pt</FontSize>
@@ -2528,6 +2528,10 @@
           <DataField>PackingType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="OtherPackingType">
+          <DataField>OtherPackingType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="PackingQty">
           <DataField>PackingQty</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -2582,6 +2586,10 @@
         </Field>
         <Field Name="PackingType">
           <DataField>PackingType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtherPackingType">
+          <DataField>OtherPackingType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DispatchMode">

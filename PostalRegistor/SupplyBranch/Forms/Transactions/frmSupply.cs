@@ -631,6 +631,7 @@ public partial class frmSupply : Form
                 Convert.ToInt32(cmbSupplyType.SelectedValue),
                 cmbDispatchMode.Text,
                 cmbPackingType.Text,
+                GetOtherPackingTypeValue(),
                 packingQty,
                 txtRemarks.Text,
                 indentStatusID,
@@ -646,6 +647,20 @@ public partial class frmSupply : Form
             //SaveStockTransactions();
         }
 
+        private string GetOtherPackingTypeValue()
+        {
+            return string.Equals(cmbPackingType.Text.Trim(), "Other", StringComparison.OrdinalIgnoreCase)
+                ? txtOtherPacking.Text.Trim()
+                : null;
+        }
+
+        private int GetPackingQtyValue()
+        {
+            return string.Equals(cmbPackingType.Text.Trim(), "Other", StringComparison.OrdinalIgnoreCase)
+                ? 0
+                : Convert.ToInt32(txtPackingQty.Text);
+        }
+
         private void UpdateDraft()
         {
             // Header Update
@@ -654,8 +669,9 @@ public partial class frmSupply : Form
                 Convert.ToInt32(cmbSupplyType.SelectedValue),
                 dtSupplyDate.Value,
                 cmbDispatchMode.Text,
-                cmbPackingType.Text,        
-                Convert.ToInt32(txtPackingQty.Text),
+                cmbPackingType.Text,
+                GetOtherPackingTypeValue(),
+                GetPackingQtyValue(),
                 txtInvoiceNo?.Text ?? string.Empty,
                 txtRemarks?.Text ?? string.Empty);
             // Detail Update
@@ -723,9 +739,10 @@ public partial class frmSupply : Form
             }
 
      
-            if (string.IsNullOrEmpty(txtPackingQty?.Text))
+            if (!string.Equals(cmbPackingType.Text.Trim(), "Other", StringComparison.OrdinalIgnoreCase) &&
+                string.IsNullOrEmpty(txtPackingQty?.Text))
             {
-            MessageBox.Show(
+                MessageBox.Show(
                     "Please insert PackingQty",
                     "Validation",
                     MessageBoxButtons.OK,
@@ -733,7 +750,7 @@ public partial class frmSupply : Form
                 txtPackingQty?.Focus();
                 txtPackingQty.BackColor = Color.LightBlue;
                 return false;
-             }
+            }
 
 
             //=========================================
@@ -884,6 +901,9 @@ public partial class frmSupply : Form
 
             cmbPackingType.Text =
                 row["PackingType"].ToString();
+            txtOtherPacking.Text = row["OtherPackingType"] == DBNull.Value
+                ? string.Empty
+                : row["OtherPackingType"].ToString();
 
             // Packing Qty اگر Form پر موجود ہے
             if (txtPackingQty != null)
@@ -930,6 +950,9 @@ public partial class frmSupply : Form
 
             cmbPackingType.Text =
                 row["PackingType"].ToString();
+            txtOtherPacking.Text = row["OtherPackingType"] == DBNull.Value
+                ? string.Empty
+                : row["OtherPackingType"].ToString();
             txtSupplyStatus.Text = row["SupplyStatus"].ToString();
             txtPackingQty.Text =
                 row["PackingQty"].ToString();
@@ -2369,25 +2392,34 @@ public partial class frmSupply : Form
        
         private void cmbPackingType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cmbPackingType.Text == "Case")
+            bool isCase = string.Equals(cmbPackingType.Text, "Case", StringComparison.OrdinalIgnoreCase);
+            bool isOther = string.Equals(cmbPackingType.Text, "Other", StringComparison.OrdinalIgnoreCase);
+
+            txtPackingQty.Visible = !isOther;
+            txtOtherPacking.Visible = isOther;
+            label14.Text = isOther ? "Other Type" : "Packing Qty";
+
+            if (isCase)
             {
-               cmbDispatchMode.SelectedIndex = 2;
+                cmbDispatchMode.SelectedIndex = 2;
                 cmbDispatchMode.Enabled = false;
             }
             else
             {
-                txtPackingQty.Text = "1";
                 cmbDispatchMode.SelectedIndex = 0;
                 cmbDispatchMode.Enabled = true;
             }
 
+            if (!isOther)
+            {
+                txtPackingQty.Text = "1";
+            }
+
             CalculateTotalCasePackingQty();
-        
+
             if(cmbPackingType.SelectedIndex == -1) { return; }
             gridcontrolforsupply(grid: true);
             CheckDraftChanges();
-
-            bool isCase = cmbPackingType.Text == "Case";
 
             dgvSupplyDetail.Columns["CaseNoFrom"].ReadOnly = !isCase;
             dgvSupplyDetail.Columns["CaseNoTo"].ReadOnly = !isCase;
@@ -3065,7 +3097,8 @@ public partial class frmSupply : Form
                     dtSupplyDate.Value,
                     cmbDispatchMode.Text,
                     cmbPackingType.Text,
-                    Convert.ToInt32(txtPackingQty.Text),
+                    GetOtherPackingTypeValue(),
+                    GetPackingQtyValue(),
                     txtInvoiceNo?.Text ?? string.Empty,
                     txtRemarks.Text);
 
@@ -3117,7 +3150,8 @@ public partial class frmSupply : Form
                     Convert.ToInt32(cmbSupplyType.SelectedValue),
                     cmbDispatchMode.Text,
                     cmbPackingType.Text,
-                    Convert.ToInt32(txtPackingQty.Text),
+                    GetOtherPackingTypeValue(),
+                    GetPackingQtyValue(),
                     txtRemarks.Text);
 
 
@@ -3270,7 +3304,20 @@ public partial class frmSupply : Form
                 // =========================================
                 // NEW SUPPLY
                 // =========================================
+                if (cmbPackingType.Text == "Other")
+                {
+                    if (string.IsNullOrWhiteSpace(txtOtherPacking.Text))
+                    {
+                        MessageBox.Show(
+                            "Please specify the Other Packing Type.",
+                            "Supply",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
 
+                        txtOtherPacking.Focus();
+                        return;
+                    }
+                }
                 if (_supplyID == 0)
                 {
 
