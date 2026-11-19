@@ -1,0 +1,47 @@
+@model SupplyBranch.Web.Controllers.SupplyDetailsViewModel
+
+@{
+    ViewData["Title"] = "Supply Details";
+}
+
+<h2>Supply Details</h2>
+
+@if (Model.Header != null && Model.Header.Rows.Count > 0)
+{
+    var h = Model.Header.Rows[0];
+    <dl>
+        <dt>Supply No</dt><dd>@h["SupplyNo"]</dd>
+        <dt>Financial Year</dt><dd>@h["FinancialYear"]</dd>
+        <dt>Supply Date</dt><dd>@(h["SupplyDate"] == DBNull.Value ? "" : ((DateTime)h["SupplyDate"]).ToString("yyyy-MM-dd"))</dd>
+        <dt>Office</dt><dd>@h["OfficeName"]</dd>
+    </dl>
+}
+
+<h3>Items</h3>
+<table id="supplyDetails" class="display">
+    <thead>
+        <tr>
+            @foreach (System.Data.DataColumn col in Model.Details.Columns)
+            {
+                <th>@col.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Details.Rows)
+        {
+            <tr>
+                @foreach (var item in row.ItemArray)
+                {
+                    <td>@item</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#supplyDetails').DataTable();
+    });
+</script>

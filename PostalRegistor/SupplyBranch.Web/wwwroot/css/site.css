@@ -1,0 +1,4 @@
+/* Basic site styles */
+body { padding-bottom: 60px; }
+.container { max-width: 1100px; }
+.table { width: 100%; }

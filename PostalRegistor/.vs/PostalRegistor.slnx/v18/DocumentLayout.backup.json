@@ -3,12 +3,24 @@
   "WorkspaceRootPath": "D:\\C_Sharp_Project\\PostalRegistor\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|d:\\c_sharp_project\\postalregistor\\supplybranch\\updateinfo.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|solutionrelative:supplybranch\\updateinfo.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|d:\\c_sharp_project\\postalregistor\\supplybranch\\forms\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|solutionrelative:supplybranch\\forms\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|d:\\c_sharp_project\\postalregistor\\supplybranch\\forms\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|solutionrelative:supplybranch\\forms\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|d:\\c_sharp_project\\postalregistor\\supplybranch\\forms\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|solutionrelative:supplybranch\\forms\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|d:\\c_sharp_project\\postalregistor\\supplybranch\\forms\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CE0974FE-D66D-4EBB-BA94-122F6A051C29}|SupplyBranch\\SupplyBranch.csproj|solutionrelative:supplybranch\\forms\\frmdashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,27 +55,70 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "UpdateInfo.txt",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\UpdateInfo.txt",
+              "RelativeDocumentMoniker": "SupplyBranch\\UpdateInfo.txt",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\UpdateInfo.txt",
+              "RelativeToolTip": "SupplyBranch\\UpdateInfo.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-11-19T16:08:15.918Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "frmMain.cs",
               "DocumentMoniker": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmMain.cs",
               "RelativeDocumentMoniker": "SupplyBranch\\Forms\\frmMain.cs",
               "ToolTip": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmMain.cs",
               "RelativeToolTip": "SupplyBranch\\Forms\\frmMain.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABoBAAAAAAAAAAAvwCsBAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-26T15:12:48.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-19T15:29:23.548Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "frmMain.cs [Design]",
               "DocumentMoniker": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmMain.cs",
               "RelativeDocumentMoniker": "SupplyBranch\\Forms\\frmMain.cs",
               "ToolTip": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmMain.cs [Design]",
               "RelativeToolTip": "SupplyBranch\\Forms\\frmMain.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-26T15:12:02.287Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-11-19T15:29:06.574Z",
+              "EditorCaption": " [Design]",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmDashBoard.cs",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmDashBoard.cs",
+              "RelativeDocumentMoniker": "SupplyBranch\\Forms\\frmDashBoard.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmDashBoard.cs",
+              "RelativeToolTip": "SupplyBranch\\Forms\\frmDashBoard.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAUwIEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T15:28:05.958Z",
+              "EditorCaption": "",
+              "OwnerCaption": "%2"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmDashBoard.cs [Design]",
+              "DocumentMoniker": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmDashBoard.cs",
+              "RelativeDocumentMoniker": "SupplyBranch\\Forms\\frmDashBoard.cs",
+              "ToolTip": "D:\\C_Sharp_Project\\PostalRegistor\\SupplyBranch\\Forms\\frmDashBoard.cs [Design]",
+              "RelativeToolTip": "SupplyBranch\\Forms\\frmDashBoard.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-19T15:28:03.816Z",
+              "EditorCaption": " [Design]",
+              "OwnerCaption": "%2"
             }
           ]
         },

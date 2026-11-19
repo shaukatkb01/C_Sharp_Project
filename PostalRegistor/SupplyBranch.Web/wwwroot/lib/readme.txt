@@ -1,0 +1,1 @@
+Library folder for third-party client-side libraries. Currently using CDN for Bootstrap and jQuery; add local copies here if you prefer offline usage.

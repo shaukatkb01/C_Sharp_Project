@@ -1,0 +1,41 @@
+@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "Supplies";
+}
+
+<h2>Supplies</h2>
+
+<table id="supplies" class="display">
+    <thead>
+        <tr>
+            <th>SupplyID</th>
+            <th>SupplyNo</th>
+            <th>SupplyDate</th>
+            <th>IndentNo</th>
+            <th>OfficeName</th>
+            <th>StatusName</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            <td>@row["SupplyID"]</td>
+            <td>@row["SupplyNo"]</td>
+            <td>@(row["SupplyDate"] == DBNull.Value ? "" : ((DateTime)row["SupplyDate"]).ToString("yyyy-MM-dd"))</td>
+            <td>@row["IndentNo"]</td>
+            <td>@row["OfficeName"]</td>
+            <td>@row["StatusName"]</td>
+            <td><a asp-action="Details" asp-route-id="@row["SupplyID"]">Details</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#supplies').DataTable();
+    });
+</script>

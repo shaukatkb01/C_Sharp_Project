@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Indent Details";
+}
+
+@{
+    var header = (System.Data.DataRow)ViewData["Header"];
+    var details = (System.Data.DataTable)ViewData["Details"];
+}
+
+<h2>Indent Details</h2>
+
+@if (header != null)
+{
+    <dl>
+        <dt>Indent No</dt><dd>@header["IndentNo"]</dd>
+        <dt>Indent Date</dt><dd>@(header["IndentDate"] == DBNull.Value ? "" : ((DateTime)header["IndentDate"]).ToString("yyyy-MM-dd"))</dd>
+        <dt>Office</dt><dd>@header["OfficeID"]</dd>
+        <dt>Remarks</dt><dd>@header["Remarks"]</dd>
+    </dl>
+}
+
+<h3>Items</h3>
+<table id="indentDetails" class="display">
+    <thead>
+        <tr>
+            @foreach (System.Data.DataColumn col in details.Columns)
+            {
+                <th>@col.ColumnName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in details.Rows)
+        {
+            <tr>
+                @foreach (var item in row.ItemArray)
+                {
+                    <td>@item</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#indentDetails').DataTable();
+    });
+</script>

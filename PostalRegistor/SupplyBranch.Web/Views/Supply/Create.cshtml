@@ -1,0 +1,187 @@
+@model SupplyBranch.Web.Models.SupplyCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Supply";
+}
+
+<h2>Create Supply</h2>
+
+<form method="post" asp-action="Create">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label class="form-label">Indent ID</label>
+        <input asp-for="IndentID" class="form-control" />
+        <span asp-validation-for="IndentID" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Supply Type</label>
+        <select asp-for="SupplyTypeID" class="form-select">
+            <option value="">-- Select Supply Type --</option>
+            @if (ViewBag.SupplyTypes != null)
+            {
+                var dt = (System.Data.DataTable)ViewBag.SupplyTypes;
+                foreach (System.Data.DataRow r in dt.Rows)
+                {
+                    <option value="@r["SupplyTypeID"]">@r["SupplyTypeName"]</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="SupplyTypeID" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Supply Date</label>
+        <input asp-for="SupplyDate" type="date" class="form-control" />
+        <span asp-validation-for="SupplyDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Dispatch Mode</label>
+        <input asp-for="DispatchMode" class="form-control" />
+        <span asp-validation-for="DispatchMode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Packing Type</label>
+        <input asp-for="PackingType" class="form-control" />
+        <span asp-validation-for="PackingType" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Packing Qty</label>
+        <input asp-for="PackingQty" class="form-control" />
+        <span asp-validation-for="PackingQty" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Remarks</label>
+        <textarea asp-for="Remarks" class="form-control"></textarea>
+        <span asp-validation-for="Remarks" class="text-danger"></span>
+    </div>
+
+    <h3>Items</h3>
+    <table id="itemsTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Denomination</th>
+                <th>SupplySheets</th>
+                <th>SupplyPieces</th>
+                <th>TotalSupplyQty</th>
+                <th>LedgerFolio</th>
+                <th>CaseNoFrom</th>
+                <th>CaseNoTo</th>
+                <th>CaseCode</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <button type="button" id="addItem">Add Item</button>
+
+    <input type="hidden" asp-for="ItemsJson" id="ItemsJson" />
+
+    <div>
+        <button type="submit">Save Draft</button>
+    </div>
+</form>
+
+    <div id="categoryTemplate" style="display:none">
+        <select class="cat">
+            <option value="">--Select--</option>
+            @if (ViewBag.Categories != null)
+            {
+                var dt = (System.Data.DataTable)ViewBag.Categories;
+                foreach (System.Data.DataRow r in dt.Rows)
+                {
+                    <text><option value="@r["CategoryID"]">@r["Name"]</option></text>
+                }
+            }
+        </select>
+    </div>
+
+    <script>
+    var categoryOptions = '';
+
+    $(function () {
+        // build category options from server-provided DataTable
+        var categories = @Html.Raw(System.Text.Json.JsonSerializer.Serialize((System.Data.DataTable)ViewBag.Categories ?? new System.Data.DataTable()));
+
+        if (categories && categories.Rows) {
+            // in case it's a DataTable serialized as object, fallback to ViewBag rendered options
+        }
+
+        // Pre-rendered category options server-side to avoid complex serialization
+        categoryOptions = '';
+
+        function addRow() {
+            var row = '<tr>' +
+                '<td>' + '<select class="cat">' + $('#categoryTemplate select').html() + '</select>' + '</td>' +
+                '<td><select class="den"><option value="">--Select--</option></select></td>' +
+                '<td><input class="sheets" type="number" value="0"/></td>' +
+                '<td><input class="pieces" type="number" value="0"/></td>' +
+                '<td><input class="total" type="number" value="0"/></td>' +
+                '<td><input class="ledger"/></td>' +
+                '<td><input class="casefrom"/></td>' +
+                '<td><input class="caseto"/></td>' +
+                '<td><input class="casecode"/></td>' +
+                '<td><button type="button" class="remove">Remove</button></td>' +
+                '</tr>';
+
+            $('#itemsTable tbody').append(row);
+        }
+
+        $('#addItem').on('click', function () { addRow(); });
+
+        $('#itemsTable').on('click', '.remove', function () { $(this).closest('tr').remove(); });
+
+        // when category changes, load denominations
+        $('#itemsTable').on('change', 'select.cat', function () {
+            var $cat = $(this);
+            var categoryId = $cat.val();
+            var $den = $cat.closest('tr').find('select.den');
+
+            if (!categoryId) {
+                $den.html('<option value="">--Select--</option>');
+                return;
+            }
+
+            $.getJSON('/Supply/Denominations', { categoryId: categoryId }, function (data) {
+                var html = '<option value="">--Select--</option>';
+                $.each(data, function (i, item) {
+                    html += '<option value="' + item.id + '">' + item.text + '</option>';
+                });
+                $den.html(html);
+            });
+        });
+
+        $('form').on('submit', function () {
+            var items = [];
+
+            $('#itemsTable tbody tr').each(function () {
+                var $tr = $(this);
+                items.push({
+                    categoryID: $tr.find('select.cat').val(),
+                    denominationID: $tr.find('select.den').val(),
+                    supplySheets: $tr.find('.sheets').val(),
+                    supplyPieces: $tr.find('.pieces').val(),
+                    totalSupplyQty: $tr.find('.total').val(),
+                    ledgerFolio: $tr.find('.ledger').val(),
+                    caseNoFrom: $tr.find('.casefrom').val(),
+                    caseNoTo: $tr.find('.caseto').val(),
+                    caseCode: $tr.find('.casecode').val()
+                });
+            });
+
+            $('#ItemsJson').val(JSON.stringify(items));
+        });
+    });
+
+    // helper to render server-side category options (fallback)
+    function GetCategoryOptionsHtml() { return ''; }
+    </script>

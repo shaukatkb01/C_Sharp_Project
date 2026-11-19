@@ -1,0 +1,144 @@
+@model SupplyBranch.Web.Models.IndentCreateViewModel
+
+@{
+    ViewData["Title"] = "Create Indent";
+}
+
+<h2>Create Indent</h2>
+
+<form method="post" asp-action="Create">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label class="form-label">Indent No</label>
+        <input asp-for="IndentNo" class="form-control" />
+        <span asp-validation-for="IndentNo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Indent Date</label>
+        <input asp-for="IndentDate" type="date" class="form-control" />
+        <span asp-validation-for="IndentDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Office</label>
+        <select asp-for="OfficeID" class="form-select">
+            <option value="">-- Select Office --</option>
+            @if (ViewBag.Offices != null)
+            {
+                var dt = (System.Data.DataTable)ViewBag.Offices;
+                foreach (System.Data.DataRow r in dt.Rows)
+                {
+                    <option value="@r["OfficeID"]">@r["OfficeName"]</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="OfficeID" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Remarks</label>
+        <textarea asp-for="Remarks" class="form-control"></textarea>
+        <span asp-validation-for="Remarks" class="text-danger"></span>
+    </div>
+
+    <h3>Items</h3>
+    <table id="itemsTable">
+        <thead>
+            <tr>
+                <th>CategoryID</th>
+                <th>DenominationID</th>
+                <th>SheetQty</th>
+                <th>PieceQty</th>
+                <th>PiecesPerSheet</th>
+                <th>TotalPieces</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <button type="button" id="addItem">Add Item</button>
+
+    <input type="hidden" asp-for="ItemsJson" id="ItemsJson" />
+
+    <div>
+        <button type="submit">Save Indent</button>
+    </div>
+</form>
+
+    <div id="categoryTemplate" style="display:none">
+        <select class="cat">
+            <option value="">--Select--</option>
+            @if (ViewBag.Categories != null)
+            {
+                var dt = (System.Data.DataTable)ViewBag.Categories;
+                foreach (System.Data.DataRow r in dt.Rows)
+                {
+                    <text><option value="@r["CategoryID"]">@r["Name"]</option></text>
+                }
+            }
+        </select>
+    </div>
+
+    <script>
+    $(function () {
+        function addRow() {
+            var row = '<tr>' +
+                '<td>' + '<select class="cat">' + $('#categoryTemplate select').html() + '</select>' + '</td>' +
+                '<td><select class="den"><option value="">--Select--</option></select></td>' +
+                '<td><input class="sheets" type="number" value="0"/></td>' +
+                '<td><input class="pieces" type="number" value="0"/></td>' +
+                '<td><input class="pps" type="number" value="0"/></td>' +
+                '<td><input class="total" type="number" value="0"/></td>' +
+                '<td><button type="button" class="remove">Remove</button></td>' +
+                '</tr>';
+
+            $('#itemsTable tbody').append(row);
+        }
+
+        $('#addItem').on('click', function () { addRow(); });
+
+        $('#itemsTable').on('click', '.remove', function () { $(this).closest('tr').remove(); });
+
+        $('#itemsTable').on('change', 'select.cat', function () {
+            var $cat = $(this);
+            var categoryId = $cat.val();
+            var $den = $cat.closest('tr').find('select.den');
+
+            if (!categoryId) {
+                $den.html('<option value="">--Select--</option>');
+                return;
+            }
+
+            $.getJSON('/Indent/Denominations', { categoryId: categoryId }, function (data) {
+                var html = '<option value="">--Select--</option>';
+                $.each(data, function (i, item) {
+                    html += '<option value="' + item.id + '">' + item.text + '</option>';
+                });
+                $den.html(html);
+            });
+        });
+
+        $('form').on('submit', function () {
+            var items = [];
+
+            $('#itemsTable tbody tr').each(function () {
+                var $tr = $(this);
+                items.push({
+                    CategoryID: $tr.find('select.cat').val(),
+                    DenominationID: $tr.find('select.den').val(),
+                    SheetQty: $tr.find('.sheets').val(),
+                    PieceQty: $tr.find('.pieces').val(),
+                    PiecesPerSheet: $tr.find('.pps').val(),
+                    TotalPieces: $tr.find('.total').val()
+                });
+            });
+
+            $('#ItemsJson').val(JSON.stringify(items));
+        });
+    });
+    </script>
