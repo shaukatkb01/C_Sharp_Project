@@ -20,33 +20,15 @@ namespace SupplyBranch.Forms.Help
         @"SUPPLY BRANCH MANAGEMENT SYSTEM
 KEYBOARD SHORTCUTS
 
-GENERAL
-────────────────────────────────
-
-Esc             Close current window
-Ctrl + S        Save current record
-Ctrl + F        Search / Find
-Ctrl + P        Print / Preview
+Ctrl and Alt keyboard shortcuts are disabled.
+Use the on-screen menus and buttons instead.
 
 
 NAVIGATION
 ────────────────────────────────
 
-F5              Refresh current data
-Alt + F4        Close application
-
-
-REPORTS
-────────────────────────────────
-
-Ctrl + P        Print report / preview
-
-
-NOTES
-────────────────────────────────
-
-Keyboard shortcuts may vary depending
-on the active form and available functions.";
+Esc             Close current window
+F5              Refresh current data";
         }
     }
 }

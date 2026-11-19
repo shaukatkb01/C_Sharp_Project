@@ -369,10 +369,16 @@ namespace SupplyBranch.Forms
 
         private void ClearItem()
         {
-            //cmbCategory.SelectedIndex = -1;
-            cmbCategory.Focus();
-            //cmbCategory.MouseHover += (s, e) => { cmbCategory.DroppedDown = true; };
-            cmbDenomination.DataSource = null;
+            if (cmbCategory.SelectedValue != null &&
+                int.TryParse(cmbCategory.SelectedValue.ToString(), out int categoryID))
+            {
+                LoadDenomination(categoryID);
+            }
+            else
+            {
+                cmbDenomination.DataSource = null;
+            }
+
             txtIndentRemarks.Clear();
             txtSheetQty.Text = "0";
             txtPieceQty.Text = "0";
@@ -541,14 +547,12 @@ namespace SupplyBranch.Forms
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbCategory.SelectedValue == null)
+            if (cmbCategory.SelectedValue == null || cmbCategory.SelectedValue is DataRowView)
                 return;
-
 
             if (int.TryParse(cmbCategory.SelectedValue.ToString(), out int categoryID))
             {
                 LoadDenomination(categoryID);
-            
             }
         }
 

@@ -142,7 +142,7 @@
             this.btnClearItem.Location = new System.Drawing.Point(508, 233);
             this.btnClearItem.Name = "btnClearItem";
             this.btnClearItem.Size = new System.Drawing.Size(93, 32);
-            this.btnClearItem.TabIndex = 10;
+            this.btnClearItem.TabIndex = 11;
             this.btnClearItem.Text = "Clear";
             this.btnClearItem.UseVisualStyleBackColor = true;
             this.btnClearItem.Click += new System.EventHandler(this.btnClearItem_Click);
@@ -171,7 +171,7 @@
             this.btnSave.Location = new System.Drawing.Point(252, 233);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 32);
-            this.btnSave.TabIndex = 8;
+            this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -217,7 +217,7 @@
             this.cmbCategory.Location = new System.Drawing.Point(440, 112);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(209, 26);
-            this.cmbCategory.TabIndex = 5;
+            this.cmbCategory.TabIndex = 4;
             this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
             // 
             // btnAddItem
@@ -241,7 +241,7 @@
             this.cmbDenomination.Location = new System.Drawing.Point(114, 154);
             this.cmbDenomination.Name = "cmbDenomination";
             this.cmbDenomination.Size = new System.Drawing.Size(209, 26);
-            this.cmbDenomination.TabIndex = 4;
+            this.cmbDenomination.TabIndex = 5;
             this.cmbDenomination.SelectedIndexChanged += new System.EventHandler(this.cmbDenomination_SelectedIndexChanged);
             // 
             // label5
@@ -346,6 +346,7 @@
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvItems.Size = new System.Drawing.Size(852, 269);
             this.dgvItems.TabIndex = 10;
+            this.dgvItems.TabStop = false;
             this.dgvItems.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItems_CellContentClick);
             // 
             // panel1

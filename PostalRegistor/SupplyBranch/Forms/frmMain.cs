@@ -155,6 +155,9 @@ namespace SupplyBranch.Forms
             // ==========================================
             // 2. Open new form
             // ==========================================
+            if (childForm is frmDashBoard dashboard)
+                dashboard.NavigationRequested += Dashboard_NavigationRequested;
+
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
@@ -239,9 +242,28 @@ namespace SupplyBranch.Forms
         public frmMain()
         {
             InitializeComponent();
+            ClearMenuShortcuts(menuStrip1.Items);
 
             this.KeyPreview = true;
             this.KeyDown += frmMain_KeyDown;
+        }
+
+        private void Dashboard_NavigationRequested(Form childForm)
+        {
+            OpenForm(childForm);
+        }
+
+        private static void ClearMenuShortcuts(ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                ToolStripMenuItem menuItem = item as ToolStripMenuItem;
+                if (menuItem == null)
+                    continue;
+
+                menuItem.ShortcutKeys = Keys.None;
+                ClearMenuShortcuts(menuItem.DropDownItems);
+            }
         }
 
         private void btnPostal_Click(object sender, EventArgs e)

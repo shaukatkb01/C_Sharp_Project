@@ -1,6 +1,7 @@
 ﻿using SupplyBranch.Forms.Administration;
 using SupplyBranch.Forms.Masters;
 using SupplyBranch.Forms.Reports;
+using SupplyBranch.Forms.Stock;
 using SupplyBranch.Forms.Transactions;
 using SupplyBranch.Helpers;
 using System;
@@ -19,6 +20,13 @@ namespace SupplyBranch.Forms
     public partial class frmDashBoard : Form
     {
         private readonly DBHelper db = new DBHelper();
+        private readonly Label[] statValues = new Label[4];
+        private Label taskEmptyState;
+        private Label supplyEmptyState;
+        private DataTable suppliesData;
+
+        public event Action<Form> NavigationRequested;
+
         #region Properties & Variables
 
         private string currentUserName = "Ali"; // Ya GlobalData.CurrentUser se lo
@@ -37,8 +45,10 @@ namespace SupplyBranch.Forms
                 SupplyBranch.DataAccess.SupplyDAL dal = new SupplyBranch.DataAccess.SupplyDAL();
 
                 DataTable dt = dal.GetSuppliesByStatusNames(statuses);
-
+                suppliesData = dt;
                 dgvSuppliesBottom.DataSource = dt;
+                UpdateSupplyStatistics();
+                UpdateEmptyStates();
 
                 // Basic visibility and header text
                 if (dgvSuppliesBottom.Columns.Contains("SupplyID"))
@@ -131,6 +141,350 @@ namespace SupplyBranch.Forms
         public frmDashBoard()
         {
             InitializeComponent();
+            BuildDashboardLayout();
+        }
+
+        private void BuildDashboardLayout()
+        {
+            panel1.Controls.Remove(cmb_Task);
+            panel1.Controls.Remove(btnAdd);
+            panel1.Controls.Remove(button1);
+            splitContainerMain.Panel1.Controls.Remove(dgvTasks);
+            splitContainerMain.Panel2.Controls.Remove(dgvSuppliesBottom);
+            Controls.Clear();
+            panel1.Dispose();
+            splitContainerMain.Dispose();
+
+            BackColor = Color.FromArgb(244, 247, 251);
+            AutoScroll = true;
+            Font = new Font("Segoe UI", 9F);
+
+            TableLayoutPanel layout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(18),
+                ColumnCount = 1,
+                RowCount = 4,
+                BackColor = BackColor
+            };
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 58F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 102F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            layout.Controls.Add(CreateDashboardHeader(), 0, 0);
+            layout.Controls.Add(CreateQuickActions(), 0, 1);
+            layout.Controls.Add(CreateStatisticsCards(), 0, 2);
+            layout.Controls.Add(CreateWorkArea(), 0, 3);
+            Controls.Add(layout);
+        }
+
+        private Control CreateDashboardHeader()
+        {
+            TableLayoutPanel header = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 2,
+                RowCount = 1,
+                BackColor = Color.Transparent
+            };
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 112F));
+
+            Panel titlePanel = new Panel { Dock = DockStyle.Fill };
+            Label title = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 17F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(32, 43, 60),
+                Location = new Point(0, 0),
+                Text = "Welcome back, " + currentUserName
+            };
+            Label date = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9F),
+                ForeColor = Color.FromArgb(100, 116, 139),
+                Location = new Point(2, 32),
+                Text = DateTime.Today.ToString("dddd, dd MMMM yyyy")
+            };
+            titlePanel.Controls.Add(title);
+            titlePanel.Controls.Add(date);
+
+            Button refresh = CreateActionButton("Refresh", Color.FromArgb(37, 99, 235));
+            refresh.Dock = DockStyle.Fill;
+            refresh.Margin = new Padding(4, 9, 0, 9);
+            refresh.Click += (sender, args) => RefreshData();
+            header.Controls.Add(titlePanel, 0, 0);
+            header.Controls.Add(refresh, 1, 0);
+            return header;
+        }
+
+        private Control CreateQuickActions()
+        {
+            FlowLayoutPanel actions = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
+                BackColor = Color.Transparent,
+                Padding = new Padding(0, 6, 0, 0)
+            };
+            actions.Controls.Add(CreateNavigationButton("New Indent", () => new frmIndent(), true));
+            actions.Controls.Add(CreateNavigationButton("Indent Search", () => new frmIndentSearch(), false));
+            actions.Controls.Add(CreateNavigationButton("Draft Supplies", () => new frmDraftSupply(), false));
+            actions.Controls.Add(CreateNavigationButton("Reports", () => new frmReport(), false));
+            actions.Controls.Add(CreateNavigationButton("Stock Balance", () => new frmStockBalance(), false));
+            return actions;
+        }
+
+        private Control CreateStatisticsCards()
+        {
+            TableLayoutPanel cards = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 4,
+                RowCount = 1,
+                BackColor = Color.Transparent,
+                Padding = new Padding(0, 2, 0, 8)
+            };
+            for (int i = 0; i < 4; i++)
+                cards.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+
+            string[] titles = { "Pending tasks", "Critical tasks", "Draft supplies", "Approved supplies" };
+            Color[] accents =
+            {
+                Color.FromArgb(37, 99, 235),
+                Color.FromArgb(220, 38, 38),
+                Color.FromArgb(217, 119, 6),
+                Color.FromArgb(5, 150, 105)
+            };
+
+            for (int i = 0; i < titles.Length; i++)
+            {
+                Panel card = new Panel
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.White,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Margin = new Padding(0, 0, i == titles.Length - 1 ? 0 : 10, 0)
+                };
+                Panel accent = new Panel { Dock = DockStyle.Left, Width = 5, BackColor = accents[i] };
+                Label value = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 21F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(32, 43, 60),
+                    Location = new Point(18, 8),
+                    Text = "0"
+                };
+                Label title = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 9F),
+                    ForeColor = Color.FromArgb(100, 116, 139),
+                    Location = new Point(20, 60),
+                    Text = titles[i]
+                };
+                card.Controls.Add(title);
+                card.Controls.Add(value);
+                card.Controls.Add(accent);
+                statValues[i] = value;
+                cards.Controls.Add(card, i, 0);
+            }
+            return cards;
+        }
+
+        private Control CreateWorkArea()
+        {
+            TableLayoutPanel workArea = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 2,
+                RowCount = 1,
+                BackColor = Color.Transparent,
+                Padding = new Padding(0, 4, 0, 0)
+            };
+            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57F));
+            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43F));
+
+            Panel taskSection = CreateSection("My Tasks", dgvTasks, out taskEmptyState);
+            Panel supplySection = CreateSection("Recent Draft & Approved Supplies", dgvSuppliesBottom, out supplyEmptyState);
+            taskSection.Margin = new Padding(0, 0, 10, 0);
+            supplySection.Margin = new Padding(0);
+            workArea.Controls.Add(taskSection, 0, 0);
+            workArea.Controls.Add(supplySection, 1, 0);
+            return workArea;
+        }
+
+        private Panel CreateSection(string heading, DataGridView grid, out Label emptyState)
+        {
+            Panel section = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Padding = new Padding(12)
+            };
+            Label title = new Label
+            {
+                Dock = DockStyle.Top,
+                Height = 34,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(32, 43, 60),
+                Text = heading,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            Panel content = new Panel { Dock = DockStyle.Fill, BackColor = Color.White };
+            grid.Dock = DockStyle.Fill;
+            grid.BackgroundColor = Color.White;
+            grid.BorderStyle = BorderStyle.None;
+            grid.RowHeadersVisible = false;
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(239, 244, 250);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85);
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.DefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85);
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            grid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 41, 59);
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(226, 232, 240);
+            grid.RowTemplate.Height = 30;
+
+            content.Controls.Add(grid);
+            emptyState = new Label
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(100, 116, 139),
+                Font = new Font("Segoe UI", 9F),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Visible = false
+            };
+            content.Controls.Add(emptyState);
+            emptyState.BringToFront();
+
+            if (grid == dgvTasks)
+            {
+                TableLayoutPanel taskHeader = new TableLayoutPanel
+                {
+                    Dock = DockStyle.Top,
+                    Height = 40,
+                    ColumnCount = 3,
+                    RowCount = 1,
+                    BackColor = Color.White
+                };
+                taskHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+                taskHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 92F));
+                taskHeader.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 82F));
+                cmb_Task.Dock = DockStyle.Fill;
+                cmb_Task.Margin = new Padding(0, 3, 5, 5);
+                btnAdd.Text = "Add task";
+                button1.Text = "Delete";
+                StyleSmallButton(btnAdd, Color.FromArgb(37, 99, 235));
+                StyleSmallButton(button1, Color.FromArgb(220, 38, 38));
+                btnAdd.Dock = DockStyle.Fill;
+                button1.Dock = DockStyle.Fill;
+                btnAdd.Margin = new Padding(0, 2, 5, 5);
+                button1.Margin = new Padding(0, 2, 0, 5);
+                taskHeader.Controls.Add(cmb_Task, 0, 0);
+                taskHeader.Controls.Add(btnAdd, 1, 0);
+                taskHeader.Controls.Add(button1, 2, 0);
+                section.Controls.Add(content);
+                section.Controls.Add(taskHeader);
+            }
+            else
+            {
+                section.Controls.Add(content);
+            }
+            section.Controls.Add(title);
+            return section;
+        }
+
+        private Button CreateNavigationButton(string text, Func<Form> createForm, bool primary)
+        {
+            Button button = CreateActionButton(text, primary ? Color.FromArgb(37, 99, 235) : Color.White);
+            if (!primary)
+            {
+                button.ForeColor = Color.FromArgb(51, 65, 85);
+                button.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
+            }
+            button.Margin = new Padding(0, 0, 8, 4);
+            button.Click += (sender, args) =>
+            {
+                Form target = createForm();
+                Action<Form> navigate = NavigationRequested;
+                if (navigate == null)
+                {
+                    target.Dispose();
+                    MessageBox.Show("Navigation is unavailable.", "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                navigate(target);
+            };
+            return button;
+        }
+
+        private Button CreateActionButton(string text, Color backColor)
+        {
+            Button button = new Button
+            {
+                Text = text,
+                Height = 36,
+                Width = 124,
+                BackColor = backColor,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                UseVisualStyleBackColor = false
+            };
+            button.FlatAppearance.BorderSize = 0;
+            return button;
+        }
+
+        private void StyleSmallButton(Button button, Color backColor)
+        {
+            button.BackColor = backColor;
+            button.ForeColor = Color.White;
+            button.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.UseVisualStyleBackColor = false;
+        }
+
+        private void UpdateSupplyStatistics()
+        {
+            int draftCount = 0;
+            int approvedCount = 0;
+            if (suppliesData != null && suppliesData.Columns.Contains("StatusName"))
+            {
+                foreach (DataRow row in suppliesData.Rows)
+                {
+                    string status = Convert.ToString(row["StatusName"]);
+                    if (string.Equals(status, "Draft", StringComparison.OrdinalIgnoreCase))
+                        draftCount++;
+                    else if (string.Equals(status, "Approve", StringComparison.OrdinalIgnoreCase))
+                        approvedCount++;
+                }
+            }
+            statValues[2].Text = draftCount.ToString();
+            statValues[3].Text = approvedCount.ToString();
+        }
+
+        private void UpdateEmptyStates()
+        {
+            if (taskEmptyState != null)
+            {
+                taskEmptyState.Text = "No tasks to show. Use Add task to create one.";
+                taskEmptyState.Visible = dgvTasks.Rows.Count == 0;
+            }
+            if (supplyEmptyState != null)
+            {
+                supplyEmptyState.Text = "No draft or approved supplies found.";
+                supplyEmptyState.Visible = dgvSuppliesBottom.Rows.Count == 0;
+            }
         }
 
         private void frmDashBoard_Load(object sender, EventArgs e)
@@ -159,6 +513,7 @@ namespace SupplyBranch.Forms
 
                 // 7. Supplies bottom grid (Draft / Approved)
                 LoadSuppliesBottom();
+                UpdateEmptyStates();
             }
             catch (Exception ex)
             {
@@ -178,6 +533,8 @@ namespace SupplyBranch.Forms
         {
             try
             {
+                ApplyDashboardGridStyle(dgvTasks);
+
                 // TaskID column (agar visible hai to hide karo)
                 if (dgvTasks.Columns.Contains("TaskID"))
                 {
@@ -243,6 +600,24 @@ namespace SupplyBranch.Forms
 
         #endregion
 
+        private void ApplyDashboardGridStyle(DataGridView grid)
+        {
+            grid.BackgroundColor = Color.White;
+            grid.BorderStyle = BorderStyle.None;
+            grid.EnableHeadersVisualStyles = false;
+            grid.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(239, 244, 250);
+            grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85);
+            grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            grid.DefaultCellStyle.Font = new Font("Segoe UI", 9F);
+            grid.DefaultCellStyle.ForeColor = Color.FromArgb(51, 65, 85);
+            grid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(219, 234, 254);
+            grid.DefaultCellStyle.SelectionForeColor = Color.FromArgb(30, 41, 59);
+            grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grid.GridColor = Color.FromArgb(226, 232, 240);
+            grid.RowTemplate.Height = 30;
+            grid.RowHeadersVisible = false;
+        }
+
         #region Load Tasks
 
         /// <summary>
@@ -269,6 +644,8 @@ namespace SupplyBranch.Forms
             LoadTasks(showCompleted: true);
             FillCompletedTasksCombo();
             UpdateStatistics();
+            LoadSuppliesBottom();
+            UpdateEmptyStates();
         }
 
         #endregion
@@ -461,40 +838,9 @@ namespace SupplyBranch.Forms
         /// </summary>
         private void UpdateStatistics()
         {
-            try
-            {
-                var stats = TaskHelper.GetTaskStatistics(currentUserName);
-
-                // Agar form par yeh labels hain to update karo
-                // Warna comment out kar do
-
-                /*
-                if (lblTotalTasks != null)
-                    lblTotalTasks.Text = $"Total: {stats.TotalTasks}";
-
-                if (lblCompleted != null)
-                    lblCompleted.Text = $"✓ Completed: {stats.CompletedTasks}";
-
-                if (lblPending != null)
-                    lblPending.Text = $"⏳ Pending: {stats.PendingTasks}";
-
-                if (lblCritical != null)
-                    lblCritical.Text = $"🔥 Critical: {stats.CriticalPending}";
-
-                if (lblHigh != null)
-                    lblHigh.Text = $"🔴 High: {stats.HighPending}";
-
-                if (lblOverdue != null)
-                    lblOverdue.Text = $"⚠️ Overdue: {stats.OverdueTasks}";
-
-                if (progressBar1 != null)
-                    progressBar1.Value = (int)stats.CompletionPercentage;
-                */
-            }
-            catch
-            {
-                // Statistics optional hain, error ignore karo
-            }
+            var stats = TaskHelper.GetTaskStatistics(currentUserName);
+            statValues[0].Text = stats.PendingTasks.ToString();
+            statValues[1].Text = stats.CriticalPending.ToString();
         }
 
         #endregion
