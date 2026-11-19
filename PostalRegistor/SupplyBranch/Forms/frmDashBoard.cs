@@ -212,8 +212,15 @@ namespace SupplyBranch.Forms
             titlePanel.Controls.Add(date);
 
             Button refresh = CreateActionButton("Refresh", Color.FromArgb(37, 99, 235));
-            refresh.Dock = DockStyle.Fill;
-            refresh.Margin = new Padding(4, 9, 0, 9);
+            refresh.Text = "Refresh";
+            refresh.ForeColor = Color.White;
+            refresh.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            refresh.TextAlign = ContentAlignment.MiddleCenter;
+            refresh.AutoEllipsis = false;
+            refresh.Dock = DockStyle.None;
+            refresh.Size = new Size(105, 50);
+            refresh.Anchor = AnchorStyles.Right;
+            refresh.Margin = new Padding(4, 6, 10, 6);
             refresh.Click += (sender, args) => RefreshData();
             header.Controls.Add(titlePanel, 0, 0);
             header.Controls.Add(refresh, 1, 0);
@@ -231,7 +238,7 @@ namespace SupplyBranch.Forms
                 Padding = new Padding(0, 6, 0, 0)
             };
             actions.Controls.Add(CreateNavigationButton("New Indent", () => new frmIndent(), true));
-            actions.Controls.Add(CreateNavigationButton("Indent Search", () => new frmIndentSearch(), false));
+            actions.Controls.Add(CreateNavigationButton("Generate Draft", () => new frmSupplySearch(), false));
             actions.Controls.Add(CreateNavigationButton("Draft Supplies", () => new frmDraftSupply(), false));
             actions.Controls.Add(CreateNavigationButton("Reports", () => new frmReport(), false));
             actions.Controls.Add(CreateNavigationButton("Stock Balance", () => new frmStockBalance(), false));

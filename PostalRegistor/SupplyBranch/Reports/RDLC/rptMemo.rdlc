@@ -1084,27 +1084,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", IIF(IsNothing(Fields!OtherPackingType.Value) OrElse Trim(CStr(Fields!OtherPackingType.Value)) = "", "Other", CStr(Fields!OtherPackingType.Value)), Format(Fields!PackingQty.Value, "00"))</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve"> </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", "", CStr(Fields!PackingType.Value))</Value>
+                                  <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", IIF(IsNothing(Fields!OtherPackingType.Value) OrElse Trim(CStr(Fields!OtherPackingType.Value)) = "", "Other", CStr(Fields!OtherPackingType.Value)), Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "case", "Box(es)", CStr(Fields!PackingType.Value)))</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>11pt</FontSize>

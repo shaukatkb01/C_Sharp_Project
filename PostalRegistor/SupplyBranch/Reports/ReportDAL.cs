@@ -634,6 +634,7 @@ WHERE 1=1");
         LEFT JOIN Office O ON IM.OfficeID = O.OfficeID
         WHERE SM.SupplyDate >= @FromDate
           AND SM.SupplyDate < @ToDate
+          AND SM.StatusID IN (2, 3) -- Only Approved and Issued
         ORDER BY SM.SupplyNo DESC";
 
             SqlParameter[] parameters =

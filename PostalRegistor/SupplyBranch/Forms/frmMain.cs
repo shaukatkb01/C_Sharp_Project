@@ -31,6 +31,7 @@ namespace SupplyBranch.Forms
     {
         private Form activeForm = null;
 
+
         private async Task<string> GetLatestVersionAsync()
         {
             string url = "https://raw.githubusercontent.com/shaukatkb01/C_Sharp_Project/SupplyBranch-Only/PostalRegistor/SupplyBranch/UpdateInfo.txt";
@@ -197,6 +198,50 @@ namespace SupplyBranch.Forms
                 lblMain.Text = mainTitle;
             }
         }
+        // ==========================================
+        // return to dashboard
+        // ==========================================
+        private Button CreateMyButton(string text, Control parentContainer, int rightMargin = 15, int bottomMargin = 12)
+        {
+            Button button = new Button
+            {
+                Text = text,
+                Size = new Size(120, 34),
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(51, 65, 85),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                UseVisualStyleBackColor = false,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            button.FlatAppearance.BorderSize = 1;
+            button.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
+
+            if (parentContainer != null)
+            {
+                parentContainer.Controls.Add(button);
+
+                // Aik chhota sa helper function jo button ko right-bottom par rakhta hai
+                void PositionButton()
+                {
+                    int x = Math.Max(0, parentContainer.ClientSize.Width - button.Width - rightMargin);
+                    int y = Math.Max(0, parentContainer.ClientSize.Height - button.Height - bottomMargin);
+                    button.Location = new Point(x, y);
+                }
+
+                // Shuru mein position set karein
+                PositionButton();
+
+                // Jab bhi lblMain ka size badle (jaise Load ya Resize par), position dobara set karein
+                parentContainer.SizeChanged += (s, e) => PositionButton();
+            }
+
+            return button;
+        }
+
+
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
             // F5 = Refresh active form
@@ -246,6 +291,13 @@ namespace SupplyBranch.Forms
 
             this.KeyPreview = true;
             this.KeyDown += frmMain_KeyDown;
+
+            Button btnDashboard = CreateMyButton("Dashboard", lblMain, rightMargin: 15, bottomMargin: 12);
+
+            btnDashboard.Click += (sender, e) =>
+            {
+                OpenForm(new frmDashBoard());
+            };
         }
 
         private void Dashboard_NavigationRequested(Form childForm)
