@@ -1,5 +1,4 @@
-﻿namespace SupplyBranch.Forms.Transactions
-{
+﻿namespace SupplyBranch.Forms.Transactions{
     partial class frmSupply
     {
         /// <summary>
