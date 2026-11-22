@@ -1,4 +1,5 @@
-﻿using SupplyBranch.Helpers;
+﻿using SupplyBranch.DataAccess;
+using SupplyBranch.Helpers;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -140,11 +141,18 @@ namespace SupplyBranch.DAL
             return db.ExecuteNonQuery(insertAdjustmentQuery, adjustParams) > 0;
         }
 
+        /// <summary>
+        /// Deducts stock (breaking Box -> Packet -> Sheet -> Stamp when needed).
+        /// Throws when the stock record / unit conversion is missing or the stock is not enough,
+        /// so the balance can never become negative and nothing fails silently.
+        /// NOTE: for supplies use SupplyDAL.IssueSupplyWithStock (transactional, locks the stock row).
+        /// </summary>
         public void AutoConvertAndDeductStock(int categoryID, int denominationID, int reqBox, int reqPacket, int reqSheet, int reqStamp)
         {
             // 1. StockMaster se current stock hasil karein
             DataRow stock = GetStockMasterRow(categoryID, denominationID);
-            if (stock == null) return;
+            if (stock == null)
+                throw new InvalidOperationException("No StockMaster record was found for the selected item.");
 
             int stockID = Convert.ToInt32(stock["StockID"]);
             int box = Convert.ToInt32(stock["BoxQty"]);
@@ -154,77 +162,19 @@ namespace SupplyBranch.DAL
 
             // 2. UnitConversionMaster se conversion rates hasil karein
             UnitConversion conv = GetUnitConversion(categoryID, denominationID);
-            if (conv == null) return;
+            if (conv == null)
+                throw new InvalidOperationException("No unit conversion is defined for the selected item.");
 
-            int packetsPerBox = conv.PacketsPerBox;
-            int sheetsPerPacket = conv.SheetsPerPacket;
-            int piecesPerSheet = conv.PiecesPerSheet;
-
-            // --- STEP A: STAMPS CONVERSION ---
-            // Agar required stamps mojood stamps se zyada hain
-            while (stamp < reqStamp)
+            // 3. Same break-down algorithm as before; returns false when the stock is not enough
+            if (!StockMath.TryDeduct(
+                    ref box, ref packet, ref sheet, ref stamp,
+                    reqBox, reqPacket, reqSheet, reqStamp,
+                    conv.PacketsPerBox, conv.SheetsPerPacket, conv.PiecesPerSheet))
             {
-                if (sheet > 0)
-                {
-                    sheet -= 1;
-                    stamp += piecesPerSheet;
-                }
-                else if (packet > 0)
-                {
-                    packet -= 1;
-                    sheet += sheetsPerPacket;
-                }
-                else if (box > 0)
-                {
-                    box -= 1;
-                    packet += packetsPerBox;
-                }
-                else
-                {
-                    break; // Mazeed stock nahi bacha torne ke liye
-                }
+                throw new InvalidOperationException("Insufficient stock for the requested quantity.");
             }
-            stamp -= reqStamp; // Required stamps minus kar dein
 
-            // --- STEP B: SHEETS CONVERSION ---
-            while (sheet < reqSheet)
-            {
-                if (packet > 0)
-                {
-                    packet -= 1;
-                    sheet += sheetsPerPacket;
-                }
-                else if (box > 0)
-                {
-                    box -= 1;
-                    packet += packetsPerBox;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            sheet -= reqSheet; // Required sheets minus kar dein
-
-            // --- STEP C: PACKETS CONVERSION ---
-            while (packet < reqPacket)
-            {
-                if (box > 0)
-                {
-                    box -= 1;
-                    packet += packetsPerBox;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            packet -= reqPacket; // Required packets minus kar dein
-
-            // --- STEP D: BOXES DEDUCTION ---
-            box -= reqBox; // Required boxes minus kar dein
-
-            // 3. Updated stock ko wapis `StockMaster` mein save/update kar dein
+            // 4. Updated stock ko wapis `StockMaster` mein save/update kar dein
             string updateQuery = @"
         UPDATE StockMaster 
         SET BoxQty = @BoxQty, 
@@ -456,21 +406,7 @@ SELECT
     ISNULL(StampQty, 0) AS StampQty
 FROM [dbo].[StockMaster]
 WHERE CategoryID = @CategoryID 
-  AND DenominationID = @DenominationID;
-
-     --   SELECT 
-       --     sm.StockID,
-         --   sm.CategoryID,
-           -- sm.DenominationID,
-            --ISNULL(sm.BoxQty, 0) - ISNULL(SUM(CASE WHEN st.TransactionType = 'OUT' THEN st.BoxQty ELSE 0 END), 0) AS BoxQty,
-            --ISNULL(sm.PacketQty, 0) - ISNULL(SUM(CASE WHEN st.TransactionType = 'OUT' THEN st.PacketQty ELSE 0 END), 0) AS PacketQty,
-            --ISNULL(sm.SheetQty, 0) - ISNULL(SUM(CASE WHEN st.TransactionType = 'OUT' THEN st.SheetQty ELSE 0 END), 0) AS SheetQty,
-            --ISNULL(sm.StampQty, 0) - ISNULL(SUM(CASE WHEN st.TransactionType = 'OUT' THEN st.StampQty ELSE 0 END), 0) AS StampQty
-        --FROM [dbo].[StockMaster] sm
-        --LEFT JOIN [dbo].[StockTransaction] st ON sm.StockID = st.StockID
-        --WHERE sm.CategoryID = @CategoryID 
-          --AND sm.DenominationID = @DenominationID
-        --GROUP BY sm.StockID, sm.CategoryID, sm.DenominationID, sm.BoxQty, sm.PacketQty, sm.SheetQty, sm.StampQty";
+  AND DenominationID = @DenominationID;";
 
             SqlParameter[] parameters =
             {

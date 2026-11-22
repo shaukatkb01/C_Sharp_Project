@@ -1429,7 +1429,6 @@
                         </Border>
                       </Style>
                     </Rectangle>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -1499,20 +1498,16 @@
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
-        <Field Name="SupplyID">
-          <DataField>SupplyID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="SupplyNo">
           <DataField>SupplyNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SupplyDate">
-          <DataField>SupplyDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
         <Field Name="FinancialYear">
           <DataField>FinancialYear</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SupplyDate">
+          <DataField>SupplyDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="IndentNo">
@@ -1521,18 +1516,18 @@
         </Field>
         <Field Name="IndentDate">
           <DataField>IndentDate</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="OfficeName">
           <DataField>OfficeName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="FileNo">
-          <DataField>FileNo</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="OfficeCode">
           <DataField>OfficeCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FileNo">
+          <DataField>FileNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PackingType">
@@ -1541,7 +1536,7 @@
         </Field>
         <Field Name="PackingQty">
           <DataField>PackingQty</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DispatchMode">
           <DataField>DispatchMode</DataField>
@@ -1553,9 +1548,17 @@
         </Field>
         <Field Name="AddDate">
           <DataField>AddDate</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>ReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>D:\C_Sharp_Project\PostalRegistor\SupplyBranch\ReportDataSet.xsd</rd:SchemaPath>
+        <rd:TableName>SupplyHeader</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
     </DataSet>
     <DataSet Name="SupplyDetail">
       <Query>

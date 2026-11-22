@@ -9,6 +9,75 @@ using System.Windows.Forms;
 
 namespace SupplyBranch.DataAccess
 {
+    /// <summary>One saved row of SupplyDetail.</summary>
+    public class SupplyLine
+    {
+        public int IndentDetailID { get; set; }
+        public int CategoryID { get; set; }
+        public int DenominationID { get; set; }
+        public int SupplySheets { get; set; }
+        public int PiecesPerSheet { get; set; }
+        public int LoosePieces { get; set; }
+        public int TotalPieces { get; set; }
+        public string LedgerFolio { get; set; }
+        public string CaseNoFrom { get; set; }
+        public string CaseNoTo { get; set; }
+        public string CaseCode { get; set; }
+    }
+
+    /// <summary>One StockTransaction OUT row of a supply.</summary>
+    public class StockLine
+    {
+        public int CategoryID { get; set; }
+        public int DenominationID { get; set; }
+        public int BoxQty { get; set; }
+        public int PacketQty { get; set; }
+        public int SheetQty { get; set; }
+        public int StampQty { get; set; }
+    }
+
+    /// <summary>Pure stock arithmetic (same break-down order as StockDAL.AutoConvertAndDeductStock).</summary>
+    internal static class StockMath
+    {
+        /// <summary>
+        /// Deducts the requested quantities, breaking Box -> Packet -> Sheet -> Stamp only when needed.
+        /// Returns false (and leaves negative values) when the stock is not enough.
+        /// </summary>
+        public static bool TryDeduct(
+            ref int box, ref int packet, ref int sheet, ref int stamp,
+            int reqBox, int reqPacket, int reqSheet, int reqStamp,
+            int packetsPerBox, int sheetsPerPacket, int piecesPerSheet)
+        {
+            while (stamp < reqStamp)
+            {
+                if (sheet > 0) { sheet--; stamp += piecesPerSheet; }
+                else if (packet > 0) { packet--; sheet += sheetsPerPacket; }
+                else if (box > 0) { box--; packet += packetsPerBox; }
+                else break;
+            }
+            stamp -= reqStamp;
+
+            while (sheet < reqSheet)
+            {
+                if (packet > 0) { packet--; sheet += sheetsPerPacket; }
+                else if (box > 0) { box--; packet += packetsPerBox; }
+                else break;
+            }
+            sheet -= reqSheet;
+
+            while (packet < reqPacket)
+            {
+                if (box > 0) { box--; packet += packetsPerBox; }
+                else break;
+            }
+            packet -= reqPacket;
+
+            box -= reqBox;
+
+            return box >= 0 && packet >= 0 && sheet >= 0 && stamp >= 0;
+        }
+    }
+
     internal class SupplyDAL
     {
         private readonly DBHelper db = new DBHelper();
@@ -110,6 +179,7 @@ WHERE SupplyID = @SupplyID;
 
             db.ExecuteNonQuery(sql, parameters);
         }
+
         public int GetTotalSupplyPieces(int indentID)
         {
             string sql = @"
@@ -131,36 +201,48 @@ WHERE SM.IndentID = @IndentID;
             return Convert.ToInt32(result);
         }
 
+        /// <summary>
+        /// Deletes a DRAFT supply (details, stock entry, header) in one transaction
+        /// and re-evaluates the indent status. Non-draft supplies are never touched.
+        /// </summary>
         public bool DeleteDraftSupply(int supplyID)
         {
-            // Pehle StockTransaction aur SupplyDetail se data delete ho ga, phir SupplyMaster se
             string query = @"
-        -- 1. Stock Transactions Delete Karein
-        DELETE FROM StockTransaction 
-        WHERE SupplyID = @SupplyID;
+SET XACT_ABORT ON;
+BEGIN TRAN;
 
-        -- 2. Supply Detail Delete Karein (Sirf agar status Draft ho)
-        DELETE FROM SupplyDetail 
-        WHERE SupplyID = @SupplyID 
-          AND EXISTS (
-              SELECT 1 
-              FROM SupplyMaster 
-              WHERE SupplyID = @SupplyID 
-                AND StatusID = 1
-          );
+DECLARE @IndentID INT = (SELECT IndentID FROM SupplyMaster WHERE SupplyID = @SupplyID AND StatusID = 1);
 
-        -- 3. Supply Master Delete Karein (Draft status)
-        DELETE FROM SupplyMaster 
-        WHERE SupplyID = @SupplyID 
-          AND StatusID = 1;
-    ";
+IF @IndentID IS NOT NULL
+BEGIN
+    DELETE FROM StockTransaction WHERE SupplyID = @SupplyID AND TransactionType = 'OUT';
+    DELETE FROM SupplyDetail     WHERE SupplyID = @SupplyID;
+    DELETE FROM SupplyMaster     WHERE SupplyID = @SupplyID AND StatusID = 1;
+
+    DECLARE @Total    INT = (SELECT ISNULL(SUM(TotalPieces), 0) FROM IndentDetail WHERE IndentID = @IndentID);
+    DECLARE @Supplied INT = (SELECT ISNULL(SUM(SD.TotalPieces), 0)
+                             FROM SupplyDetail SD
+                             INNER JOIN SupplyMaster SM ON SD.SupplyID = SM.SupplyID
+                             WHERE SM.IndentID = @IndentID AND SM.StatusID IN (1, 2, 3));
+
+    UPDATE IndentMaster
+    SET IndentStatus = CASE WHEN @Supplied = 0 THEN 5
+                            WHEN @Supplied >= @Total THEN 7
+                            ELSE 6 END
+    WHERE IndentID = @IndentID;
+END
+
+COMMIT TRAN;
+SELECT CASE WHEN @IndentID IS NULL THEN 0 ELSE 1 END;";
 
             SqlParameter[] p =
             {
         new SqlParameter("@SupplyID", supplyID)
     };
 
-            return db.ExecuteNonQuery(query, p) > 0;
+            object result = db.ExecuteScalar(query, p);
+
+            return result != null && result != DBNull.Value && Convert.ToInt32(result) == 1;
         }
 
         public DataTable GetIndentItems(int indentID)
@@ -360,7 +442,7 @@ ORDER BY SM.SupplyDate DESC, SM.SupplyNo DESC");
                 parameters.Add(new SqlParameter("@IndentNo", "%" + indentNo.Trim() + "%"));
             }
 
-            
+
             sql.Append(@"
 
                   GROUP BY
@@ -443,12 +525,10 @@ WHERE IM.IndentID = @IndentID";
         }
 
         public void InsertSupplyDetail(
-
-
-    int supplyID,
-    DataGridViewRow row)
+            int supplyID,
+            DataGridViewRow row)
         {
-            
+
             string query = @"
 
 INSERT INTO SupplyDetail
@@ -850,7 +930,7 @@ SELECT
     SM.Remarks,
     SM.StatusID,
     ST.StatusName AS SupplyStatus
-    
+
 
 FROM SupplyMaster SM
 
@@ -882,65 +962,8 @@ WHERE SM.SupplyID = @SupplyID";
             db.ExecuteNonQuery(query, param);
         }
 
-        public void InsertSupplyDetail(
-    int supplyID,
-    int categoryID,
-    int denominationID,
-    int supplySheets,
-    int supplyPieces,
-    int totalSupplyQty,
-    string ledgerFolio,
-    string caseNoFrom,
-    string caseNoTo,
-    string caseCode)
-        {
-            string query = @"
-
-INSERT INTO SupplyDetail
-(
-    SupplyID,
-    CategoryID,
-    DenominationID,
-    SupplySheets,
-    SupplyPieces,
-    TotalSupplyQty,
-    LedgerFolio,
-    CaseNoFrom,
-    CaseNoTo,
-    CaseCode
-)
-
-VALUES
-(
-    @SupplyID,
-    @CategoryID,
-    @DenominationID,
-    @SupplySheets,
-    @SupplyPieces,
-    @TotalSupplyQty,
-    @LedgerFolio,
-    @CaseNoFrom,
-    @CaseNoTo,
-    @CaseCode
-)";
-
-            SqlParameter[] param =
-            {
-        new SqlParameter("@SupplyID", supplyID),
-        new SqlParameter("@CategoryID", categoryID),
-        new SqlParameter("@DenominationID", denominationID),
-        new SqlParameter("@SupplySheets", supplySheets),
-        new SqlParameter("@SupplyPieces", supplyPieces),
-        new SqlParameter("@TotalSupplyQty", totalSupplyQty),
-        new SqlParameter("@LedgerFolio", ledgerFolio),
-        new SqlParameter("@CaseNoFrom", caseNoFrom),
-        new SqlParameter("@CaseNoTo", caseNoTo),
-        new SqlParameter("@CaseCode", caseCode)
-    };
-
-            db.ExecuteNonQuery(query, param);
-        }
-
+        // NOTE: the old InsertSupplyDetail(...) overload that wrote the non-existing columns
+        // SupplySheets / SupplyPieces / TotalSupplyQty has been removed (it was never called).
 
         public void UpdateSupplyMaster(
       int supplyID,
@@ -1068,6 +1091,10 @@ WHERE SM.SupplyID=@SupplyID
         }
 
 
+        /// <summary>
+        /// Old status-only issue. Only an Approved supply can be issued.
+        /// Prefer IssueSupplyWithStock (status + stock deduction in one transaction).
+        /// </summary>
         public void IssueSupply(int supplyID)
         {
             string query = @"
@@ -1077,7 +1104,8 @@ UPDATE SupplyMaster
 SET
     StatusID = 3
 
-WHERE SupplyID = @SupplyID";
+WHERE SupplyID = @SupplyID
+  AND StatusID = 2";
 
             SqlParameter[] param =
             {
@@ -1086,6 +1114,7 @@ WHERE SupplyID = @SupplyID";
 
             db.ExecuteNonQuery(query, param);
         }
+
         public DataTable GetDraftSupply(
       int officeID,
       int statusID,
@@ -1155,11 +1184,12 @@ WHERE 1 = 1");
 
             if (toDate.HasValue)
             {
-                sql.Append(" AND SM.SupplyDate<=@ToDate");
+                // "To date" must include the whole last day
+                sql.Append(" AND SM.SupplyDate < @ToDate");
 
                 param.Add(
                     new SqlParameter("@ToDate",
-                    toDate.Value.Date));
+                    toDate.Value.Date.AddDays(1)));
             }
 
             if (!string.IsNullOrWhiteSpace(supplyNo))
@@ -1251,6 +1281,7 @@ AND StatusID IN (2,3)";
                 ? 0
                 : Convert.ToInt32(result);
         }
+
         public int GetLastSupplyOfficeNumber(
      int officeID,
      string financialYear)
@@ -1298,8 +1329,7 @@ AND StatusID IN (2,3)";
                     ? 0
                     : Convert.ToInt32(result);
 
-            // پہلے کوئی Draft موجود ہے جس کا
-            // GlobalInvoiceSequence ابھی NULL ہے
+            // A previous draft still has no GlobalInvoiceSequence
             if (previousPendingDrafts > 0)
                 return false;
 
@@ -1307,8 +1337,8 @@ AND StatusID IN (2,3)";
         }
 
         public bool CanApproveDraftSequentially(int supplyID)
-{
-    string sql = @"
+        {
+            string sql = @"
         SELECT
             SM.SupplyID,
             SM.GlobalSequence,
@@ -1321,59 +1351,59 @@ AND StatusID IN (2,3)";
         WHERE SM.SupplyID = @SupplyID
           AND SM.StatusID = 1";
 
-    SqlParameter[] parameters =
-    {
+            SqlParameter[] parameters =
+            {
         new SqlParameter("@SupplyID", supplyID)
     };
 
-    DataTable dt = db.ExecuteQuery(sql, parameters);
+            DataTable dt = db.ExecuteQuery(sql, parameters);
 
-    // Current Supply موجود نہیں یا Draft نہیں
-    if (dt.Rows.Count == 0)
-        return false;
+            // Current supply does not exist or is not a draft
+            if (dt.Rows.Count == 0)
+                return false;
 
-    DataRow row = dt.Rows[0];
+            DataRow row = dt.Rows[0];
 
-    int currentGlobalSequence =
-        Convert.ToInt32(row["GlobalSequence"]);
+            int currentGlobalSequence =
+                Convert.ToInt32(row["GlobalSequence"]);
 
-    int currentOfficeSequence =
-        Convert.ToInt32(row["OfficeSequence"]);
+            int currentOfficeSequence =
+                Convert.ToInt32(row["OfficeSequence"]);
 
-    int officeID =
-        Convert.ToInt32(row["OfficeID"]);
+            int officeID =
+                Convert.ToInt32(row["OfficeID"]);
 
-    string financialYear =
-        row["FinancialYear"].ToString();
+            string financialYear =
+                row["FinancialYear"].ToString();
 
-    // ==========================================
-    // Check Lowest Global Draft Sequence
-    // ==========================================
+            // ==========================================
+            // Check Lowest Global Draft Sequence
+            // ==========================================
 
-    string globalSql = @"
+            string globalSql = @"
         SELECT ISNULL(MIN(GlobalSequence), 0)
         FROM SupplyMaster
         WHERE StatusID = 1
           AND FinancialYear = @FinancialYear";
 
-    SqlParameter[] globalParameters =
-    {
+            SqlParameter[] globalParameters =
+            {
         new SqlParameter("@FinancialYear", financialYear)
     };
 
-    object globalResult =
-        db.ExecuteScalar(globalSql, globalParameters);
+            object globalResult =
+                db.ExecuteScalar(globalSql, globalParameters);
 
-    int lowestGlobalSequence =
-        globalResult == null || globalResult == DBNull.Value
-            ? 0
-            : Convert.ToInt32(globalResult);
+            int lowestGlobalSequence =
+                globalResult == null || globalResult == DBNull.Value
+                    ? 0
+                    : Convert.ToInt32(globalResult);
 
-    // ==========================================
-    // Check Lowest Office Draft Sequence
-    // ==========================================
+            // ==========================================
+            // Check Lowest Office Draft Sequence
+            // ==========================================
 
-    string officeSql = @"
+            string officeSql = @"
         SELECT ISNULL(MIN(SM.OfficeSequence), 0)
         FROM SupplyMaster SM
         INNER JOIN IndentMaster IM
@@ -1382,32 +1412,33 @@ AND StatusID IN (2,3)";
           AND SM.FinancialYear = @FinancialYear
           AND IM.OfficeID = @OfficeID";
 
-    SqlParameter[] officeParameters =
-    {
+            SqlParameter[] officeParameters =
+            {
         new SqlParameter("@FinancialYear", financialYear),
         new SqlParameter("@OfficeID", officeID)
     };
 
-    object officeResult =
-        db.ExecuteScalar(officeSql, officeParameters);
+            object officeResult =
+                db.ExecuteScalar(officeSql, officeParameters);
 
-    int lowestOfficeSequence =
-        officeResult == null || officeResult == DBNull.Value
-            ? 0
-            : Convert.ToInt32(officeResult);
+            int lowestOfficeSequence =
+                officeResult == null || officeResult == DBNull.Value
+                    ? 0
+                    : Convert.ToInt32(officeResult);
 
-    // ==========================================
-    // Both sequences must be the lowest
-    // ==========================================
+            // ==========================================
+            // Both sequences must be the lowest
+            // ==========================================
 
-    if (currentGlobalSequence != lowestGlobalSequence)
-        return false;
+            if (currentGlobalSequence != lowestGlobalSequence)
+                return false;
 
-    if (currentOfficeSequence != lowestOfficeSequence)
-        return false;
+            if (currentOfficeSequence != lowestOfficeSequence)
+                return false;
 
-    return true;
-}
+            return true;
+        }
+
         public int GetLastApprovedOfficeNumber(
     int officeID,
     string financialYear)
@@ -1482,18 +1513,36 @@ WHERE SupplyID = @SupplyID";
             db.ExecuteNonQuery(query, param);
         }
 
+        /// <summary>
+        /// Cancels a DRAFT supply: removes its stock entry and re-evaluates the indent status.
+        /// </summary>
         public void CancelSupply(int supplyID)
         {
             string query = @"
+SET XACT_ABORT ON;
+BEGIN TRAN;
 
-UPDATE SupplyMaster
+DECLARE @IndentID INT = (SELECT IndentID FROM SupplyMaster WHERE SupplyID = @SupplyID AND StatusID = 1);
 
-SET
-    StatusID = 4
+IF @IndentID IS NOT NULL
+BEGIN
+    UPDATE SupplyMaster SET StatusID = 4 WHERE SupplyID = @SupplyID AND StatusID = 1;
+    DELETE FROM StockTransaction WHERE SupplyID = @SupplyID AND TransactionType = 'OUT';
 
-WHERE
-    SupplyID = @SupplyID
-    AND StatusID = 1";
+    DECLARE @Total    INT = (SELECT ISNULL(SUM(TotalPieces), 0) FROM IndentDetail WHERE IndentID = @IndentID);
+    DECLARE @Supplied INT = (SELECT ISNULL(SUM(SD.TotalPieces), 0)
+                             FROM SupplyDetail SD
+                             INNER JOIN SupplyMaster SM ON SD.SupplyID = SM.SupplyID
+                             WHERE SM.IndentID = @IndentID AND SM.StatusID IN (1, 2, 3));
+
+    UPDATE IndentMaster
+    SET IndentStatus = CASE WHEN @Supplied = 0 THEN 5
+                            WHEN @Supplied >= @Total THEN 7
+                            ELSE 6 END
+    WHERE IndentID = @IndentID;
+END
+
+COMMIT TRAN;";
 
             SqlParameter[] param =
             {
@@ -1540,7 +1589,7 @@ WHERE SM.SupplyID = @SupplyID";
             SqlParameter[] param =
             {
         new SqlParameter("@SupplyID", supplyID),
-        new SqlParameter("@AddDate", adddate)
+        new SqlParameter("@AddDate", (object)adddate ?? DBNull.Value)
     };
 
             return db.ExecuteQuery(query, param);
@@ -1548,6 +1597,9 @@ WHERE SM.SupplyID = @SupplyID";
 
         public DataTable GetSupplyPerformaHeaderForMultiple(string supplyIDs, bool? adddate)
         {
+            // Only whole numbers are kept, so the list can never inject SQL
+            supplyIDs = SanitizeIdList(supplyIDs);
+
             // Yahan IN clause ke sath query banayi hai taake multiple SupplyIDs ek sath aa sakein
             if (string.IsNullOrWhiteSpace(supplyIDs))
                 return new DataTable();
@@ -1580,8 +1632,12 @@ WHERE SM.SupplyID = @SupplyID";
 
             return db.ExecuteQuery(query, param);
         }
+
         public DataTable GetSupplyDemandDetailForMultiple(string supplyIDs)
         {
+            // Only whole numbers are kept, so the list can never inject SQL
+            supplyIDs = SanitizeIdList(supplyIDs);
+
             if (string.IsNullOrWhiteSpace(supplyIDs))
                 return new DataTable();
             // supplyIDs misal ke taur par "1, 2, 5" ki form mein honge
@@ -1618,7 +1674,6 @@ WHERE SM.SupplyID = @SupplyID";
             WHERE SD.SupplyID IN (" + supplyIDs + @") AND D.Denomination > 0 
             ORDER BY SD.SupplyID, SD.SupplyDetailID";
 
-            // Yahan parameters ki bajaye direct string is liye construct ki hai kyun ke IN clause mein array pass karna DBHelper mein thoda alag tarike se handle hota hai, ya aap DBHelper ko modify kar sakte hain.
             DataTable dt = db.ExecuteQuery(query, null);
             return dt;
         }
@@ -1683,7 +1738,7 @@ ORDER BY SD.SupplyDetailID";
             return dt;
         }
 
-       
+
         private bool ValidateInvoiceFormat(
     int supplyID,
     out string invoiceNo)
@@ -1855,12 +1910,6 @@ AND SM.SupplyID<>@SupplyID";
             }
 
             int expectedGlobal = maxGlobal + 1;
-
-            if (globalSequence != expectedGlobal)
-            {
-                return false;
-            }
-            
 
             if (globalSequence != expectedGlobal)
             {
@@ -2042,7 +2091,7 @@ WHERE SM.SupplyID = @SupplyID";
 
             int supplyType =
     Convert.ToInt32(dtInfo.Rows[0]["SupplyType"]);
-           
+
 
 
             string financialYear =
@@ -2057,7 +2106,7 @@ WHERE SM.SupplyID = @SupplyID";
 
 
             //====================================================
-            // 3. Get Global Sequence
+            // 3. Get Global Sequence (the current supply is excluded)
             //====================================================
 
             string globalQuery = $@"
@@ -2066,12 +2115,14 @@ FROM SupplyMaster SM
 WHERE
 {statusCondition}
 AND SM.FinancialYear = @FinancialYear
-AND SM.SupplyType = @SupplyType";
+AND SM.SupplyType = @SupplyType
+AND SM.SupplyID <> @SupplyID";
 
             SqlParameter[] globalParam =
             {
         new SqlParameter("@FinancialYear", financialYear),
-        new SqlParameter("@SupplyType", supplyType)
+        new SqlParameter("@SupplyType", supplyType),
+        new SqlParameter("@SupplyID", supplyID)
     };
 
             object globalResult =
@@ -2091,7 +2142,7 @@ AND SM.SupplyType = @SupplyType";
 
             int officeSequence = 0;
 
-            if(supplyType == 1003)
+            if (supplyType == 1003)
             {
                 string officeQuery = $@"
 
@@ -2111,12 +2162,15 @@ AND IM.OfficeID = @OfficeID
 
 AND SM.SupplyType = @SupplyType
 
-AND SM.FinancialYear = @FinancialYear";
+AND SM.FinancialYear = @FinancialYear
+
+AND SM.SupplyID <> @SupplyID";
                 SqlParameter[] officeParam =
                 {
             new SqlParameter("@OfficeID", officeID),
           new SqlParameter("@SupplyType", supplyType),
-            new SqlParameter("@FinancialYear", financialYear)
+            new SqlParameter("@FinancialYear", financialYear),
+            new SqlParameter("@SupplyID", supplyID)
         };
 
                 object officeResult =
@@ -2173,46 +2227,25 @@ WHERE SupplyID = @SupplyID";
 
             return invoiceNo;
         }
-            public bool InvoiceRegenerated { get; private set; }
 
+        public bool InvoiceRegenerated { get; private set; }
 
-
-       
-            public string EnsureValidInvoice(int supplyID, bool isDraft)
+        public string EnsureValidInvoice(int supplyID, bool isDraft)
         {
-            string invoiceNo = "";
+            string invoiceNo;
 
-            if (!ValidateInvoiceSequence(supplyID, invoiceNo, isDraft))
-            {
-                MessageBox.Show("Sequence Invalid");
-
-                InvoiceRegenerated = true;
-
-                return GenerateInvoiceNo(supplyID, isDraft);
-            }
-
-            if (!ValidateInvoiceFormat(supplyID, out invoiceNo))
-            {
-                InvoiceRegenerated = true;
-                return GenerateInvoiceNo(supplyID, isDraft);
-            }
-
-            if (!ValidateInvoiceSequence(supplyID, invoiceNo, isDraft))
-            {
-                InvoiceRegenerated = true;
-                return GenerateInvoiceNo(supplyID, isDraft);
-            }
-
-            if (!ValidateDuplicateInvoice(supplyID, invoiceNo, isDraft))
+            if (!ValidateInvoiceFormat(supplyID, out invoiceNo) ||
+                !ValidateInvoiceSequence(supplyID, invoiceNo, isDraft) ||
+                !ValidateDuplicateInvoice(supplyID, invoiceNo, isDraft))
             {
                 InvoiceRegenerated = true;
                 return GenerateInvoiceNo(supplyID, isDraft);
             }
 
             InvoiceRegenerated = false;
-
             return invoiceNo;
         }
+
         public void ApproveSupply(int supplyID)
         {
             string query = @"
@@ -2236,17 +2269,11 @@ WHERE SupplyID = @SupplyID";
             // ==================================================
             // Find the FIRST available Global Sequence number.
             //
-            // StatusID:
-            // 1 = Draft
-            // 2 = Approved
-            // 3 = Issued
-            //
+            // StatusID: 1 = Draft, 2 = Approved, 3 = Issued
             // All three statuses are treated as occupied.
             //
-            // IMPORTANT:
             // The currently opened SupplyID is excluded because
-            // we are checking what number is available for THIS
-            // Draft.
+            // we are checking what number is available for THIS draft.
             // ==================================================
 
             string sql = @"
@@ -2285,10 +2312,7 @@ WHERE SupplyID = @SupplyID";
             object result =
                 db.ExecuteScalar(sql, parameters);
 
-            // ==================================================
             // If no number is found, start from 1.
-            // ==================================================
-
             if (result == null || result == DBNull.Value)
                 return 1;
 
@@ -2305,7 +2329,6 @@ WHERE SupplyID = @SupplyID";
             // for the selected Office.
             //
             // Draft + Approved + Issued are considered occupied.
-            //
             // Current SupplyID is excluded.
             // ==================================================
 
@@ -2368,8 +2391,7 @@ WHERE SupplyID = @SupplyID";
         {
             // ==================================================
             // Build the new Supply Number
-            // Example:
-            // P-0002/KHIT-0001/26-27
+            // Example: P-0002/KHIT-0001/26-27
             // ==================================================
 
             string newSupplyNo =
@@ -2380,10 +2402,7 @@ WHERE SupplyID = @SupplyID";
 
             // ==================================================
             // Update ONLY the currently opened Draft.
-            //
             // StatusID = 1 means Draft.
-            // This prevents an Approved/Issued record from
-            // being changed accidentally.
             // ==================================================
 
             string sql = @"
@@ -2469,8 +2488,504 @@ WHERE SupplyID = @SupplyID";
             return info;
         }
 
+
+        // =====================================================================
+        // NEW: transactional methods used by frmSupply
+        // =====================================================================
+
+        // -----------------------------------------------------------------
+        // Small transaction helpers
+        // -----------------------------------------------------------------
+
+        private static int TxExec(SqlConnection con, SqlTransaction tx, string sql, params SqlParameter[] p)
+        {
+            using (SqlCommand cmd = new SqlCommand(sql, con, tx))
+            {
+                if (p != null && p.Length > 0) cmd.Parameters.AddRange(p);
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+        private static DataTable TxFill(SqlConnection con, SqlTransaction tx, string sql, params SqlParameter[] p)
+        {
+            DataTable dt = new DataTable();
+            using (SqlCommand cmd = new SqlCommand(sql, con, tx))
+            {
+                if (p != null && p.Length > 0) cmd.Parameters.AddRange(p);
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd)) da.Fill(dt);
+            }
+            return dt;
+        }
+
+        private static int TxInt(object v)
+        {
+            return (v == null || v == DBNull.Value) ? 0 : Convert.ToInt32(v);
+        }
+
+        /// <summary>Keeps only digits and commas so an id list can never inject SQL.</summary>
+        public static string SanitizeIdList(string ids)
+        {
+            if (string.IsNullOrWhiteSpace(ids)) return "";
+
+            List<string> clean = new List<string>();
+            foreach (string part in ids.Split(','))
+            {
+                int id;
+                if (int.TryParse(part.Trim(), out id)) clean.Add(id.ToString());
+            }
+            return string.Join(",", clean.ToArray());
+        }
+
+        // -----------------------------------------------------------------
+        // Writes SupplyDetail + StockTransaction(OUT) inside the caller's transaction
+        // -----------------------------------------------------------------
+
+        private static void WriteDetailsAndStock(
+            SqlConnection con, SqlTransaction tx, int supplyID,
+            List<SupplyLine> lines, List<StockLine> stock, string remarks)
+        {
+            TxExec(con, tx, "DELETE FROM SupplyDetail WHERE SupplyID = @SupplyID",
+                new SqlParameter("@SupplyID", supplyID));
+
+            string insertDetail = @"
+INSERT INTO SupplyDetail
+(
+    SupplyID, IndentDetailID, CategoryID, DenominationID, SupplyQty, PiecesPerSheet,
+    LoosePieces, TotalPieces, LedgerFolio, CaseNoFrom, CaseNoTo, CaseCode
+)
+VALUES
+(
+    @SupplyID, @IndentDetailID, @CategoryID, @DenominationID, @SupplyQty, @PiecesPerSheet,
+    @LoosePieces, @TotalPieces, @LedgerFolio, @CaseNoFrom, @CaseNoTo, @CaseCode
+)";
+
+            foreach (SupplyLine l in lines)
+            {
+                TxExec(con, tx, insertDetail,
+                    new SqlParameter("@SupplyID", supplyID),
+                    new SqlParameter("@IndentDetailID", l.IndentDetailID),
+                    new SqlParameter("@CategoryID", l.CategoryID),
+                    new SqlParameter("@DenominationID", l.DenominationID),
+                    new SqlParameter("@SupplyQty", l.SupplySheets),
+                    new SqlParameter("@PiecesPerSheet", l.PiecesPerSheet),
+                    new SqlParameter("@LoosePieces", l.LoosePieces),
+                    new SqlParameter("@TotalPieces", l.TotalPieces),
+                    new SqlParameter("@LedgerFolio", l.LedgerFolio ?? ""),
+                    new SqlParameter("@CaseNoFrom", l.CaseNoFrom ?? ""),
+                    new SqlParameter("@CaseNoTo", l.CaseNoTo ?? ""),
+                    new SqlParameter("@CaseCode", l.CaseCode ?? ""));
+            }
+
+            TxExec(con, tx,
+                "DELETE FROM StockTransaction WHERE SupplyID = @SupplyID AND TransactionType = 'OUT'",
+                new SqlParameter("@SupplyID", supplyID));
+
+            string insertStock = @"
+INSERT INTO StockTransaction
+(
+    StockID, TransactionType, BoxQty, PacketQty, SheetQty, StampQty,
+    TransactionDate, ReferenceType, ReferenceID, Remarks, SupplyID
+)
+SELECT
+    S.StockID, 'OUT', @BoxQty, @PacketQty, @SheetQty, @StampQty,
+    GETDATE(), 'Supply', @SupplyID, @Remarks, @SupplyID
+FROM StockMaster S
+WHERE S.CategoryID = @CategoryID
+  AND S.DenominationID = @DenominationID";
+
+            foreach (StockLine s in stock)
+            {
+                int rows = TxExec(con, tx, insertStock,
+                    new SqlParameter("@BoxQty", s.BoxQty),
+                    new SqlParameter("@PacketQty", s.PacketQty),
+                    new SqlParameter("@SheetQty", s.SheetQty),
+                    new SqlParameter("@StampQty", s.StampQty),
+                    new SqlParameter("@SupplyID", supplyID),
+                    new SqlParameter("@Remarks", remarks ?? ""),
+                    new SqlParameter("@CategoryID", s.CategoryID),
+                    new SqlParameter("@DenominationID", s.DenominationID));
+
+                if (rows == 0)
+                    throw new InvalidOperationException(
+                        "No StockMaster record was found for category " + s.CategoryID +
+                        " / denomination " + s.DenominationID + ".");
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // NEW draft: header + details + stock entry in ONE transaction
+        // -----------------------------------------------------------------
+
+        public int CreateSupplyDraft(
+            SupplyNumberInfo info,
+            int indentID,
+            int supplyTypeID,
+            string dispatchMode,
+            string packingType,
+            string otherPackingType,
+            int packingQty,
+            string remarks,
+            int indentStatusID,
+            DateTime supplyDate,
+            List<SupplyLine> lines,
+            List<StockLine> stock)
+        {
+            string insertHeader = @"
+INSERT INTO SupplyMaster
+(
+    SupplyNo, SupplyType, FinancialYear, SupplyDate, IndentID, StatusID, IndentStatusID,
+    Remarks, CreatedDate, DispatchMode, PackingType, OtherPackingType, PackingQty,
+    GlobalSequence, OfficeSequence
+)
+VALUES
+(
+    @SupplyNo, @SupplyType, @FinancialYear, @SupplyDate, @IndentID, 1, @IndentStatusID,
+    @Remarks, GETDATE(), @DispatchMode, @PackingType, @OtherPackingType, @PackingQty,
+    @GlobalSequence, @OfficeSequence
+);
+
+DECLARE @NewID INT = CAST(SCOPE_IDENTITY() AS INT);
+
+UPDATE IndentMaster
+SET IndentStatus = @IndentStatusID
+WHERE IndentID = @IndentID;
+
+SELECT @NewID;";
+
+            int newID = 0;
+            string error = null;
+
+            bool ok = db.ExecuteTransaction((con, tx) =>
+            {
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand(insertHeader, con, tx))
+                    {
+                        cmd.Parameters.AddWithValue("@SupplyNo", info.SupplyNo);
+                        cmd.Parameters.AddWithValue("@SupplyType", supplyTypeID);
+                        cmd.Parameters.AddWithValue("@FinancialYear", info.FinancialYear);
+                        cmd.Parameters.AddWithValue("@SupplyDate", supplyDate);
+                        cmd.Parameters.AddWithValue("@IndentID", indentID);
+                        cmd.Parameters.AddWithValue("@IndentStatusID", indentStatusID);
+                        cmd.Parameters.AddWithValue("@Remarks", remarks ?? "");
+                        cmd.Parameters.AddWithValue("@DispatchMode", dispatchMode ?? "");
+                        cmd.Parameters.AddWithValue("@PackingType", packingType ?? "");
+                        cmd.Parameters.AddWithValue("@OtherPackingType", (object)otherPackingType ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PackingQty", packingQty);
+                        cmd.Parameters.AddWithValue("@GlobalSequence", info.GlobalSequence);
+                        cmd.Parameters.AddWithValue("@OfficeSequence", info.OfficeSequence);
+
+                        newID = TxInt(cmd.ExecuteScalar());
+                    }
+
+                    if (newID <= 0)
+                        throw new InvalidOperationException("The draft header could not be created.");
+
+                    WriteDetailsAndStock(con, tx, newID, lines, stock, remarks);
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+                }
+            });
+
+            if (error != null) throw new InvalidOperationException(error);
+            if (!ok || newID <= 0)
+                throw new InvalidOperationException("The draft could not be saved. No changes were made.");
+
+            return newID;
+        }
+
+        // -----------------------------------------------------------------
+        // EXISTING draft / approved supply: header + details + stock in ONE transaction
+        // -----------------------------------------------------------------
+
+        public void UpdateSupplyDraft(
+            int supplyID,
+            int supplyTypeID,
+            DateTime supplyDate,
+            string dispatchMode,
+            string packingType,
+            string otherPackingType,
+            int packingQty,
+            string invoiceNo,
+            string remarks,
+            int indentStatusID,
+            List<SupplyLine> lines,
+            List<StockLine> stock)
+        {
+            string updateHeader = @"
+UPDATE SupplyMaster
+SET
+    SupplyType       = @SupplyType,
+    SupplyDate       = @SupplyDate,
+    DispatchMode     = @DispatchMode,
+    PackingType      = @PackingType,
+    OtherPackingType = @OtherPackingType,
+    PackingQty       = @PackingQty,
+    InvoiceNo        = @InvoiceNo,
+    Remarks          = @Remarks,
+    IndentStatusID   = @IndentStatusID
+WHERE SupplyID = @SupplyID
+  AND StatusID IN (1, 2);";
+
+            // Only a DRAFT moves the indent status at save time.
+            // (An approved supply is re-evaluated by UpdateIndentStatusAfterSupply.)
+            string updateIndent = @"
+UPDATE IM
+SET IM.IndentStatus = @IndentStatusID
+FROM IndentMaster IM
+INNER JOIN SupplyMaster SM ON SM.IndentID = IM.IndentID
+WHERE SM.SupplyID = @SupplyID
+  AND SM.StatusID = 1;";
+
+            string error = null;
+
+            bool ok = db.ExecuteTransaction((con, tx) =>
+            {
+                try
+                {
+                    int rows = TxExec(con, tx, updateHeader,
+                        new SqlParameter("@SupplyType", supplyTypeID),
+                        new SqlParameter("@SupplyDate", supplyDate),
+                        new SqlParameter("@DispatchMode", dispatchMode ?? ""),
+                        new SqlParameter("@PackingType", packingType ?? ""),
+                        new SqlParameter("@OtherPackingType", (object)otherPackingType ?? DBNull.Value),
+                        new SqlParameter("@PackingQty", packingQty),
+                        new SqlParameter("@InvoiceNo", invoiceNo ?? ""),
+                        new SqlParameter("@Remarks", remarks ?? ""),
+                        new SqlParameter("@IndentStatusID", indentStatusID),
+                        new SqlParameter("@SupplyID", supplyID));
+
+                    if (rows != 1)
+                        throw new InvalidOperationException(
+                            "This supply can no longer be edited (it may have been issued by another user).");
+
+                    TxExec(con, tx, updateIndent,
+                        new SqlParameter("@IndentStatusID", indentStatusID),
+                        new SqlParameter("@SupplyID", supplyID));
+
+                    WriteDetailsAndStock(con, tx, supplyID, lines, stock, remarks);
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+                }
+            });
+
+            if (error != null) throw new InvalidOperationException(error);
+            if (!ok)
+                throw new InvalidOperationException("The changes could not be saved. Nothing was changed.");
+        }
+
+        // -----------------------------------------------------------------
+        // Detail rows for editing a saved supply.
+        // Pending = indent quantity minus what OTHER approved/issued supplies already took.
+        // -----------------------------------------------------------------
+
+        public DataTable GetSupplyDetailsForEdit(int supplyID)
+        {
+            string query = @"
+SELECT
+    SD.IndentDetailID AS DetailID,
+    SD.CategoryID,
+    SD.DenominationID,
+    SC.Name AS CategoryName,
+    D.Denomination,
+
+    ID.SheetQty   AS IndentSheets,
+    ID.PieceQty   AS IndentLoosePieces,
+    ID.TotalPieces AS IndentTotalPieces,
+
+    CASE WHEN ID.TotalPieces - ISNULL(O.OtherSupplied, 0) < 0
+         THEN 0
+         ELSE ID.TotalPieces - ISNULL(O.OtherSupplied, 0) END AS OriginalPendingPieces,
+
+    CASE WHEN ID.TotalPieces - ISNULL(O.OtherSupplied, 0) - SD.TotalPieces < 0
+         THEN 0
+         ELSE ID.TotalPieces - ISNULL(O.OtherSupplied, 0) - SD.TotalPieces END AS RemainingPieces,
+
+    CASE WHEN ID.TotalPieces - ISNULL(O.OtherSupplied, 0) - SD.TotalPieces < 0
+         THEN 0
+         ELSE ID.TotalPieces - ISNULL(O.OtherSupplied, 0) - SD.TotalPieces END AS RemainingTotalPieces,
+
+    SD.SupplyQty    AS SupplySheets,
+    SD.LoosePieces  AS SupplyPieces,
+    SD.PiecesPerSheet,
+    SD.TotalPieces  AS SupplyTotalPieces,
+
+    SD.LedgerFolio,
+    SD.CaseCode,
+    SD.CaseNoFrom,
+    SD.CaseNoTo
+
+FROM SupplyDetail SD
+INNER JOIN IndentDetail ID ON SD.IndentDetailID = ID.DetailID
+INNER JOIN StampCategory SC ON SD.CategoryID = SC.CategoryID
+INNER JOIN Denomination D ON SD.DenominationID = D.DenominationID
+OUTER APPLY
+(
+    SELECT SUM(SD2.TotalPieces) AS OtherSupplied
+    FROM SupplyDetail SD2
+    INNER JOIN SupplyMaster SM2 ON SD2.SupplyID = SM2.SupplyID
+    WHERE SD2.IndentDetailID = SD.IndentDetailID
+      AND SM2.StatusID IN (2, 3)
+      AND SM2.SupplyID <> SD.SupplyID
+) O
+WHERE SD.SupplyID = @SupplyID
+ORDER BY SD.IndentDetailID";
+
+            return db.ExecuteQuery(query, new SqlParameter[] { new SqlParameter("@SupplyID", supplyID) });
+        }
+
+        // -----------------------------------------------------------------
+        // Items where this supply + other approved/issued supplies exceed the indent
+        // -----------------------------------------------------------------
+
+        public DataTable GetOverSuppliedItems(int supplyID)
+        {
+            string query = @"
+SELECT
+    SC.Name AS CategoryName,
+    D.Denomination,
+    ID.TotalPieces AS IndentTotal,
+    ISNULL(O.OtherSupplied, 0) AS AlreadySupplied,
+    SD.TotalPieces AS ThisSupply
+FROM SupplyDetail SD
+INNER JOIN IndentDetail ID ON SD.IndentDetailID = ID.DetailID
+INNER JOIN StampCategory SC ON SD.CategoryID = SC.CategoryID
+INNER JOIN Denomination D ON SD.DenominationID = D.DenominationID
+OUTER APPLY
+(
+    SELECT SUM(SD2.TotalPieces) AS OtherSupplied
+    FROM SupplyDetail SD2
+    INNER JOIN SupplyMaster SM2 ON SD2.SupplyID = SM2.SupplyID
+    WHERE SD2.IndentDetailID = SD.IndentDetailID
+      AND SM2.StatusID IN (2, 3)
+      AND SM2.SupplyID <> SD.SupplyID
+) O
+WHERE SD.SupplyID = @SupplyID
+  AND SD.TotalPieces + ISNULL(O.OtherSupplied, 0) > ID.TotalPieces";
+
+            return db.ExecuteQuery(query, new SqlParameter[] { new SqlParameter("@SupplyID", supplyID) });
+        }
+
+        // -----------------------------------------------------------------
+        // ISSUE: status change + stock deduction in ONE transaction.
+        // - only an Approved supply can be issued (a double click / second user fails safely)
+        // - stock can never go negative: if it is not enough, everything is rolled back
+        // -----------------------------------------------------------------
+
+        public void IssueSupplyWithStock(int supplyID)
+        {
+            string error = null;
+
+            bool ok = db.ExecuteTransaction((con, tx) =>
+            {
+                try
+                {
+                    int rows = TxExec(con, tx,
+                        "UPDATE SupplyMaster SET StatusID = 3 WHERE SupplyID = @SupplyID AND StatusID = 2",
+                        new SqlParameter("@SupplyID", supplyID));
+
+                    if (rows != 1)
+                        throw new InvalidOperationException(
+                            "Only an Approved supply can be issued. It may already have been issued.");
+
+                    DataTable lines = TxFill(con, tx, @"
+SELECT ST.StockID, ST.BoxQty, ST.PacketQty, ST.SheetQty, ST.StampQty
+FROM StockTransaction ST
+WHERE ST.SupplyID = @SupplyID
+  AND ST.TransactionType = 'OUT'",
+                        new SqlParameter("@SupplyID", supplyID));
+
+                    if (lines.Rows.Count == 0)
+                        throw new InvalidOperationException(
+                            "This supply has no Stock Entry. Open it, review the Stock Entry and save the changes before issuing.");
+
+                    foreach (DataRow line in lines.Rows)
+                    {
+                        int stockID = TxInt(line["StockID"]);
+                        int reqBox = TxInt(line["BoxQty"]);
+                        int reqPacket = TxInt(line["PacketQty"]);
+                        int reqSheet = TxInt(line["SheetQty"]);
+                        int reqStamp = TxInt(line["StampQty"]);
+
+                        // Lock the stock row for the duration of the transaction
+                        DataTable bal = TxFill(con, tx, @"
+SELECT S.CategoryID, S.DenominationID, S.BoxQty, S.PacketQty, S.SheetQty, S.StampQty,
+       C.Name AS CategoryName, D.Denomination
+FROM StockMaster S WITH (UPDLOCK, ROWLOCK)
+INNER JOIN StampCategory C ON S.CategoryID = C.CategoryID
+INNER JOIN Denomination D ON S.DenominationID = D.DenominationID
+WHERE S.StockID = @StockID",
+                            new SqlParameter("@StockID", stockID));
+
+                        if (bal.Rows.Count == 0)
+                            throw new InvalidOperationException("Stock record " + stockID + " was not found.");
+
+                        DataRow b = bal.Rows[0];
+                        int categoryID = TxInt(b["CategoryID"]);
+                        int denominationID = TxInt(b["DenominationID"]);
+                        int box = TxInt(b["BoxQty"]);
+                        int packet = TxInt(b["PacketQty"]);
+                        int sheet = TxInt(b["SheetQty"]);
+                        int stamp = TxInt(b["StampQty"]);
+
+                        int availBox = box, availPacket = packet, availSheet = sheet, availStamp = stamp;
+
+                        int packetsPerBox = 0, sheetsPerPacket = 0, piecesPerSheet = 0;
+
+                        DataTable conv = TxFill(con, tx, @"
+SELECT PacketsPerBox, SheetsPerPacket, PiecesPerSheet
+FROM UnitConversionMaster
+WHERE CategoryID = @CategoryID AND DenominationID = @DenominationID",
+                            new SqlParameter("@CategoryID", categoryID),
+                            new SqlParameter("@DenominationID", denominationID));
+
+                        if (conv.Rows.Count > 0)
+                        {
+                            packetsPerBox = TxInt(conv.Rows[0]["PacketsPerBox"]);
+                            sheetsPerPacket = TxInt(conv.Rows[0]["SheetsPerPacket"]);
+                            piecesPerSheet = TxInt(conv.Rows[0]["PiecesPerSheet"]);
+                        }
+
+                        if (!StockMath.TryDeduct(
+                                ref box, ref packet, ref sheet, ref stamp,
+                                reqBox, reqPacket, reqSheet, reqStamp,
+                                packetsPerBox, sheetsPerPacket, piecesPerSheet))
+                        {
+                            throw new InvalidOperationException(string.Format(
+                                "Insufficient stock for {0} Rs.{1}.\n\nAvailable: Box {2}, Packet {3}, Sheet {4}, Stamp {5}\nRequired: Box {6}, Packet {7}, Sheet {8}, Stamp {9}",
+                                Convert.ToString(b["CategoryName"]),
+                                Convert.ToDecimal(b["Denomination"]).ToString("0.##"),
+                                availBox, availPacket, availSheet, availStamp,
+                                reqBox, reqPacket, reqSheet, reqStamp));
+                        }
+
+                        TxExec(con, tx, @"
+UPDATE StockMaster
+SET BoxQty = @Box, PacketQty = @Packet, SheetQty = @Sheet, StampQty = @Stamp, ModifiedDate = GETDATE()
+WHERE StockID = @StockID",
+                            new SqlParameter("@Box", box),
+                            new SqlParameter("@Packet", packet),
+                            new SqlParameter("@Sheet", sheet),
+                            new SqlParameter("@Stamp", stamp),
+                            new SqlParameter("@StockID", stockID));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+                }
+            });
+
+            if (error != null) throw new InvalidOperationException(error);
+            if (!ok)
+                throw new InvalidOperationException("The supply could not be issued. No changes were made.");
+        }
     }
-
-
 }
-

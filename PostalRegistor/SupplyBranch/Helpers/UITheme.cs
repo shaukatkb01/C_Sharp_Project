@@ -29,9 +29,12 @@ namespace SupplyBranch.Helpers
 
         private static readonly Color FormBackColor = ColorTranslator.FromHtml("#F1F5F9");
         private static readonly Color PanelBackColor = Color.White;
-        private static readonly Color TextBackColor = Color.White;
-        private static readonly Color ReadOnlyBack = ColorTranslator.FromHtml("#F1F5F9");
-        private static readonly Color FocusTint = ColorTranslator.FromHtml("#EFF6FF");
+        // Input fields are tinted light blue so empty boxes stand out from the white cards.
+        // Typing (focus) turns the field white; read-only fields are neutral grey.
+        private static readonly Color TextBackColor = ColorTranslator.FromHtml("#E8F0FE");
+        private static readonly Color FocusBackColor = Color.White;
+        private static readonly Color ReadOnlyBack = ColorTranslator.FromHtml("#EEF0F3");
+        private static readonly Color ReadOnlyFore = ColorTranslator.FromHtml("#475569");
         private static readonly Color TextForeColor = ColorTranslator.FromHtml("#1E293B");
         private static readonly Color BorderColor = ColorTranslator.FromHtml("#CBD5E1");
         private static readonly Color GridLineColor = ColorTranslator.FromHtml("#E2E8F0");
@@ -61,6 +64,10 @@ namespace SupplyBranch.Helpers
         //==================================================
 
         private static readonly ConditionalWeakTable<Control, object> Styled =
+            new ConditionalWeakTable<Control, object>();
+
+        // Text boxes styled as status badges - their colors must not be reset on focus changes
+        private static readonly ConditionalWeakTable<Control, object> StatusBoxes =
             new ConditionalWeakTable<Control, object>();
 
         private static bool FirstTime(Control c)
@@ -370,7 +377,21 @@ namespace SupplyBranch.Helpers
 
             Action refresh = delegate
             {
-                txt.BackColor = (txt.ReadOnly || !txt.Enabled) ? ReadOnlyBack : TextBackColor;
+                // Status badges (StyleStatusBox) keep their own colors
+                object marker;
+                if (StatusBoxes.TryGetValue(txt, out marker))
+                    return;
+
+                if (txt.ReadOnly || !txt.Enabled)
+                {
+                    txt.BackColor = ReadOnlyBack;
+                    txt.ForeColor = ReadOnlyFore;
+                }
+                else
+                {
+                    txt.BackColor = TextBackColor;
+                    txt.ForeColor = TextForeColor;
+                }
             };
 
             if (FirstTime(txt))
@@ -378,11 +399,11 @@ namespace SupplyBranch.Helpers
                 txt.ReadOnlyChanged += delegate { refresh(); };
                 txt.EnabledChanged += delegate { refresh(); };
 
-                // Subtle focus highlight so the user always knows where they are typing
+                // White while typing so the active field is obvious
                 txt.Enter += delegate
                 {
                     if (!txt.ReadOnly && txt.Enabled)
-                        txt.BackColor = FocusTint;
+                        txt.BackColor = FocusBackColor;
                 };
                 txt.Leave += delegate { refresh(); };
             }
@@ -398,8 +419,6 @@ namespace SupplyBranch.Helpers
         private static void ApplyComboBox(ComboBox cmb)
         {
             cmb.Font = NormalFont;
-            cmb.ForeColor = TextForeColor;
-            cmb.BackColor = Color.White;
             cmb.FlatStyle = FlatStyle.Flat;
 
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -411,8 +430,34 @@ namespace SupplyBranch.Helpers
             // 2. AutoCompleteMode ko BAAD me set karein
             cmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
+            Action refresh = delegate
+            {
+                if (cmb.Enabled)
+                {
+                    cmb.BackColor = TextBackColor;
+                    cmb.ForeColor = TextForeColor;
+                }
+                else
+                {
+                    cmb.BackColor = ReadOnlyBack;
+                    cmb.ForeColor = ReadOnlyFore;
+                }
+            };
+
+            refresh();
+
             if (!FirstTime(cmb))
                 return;
+
+            cmb.EnabledChanged += delegate { refresh(); };
+
+            // White while the dropdown has focus, tinted otherwise
+            cmb.Enter += delegate
+            {
+                if (cmb.Enabled)
+                    cmb.BackColor = FocusBackColor;
+            };
+            cmb.Leave += delegate { refresh(); };
 
             // Dropdown width auto-adjust logic
             cmb.DropDown += (s, e) =>
@@ -453,7 +498,7 @@ namespace SupplyBranch.Helpers
             if (!FirstTime(num))
                 return;
 
-            num.Enter += delegate { num.BackColor = FocusTint; };
+            num.Enter += delegate { num.BackColor = FocusBackColor; };
             num.Leave += delegate { num.BackColor = TextBackColor; };
         }
 
@@ -583,6 +628,10 @@ namespace SupplyBranch.Helpers
         {
             if (txt == null)
                 return;
+
+            object marker;
+            if (!StatusBoxes.TryGetValue(txt, out marker))
+                StatusBoxes.Add(txt, new object());
 
             Color back, fore;
 

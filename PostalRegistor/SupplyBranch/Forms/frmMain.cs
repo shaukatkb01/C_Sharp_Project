@@ -30,7 +30,19 @@ namespace SupplyBranch.Forms
     public partial class frmMain : Form
     {
         private Form activeForm = null;
+        private Button btnDashboard;
 
+        private void UpdateDashboardButtonVisibility()
+        {
+            if (btnDashboard == null)
+                return;
+
+            bool isDashboardShowing = pnlMain.Controls
+                .OfType<frmDashBoard>()
+                .Any(f => f.Visible);
+
+            btnDashboard.Visible = !isDashboardShowing;
+        }
 
         private async Task<string> GetLatestVersionAsync()
         {
@@ -140,17 +152,13 @@ namespace SupplyBranch.Forms
         private void OpenForm(Form childForm)
         {
             // ==========================================
-            // 1. Check whether same form is already open
+            // 1. Close any currently open child forms in pnlMain
             // ==========================================
-            Form existingForm = pnlMain.Controls
-                .OfType<Form>()
-                .FirstOrDefault(f => f.GetType() == childForm.GetType());
-
-            if (existingForm != null)
+            foreach (Form openForm in pnlMain.Controls.OfType<Form>().ToList())
             {
-                existingForm.Close();
-                existingForm.Dispose();
-                pnlMain.Controls.Remove(existingForm);
+                openForm.Close();
+                openForm.Dispose();
+                pnlMain.Controls.Remove(openForm);
             }
 
             // ==========================================
@@ -169,26 +177,31 @@ namespace SupplyBranch.Forms
             childForm.Show();
 
             // ==========================================
-            // 3. Dynamic SubTitle in lblMain (Next Line)
+            // 3. Dashboard button visibility (hide ONLY when frmDashBoard is shown)
             // ==========================================
-            string mainTitle = "Supply Branch Management System "; // Line 1 Text
+            if (btnDashboard != null)
+            {
+                btnDashboard.Visible = !(childForm is frmDashBoard);
+                btnDashboard.BringToFront();
+            }
+
+            // ==========================================
+            // 4. Dynamic SubTitle in lblMain (Next Line)
+            // ==========================================
+            string mainTitle = "Supply Branch Management System ";
             string subTitleText = "";
 
-            // Child form ke andar "lblSubTitle" ko dhoondein
             Control[] foundControls = childForm.Controls.Find("lblSubTitle", true);
 
             if (foundControls.Length > 0 && foundControls[0] is Label lblSub)
             {
                 subTitleText = lblSub.Text;
-                
             }
             else if (!string.IsNullOrWhiteSpace(childForm.Text))
             {
-                // Agar lblSubTitle na mile toh form ki Text property istemal karein
                 subTitleText = childForm.Text;
             }
 
-            // Single Line / Double Line Set Karein
             if (!string.IsNullOrWhiteSpace(subTitleText))
             {
                 lblMain.Text = $"{mainTitle}\n{subTitleText}";
@@ -292,7 +305,7 @@ namespace SupplyBranch.Forms
             this.KeyPreview = true;
             this.KeyDown += frmMain_KeyDown;
 
-            Button btnDashboard = CreateMyButton("Dashboard", lblMain, rightMargin: 15, bottomMargin: 12);
+            btnDashboard = CreateMyButton("Dashboard", lblMain, rightMargin: 15, bottomMargin: 12);
 
             btnDashboard.Click += (sender, e) =>
             {
@@ -324,9 +337,68 @@ namespace SupplyBranch.Forms
             frmPostal.ShowDialog();
         }
 
+        private readonly ModuleDAL moduleDAL = new ModuleDAL();
+
+        private void ApplyMenuPermissions(int userID, string userName)
+        {
+            bool isSuperAdmin = string.Equals(userName?.Trim(), "admin", StringComparison.OrdinalIgnoreCase);
+
+            HashSet<string> allowedCodes = isSuperAdmin
+                ? null
+                : moduleDAL.GetAllowedModuleCodes(userID);
+
+            foreach (ToolStripItem item in menuStrip1.Items)
+            {
+                if (item is ToolStripMenuItem menuItem)
+                {
+                    ApplyMenuItemPermission(menuItem, isSuperAdmin, allowedCodes);
+                }
+            }
+        }
+
+        private void ApplyMenuItemPermission(ToolStripMenuItem menuItem, bool isSuperAdmin, HashSet<string> allowedCodes)
+        {
+            // Pehle child / sub-menu items ko update karein
+            bool hasAnyEnabledChild = false;
+            bool hasAnyChildMenuItem = false;
+
+            foreach (ToolStripItem dropItem in menuItem.DropDownItems)
+            {
+                if (dropItem is ToolStripMenuItem childMenuItem)
+                {
+                    hasAnyChildMenuItem = true;
+                    ApplyMenuItemPermission(childMenuItem, isSuperAdmin, allowedCodes);
+
+                    if (childMenuItem.Enabled)
+                    {
+                        hasAnyEnabledChild = true;
+                    }
+                }
+            }
+
+            string moduleCode = Convert.ToString(menuItem.Tag)?.Trim();
+
+            if (isSuperAdmin)
+            {
+                menuItem.Enabled = true;
+                return;
+            }
+
+            // Agar item par ModuleCode Tag set hai toh permission ke mutabiq enable/disable karein
+            if (!string.IsNullOrWhiteSpace(moduleCode))
+            {
+                menuItem.Enabled = allowedCodes != null && allowedCodes.Contains(moduleCode);
+            }
+            // Agar item par khud Tag nahi hai lekin us ke sub-items hain, toh agar koi child active nahi toh parent disable
+            else if (hasAnyChildMenuItem)
+            {
+                menuItem.Enabled = hasAnyEnabledChild;
+            }
+        }
         public async void frmMain_Load(object sender, EventArgs e)
         {
-     
+            ApplyMenuPermissions(CurrentUser.UserID, CurrentUser.UserName);
+
             UITheme.Apply(this);
             //DatabaseMigrator.ApplyMigrations();
             // Form ka default Title
@@ -358,6 +430,12 @@ namespace SupplyBranch.Forms
             mnuRestoreDatabase.Visible = isAdmin;
             mnuRestoreSafetyBackup.Visible = isAdmin;
             mnuUserManagement.Visible = isAdmin;
+
+
+            frmDashBoard dashboard = new frmDashBoard();
+            OpenForm(dashboard);
+
+            //UpdateDashboardButtonVisibility();
         }
 
 
@@ -607,6 +685,11 @@ namespace SupplyBranch.Forms
         private void demandPrintOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenForm(new frmDemandPrint());
+        }
+
+        private void userRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmModuleManagement());
         }
     }
 }

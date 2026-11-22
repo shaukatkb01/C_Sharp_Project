@@ -85,7 +85,7 @@ namespace SupplyBranch.Forms
         // Form Load
         //=========================================
 
-        private void frmReportPreview_Load(object sender, EventArgs e)
+        public void frmReportPreview_Load(object sender, EventArgs e)
         {
             if (_isSupplyDocumentReport)
             {
@@ -230,18 +230,31 @@ namespace SupplyBranch.Forms
         public void LoadMultipleSupplyDocumentReport(string reportFile, string supplyIDs)
         {
             _isSupplyDocumentReport = true;
-            _isRegisterReport = false; 
+            _isRegisterReport = false;
             _reportFile = reportFile;
             _supplyIDs = supplyIDs;
 
+            if (IsHandleCreated)
+            {
+                RenderSupplyDocumentReport();
+            }
+        }
+
+        private void RenderSupplyDocumentReport()
+        {
             reportViewer1.Reset();
             reportViewer1.LocalReport.ReportEmbeddedResource =
-                "SupplyBranch.Reports.RDLC." + reportFile;
+                "SupplyBranch.Reports.RDLC." + _reportFile;
 
-            DataTable documentDetail = supplyDAL.GetSupplyDemandDetailForMultiple(supplyIDs);
+            DataTable documentHeader =
+                supplyDAL.GetSupplyPerformaHeaderForMultiple(_supplyIDs, false) ?? new DataTable();
+
+            DataTable documentDetail =
+                supplyDAL.GetSupplyDemandDetailForMultiple(_supplyIDs) ?? new DataTable();
 
             reportViewer1.LocalReport.DataSources.Clear();
-
+            reportViewer1.LocalReport.DataSources.Add(
+                new ReportDataSource("SupplyHeader", documentHeader));
             reportViewer1.LocalReport.DataSources.Add(
                 new ReportDataSource("SupplyDetail", documentDetail));
 

@@ -237,14 +237,16 @@ namespace SupplyBranch.Forms
                 BackColor = Color.Transparent,
                 Padding = new Padding(0, 6, 0, 0)
             };
-            actions.Controls.Add(CreateNavigationButton("New Indent", () => new frmIndent(), true));
-            actions.Controls.Add(CreateNavigationButton("Generate Draft", () => new frmSupplySearch(), false));
-            actions.Controls.Add(CreateNavigationButton("Draft Supplies", () => new frmDraftSupply(), false));
-            actions.Controls.Add(CreateNavigationButton("Reports", () => new frmReport(), false));
-            actions.Controls.Add(CreateNavigationButton("Stock Balance", () => new frmStockBalance(), false));
+
+            actions.Controls.Add(CreateNavigationButton("New Indent", () => new frmIndent(), true, "INDENT"));
+            actions.Controls.Add(CreateNavigationButton("Generate Draft", () => new frmSupplySearch(), false, "SUPPLY"));
+            actions.Controls.Add(CreateNavigationButton("Draft Supplies", () => new frmDraftSupply(), false, "SUPPLY"));
+            actions.Controls.Add(CreateNavigationButton("Reports", () => new frmReport(), false, "REPORTS"));
+            actions.Controls.Add(CreateNavigationButton("Stock Balance", () => new frmStockBalance(), false, "STOCK"));
+            actions.Controls.Add(CreateNavigationButton("BlankPerforma", () => new frmReportPreview(), false, "REPORTS"));
+
             return actions;
         }
-
         private Control CreateStatisticsCards()
         {
             TableLayoutPanel cards = new TableLayoutPanel
@@ -409,27 +411,48 @@ namespace SupplyBranch.Forms
             return section;
         }
 
-        private Button CreateNavigationButton(string text, Func<Form> createForm, bool primary)
+        private Control CreateNavigationButton(
+     string text,
+     Func<Form> formFactory,
+     bool isPrimary,
+     string moduleCode = null)
         {
-            Button button = CreateActionButton(text, primary ? Color.FromArgb(37, 99, 235) : Color.White);
-            if (!primary)
+            Button button = CreateActionButton(
+                text,
+                isPrimary ? Color.FromArgb(37, 99, 235) : Color.White);
+
+            button.Tag = moduleCode;
+
+            if (!isPrimary)
             {
                 button.ForeColor = Color.FromArgb(51, 65, 85);
                 button.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
             }
+
             button.Margin = new Padding(0, 0, 8, 4);
+
             button.Click += (sender, args) =>
             {
-                Form target = createForm();
+                if (formFactory == null)
+                    return;
+
+                Form target = formFactory();
                 Action<Form> navigate = NavigationRequested;
+
                 if (navigate == null)
                 {
-                    target.Dispose();
-                    MessageBox.Show("Navigation is unavailable.", "Dashboard", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    target?.Dispose();
+                    MessageBox.Show(
+                        "Navigation is unavailable.",
+                        "Dashboard",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                     return;
                 }
+
                 navigate(target);
             };
+
             return button;
         }
 

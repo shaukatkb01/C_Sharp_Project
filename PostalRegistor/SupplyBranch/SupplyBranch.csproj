@@ -89,6 +89,7 @@
     <Compile Include="Classes\TaskHelper.cs" />
     <Compile Include="DataAccess\DenominationDAL.cs" />
     <Compile Include="DataAccess\IndentDAL.cs" />
+    <Compile Include="DataAccess\ModuleDAL.cs" />
     <Compile Include="DataAccess\OfficeDAL.cs" />
     <Compile Include="DataAccess\OfficeZoneDAL.cs" />
     <Compile Include="DataAccess\StampCategoryDAL.cs" />
@@ -188,6 +189,12 @@
     </Compile>
     <Compile Include="Forms\Masters\frmDenomination.Designer.cs">
       <DependentUpon>frmDenomination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Masters\frmModuleManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Masters\frmModuleManagement.Designer.cs">
+      <DependentUpon>frmModuleManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Masters\frmOffice.cs">
       <SubType>Form</SubType>
@@ -367,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Masters\frmDenomination.resx">
       <DependentUpon>frmDenomination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Masters\frmModuleManagement.resx">
+      <DependentUpon>frmModuleManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Masters\frmOffice.resx">
       <DependentUpon>frmOffice.cs</DependentUpon>
