@@ -1,9 +1,11 @@
-﻿using SupplyBranch.Helpers;
+﻿using SupplyBranch.Controls;
+using SupplyBranch.Helpers;
 using SupplyBranch.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,33 +15,38 @@ namespace SupplyBranch.Forms
 {
     public partial class frmLogin : Form
     {
-        // ---- Theme colors (used only by ApplyLoginStyle, never by InitializeComponent) ----
-        private static readonly Color Primary = ColorTranslator.FromHtml("#2563EB");
-        private static readonly Color PrimaryHover = ColorTranslator.FromHtml("#1D4ED8");
-        private static readonly Color Dark = ColorTranslator.FromHtml("#0F172A");
-        private static readonly Color TextMain = ColorTranslator.FromHtml("#1E293B");
-        private static readonly Color TextMuted = ColorTranslator.FromHtml("#64748B");
-        private static readonly Color BorderColor = ColorTranslator.FromHtml("#CBD5E1");
-        private static readonly Color ErrorColor = ColorTranslator.FromHtml("#DC2626");
-
         // ---- Controls ----
         private Panel pnlLeft;
+        private ThemedPanel pnlRight;
+        private CardPanel card;
         private Panel pnlAccent;
-        private Panel pnlRight;
-        private Panel pnlUser;
-        private Panel pnlPass;
+
         private Label lblBrand;
         private Label lblTag;
-        private Label lblWelcome;
-        private Label lblSub;
-        private Label lblUser;
-        private Label lblPass;
-        private Label lblError;
-        private TextBox txtUserName;
-        private TextBox txtPassword;
-        private CheckBox chkShow;
-        private Button btnLogin;
-        private Button btnExit;
+        private Label lblFeature1Icon;
+        private Label lblFeature1;
+        private Label lblFeature2Icon;
+        private Label lblFeature2;
+        private Label lblFeature3Icon;
+        private Label lblFeature3;
+        private Panel pnlBrandFooter;
+        private Label lblCopyright;
+        private Label lblBrandVersion;
+
+        private ThemedLabel lblWelcome;
+        private ThemedLabel lblSub;
+        private ThemedLabel lblUser;
+        private ThemedLabel lblPass;
+        private ThemedLabel lblError;
+        private ThemedLabel lblHelp;
+        private ThemedLabel lblVersion;
+
+        private InputBox txtUserName;
+        private InputBox txtPassword;
+        private ModernButton btnLogin;
+        private ModernButton btnExit;
+        private ModernButton btnTheme;
+        private IconBadge badgeLogo;
 
         public frmLogin()
         {
@@ -50,294 +57,395 @@ namespace SupplyBranch.Forms
             {
                 ApplyLoginStyle();
                 LoadUsernameSuggestions();
+                AppTheme.ThemeChanged += HandleThemeChanged;
+
+                this.ActiveControl = txtUserName;
+                txtUserName.FocusInput();
             }
         }
 
         // =====================================================================
-        // DESIGNER-FRIENDLY: plain object creation + literal properties only.
-        // No lambdas, no helper methods, no custom Font/Color objects here.
+        // Layout
         // =====================================================================
         private void InitializeComponent()
         {
-            this.pnlLeft = new System.Windows.Forms.Panel();
-            this.pnlAccent = new System.Windows.Forms.Panel();
-            this.lblBrand = new System.Windows.Forms.Label();
-            this.lblTag = new System.Windows.Forms.Label();
-            this.pnlRight = new System.Windows.Forms.Panel();
-            this.lblWelcome = new System.Windows.Forms.Label();
-            this.lblSub = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
-            this.pnlUser = new System.Windows.Forms.Panel();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.lblPass = new System.Windows.Forms.Label();
-            this.pnlPass = new System.Windows.Forms.Panel();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.chkShow = new System.Windows.Forms.CheckBox();
-            this.lblError = new System.Windows.Forms.Label();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
-            this.pnlLeft.SuspendLayout();
-            this.pnlRight.SuspendLayout();
-            this.pnlUser.SuspendLayout();
-            this.pnlPass.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlLeft
-            // 
-            this.pnlLeft.Controls.Add(this.pnlAccent);
-            this.pnlLeft.Controls.Add(this.lblBrand);
-            this.pnlLeft.Controls.Add(this.lblTag);
-            this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlLeft.Location = new System.Drawing.Point(0, 0);
-            this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(300, 460);
-            this.pnlLeft.TabIndex = 1;
-            // 
-            // pnlAccent
-            // 
-            this.pnlAccent.Location = new System.Drawing.Point(35, 136);
-            this.pnlAccent.Name = "pnlAccent";
-            this.pnlAccent.Size = new System.Drawing.Size(48, 4);
-            this.pnlAccent.TabIndex = 0;
-            // 
-            // lblBrand
-            // 
-            this.lblBrand.AutoSize = true;
-            this.lblBrand.Location = new System.Drawing.Point(32, 150);
-            this.lblBrand.Name = "lblBrand";
-            this.lblBrand.Size = new System.Drawing.Size(76, 13);
-            this.lblBrand.TabIndex = 1;
-            this.lblBrand.Text = "Supply Branch";
-            // 
-            // lblTag
-            // 
-            this.lblTag.AutoSize = true;
-            this.lblTag.Location = new System.Drawing.Point(35, 206);
-            this.lblTag.Name = "lblTag";
-            this.lblTag.Size = new System.Drawing.Size(154, 13);
-            this.lblTag.TabIndex = 2;
-            this.lblTag.Text = "Inventory & Supply Management";
-            // 
-            // pnlRight
-            // 
-            this.pnlRight.Controls.Add(this.lblWelcome);
-            this.pnlRight.Controls.Add(this.lblSub);
-            this.pnlRight.Controls.Add(this.lblUser);
-            this.pnlRight.Controls.Add(this.pnlUser);
-            this.pnlRight.Controls.Add(this.lblPass);
-            this.pnlRight.Controls.Add(this.pnlPass);
-            this.pnlRight.Controls.Add(this.chkShow);
-            this.pnlRight.Controls.Add(this.lblError);
-            this.pnlRight.Controls.Add(this.btnLogin);
-            this.pnlRight.Controls.Add(this.btnExit);
-            this.pnlRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlRight.Location = new System.Drawing.Point(300, 0);
-            this.pnlRight.Name = "pnlRight";
-            this.pnlRight.Size = new System.Drawing.Size(460, 460);
-            this.pnlRight.TabIndex = 0;
-            // 
-            // lblWelcome
-            // 
-            this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Location = new System.Drawing.Point(50, 40);
-            this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(79, 13);
-            this.lblWelcome.TabIndex = 0;
-            this.lblWelcome.Text = "Welcome back";
-            // 
-            // lblSub
-            // 
-            this.lblSub.AutoSize = true;
-            this.lblSub.Location = new System.Drawing.Point(53, 84);
-            this.lblSub.Name = "lblSub";
-            this.lblSub.Size = new System.Drawing.Size(95, 13);
-            this.lblSub.TabIndex = 1;
-            this.lblSub.Text = "Sign in to continue";
-            // 
-            // lblUser
-            // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Location = new System.Drawing.Point(50, 132);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(60, 13);
-            this.lblUser.TabIndex = 2;
-            this.lblUser.Text = "User Name";
-            // 
-            // pnlUser
-            // 
-            this.pnlUser.Controls.Add(this.txtUserName);
-            this.pnlUser.Location = new System.Drawing.Point(50, 154);
-            this.pnlUser.Name = "pnlUser";
-            this.pnlUser.Size = new System.Drawing.Size(360, 40);
-            this.pnlUser.TabIndex = 3;
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUserName.Location = new System.Drawing.Point(10, 11);
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(340, 13);
-            this.txtUserName.TabIndex = 0;
-            // 
-            // lblPass
-            // 
-            this.lblPass.AutoSize = true;
-            this.lblPass.Location = new System.Drawing.Point(50, 212);
-            this.lblPass.Name = "lblPass";
-            this.lblPass.Size = new System.Drawing.Size(53, 13);
-            this.lblPass.TabIndex = 4;
-            this.lblPass.Text = "Password";
-            // 
-            // pnlPass
-            // 
-            this.pnlPass.Controls.Add(this.txtPassword);
-            this.pnlPass.Location = new System.Drawing.Point(50, 234);
-            this.pnlPass.Name = "pnlPass";
-            this.pnlPass.Size = new System.Drawing.Size(360, 40);
-            this.pnlPass.TabIndex = 5;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPassword.Location = new System.Drawing.Point(10, 11);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(340, 13);
-            this.txtPassword.TabIndex = 0;
-            this.txtPassword.UseSystemPasswordChar = true;
-            // 
-            // chkShow
-            // 
-            this.chkShow.AutoSize = true;
-            this.chkShow.Location = new System.Drawing.Point(50, 284);
-            this.chkShow.Name = "chkShow";
-            this.chkShow.Size = new System.Drawing.Size(101, 17);
-            this.chkShow.TabIndex = 0;
-            this.chkShow.TabStop = false;
-            this.chkShow.Text = "Show password";
-            this.chkShow.UseVisualStyleBackColor = true;
-            // 
-            // lblError
-            // 
-            this.lblError.Location = new System.Drawing.Point(50, 312);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(360, 20);
-            this.lblError.TabIndex = 7;
-            // 
-            // btnLogin
-            // 
-            this.btnLogin.Location = new System.Drawing.Point(50, 342);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(360, 44);
-            this.btnLogin.TabIndex = 1;
-            this.btnLogin.Text = "Sign In";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // btnExit
-            // 
-            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnExit.Location = new System.Drawing.Point(50, 396);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(360, 34);
-            this.btnExit.TabIndex = 2;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // frmLogin
-            // 
-            this.AcceptButton = this.btnLogin;
-            this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(760, 460);
-            this.Controls.Add(this.pnlRight);
-            this.Controls.Add(this.pnlLeft);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+
+            // ---------------- Form ----------------
+            this.ClientSize = new Size(960, 600);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmLogin";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Supply Branch - Login";
-            this.pnlLeft.ResumeLayout(false);
-            this.pnlLeft.PerformLayout();
-            this.pnlRight.ResumeLayout(false);
-            this.pnlRight.PerformLayout();
-            this.pnlUser.ResumeLayout(false);
-            this.pnlUser.PerformLayout();
-            this.pnlPass.ResumeLayout(false);
-            this.pnlPass.PerformLayout();
-            this.ResumeLayout(false);
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new SizeF(96F, 96F);
+            this.DoubleBuffered = true;
 
+            // ---------------- Left brand panel ----------------
+            this.pnlLeft = new Panel
+            {
+                Dock = DockStyle.Left,
+                Width = 420,
+                Name = "pnlLeft"
+            };
+            this.pnlLeft.Paint += PaintBrandPanel;
+
+            this.badgeLogo = new IconBadge
+            {
+                Glyph = ThemeIcons.Package,
+                Accent = ColorTranslator.FromHtml("#2563EB"),
+                Location = new Point(48, 56),
+                Size = new Size(56, 56),
+                Radius = 16
+            };
+
+            this.lblBrand = new Label
+            {
+                AutoSize = true,
+                Location = new Point(46, 132),
+                Text = "Supply Branch",
+                UseMnemonic = false,
+                BackColor = Color.Transparent,
+                ForeColor = Color.White
+            };
+
+            this.lblTag = new Label
+            {
+                AutoSize = true,
+                Location = new Point(48, 176),
+                Text = "Inventory & Supply Management",
+                UseMnemonic = false,
+                BackColor = Color.Transparent,
+                ForeColor = ColorTranslator.FromHtml("#B9C6DA")
+            };
+
+            this.pnlAccent = new Panel
+            {
+                Location = new Point(48, 214),
+                Size = new Size(64, 4),
+                BackColor = ColorTranslator.FromHtml("#2563EB")
+            };
+
+            this.lblFeature1Icon = CreateFeatureIcon(ThemeIcons.Document, 272);
+            this.lblFeature1 = CreateFeatureText("Indent & supply tracking", 272);
+            this.lblFeature2Icon = CreateFeatureIcon(ThemeIcons.Package, 320);
+            this.lblFeature2 = CreateFeatureText("Real-time stock control", 320);
+            this.lblFeature3Icon = CreateFeatureIcon(ThemeIcons.Chart, 368);
+            this.lblFeature3 = CreateFeatureText("Powerful reporting", 368);
+
+            this.pnlBrandFooter = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 74,
+                BackColor = Color.Transparent
+            };
+
+            this.lblCopyright = new Label
+            {
+                AutoSize = true,
+                Location = new Point(48, 18),
+                Text = "© 2026 Supply Branch",
+                BackColor = Color.Transparent,
+                ForeColor = ColorTranslator.FromHtml("#7F8FA8")
+            };
+
+            this.lblBrandVersion = new Label
+            {
+                AutoSize = true,
+                Location = new Point(48, 40),
+                Text = "Version " + AppVersion.CurrentVersion,
+                BackColor = Color.Transparent,
+                ForeColor = ColorTranslator.FromHtml("#7F8FA8")
+            };
+
+            this.pnlBrandFooter.Controls.Add(this.lblCopyright);
+            this.pnlBrandFooter.Controls.Add(this.lblBrandVersion);
+
+            this.pnlLeft.Controls.Add(this.badgeLogo);
+            this.pnlLeft.Controls.Add(this.lblBrand);
+            this.pnlLeft.Controls.Add(this.lblTag);
+            this.pnlLeft.Controls.Add(this.pnlAccent);
+            this.pnlLeft.Controls.Add(this.lblFeature1Icon);
+            this.pnlLeft.Controls.Add(this.lblFeature1);
+            this.pnlLeft.Controls.Add(this.lblFeature2Icon);
+            this.pnlLeft.Controls.Add(this.lblFeature2);
+            this.pnlLeft.Controls.Add(this.lblFeature3Icon);
+            this.pnlLeft.Controls.Add(this.lblFeature3);
+            this.pnlLeft.Controls.Add(this.pnlBrandFooter);
+
+            // ---------------- Right panel ----------------
+            this.pnlRight = new ThemedPanel
+            {
+                Dock = DockStyle.Fill,
+                Role = PanelRole.Background,
+                Name = "pnlRight"
+            };
+            this.pnlRight.Resize += (s, e) => CenterCard();
+
+            this.card = new CardPanel
+            {
+                Size = new Size(400, 520),
+                CornerRadius = 18,
+                Padding = new Padding(0)
+            };
+
+            this.btnTheme = new ModernButton
+            {
+                Variant = ButtonVariant.Ghost,
+                IconGlyph = AppTheme.IsDark ? ThemeIcons.Sun : ThemeIcons.Moon,
+                Size = new Size(36, 36),
+                Location = new Point(348, 14),
+                CornerRadius = 9,
+                TabStop = false
+            };
+            this.btnTheme.Click += (s, e) => AppTheme.Toggle();
+
+            this.lblWelcome = new ThemedLabel
+            {
+                Text = "Welcome back",
+                Role = LabelRole.Primary,
+                Font = ThemeFonts.H1,
+                AutoSize = true,
+                Location = new Point(32, 44)
+            };
+
+            this.lblSub = new ThemedLabel
+            {
+                Text = "Sign in to your account to continue",
+                Role = LabelRole.Muted,
+                Font = ThemeFonts.Body,
+                AutoSize = true,
+                Location = new Point(32, 88)
+            };
+
+            this.lblUser = new ThemedLabel
+            {
+                Text = "User name",
+                Role = LabelRole.Secondary,
+                Font = ThemeFonts.BodyBold,
+                AutoSize = true,
+                Location = new Point(32, 140)
+            };
+
+            this.txtUserName = new InputBox
+            {
+                Location = new Point(32, 162),
+                Size = new Size(336, 46),
+                IconGlyph = ThemeIcons.User,
+                Placeholder = "Enter your user name"
+            };
+
+            this.lblPass = new ThemedLabel
+            {
+                Text = "Password",
+                Role = LabelRole.Secondary,
+                Font = ThemeFonts.BodyBold,
+                AutoSize = true,
+                Location = new Point(32, 224)
+            };
+
+            this.txtPassword = new InputBox
+            {
+                Location = new Point(32, 246),
+                Size = new Size(336, 46),
+                IconGlyph = ThemeIcons.Lock,
+                Placeholder = "Enter your password",
+                ShowReveal = true,
+                UseSystemPasswordChar = true
+            };
+            this.txtPassword.InnerTextBox.KeyUp += txtPassword_KeyUp;
+
+            this.lblError = new ThemedLabel
+            {
+                Text = string.Empty,
+                Role = LabelRole.Danger,
+                Font = ThemeFonts.Small,
+                AutoSize = false,
+                Location = new Point(32, 302),
+                Size = new Size(336, 20)
+            };
+
+            this.btnLogin = new ModernButton
+            {
+                Text = "Sign In",
+                Variant = ButtonVariant.Primary,
+                Location = new Point(32, 332),
+                Size = new Size(336, 46),
+                CornerRadius = 10,
+                Font = ThemeFonts.Button
+            };
+            this.btnLogin.Click += btnLogin_Click;
+
+            this.btnExit = new ModernButton
+            {
+                Text = "Exit",
+                Variant = ButtonVariant.Ghost,
+                Location = new Point(32, 388),
+                Size = new Size(336, 40),
+                CornerRadius = 10,
+                DialogResult = DialogResult.Cancel
+            };
+            this.btnExit.Click += btnExit_Click;
+
+            this.lblHelp = new ThemedLabel
+            {
+                Text = "Need help? Contact your administrator.",
+                Role = LabelRole.Muted,
+                Font = ThemeFonts.Tiny,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(32, 440),
+                Size = new Size(336, 20)
+            };
+
+            this.lblVersion = new ThemedLabel
+            {
+                Text = "Supply Branch v" + AppVersion.CurrentVersion,
+                Role = LabelRole.Muted,
+                Font = ThemeFonts.Tiny,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(32, 468),
+                Size = new Size(336, 20)
+            };
+
+            this.card.Controls.Add(this.btnTheme);
+            this.card.Controls.Add(this.lblWelcome);
+            this.card.Controls.Add(this.lblSub);
+            this.card.Controls.Add(this.lblUser);
+            this.card.Controls.Add(this.txtUserName);
+            this.card.Controls.Add(this.lblPass);
+            this.card.Controls.Add(this.txtPassword);
+            this.card.Controls.Add(this.lblError);
+            this.card.Controls.Add(this.btnLogin);
+            this.card.Controls.Add(this.btnExit);
+            this.card.Controls.Add(this.lblHelp);
+            this.card.Controls.Add(this.lblVersion);
+
+            this.pnlRight.Controls.Add(this.card);
+
+            this.Controls.Add(this.pnlRight);
+            this.Controls.Add(this.pnlLeft);
+
+            this.AcceptButton = this.btnLogin;
+            this.CancelButton = this.btnExit;
+
+            this.ResumeLayout(false);
+        }
+
+        private static Label CreateFeatureIcon(string glyph, int top)
+        {
+            return new Label
+            {
+                AutoSize = false,
+                Size = new Size(24, 24),
+                Location = new Point(48, top),
+                Text = glyph,
+                Font = ThemeFonts.Icon,
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.Transparent,
+                ForeColor = ColorTranslator.FromHtml("#93C5FD")
+            };
+        }
+
+        private static Label CreateFeatureText(string text, int top)
+        {
+            return new Label
+            {
+                AutoSize = true,
+                Location = new Point(80, top + 3),
+                Text = text,
+                UseMnemonic = false,
+                Font = new Font("Segoe UI", 10F),
+                BackColor = Color.Transparent,
+                ForeColor = ColorTranslator.FromHtml("#C6D2E3")
+            };
+        }
+
+        private void CenterCard()
+        {
+            if (card == null || pnlRight == null)
+                return;
+
+            int x = Math.Max(0, (pnlRight.ClientSize.Width - card.Width) / 2);
+            int y = Math.Max(0, (pnlRight.ClientSize.Height - card.Height) / 2);
+            card.Location = new Point(x, y);
+        }
+
+        private void PaintBrandPanel(object sender, PaintEventArgs e)
+        {
+            Rectangle bounds = pnlLeft.ClientRectangle;
+            if (bounds.Width <= 0 || bounds.Height <= 0)
+                return;
+
+            using (LinearGradientBrush brush = new LinearGradientBrush(
+                bounds,
+                ColorTranslator.FromHtml("#0B1526"),
+                ColorTranslator.FromHtml("#16295C"),
+                135F))
+            {
+                e.Graphics.FillRectangle(brush, bounds);
+            }
+
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            using (SolidBrush soft = new SolidBrush(Color.FromArgb(14, 255, 255, 255)))
+            {
+                e.Graphics.FillEllipse(soft, bounds.Width - 210, -90, 320, 320);
+                e.Graphics.FillEllipse(soft, -120, bounds.Height - 190, 280, 280);
+            }
+
+            using (SolidBrush accent = new SolidBrush(Color.FromArgb(28, 37, 99, 235)))
+            {
+                e.Graphics.FillEllipse(accent, bounds.Width - 120, bounds.Height - 140, 220, 220);
+            }
         }
 
         // =====================================================================
-        // Runtime styling (not parsed by the designer)
+        // Runtime styling
         // =====================================================================
         private void ApplyLoginStyle()
         {
-            this.BackColor = Color.White;
-            this.Font = new Font("Segoe UI", 9F);
+            ThemePalette p = AppTheme.P;
+
+            this.BackColor = p.Background;
+            this.Font = ThemeFonts.Body;
 
             // ----- Left brand panel -----
-            pnlLeft.BackColor = Dark;
-            pnlAccent.BackColor = Primary;
-
-            lblBrand.Font = new Font("Segoe UI Semibold", 26F);
+            lblBrand.Font = new Font("Segoe UI Semibold", 27F);
             lblBrand.ForeColor = Color.White;
-            lblBrand.BackColor = Color.Transparent;
 
-            lblTag.Font = new Font("Segoe UI", 11F);
-            lblTag.ForeColor = ColorTranslator.FromHtml("#CBD5E1");
-            lblTag.BackColor = Color.Transparent;
+            lblTag.Font = new Font("Segoe UI", 10.5F);
+            lblTag.ForeColor = ColorTranslator.FromHtml("#B9C6DA");
+
+            lblCopyright.Font = ThemeFonts.Small;
+            lblBrandVersion.Font = ThemeFonts.Small;
 
             // ----- Right panel -----
-            pnlRight.BackColor = Color.White;
+            pnlRight.BackColor = p.Background;
 
-            lblWelcome.Font = new Font("Segoe UI Semibold", 22F);
-            lblWelcome.ForeColor = TextMain;
+            // ----- Card labels -----
+            lblWelcome.Font = ThemeFonts.H1;
+            lblSub.Font = ThemeFonts.Body;
+            lblHelp.Font = ThemeFonts.Tiny;
+            lblVersion.Font = ThemeFonts.Tiny;
 
-            lblSub.Font = new Font("Segoe UI", 11F);
-            lblSub.ForeColor = TextMuted;
+            // ----- Buttons -----
+            btnLogin.Font = new Font("Segoe UI Semibold", 10.5F);
+            btnExit.Font = new Font("Segoe UI Semibold", 9.5F);
 
-            lblUser.Font = new Font("Segoe UI Semibold", 9.5F);
-            lblUser.ForeColor = TextMain;
-            lblPass.Font = new Font("Segoe UI Semibold", 9.5F);
-            lblPass.ForeColor = TextMain;
+            btnTheme.IconGlyph = AppTheme.IsDark ? ThemeIcons.Sun : ThemeIcons.Moon;
 
-            StyleInput(pnlUser, txtUserName);
-            StyleInput(pnlPass, txtPassword);
+            // ----- Input events -----
+            CenterCard();
+        }
 
-            chkShow.Font = new Font("Segoe UI", 9F);
-            chkShow.ForeColor = TextMuted;
-            chkShow.Cursor = Cursors.Hand;
-            chkShow.CheckedChanged += chkShow_CheckedChanged;
-
-            lblError.Font = new Font("Segoe UI", 9F);
-            lblError.ForeColor = ErrorColor;
-
-            // Sign In button
-            btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.UseVisualStyleBackColor = false;
-            btnLogin.BackColor = Primary;
-            btnLogin.ForeColor = Color.White;
-            btnLogin.Font = new Font("Segoe UI Semibold", 11F);
-            btnLogin.Cursor = Cursors.Hand;
-            btnLogin.FlatAppearance.BorderSize = 0;
-            btnLogin.FlatAppearance.MouseOverBackColor = PrimaryHover;
-            btnLogin.FlatAppearance.MouseDownBackColor = PrimaryHover;
-
-            // Exit button
-            btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.UseVisualStyleBackColor = false;
-            btnExit.BackColor = Color.White;
-            btnExit.ForeColor = TextMuted;
-            btnExit.Font = new Font("Segoe UI", 10F);
-            btnExit.Cursor = Cursors.Hand;
-            btnExit.FlatAppearance.BorderSize = 0;
-            btnExit.FlatAppearance.MouseOverBackColor = ColorTranslator.FromHtml("#F1F5F9");
-
-            txtPassword.KeyUp += txtPassword_KeyUp;
-
-            this.ActiveControl = txtUserName;
+        private void HandleThemeChanged(object sender, EventArgs e)
+        {
+            ApplyLoginStyle();
+            pnlLeft.Invalidate();
+            Invalidate(true);
         }
 
         // =====================================================================
@@ -372,9 +480,9 @@ namespace SupplyBranch.Forms
                     collection.AddRange(savedUsers);
                 }
 
-                txtUserName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                txtUserName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                txtUserName.AutoCompleteCustomSource = collection;
+                txtUserName.InnerTextBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtUserName.InnerTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtUserName.InnerTextBox.AutoCompleteCustomSource = collection;
             }
             catch
             {
@@ -416,52 +524,11 @@ namespace SupplyBranch.Forms
             }
         }
 
-        private void StyleInput(Panel pnl, TextBox tb)
-        {
-            pnl.BackColor = Color.White;
-            tb.BackColor = Color.White;
-            tb.ForeColor = TextMain;
-            tb.Font = new Font("Segoe UI", 11F);
-            tb.BorderStyle = BorderStyle.None;
-            tb.Top = (pnl.Height - tb.Height) / 2;
-
-            pnl.Paint += InputPanel_Paint;
-            pnl.Click += (s, e) => tb.Focus();
-            tb.Enter += Input_FocusChanged;
-            tb.Leave += Input_FocusChanged;
-        }
-
-        private void InputPanel_Paint(object sender, PaintEventArgs e)
-        {
-            Panel pnl = (Panel)sender;
-            bool focused = false;
-            foreach (Control c in pnl.Controls)
-            {
-                if (c.Focused) focused = true;
-            }
-
-            using (Pen pen = new Pen(focused ? Primary : BorderColor, focused ? 2 : 1))
-            {
-                e.Graphics.DrawRectangle(pen, 0, 0, pnl.Width - 1, pnl.Height - 1);
-            }
-        }
-
-        private void Input_FocusChanged(object sender, EventArgs e)
-        {
-            Control c = sender as Control;
-            if (c != null && c.Parent != null) c.Parent.Invalidate();
-        }
-
-        private void chkShow_CheckedChanged(object sender, EventArgs e)
-        {
-            txtPassword.UseSystemPasswordChar = !chkShow.Checked;
-        }
-
         private void txtPassword_KeyUp(object sender, KeyEventArgs e)
         {
             if (Control.IsKeyLocked(Keys.CapsLock) && string.IsNullOrEmpty(lblError.Text))
             {
-                lblError.ForeColor = TextMuted;
+                lblError.ForeColor = AppTheme.P.TextMuted;
                 lblError.Text = "Caps Lock is on";
             }
             else if (!Control.IsKeyLocked(Keys.CapsLock) && lblError.Text == "Caps Lock is on")
@@ -472,14 +539,19 @@ namespace SupplyBranch.Forms
 
         private void ShowError(string message, Control focusTarget = null)
         {
-            lblError.ForeColor = ErrorColor;
+            lblError.ForeColor = AppTheme.P.Danger;
             lblError.Text = message;
-            if (focusTarget != null) focusTarget.Focus();
+
+            if (focusTarget is InputBox)
+                ((InputBox)focusTarget).FocusInput();
+            else if (focusTarget != null)
+                focusTarget.Focus();
         }
 
         private void SetBusy(bool busy)
         {
             btnLogin.Enabled = !busy;
+            btnExit.Enabled = !busy;
             txtUserName.Enabled = !busy;
             txtPassword.Enabled = !busy;
             btnLogin.Text = busy ? "Signing in..." : "Sign In";
@@ -498,13 +570,13 @@ namespace SupplyBranch.Forms
         {
             lblError.Text = "";
 
-            if (txtUserName.Text.Trim() == "")
+            if (txtUserName.Value.Trim() == "")
             {
                 ShowError("Please enter your user name.", txtUserName);
                 return;
             }
 
-            if (txtPassword.Text.Trim() == "")
+            if (txtPassword.Value.Trim() == "")
             {
                 ShowError("Please enter your password.", txtPassword);
                 return;
@@ -512,8 +584,8 @@ namespace SupplyBranch.Forms
 
             User user = new User
             {
-                UserName = txtUserName.Text.Trim(),
-                Password = txtPassword.Text
+                UserName = txtUserName.Value.Trim(),
+                Password = txtPassword.Value
             };
 
             SetBusy(true);
@@ -538,6 +610,9 @@ namespace SupplyBranch.Forms
                 CurrentUser.FullName = user.UserName;
                 SaveUsernameToHistory(user.UserName);
 
+                // Stop listening for theme changes while this form is hidden.
+                AppTheme.ThemeChanged -= HandleThemeChanged;
+
                 frmMain frm = new frmMain();
                 frm.FormClosed += (s, a) => Application.Exit();
                 frm.Show();
@@ -546,8 +621,8 @@ namespace SupplyBranch.Forms
             else
             {
                 ShowError("Invalid user name or password.");
-                txtPassword.Clear();
-                txtPassword.Focus();
+                txtPassword.Value = string.Empty;
+                txtPassword.FocusInput();
             }
         }
     }

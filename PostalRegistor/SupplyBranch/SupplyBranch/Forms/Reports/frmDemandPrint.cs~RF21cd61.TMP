@@ -1,0 +1,244 @@
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+using SupplyBranch.DataAccess;
+
+namespace SupplyBranch.Forms.Reports
+{
+    public partial class frmDemandPrint : Form
+    {
+        private DataGridView dgvSupply;
+        private readonly ReportDAL _reportDAL = new ReportDAL();
+
+        private DateTimePicker dtFrom;
+        private DateTimePicker dtTo;
+
+        private Button btnDemand;
+        private Button btnDispatch;
+        private Button btnMemo;
+        private Button btnInvoice;
+
+        public frmDemandPrint()
+        {
+            InitializeComponent();
+            BuildDemandPrintForm();
+        }
+
+        private void BuildDemandPrintForm()
+        {
+            Text = "Supply Number Selection";
+            StartPosition = FormStartPosition.CenterScreen;
+            Size = new Size(1100, 650);
+            MinimumSize = new Size(900, 500);
+            BackColor = Color.White;
+
+            TableLayoutPanel mainLayout = new TableLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                ColumnCount = 1,
+                RowCount = 3,
+                Padding = new Padding(12),
+                BackColor = Color.White
+            };
+
+            mainLayout.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 55F));
+
+            mainLayout.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100F));
+
+            mainLayout.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 55F));
+
+            // Date filter panel
+            FlowLayoutPanel datePanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = false,
+                Padding = new Padding(0, 8, 0, 0)
+            };
+
+            Label lblFrom = new Label
+            {
+                Text = "From Date:",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                Margin = new Padding(3, 8, 5, 0)
+            };
+
+            dtFrom = CreateDatePicker();
+            dtFrom.Value = new DateTime(DateTime.Today.Year, 1, 1);
+
+            Label lblTo = new Label
+            {
+                Text = "To Date:",
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                Margin = new Padding(25, 8, 5, 0)
+            };
+
+            dtTo = CreateDatePicker();
+            dtTo.Value = DateTime.Today;
+
+            datePanel.Controls.Add(lblFrom);
+            datePanel.Controls.Add(dtFrom);
+            datePanel.Controls.Add(lblTo);
+            datePanel.Controls.Add(dtTo);
+
+            mainLayout.Controls.Add(datePanel, 0, 0);
+
+            // Supply grid
+            dgvSupply = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                AutoGenerateColumns = false,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                BackgroundColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+                ColumnHeadersHeight = 35,
+                EnableHeadersVisualStyles = false,
+                MultiSelect = true,
+                ReadOnly = false,
+                RowHeadersVisible = false,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            };
+
+            dgvSupply.ColumnHeadersDefaultCellStyle.BackColor =
+                Color.FromArgb(31, 78, 121);
+
+            dgvSupply.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+
+            dgvSupply.ColumnHeadersDefaultCellStyle.Font =
+                new Font("Segoe UI", 9F, FontStyle.Bold);
+
+            dgvSupply.DefaultCellStyle.Font =
+                new Font("Segoe UI", 9F, FontStyle.Regular);
+
+            dgvSupply.DefaultCellStyle.SelectionBackColor =
+                Color.FromArgb(221, 235, 247);
+
+            dgvSupply.DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            DataGridViewCheckBoxColumn checkColumn =
+                new DataGridViewCheckBoxColumn
+                {
+                    Name = "Select",
+                    HeaderText = "Select",
+                    DataPropertyName = "Select",
+                    FillWeight = 8,
+                    SortMode = DataGridViewColumnSortMode.Automatic
+                };
+
+            DataGridViewTextBoxColumn supplyNoColumn =
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "SupplyNo",
+                    HeaderText = "Supply Number",
+                    DataPropertyName = "SupplyNo",
+                    FillWeight = 22,
+                    SortMode = DataGridViewColumnSortMode.Automatic
+                };
+
+            DataGridViewTextBoxColumn supplyDateColumn =
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "SupplyDate",
+                    HeaderText = "Supply Date",
+                    DataPropertyName = "SupplyDate",
+                    FillWeight = 16,
+                    SortMode = DataGridViewColumnSortMode.Automatic
+                };
+
+            DataGridViewTextBoxColumn officeColumn =
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "OfficeName",
+                    HeaderText = "Office",
+                    DataPropertyName = "OfficeName",
+                    FillWeight = 22,
+                    SortMode = DataGridViewColumnSortMode.Automatic
+                };
+
+            DataGridViewTextBoxColumn statusColumn =
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "StatusName",
+                    HeaderText = "Status",
+                    DataPropertyName = "StatusName",
+                    FillWeight = 16,
+                    SortMode = DataGridViewColumnSortMode.Automatic
+                };
+
+            dgvSupply.Columns.Add(checkColumn);
+            dgvSupply.Columns.Add(supplyNoColumn);
+            dgvSupply.Columns.Add(supplyDateColumn);
+            dgvSupply.Columns.Add(officeColumn);
+            dgvSupply.Columns.Add(statusColumn);
+
+            mainLayout.Controls.Add(dgvSupply, 0, 1);
+
+            // Report buttons
+            FlowLayoutPanel buttonPanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.RightToLeft,
+                WrapContents = false,
+                Padding = new Padding(0, 8, 0, 0)
+            };
+
+            btnInvoice = CreateReportButton("Invoice");
+            btnMemo = CreateReportButton("Memo");
+            btnDispatch = CreateReportButton("Dispatch");
+            btnDemand = CreateReportButton("Demand");
+
+            buttonPanel.Controls.Add(btnInvoice);
+            buttonPanel.Controls.Add(btnMemo);
+            buttonPanel.Controls.Add(btnDispatch);
+            buttonPanel.Controls.Add(btnDemand);
+
+            mainLayout.Controls.Add(buttonPanel, 0, 2);
+
+            Controls.Add(mainLayout);
+        }
+
+        private DateTimePicker CreateDatePicker()
+        {
+            return new DateTimePicker
+            {
+                Format = DateTimePickerFormat.Custom,
+                CustomFormat = "dd-MMM-yyyy",
+                Width = 145,
+                Height = 28,
+                Font = new Font("Segoe UI", 9F),
+                Margin = new Padding(0, 3, 0, 0)
+            };
+        }
+
+        private Button CreateReportButton(string buttonText)
+        {
+            return new Button
+            {
+                Text = buttonText,
+                Width = 125,
+                Height = 35,
+                Margin = new Padding(6, 0, 0, 0),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(31, 78, 121),
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                Cursor = Cursors.Hand,
+                UseVisualStyleBackColor = false
+            };
+        }
+
+        private void frmDemandPrint_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

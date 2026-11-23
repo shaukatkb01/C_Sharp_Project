@@ -1,0 +1,633 @@
+﻿namespace SupplyBranch.Forms
+{
+    partial class frmMain
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mastersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.officeZoneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.officeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stampCategoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.denominationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUserManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enterStockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockAdjustmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indentEntryerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.indentCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.supplyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchIndentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.draftSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.officeWiseReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stockReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.demandPrintOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.administrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backupDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRestoreDatabase = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuRestoreSafetyBackup = new System.Windows.Forms.ToolStripMenuItem();
+            this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuKeyboardShortcuts = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pSBranchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblMain = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsUser = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsDate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pnlMain = new System.Windows.Forms.Panel();
+            this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.mastersToolStripMenuItem,
+            this.stockToolStripMenuItem,
+            this.transactionsToolStripMenuItem,
+            this.reportsToolStripMenuItem,
+            this.administrationToolStripMenuItem,
+            this.helpToolStripMenuItem,
+            this.pSBranchToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logoutToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Tag = "File";
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // logoutToolStripMenuItem
+            // 
+            this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
+            this.logoutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.logoutToolStripMenuItem.ShowShortcutKeys = false;
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.logoutToolStripMenuItem.Tag = "File";
+            this.logoutToolStripMenuItem.Text = "Logout";
+            this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.exitToolStripMenuItem.ShowShortcutKeys = false;
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.exitToolStripMenuItem.Tag = "File";
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // mastersToolStripMenuItem
+            // 
+            this.mastersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.officeZoneToolStripMenuItem,
+            this.officeToolStripMenuItem,
+            this.stampCategoryToolStripMenuItem,
+            this.denominationToolStripMenuItem,
+            this.usersToolStripMenuItem,
+            this.statusToolStripMenuItem,
+            this.rolesToolStripMenuItem,
+            this.userRolesToolStripMenuItem,
+            this.mnuUserManagement});
+            this.mastersToolStripMenuItem.Name = "mastersToolStripMenuItem";
+            this.mastersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.M)));
+            this.mastersToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.mastersToolStripMenuItem.Tag = "Master";
+            this.mastersToolStripMenuItem.Text = "Masters";
+            // 
+            // officeZoneToolStripMenuItem
+            // 
+            this.officeZoneToolStripMenuItem.Name = "officeZoneToolStripMenuItem";
+            this.officeZoneToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.officeZoneToolStripMenuItem.ShowShortcutKeys = false;
+            this.officeZoneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.officeZoneToolStripMenuItem.Text = "Office Zone";
+            this.officeZoneToolStripMenuItem.Click += new System.EventHandler(this.officeZoneToolStripMenuItem_Click);
+            // 
+            // officeToolStripMenuItem
+            // 
+            this.officeToolStripMenuItem.Name = "officeToolStripMenuItem";
+            this.officeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.O)));
+            this.officeToolStripMenuItem.ShowShortcutKeys = false;
+            this.officeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.officeToolStripMenuItem.Text = "Office";
+            this.officeToolStripMenuItem.Click += new System.EventHandler(this.officeToolStripMenuItem_Click);
+            // 
+            // stampCategoryToolStripMenuItem
+            // 
+            this.stampCategoryToolStripMenuItem.Name = "stampCategoryToolStripMenuItem";
+            this.stampCategoryToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.stampCategoryToolStripMenuItem.ShowShortcutKeys = false;
+            this.stampCategoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stampCategoryToolStripMenuItem.Text = "Stamp Category";
+            this.stampCategoryToolStripMenuItem.Click += new System.EventHandler(this.stampCategoryToolStripMenuItem_Click);
+            // 
+            // denominationToolStripMenuItem
+            // 
+            this.denominationToolStripMenuItem.Name = "denominationToolStripMenuItem";
+            this.denominationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.denominationToolStripMenuItem.ShowShortcutKeys = false;
+            this.denominationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.denominationToolStripMenuItem.Text = "Denomination";
+            this.denominationToolStripMenuItem.Click += new System.EventHandler(this.denominationToolStripMenuItem_Click);
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.usersToolStripMenuItem.ShowShortcutKeys = false;
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usersToolStripMenuItem.Text = "UnitConversion";
+            this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
+            // 
+            // statusToolStripMenuItem
+            // 
+            this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.statusToolStripMenuItem.Text = "Status";
+            // 
+            // rolesToolStripMenuItem
+            // 
+            this.rolesToolStripMenuItem.Name = "rolesToolStripMenuItem";
+            this.rolesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rolesToolStripMenuItem.Text = "Roles";
+            // 
+            // userRolesToolStripMenuItem
+            // 
+            this.userRolesToolStripMenuItem.Name = "userRolesToolStripMenuItem";
+            this.userRolesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.userRolesToolStripMenuItem.Text = "User Permission";
+            this.userRolesToolStripMenuItem.Click += new System.EventHandler(this.userRolesToolStripMenuItem_Click);
+            // 
+            // mnuUserManagement
+            // 
+            this.mnuUserManagement.Name = "mnuUserManagement";
+            this.mnuUserManagement.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.U)));
+            this.mnuUserManagement.ShowShortcutKeys = false;
+            this.mnuUserManagement.Size = new System.Drawing.Size(180, 22);
+            this.mnuUserManagement.Text = "User Management";
+            this.mnuUserManagement.Click += new System.EventHandler(this.mnuUserManagement_Click);
+            // 
+            // stockToolStripMenuItem
+            // 
+            this.stockToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.enterStockToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.stockAdjustmentToolStripMenuItem});
+            this.stockToolStripMenuItem.Name = "stockToolStripMenuItem";
+            this.stockToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
+            this.stockToolStripMenuItem.ShowShortcutKeys = false;
+            this.stockToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.stockToolStripMenuItem.Tag = "Stock";
+            this.stockToolStripMenuItem.Text = "Stock";
+            // 
+            // enterStockToolStripMenuItem
+            // 
+            this.enterStockToolStripMenuItem.Name = "enterStockToolStripMenuItem";
+            this.enterStockToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.enterStockToolStripMenuItem.ShowShortcutKeys = false;
+            this.enterStockToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.enterStockToolStripMenuItem.Tag = "StockIn";
+            this.enterStockToolStripMenuItem.Text = "Stock In";
+            this.enterStockToolStripMenuItem.Click += new System.EventHandler(this.enterStockToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.toolStripMenuItem2.ShowShortcutKeys = false;
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Tag = "StockBalance";
+            this.toolStripMenuItem2.Text = "Stock Balance";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.stockBalanceToolStripMenuItem_Click);
+            // 
+            // stockAdjustmentToolStripMenuItem
+            // 
+            this.stockAdjustmentToolStripMenuItem.Name = "stockAdjustmentToolStripMenuItem";
+            this.stockAdjustmentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.stockAdjustmentToolStripMenuItem.ShowShortcutKeys = false;
+            this.stockAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stockAdjustmentToolStripMenuItem.Tag = "StockAdjustment";
+            this.stockAdjustmentToolStripMenuItem.Text = "Stock Adjustment";
+            this.stockAdjustmentToolStripMenuItem.Click += new System.EventHandler(this.stockAdjustmentToolStripMenuItem_Click);
+            // 
+            // transactionsToolStripMenuItem
+            // 
+            this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.indentToolStripMenuItem,
+            this.supplyToolStripMenuItem});
+            this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+            this.transactionsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.O)));
+            this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(116, 20);
+            this.transactionsToolStripMenuItem.Tag = "SUPPLY";
+            this.transactionsToolStripMenuItem.Text = "Supply Operations";
+            // 
+            // indentToolStripMenuItem
+            // 
+            this.indentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.indentEntryerToolStripMenuItem,
+            this.indentCorrectionToolStripMenuItem});
+            this.indentToolStripMenuItem.Name = "indentToolStripMenuItem";
+            this.indentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.indentToolStripMenuItem.ShowShortcutKeys = false;
+            this.indentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.indentToolStripMenuItem.Tag = "Indent";
+            this.indentToolStripMenuItem.Text = "Indent";
+            // 
+            // indentEntryerToolStripMenuItem
+            // 
+            this.indentEntryerToolStripMenuItem.Name = "indentEntryerToolStripMenuItem";
+            this.indentEntryerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.indentEntryerToolStripMenuItem.Tag = "IndentEntryer";
+            this.indentEntryerToolStripMenuItem.Text = "Indent Entryer";
+            this.indentEntryerToolStripMenuItem.Click += new System.EventHandler(this.indentEntryerToolStripMenuItem_Click);
+            // 
+            // indentCorrectionToolStripMenuItem
+            // 
+            this.indentCorrectionToolStripMenuItem.Name = "indentCorrectionToolStripMenuItem";
+            this.indentCorrectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.indentCorrectionToolStripMenuItem.Tag = "IndentCorrection";
+            this.indentCorrectionToolStripMenuItem.Text = "Indent Correction";
+            this.indentCorrectionToolStripMenuItem.Click += new System.EventHandler(this.indentCorrectionToolStripMenuItem_Click);
+            // 
+            // supplyToolStripMenuItem
+            // 
+            this.supplyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.searchIndentToolStripMenuItem,
+            this.draftSearchToolStripMenuItem});
+            this.supplyToolStripMenuItem.Name = "supplyToolStripMenuItem";
+            this.supplyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.supplyToolStripMenuItem.ShowShortcutKeys = false;
+            this.supplyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supplyToolStripMenuItem.Tag = "Supply";
+            this.supplyToolStripMenuItem.Text = "Supply";
+            // 
+            // searchIndentToolStripMenuItem
+            // 
+            this.searchIndentToolStripMenuItem.Name = "searchIndentToolStripMenuItem";
+            this.searchIndentToolStripMenuItem.ShowShortcutKeys = false;
+            this.searchIndentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchIndentToolStripMenuItem.Tag = "SupplySearch";
+            this.searchIndentToolStripMenuItem.Text = "SupplySearch";
+            this.searchIndentToolStripMenuItem.Click += new System.EventHandler(this.searchIndentToolStripMenuItem_Click);
+            // 
+            // draftSearchToolStripMenuItem
+            // 
+            this.draftSearchToolStripMenuItem.Name = "draftSearchToolStripMenuItem";
+            this.draftSearchToolStripMenuItem.ShowShortcutKeys = false;
+            this.draftSearchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.draftSearchToolStripMenuItem.Tag = "DraftSearch";
+            this.draftSearchToolStripMenuItem.Text = "DraftSearch";
+            this.draftSearchToolStripMenuItem.Click += new System.EventHandler(this.draftSearchToolStripMenuItem_Click);
+            // 
+            // reportsToolStripMenuItem
+            // 
+            this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.officeWiseReportToolStripMenuItem,
+            this.stockReportToolStripMenuItem,
+            this.demandPrintOutToolStripMenuItem});
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.reportsToolStripMenuItem.Tag = "Reports";
+            this.reportsToolStripMenuItem.Text = "Reports";
+            // 
+            // officeWiseReportToolStripMenuItem
+            // 
+            this.officeWiseReportToolStripMenuItem.Name = "officeWiseReportToolStripMenuItem";
+            this.officeWiseReportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.officeWiseReportToolStripMenuItem.ShowShortcutKeys = false;
+            this.officeWiseReportToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.officeWiseReportToolStripMenuItem.Tag = "GeneralReport";
+            this.officeWiseReportToolStripMenuItem.Text = "Indent and Supply Report";
+            this.officeWiseReportToolStripMenuItem.Click += new System.EventHandler(this.officeWiseReportToolStripMenuItem_Click);
+            // 
+            // stockReportToolStripMenuItem
+            // 
+            this.stockReportToolStripMenuItem.Name = "stockReportToolStripMenuItem";
+            this.stockReportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.stockReportToolStripMenuItem.ShowShortcutKeys = false;
+            this.stockReportToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.stockReportToolStripMenuItem.Tag = "StockReport";
+            this.stockReportToolStripMenuItem.Text = "Stock Report";
+            // 
+            // demandPrintOutToolStripMenuItem
+            // 
+            this.demandPrintOutToolStripMenuItem.Name = "demandPrintOutToolStripMenuItem";
+            this.demandPrintOutToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.demandPrintOutToolStripMenuItem.Tag = "DemandPrint";
+            this.demandPrintOutToolStripMenuItem.Text = "Demand PrintOut";
+            this.demandPrintOutToolStripMenuItem.Click += new System.EventHandler(this.demandPrintOutToolStripMenuItem_Click);
+            // 
+            // administrationToolStripMenuItem
+            // 
+            this.administrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changePasswordToolStripMenuItem,
+            this.backupDatabaseToolStripMenuItem,
+            this.mnuRestoreDatabase,
+            this.mnuRestoreSafetyBackup,
+            this.taskToolStripMenuItem});
+            this.administrationToolStripMenuItem.Name = "administrationToolStripMenuItem";
+            this.administrationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
+            this.administrationToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.administrationToolStripMenuItem.Tag = "Administration";
+            this.administrationToolStripMenuItem.Text = "Administration";
+            // 
+            // changePasswordToolStripMenuItem
+            // 
+            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
+            this.changePasswordToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.changePasswordToolStripMenuItem.ShowShortcutKeys = false;
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.changePasswordToolStripMenuItem.Tag = "ChangePassword";
+            this.changePasswordToolStripMenuItem.Text = "Change Password";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
+            // 
+            // backupDatabaseToolStripMenuItem
+            // 
+            this.backupDatabaseToolStripMenuItem.Name = "backupDatabaseToolStripMenuItem";
+            this.backupDatabaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.backupDatabaseToolStripMenuItem.ShowShortcutKeys = false;
+            this.backupDatabaseToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.backupDatabaseToolStripMenuItem.Tag = "Backup";
+            this.backupDatabaseToolStripMenuItem.Text = "Backup Database";
+            this.backupDatabaseToolStripMenuItem.Click += new System.EventHandler(this.backupDatabaseToolStripMenuItem_Click);
+            // 
+            // mnuRestoreDatabase
+            // 
+            this.mnuRestoreDatabase.Name = "mnuRestoreDatabase";
+            this.mnuRestoreDatabase.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.mnuRestoreDatabase.ShowShortcutKeys = false;
+            this.mnuRestoreDatabase.Size = new System.Drawing.Size(183, 22);
+            this.mnuRestoreDatabase.Tag = "Restore";
+            this.mnuRestoreDatabase.Text = "Restore Database";
+            this.mnuRestoreDatabase.Click += new System.EventHandler(this.mnuRestoreDatabase_Click);
+            // 
+            // mnuRestoreSafetyBackup
+            // 
+            this.mnuRestoreSafetyBackup.Name = "mnuRestoreSafetyBackup";
+            this.mnuRestoreSafetyBackup.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.mnuRestoreSafetyBackup.ShowShortcutKeys = false;
+            this.mnuRestoreSafetyBackup.Size = new System.Drawing.Size(183, 22);
+            this.mnuRestoreSafetyBackup.Tag = "RestoreSafety";
+            this.mnuRestoreSafetyBackup.Text = "Restore Safety Backup";
+            this.mnuRestoreSafetyBackup.Click += new System.EventHandler(this.mnuRestoreSafetyBackup_Click);
+            // 
+            // taskToolStripMenuItem
+            // 
+            this.taskToolStripMenuItem.Name = "taskToolStripMenuItem";
+            this.taskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+            this.taskToolStripMenuItem.ShowShortcutKeys = false;
+            this.taskToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.taskToolStripMenuItem.Tag = "Task";
+            this.taskToolStripMenuItem.Text = "Task";
+            this.taskToolStripMenuItem.Click += new System.EventHandler(this.taskToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.userGuideToolStripMenuItem,
+            this.mnuKeyboardShortcuts,
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Tag = "Help";
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // userGuideToolStripMenuItem
+            // 
+            this.userGuideToolStripMenuItem.Name = "userGuideToolStripMenuItem";
+            this.userGuideToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.userGuideToolStripMenuItem.ShowShortcutKeys = false;
+            this.userGuideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.userGuideToolStripMenuItem.Text = "User Guide";
+            this.userGuideToolStripMenuItem.Click += new System.EventHandler(this.userGuideToolStripMenuItem_Click);
+            // 
+            // mnuKeyboardShortcuts
+            // 
+            this.mnuKeyboardShortcuts.Name = "mnuKeyboardShortcuts";
+            this.mnuKeyboardShortcuts.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.mnuKeyboardShortcuts.ShowShortcutKeys = false;
+            this.mnuKeyboardShortcuts.Size = new System.Drawing.Size(180, 22);
+            this.mnuKeyboardShortcuts.Text = "Keyboard Shortcuts";
+            this.mnuKeyboardShortcuts.Click += new System.EventHandler(this.keyboardShortcutsToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.aboutToolStripMenuItem.ShowShortcutKeys = false;
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Text = "About Supply Branch";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // pSBranchToolStripMenuItem
+            // 
+            this.pSBranchToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileIndexToolStripMenuItem});
+            this.pSBranchToolStripMenuItem.Name = "pSBranchToolStripMenuItem";
+            this.pSBranchToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
+            this.pSBranchToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.pSBranchToolStripMenuItem.Text = "PS Branch";
+            // 
+            // fileIndexToolStripMenuItem
+            // 
+            this.fileIndexToolStripMenuItem.Name = "fileIndexToolStripMenuItem";
+            this.fileIndexToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.fileIndexToolStripMenuItem.ShowShortcutKeys = false;
+            this.fileIndexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fileIndexToolStripMenuItem.Text = "FileIndex";
+            this.fileIndexToolStripMenuItem.Click += new System.EventHandler(this.fileIndexToolStripMenuItem_Click);
+            // 
+            // lblMain
+            // 
+            this.lblMain.BackColor = System.Drawing.Color.White;
+            this.lblMain.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblMain.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
+            this.lblMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(43)))), ((int)(((byte)(60)))));
+            this.lblMain.Location = new System.Drawing.Point(0, 24);
+            this.lblMain.Name = "lblMain";
+            this.lblMain.Size = new System.Drawing.Size(800, 82);
+            this.lblMain.TabIndex = 7;
+            this.lblMain.Text = "Supply Branch Management System ";
+            this.lblMain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsUser,
+            this.tsDate,
+            this.tsTime});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tsUser
+            // 
+            this.tsUser.Name = "tsUser";
+            this.tsUser.Size = new System.Drawing.Size(41, 17);
+            this.tsUser.Text = "User :-";
+            // 
+            // tsDate
+            // 
+            this.tsDate.Name = "tsDate";
+            this.tsDate.Size = new System.Drawing.Size(42, 17);
+            this.tsDate.Text = "Date :-";
+            // 
+            // tsTime
+            // 
+            this.tsTime.Name = "tsTime";
+            this.tsTime.Size = new System.Drawing.Size(45, 17);
+            this.tsTime.Text = "Time :-";
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.AutoScroll = true;
+            this.pnlMain.AutoSize = true;
+            this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(0, 106);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(800, 322);
+            this.pnlMain.TabIndex = 10;
+            // 
+            // frmMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pnlMain);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.lblMain);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Supply Branch Management System";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Shown += new System.EventHandler(this.frmMain_Shown);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mastersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem officeZoneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem officeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem administrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stampCategoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem denominationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem officeWiseReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backupDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuRestoreDatabase;
+        private System.Windows.Forms.Label lblMain;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tsUser;
+        private System.Windows.Forms.ToolStripStatusLabel tsDate;
+        private System.Windows.Forms.ToolStripStatusLabel tsTime;
+        private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stockReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rolesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userRolesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem indentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuUserManagement;
+        private System.Windows.Forms.ToolStripMenuItem indentEntryerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem indentCorrectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem supplyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchIndentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem draftSearchToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.ToolStripMenuItem taskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userGuideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuKeyboardShortcuts;
+        private System.Windows.Forms.ToolStripMenuItem mnuRestoreSafetyBackup;
+        private System.Windows.Forms.ToolStripMenuItem stockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enterStockToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stockAdjustmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pSBranchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileIndexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem demandPrintOutToolStripMenuItem;
+    }
+}

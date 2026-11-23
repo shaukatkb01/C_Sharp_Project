@@ -286,6 +286,8 @@
     <Compile Include="Forms\Transactions\frmSupplySearch.Designer.cs">
       <DependentUpon>frmSupplySearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ModernControls.cs" />
+    <Compile Include="Helpers\AppTheme.cs" />
     <Compile Include="Helpers\CurrentUser.cs" />
     <Compile Include="Helpers\DatabaseBackup.cs" />
     <Compile Include="Helpers\DBHelper.cs" />

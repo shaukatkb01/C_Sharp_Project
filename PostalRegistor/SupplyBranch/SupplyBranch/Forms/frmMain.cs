@@ -1,0 +1,695 @@
+﻿using StampStoreApp;
+using SupplyBranch.Classes;
+using SupplyBranch.DataAccess;
+using SupplyBranch.Forms.Administration;
+using SupplyBranch.Forms.Help;
+using SupplyBranch.Forms.Masters;
+using SupplyBranch.Forms.Reports;
+using SupplyBranch.Forms.Stock;
+using SupplyBranch.Forms.Transactions;
+using SupplyBranch.Helpers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SupplyBranch.Forms
+{
+    public partial class frmMain : Form
+    {
+        private Form activeForm = null;
+        private Button btnDashboard;
+
+        private void UpdateDashboardButtonVisibility()
+        {
+            if (btnDashboard == null)
+                return;
+
+            bool isDashboardShowing = pnlMain.Controls
+                .OfType<frmDashBoard>()
+                .Any(f => f.Visible);
+
+            btnDashboard.Visible = !isDashboardShowing;
+        }
+
+        private async Task<string> GetLatestVersionAsync()
+        {
+            string url = "https://raw.githubusercontent.com/shaukatkb01/C_Sharp_Project/SupplyBranch-Only/PostalRegistor/SupplyBranch/UpdateInfo.txt";
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(10);
+                    string content = await client.GetStringAsync(url);
+
+                    if (string.IsNullOrWhiteSpace(content))
+                        return string.Empty;
+
+                    // GitHub text file mein 2 lines hongi:
+                    // Line 1: Version Number (e.g., 1.0.0.1)
+                    // Line 2: ZIP Download Link
+                    string[] lines = content.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (lines.Length > 0)
+                    {
+                        string latestVersion = lines[0].Trim();
+                        AppVersionInfo.AvailableVersion = latestVersion;
+
+                        if (lines.Length > 1)
+                        {
+                            AppVersionInfo.DownloadUrl = lines[1].Trim();
+                        }
+
+                        return latestVersion;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silent handling: Internet na hone par startup delay/error popup na aaye
+                Debug.WriteLine("UPDATE CHECK ERROR: " + ex.Message);
+            }
+
+            return string.Empty;
+        }
+
+        private void Logout()
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to logout?",
+                "Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+                return;
+
+
+            // ========================================
+            // Take Database Backup
+            // ========================================
+
+            if (!DatabaseBackup.BackupDatabase())
+            {
+                MessageBox.Show(
+                    "Logout cancelled because database backup could not be completed.",
+                    "Logout",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+
+            // ========================================
+            // Clear Current User
+            // ========================================
+
+            CurrentUser.UserID = 0;
+            CurrentUser.UserName = null;
+            CurrentUser.FullName = null;
+
+
+            // ========================================
+            // Close Forms inside pnlMain
+            // ========================================
+
+            foreach (Control control in pnlMain.Controls)
+            {
+                if (control is Form childForm)
+                {
+                    childForm.Close();
+                }
+            }
+
+            pnlMain.Controls.Clear();
+
+
+            // ========================================
+            // Show Login
+            // ========================================
+
+            frmLogin login = new frmLogin();
+
+            login.Show();
+
+            this.Hide();
+        }
+
+        private void OpenForm(Form childForm)
+        {
+            // ==========================================
+            // 1. Close any currently open child forms in pnlMain
+            // ==========================================
+            foreach (Form openForm in pnlMain.Controls.OfType<Form>().ToList())
+            {
+                openForm.Close();
+                openForm.Dispose();
+                pnlMain.Controls.Remove(openForm);
+            }
+
+            // ==========================================
+            // 2. Open new form
+            // ==========================================
+            if (childForm is frmDashBoard dashboard)
+                dashboard.NavigationRequested += Dashboard_NavigationRequested;
+
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            childForm.Margin = new Padding(0);
+
+            pnlMain.Controls.Add(childForm);
+            childForm.BringToFront();
+            childForm.Show();
+
+            // ==========================================
+            // 3. Dashboard button visibility (hide ONLY when frmDashBoard is shown)
+            // ==========================================
+            if (btnDashboard != null)
+            {
+                btnDashboard.Visible = !(childForm is frmDashBoard);
+                btnDashboard.BringToFront();
+            }
+
+            // ==========================================
+            // 4. Dynamic SubTitle in lblMain (Next Line)
+            // ==========================================
+            string mainTitle = "Supply Branch Management System ";
+            string subTitleText = "";
+
+            Control[] foundControls = childForm.Controls.Find("lblSubTitle", true);
+
+            if (foundControls.Length > 0 && foundControls[0] is Label lblSub)
+            {
+                subTitleText = lblSub.Text;
+            }
+            else if (!string.IsNullOrWhiteSpace(childForm.Text))
+            {
+                subTitleText = childForm.Text;
+            }
+
+            if (!string.IsNullOrWhiteSpace(subTitleText))
+            {
+                lblMain.Text = $"{mainTitle}\n{subTitleText}";
+            }
+            else
+            {
+                lblMain.Text = mainTitle;
+            }
+        }
+        // ==========================================
+        // return to dashboard
+        // ==========================================
+        private Button CreateMyButton(string text, Control parentContainer, int rightMargin = 15, int bottomMargin = 12)
+        {
+            Button button = new Button
+            {
+                Text = text,
+                Size = new Size(120, 34),
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(51, 65, 85),
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                UseVisualStyleBackColor = false,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            button.FlatAppearance.BorderSize = 1;
+            button.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
+
+            if (parentContainer != null)
+            {
+                parentContainer.Controls.Add(button);
+
+                // Aik chhota sa helper function jo button ko right-bottom par rakhta hai
+                void PositionButton()
+                {
+                    int x = Math.Max(0, parentContainer.ClientSize.Width - button.Width - rightMargin);
+                    int y = Math.Max(0, parentContainer.ClientSize.Height - button.Height - bottomMargin);
+                    button.Location = new Point(x, y);
+                }
+
+                // Shuru mein position set karein
+                PositionButton();
+
+                // Jab bhi lblMain ka size badle (jaise Load ya Resize par), position dobara set karein
+                parentContainer.SizeChanged += (s, e) => PositionButton();
+            }
+
+            return button;
+        }
+
+
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            // F5 = Refresh active form
+            if (e.KeyCode == Keys.F5)
+            {
+                RefreshActiveForm();
+                e.Handled = true;
+            }
+
+            // Esc = Close active child form
+            else if (e.KeyCode == Keys.Escape)
+            {
+                CloseActiveForm();
+                e.Handled = true;
+            }
+        }
+        private void CloseActiveForm()
+        {
+            Form activeForm = pnlMain.Controls
+                .OfType<Form>()
+                .FirstOrDefault(f => f.Visible);
+
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+        }
+        private void RefreshActiveForm()
+        {
+            Form activeForm = pnlMain.Controls
+                .OfType<Form>()
+                .FirstOrDefault(f => f.Visible);
+
+            if (activeForm is IRefreshable refreshable)
+            {
+                refreshable.RefreshData();
+            }
+        }
+        public interface IRefreshable
+        {
+            void RefreshData();
+        }
+        public frmMain()
+        {
+            InitializeComponent();
+            ClearMenuShortcuts(menuStrip1.Items);
+
+            this.KeyPreview = true;
+            this.KeyDown += frmMain_KeyDown;
+
+            btnDashboard = CreateMyButton("Dashboard", lblMain, rightMargin: 15, bottomMargin: 12);
+
+            btnDashboard.Click += (sender, e) =>
+            {
+                OpenForm(new frmDashBoard());
+            };
+        }
+
+        private void Dashboard_NavigationRequested(Form childForm)
+        {
+            OpenForm(childForm);
+        }
+
+        private static void ClearMenuShortcuts(ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                ToolStripMenuItem menuItem = item as ToolStripMenuItem;
+                if (menuItem == null)
+                    continue;
+
+                menuItem.ShortcutKeys = Keys.None;
+                ClearMenuShortcuts(menuItem.DropDownItems);
+            }
+        }
+
+        private void btnPostal_Click(object sender, EventArgs e)
+        {
+            frmPostal_Stationery frmPostal = new frmPostal_Stationery();
+            frmPostal.ShowDialog();
+        }
+
+        private readonly ModuleDAL moduleDAL = new ModuleDAL();
+
+        private void ApplyMenuPermissions(int userID, string userName)
+        {
+            bool isSuperAdmin = string.Equals(userName?.Trim(), "admin", StringComparison.OrdinalIgnoreCase);
+
+            HashSet<string> allowedCodes = isSuperAdmin
+                ? null
+                : moduleDAL.GetAllowedModuleCodes(userID);
+
+            foreach (ToolStripItem item in menuStrip1.Items)
+            {
+                if (item is ToolStripMenuItem menuItem)
+                {
+                    ApplyMenuItemPermission(menuItem, isSuperAdmin, allowedCodes);
+                }
+            }
+        }
+
+        private void ApplyMenuItemPermission(ToolStripMenuItem menuItem, bool isSuperAdmin, HashSet<string> allowedCodes)
+        {
+            // Pehle child / sub-menu items ko update karein
+            bool hasAnyEnabledChild = false;
+            bool hasAnyChildMenuItem = false;
+
+            foreach (ToolStripItem dropItem in menuItem.DropDownItems)
+            {
+                if (dropItem is ToolStripMenuItem childMenuItem)
+                {
+                    hasAnyChildMenuItem = true;
+                    ApplyMenuItemPermission(childMenuItem, isSuperAdmin, allowedCodes);
+
+                    if (childMenuItem.Enabled)
+                    {
+                        hasAnyEnabledChild = true;
+                    }
+                }
+            }
+
+            string moduleCode = Convert.ToString(menuItem.Tag)?.Trim();
+
+            if (isSuperAdmin)
+            {
+                menuItem.Enabled = true;
+                return;
+            }
+
+            // Agar item par ModuleCode Tag set hai toh permission ke mutabiq enable/disable karein
+            if (!string.IsNullOrWhiteSpace(moduleCode))
+            {
+                menuItem.Enabled = allowedCodes != null && allowedCodes.Contains(moduleCode);
+            }
+            // Agar item par khud Tag nahi hai lekin us ke sub-items hain, toh agar koi child active nahi toh parent disable
+            else if (hasAnyChildMenuItem)
+            {
+                menuItem.Enabled = hasAnyEnabledChild;
+            }
+        }
+        public async void frmMain_Load(object sender, EventArgs e)
+        {
+            ApplyMenuPermissions(CurrentUser.UserID, CurrentUser.UserName);
+
+            UITheme.Apply(this);
+            //DatabaseMigrator.ApplyMigrations();
+            // Form ka default Title
+            this.Text = "SupplyBranch Version " + AppVersion.CurrentVersion;
+
+            // Header Label Formatting
+            lblMain.BackColor = Color.FromArgb(232, 240, 248);
+            lblMain.ForeColor = Color.FromArgb(31, 78, 121);
+            lblMain.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
+            lblMain.TextAlign = ContentAlignment.MiddleCenter;
+            lblMain.AutoSize = false;
+            lblMain.Dock = DockStyle.Top;
+            lblMain.Height = 100;
+
+            // Status Strip Data
+            tsUser.Text = "User: " + CurrentUser.UserName;
+            tsDate.Text = "Date: " + DateTime.Now.ToString("dd-MMM-yyyy");
+            tsTime.Text = "Time: " + DateTime.Now.ToString("hh:mm:ss tt");
+
+            tsUser.Padding = new Padding(0, 0, 25, 0);
+            tsDate.Padding = new Padding(0, 0, 25, 0);
+            tsTime.Padding = new Padding(0, 0, 10, 0);
+
+            // Dashboard Open Karein
+            OpenForm(new frmDashBoard());
+
+            // Admin Menus Control
+            bool isAdmin = string.Equals(CurrentUser.UserName, "admin", StringComparison.OrdinalIgnoreCase);
+            mnuRestoreDatabase.Visible = isAdmin;
+            mnuRestoreSafetyBackup.Visible = isAdmin;
+            mnuUserManagement.Visible = isAdmin;
+
+
+            frmDashBoard dashboard = new frmDashBoard();
+            OpenForm(dashboard);
+
+            //UpdateDashboardButtonVisibility();
+        }
+
+
+
+        private void officeZoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmOfficeZone());
+        }
+
+        private void officeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmOffice());
+        }
+
+        private void stampCategoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStampCategory());
+        }
+
+        private void denominationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmDenomination());
+        }
+
+        
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseBackup.BackupDatabase();
+            Application.Exit();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmUnitConversionMaster());
+        }
+
+        private void indentCorrectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmIndentSearch());
+        }
+
+        private void indentEntryerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmIndent());
+
+        }
+
+        private void searchIndentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmSupplySearch());    
+        }
+
+        private void draftSearchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmDraftSupply());
+        }
+
+        private void officeWiseReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+            OpenForm(new frmReport());
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logout();
+        }
+
+      
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            OpenForm(new frmChangePassword());
+        }
+
+        private void backupDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseBackup.ChangeBackupLocation();
+        }
+
+        private void taskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmDashBoard());
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (frmAbout about = new frmAbout())
+            {
+                about.ShowDialog(this);
+            }
+        }
+
+        private void userGuideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (frmUserGuide guide = new frmUserGuide())
+            {
+                guide.ShowDialog(this);
+            }
+        }
+
+        private void keyboardShortcutsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (frmKeyboardShortcuts shortcuts =
+          new frmKeyboardShortcuts())
+            {
+                shortcuts.ShowDialog(this);
+            }
+        }
+
+        private void mnuRestoreDatabase_Click(object sender, EventArgs e)
+        {
+            if (!DatabaseBackup.RestoreDatabase())
+                return;
+
+            Application.Restart();
+        }
+
+        private void mnuRestoreSafetyBackup_Click(object sender, EventArgs e)
+        {
+            if (!DatabaseBackup.RestoreSafetyBackup())
+                return;
+
+            Application.Restart();
+        }
+
+        private void mnuUserManagement_Click(object sender, EventArgs e)
+        {
+            if (!string.Equals(
+            CurrentUser.UserName,
+            "admin",
+            StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show(
+                    "Only Admin user can access User Management.",
+                    "Access Denied",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            using (frmUserManagement form = new frmUserManagement())
+            {
+                //form.ShowDialog(this);
+                OpenForm( new frmUserManagement());
+            }
+        }
+
+        private async void frmMain_Shown(object sender, EventArgs e)
+        {
+            // Form open hone ke baad update check start hoga
+            await CheckForUpdatesAsync();
+        }
+      
+
+        private async Task CheckForUpdatesAsync()
+        {
+            this.Text = "SupplyBranch - Checking Update...";
+
+            try
+            {
+                string currentVersion = AppVersion.CurrentVersion;
+                AppVersionInfo.CurrentVersion = currentVersion;
+
+                string latestVersion = await GetLatestVersionAsync();
+                AppVersionInfo.AvailableVersion = latestVersion;
+
+                if (!string.IsNullOrWhiteSpace(latestVersion))
+                {
+                    if (Version.TryParse(AppVersionInfo.CurrentVersion, out Version current) &&
+                        Version.TryParse(latestVersion, out Version latest))
+                    {
+                        if (latest > current)
+                        {
+                            DialogResult result = MessageBox.Show(
+                                $"A new version of SupplyBranch is available!\n\n" +
+                                $"Current Version: {AppVersionInfo.CurrentVersion}\n" +
+                                $"Latest Version: {latestVersion}\n\n" +
+                                $"Would you like to download and install the update now?",
+                                "SupplyBranch Update Available",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                if (string.IsNullOrEmpty(AppVersionInfo.DownloadUrl))
+                                {
+                                    MessageBox.Show("Download URL missing. Please check UpdateInfo.txt on server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                string tempZipPath = Path.Combine(Path.GetTempPath(), "SupplyBranch_Update.zip");
+
+                                using (var downloadForm = new frmUpdateDownload(AppVersionInfo.DownloadUrl, tempZipPath))
+                                {
+                                    if (downloadForm.ShowDialog() == DialogResult.OK)
+                                    {
+                                        // Batch script trigger hoga aur app close ho jayegi
+                                        UpdateDAL.ApplyUpdateAndRestart(tempZipPath);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("VERSION CHECK ERROR: " + ex.ToString());
+            }
+            finally
+            {
+                // Exception aaye ya na aaye, Title reset ho jayega
+                this.Text = "SupplyBranch Version " + AppVersionInfo.CurrentVersion;
+            }
+        }
+
+        private void enterStockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockIn());
+        }
+
+        private void stockBalanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockBalance());
+        }
+
+        private void stockAdjustmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmStockAdjustment());
+        }
+
+        private void fileIndexToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //FileIndex.Main frm = new FileIndex.Main();
+            //OpenForm(new FileIndex.Main());
+        }
+
+        private void demandPrintOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmDemandPrint());
+        }
+
+        private void userRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmModuleManagement());
+        }
+    }
+}
