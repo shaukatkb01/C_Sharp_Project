@@ -657,7 +657,6 @@ namespace SupplyBranch.Forms
             if (pnlMain != null)
                 pnlMain.BackColor = AppTheme.P.Background;
 
-            AppTheme.ApplyScrollbarTheme(pnlNavHost, true);
             AppTheme.ApplyScrollbarTheme(pnlMain);
 
             if (pnlSidebarDivider != null)
@@ -992,7 +991,6 @@ namespace SupplyBranch.Forms
             lblSidebarUser.Text = displayName;
 
             UpdateHeaderResponsive();
-            AppTheme.ApplyScrollbarTheme(pnlNavHost, true);
             AppTheme.ApplyScrollbarTheme(pnlMain);
             UpdateClock();
 

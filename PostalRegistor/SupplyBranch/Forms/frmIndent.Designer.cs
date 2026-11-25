@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms
+namespace SupplyBranch.Forms
 {
     partial class frmIndent
     {
@@ -41,17 +41,17 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
             this.btnAddItem = new System.Windows.Forms.Button();
-            this.cmbDenomination = new System.Windows.Forms.ComboBox();
+            this.cmbDenomination = new SupplyBranch.Controls.ModernComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpIndentDate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.txtIndentNo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbZone = new System.Windows.Forms.ComboBox();
-            this.cmbOffice = new System.Windows.Forms.ComboBox();
+            this.cmbZone = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbOffice = new SupplyBranch.Controls.ModernComboBox();
             this.dgvItems = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();

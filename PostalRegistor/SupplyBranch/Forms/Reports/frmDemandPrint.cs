@@ -1,5 +1,6 @@
 ﻿using SupplyBranch.DataAccess;
 using SupplyBranch.Forms;
+using SupplyBranch.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -434,7 +435,7 @@ namespace SupplyBranch.Forms.Reports
 
         private void frmDemandPrint_Load(object sender, EventArgs e)
         {
-
+            UITheme.Apply(this);
         }
     }
 }

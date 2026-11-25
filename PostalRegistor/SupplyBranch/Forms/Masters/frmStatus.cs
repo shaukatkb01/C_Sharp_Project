@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SupplyBranch.Helpers;
 
 namespace SupplyBranch.Forms.Masters
 {
@@ -15,6 +16,7 @@ namespace SupplyBranch.Forms.Masters
         public frmStatus()
         {
             InitializeComponent();
+            UITheme.Apply(this);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Reporting.WinForms;
 using SupplyBranch.DataAccess;
 using SupplyBranch.Forms.Transactions;
+using SupplyBranch.Helpers;
 using System;
 using System.Data;
 using System.Windows.Forms;
@@ -87,6 +88,8 @@ namespace SupplyBranch.Forms
 
         public void frmReportPreview_Load(object sender, EventArgs e)
         {
+            //UITheme.Apply(this);
+
             if (_isSupplyDocumentReport)
             {
                 reportViewer1.Reset();

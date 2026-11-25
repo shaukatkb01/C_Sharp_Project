@@ -1,6 +1,12 @@
+using SupplyBranch.Controls;
+using SupplyBranch.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -90,9 +96,43 @@ namespace SupplyBranch.Helpers
             if (persist)
                 SaveMode(mode);
 
+            ApplyNativeMode(mode == AppThemeMode.Dark);
+
             EventHandler handler = ThemeChanged;
             if (handler != null)
                 handler(null, EventArgs.Empty);
+        }
+
+        [DllImport("uxtheme.dll", EntryPoint = "#135")]
+        private static extern int SetPreferredAppMode(int appMode);
+
+        [DllImport("uxtheme.dll", EntryPoint = "#136")]
+        private static extern void FlushMenuThemes();
+
+        private static bool _nativeModeApplied;
+
+        /// <summary>Switches the OS-drawn parts (scroll bars, menus) to dark/light.</summary>
+        public static void ApplyNativeMode(bool dark)
+        {
+            try
+            {
+                SetPreferredAppMode(dark ? 2 : 3);
+                FlushMenuThemes();
+                _nativeModeApplied = true;
+            }
+            catch
+            {
+                // Older Windows versions do not expose these entry points.
+            }
+        }
+
+        /// <summary>Called once when the theme is first used.</summary>
+        public static void EnsureNativeMode()
+        {
+            if (_nativeModeApplied)
+                return;
+
+            ApplyNativeMode(IsDark);
         }
 
         /// <summary>Applies the base form colors for the active theme.</summary>
@@ -101,8 +141,9 @@ namespace SupplyBranch.Helpers
             if (form == null)
                 return;
 
-            form.BackColor = P.Background;
-            form.ForeColor = P.TextPrimary;
+            ThemePalette palette = P;
+            form.BackColor = palette.Background;
+            form.ForeColor = palette.TextPrimary;
             form.Font = ThemeFonts.Body;
         }
 
@@ -123,6 +164,7 @@ namespace SupplyBranch.Helpers
         /// </summary>
         public static void ApplyScrollbarTheme(Control control)
         {
+            EnsureNativeMode();
             ApplyScrollbarTheme(control, IsDark);
         }
 
@@ -141,8 +183,7 @@ namespace SupplyBranch.Helpers
 
                 SetWindowTheme(control.Handle, theme, null);
 
-                // The scrollbar itself is a separate child window, so theme it too.
-                EnumChildWindows(control.Handle, delegate(IntPtr child, IntPtr param)
+                EnumChildWindows(control.Handle, delegate (IntPtr child, IntPtr param)
                 {
                     System.Text.StringBuilder builder = new System.Text.StringBuilder(64);
                     GetClassName(child, builder, builder.Capacity);
@@ -163,39 +204,39 @@ namespace SupplyBranch.Helpers
         {
             return new ThemePalette
             {
-                Background = C("#F3F6FB"),
-                Surface = C("#FFFFFF"),
-                SurfaceAlt = C("#F6F8FC"),
-                Border = C("#E2E8F0"),
+                Background = ColorUtil.FromHexSafe("#F3F6FB", SystemColors.Control),
+                Surface = ColorUtil.FromHexSafe("#FFFFFF", Color.White),
+                SurfaceAlt = ColorUtil.FromHexSafe("#F6F8FC", Color.WhiteSmoke),
+                Border = ColorUtil.FromHexSafe("#E2E8F0", Color.LightGray),
 
-                TextPrimary = C("#0F172A"),
-                TextSecondary = C("#475569"),
-                TextMuted = C("#6B7A90"),
+                TextPrimary = ColorUtil.FromHexSafe("#0F172A", Color.Black),
+                TextSecondary = ColorUtil.FromHexSafe("#475569", Color.DimGray),
+                TextMuted = ColorUtil.FromHexSafe("#6B7A90", Color.Gray),
 
-                Primary = C("#2563EB"),
-                PrimaryHover = C("#1D4ED8"),
-                PrimaryPressed = C("#1E40AF"),
-                OnPrimary = C("#FFFFFF"),
+                Primary = ColorUtil.FromHexSafe("#2563EB", Color.RoyalBlue),
+                PrimaryHover = ColorUtil.FromHexSafe("#1D4ED8", Color.MediumBlue),
+                PrimaryPressed = ColorUtil.FromHexSafe("#1E40AF", Color.DarkBlue),
+                OnPrimary = ColorUtil.FromHexSafe("#FFFFFF", Color.White),
 
-                Success = C("#16A34A"),
-                Warning = C("#D97706"),
-                Danger = C("#DC2626"),
+                Success = ColorUtil.FromHexSafe("#16A34A", Color.SeaGreen),
+                Warning = ColorUtil.FromHexSafe("#D97706", Color.DarkOrange),
+                Danger = ColorUtil.FromHexSafe("#DC2626", Color.Crimson),
 
-                Sidebar = C("#0B1526"),
-                SidebarText = C("#DCE6F5"),
-                SidebarMuted = C("#7F8FA8"),
-                SidebarHover = C("#16233A"),
-                SidebarActive = C("#2563EB"),
+                Sidebar = ColorUtil.FromHexSafe("#0B1526", Color.FromArgb(11, 21, 38)),
+                SidebarText = ColorUtil.FromHexSafe("#DCE6F5", Color.WhiteSmoke),
+                SidebarMuted = ColorUtil.FromHexSafe("#7F8FA8", Color.Silver),
+                SidebarHover = ColorUtil.FromHexSafe("#16233A", Color.FromArgb(22, 35, 58)),
+                SidebarActive = ColorUtil.FromHexSafe("#2563EB", Color.RoyalBlue),
 
-                Header = C("#FFFFFF"),
+                Header = ColorUtil.FromHexSafe("#FFFFFF", Color.White),
 
-                GridHeader = C("#F1F5F9"),
-                GridHeaderText = C("#334155"),
-                GridRow = C("#FFFFFF"),
-                GridRowAlt = C("#F8FAFC"),
-                GridSelection = C("#DBEAFE"),
-                GridSelectionText = C("#1E3A8A"),
-                GridLine = C("#E8EDF5")
+                GridHeader = ColorUtil.FromHexSafe("#F1F5F9", Color.Gainsboro),
+                GridHeaderText = ColorUtil.FromHexSafe("#334155", Color.DarkSlateGray),
+                GridRow = ColorUtil.FromHexSafe("#FFFFFF", Color.White),
+                GridRowAlt = ColorUtil.FromHexSafe("#F8FAFC", Color.WhiteSmoke),
+                GridSelection = ColorUtil.FromHexSafe("#DBEAFE", Color.LightSkyBlue),
+                GridSelectionText = ColorUtil.FromHexSafe("#1E3A8A", Color.Navy),
+                GridLine = ColorUtil.FromHexSafe("#E8EDF5", Color.Gainsboro)
             };
         }
 
@@ -203,45 +244,40 @@ namespace SupplyBranch.Helpers
         {
             return new ThemePalette
             {
-                Background = C("#0A1120"),
-                Surface = C("#111B2E"),
-                SurfaceAlt = C("#17233A"),
-                Border = C("#22314C"),
+                Background = ColorUtil.FromHexSafe("#0A1120", Color.Black),
+                Surface = ColorUtil.FromHexSafe("#111B2E", Color.FromArgb(17, 27, 46)),
+                SurfaceAlt = ColorUtil.FromHexSafe("#17233A", Color.FromArgb(23, 35, 58)),
+                Border = ColorUtil.FromHexSafe("#22314C", Color.DimGray),
 
-                TextPrimary = C("#E9EFFA"),
-                TextSecondary = C("#AEBBD0"),
-                TextMuted = C("#7D8DA6"),
+                TextPrimary = ColorUtil.FromHexSafe("#E9EFFA", Color.White),
+                TextSecondary = ColorUtil.FromHexSafe("#AEBBD0", Color.LightGray),
+                TextMuted = ColorUtil.FromHexSafe("#7D8DA6", Color.Gray),
 
-                Primary = C("#3B82F6"),
-                PrimaryHover = C("#2F74E8"),
-                PrimaryPressed = C("#2563EB"),
-                OnPrimary = C("#FFFFFF"),
+                Primary = ColorUtil.FromHexSafe("#3B82F6", Color.CornflowerBlue),
+                PrimaryHover = ColorUtil.FromHexSafe("#2F74E8", Color.RoyalBlue),
+                PrimaryPressed = ColorUtil.FromHexSafe("#2563EB", Color.MediumBlue),
+                OnPrimary = ColorUtil.FromHexSafe("#FFFFFF", Color.White),
 
-                Success = C("#22C55E"),
-                Warning = C("#F59E0B"),
-                Danger = C("#EF4444"),
+                Success = ColorUtil.FromHexSafe("#22C55E", Color.MediumSeaGreen),
+                Warning = ColorUtil.FromHexSafe("#F59E0B", Color.Orange),
+                Danger = ColorUtil.FromHexSafe("#EF4444", Color.IndianRed),
 
-                Sidebar = C("#070D19"),
-                SidebarText = C("#D5E0F0"),
-                SidebarMuted = C("#73839C"),
-                SidebarHover = C("#111D31"),
-                SidebarActive = C("#2563EB"),
+                Sidebar = ColorUtil.FromHexSafe("#070D19", Color.FromArgb(7, 13, 25)),
+                SidebarText = ColorUtil.FromHexSafe("#D5E0F0", Color.WhiteSmoke),
+                SidebarMuted = ColorUtil.FromHexSafe("#73839C", Color.Gray),
+                SidebarHover = ColorUtil.FromHexSafe("#111D31", Color.FromArgb(17, 29, 49)),
+                SidebarActive = ColorUtil.FromHexSafe("#2563EB", Color.RoyalBlue),
 
-                Header = C("#0D1728"),
+                Header = ColorUtil.FromHexSafe("#0D1728", Color.FromArgb(13, 23, 40)),
 
-                GridHeader = C("#17233A"),
-                GridHeaderText = C("#C9D5E8"),
-                GridRow = C("#111B2E"),
-                GridRowAlt = C("#0E1729"),
-                GridSelection = C("#1E3A8A"),
-                GridSelectionText = C("#EAF1FF"),
-                GridLine = C("#22314C")
+                GridHeader = ColorUtil.FromHexSafe("#17233A", Color.FromArgb(23, 35, 58)),
+                GridHeaderText = ColorUtil.FromHexSafe("#C9D5E8", Color.LightGray),
+                GridRow = ColorUtil.FromHexSafe("#111B2E", Color.FromArgb(17, 27, 46)),
+                GridRowAlt = ColorUtil.FromHexSafe("#0E1729", Color.FromArgb(14, 23, 41)),
+                GridSelection = ColorUtil.FromHexSafe("#1E3A8A", Color.DarkBlue),
+                GridSelectionText = ColorUtil.FromHexSafe("#EAF1FF", Color.White),
+                GridLine = ColorUtil.FromHexSafe("#22314C", Color.DimGray)
             };
-        }
-
-        private static Color C(string hex)
-        {
-            return ColorTranslator.FromHtml(hex);
         }
 
         private static string ThemeFilePath
@@ -355,6 +391,21 @@ namespace SupplyBranch.Helpers
     /// <summary>Small color helpers.</summary>
     public static class ColorUtil
     {
+        public static Color FromHexSafe(string hex, Color fallback)
+        {
+            if (string.IsNullOrWhiteSpace(hex))
+                return fallback;
+
+            try
+            {
+                return ColorTranslator.FromHtml(hex.Trim());
+            }
+            catch
+            {
+                return fallback;
+            }
+        }
+
         public static Color Blend(Color from, Color to, float amount)
         {
             amount = Math.Max(0F, Math.Min(1F, amount));
@@ -381,3 +432,4 @@ namespace SupplyBranch.Helpers
         }
     }
 }
+

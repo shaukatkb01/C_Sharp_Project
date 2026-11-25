@@ -1,27 +1,36 @@
-﻿using SupplyBranch.Controls;
+﻿using StampStoreApp;
+using SupplyBranch.Controls;
+using SupplyBranch.DataAccess;
 using SupplyBranch.Forms.Reports;
 using SupplyBranch.Forms.Stock;
 using SupplyBranch.Forms.Transactions;
 using SupplyBranch.Helpers;
-using StampStoreApp;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
+using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Windows.Forms;
+using static SupplyBranch.DataAccess.SupplyDAL;
 
 namespace SupplyBranch.Forms
 {
     public partial class frmDashBoard : Form
     {
         private readonly DBHelper db = new DBHelper();
+        private readonly SupplyDAL supplyDal = new SupplyDAL();
         private readonly Label[] statValues = new Label[4];
 
         private Label taskEmptyState;
-        private Label supplyEmptyState;
         private ThemedLabel lblTaskComboHint;
+        private CategorySupplyChart supplyChart;
+        private Button btnMetricSheets;
+        private Button btnMetricValue;
+        private bool showValueMetric;
         private DataTable suppliesData;
+        private DataTable chartComparisonData;
         private string currentUserName = "User";
 
         public event Action<Form> NavigationRequested;
@@ -40,6 +49,9 @@ namespace SupplyBranch.Forms
         private void HandleThemeChanged(object sender, EventArgs e)
         {
             BackColor = AppTheme.P.Background;
+            UpdateMetricButtonsStyle();
+            if (supplyChart != null)
+                supplyChart.Invalidate();
             Invalidate(true);
         }
 
@@ -49,8 +61,6 @@ namespace SupplyBranch.Forms
 
         private void BuildDashboardLayout()
         {
-            // Detach and dispose the legacy designer layout but keep the
-            // DataGridViews and the ComboBox so existing data logic still works.
             panel1.Controls.Remove(cmb_Task);
             panel1.Controls.Remove(btnAdd);
             panel1.Controls.Remove(button1);
@@ -62,6 +72,7 @@ namespace SupplyBranch.Forms
 
             panel1.Dispose();
             splitContainerMain.Dispose();
+            dgvSuppliesBottom.Dispose();
             btnAdd.Dispose();
             button1.Dispose();
 
@@ -159,8 +170,8 @@ namespace SupplyBranch.Forms
             {
                 Dock = DockStyle.Fill,
                 FlowDirection = FlowDirection.LeftToRight,
-                WrapContents = false,
-                AutoScroll = true,
+                WrapContents = true,
+                AutoScroll = false,
                 BackColor = Color.Transparent,
                 Padding = new Padding(0, 6, 0, 0),
                 Margin = new Padding(0)
@@ -223,27 +234,22 @@ namespace SupplyBranch.Forms
                 Padding = new Padding(0),
                 Margin = new Padding(0)
             };
-            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57F));
-            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43F));
+            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54F));
+            workArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 46F));
             workArea.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
-            Control taskSection = CreateSection("My Tasks", dgvTasks, out taskEmptyState, true);
-            Control supplySection = CreateSection(
-                "Recent Draft & Approved Supplies", dgvSuppliesBottom, out supplyEmptyState, false);
+            Control taskSection = CreateTasksSection();
+            Control chartSection = CreateSupplyChartSection();
 
             taskSection.Margin = new Padding(0, 0, 12, 0);
-            supplySection.Margin = new Padding(0);
+            chartSection.Margin = new Padding(0);
 
             workArea.Controls.Add(taskSection, 0, 0);
-            workArea.Controls.Add(supplySection, 1, 0);
+            workArea.Controls.Add(chartSection, 1, 0);
             return workArea;
         }
 
-        private Control CreateSection(
-            string heading,
-            DataGridView grid,
-            out Label emptyState,
-            bool withTaskToolbar)
+        private Control CreateTasksSection()
         {
             CardPanel card = new CardPanel
             {
@@ -263,12 +269,12 @@ namespace SupplyBranch.Forms
             };
             layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 36F));
-            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, withTaskToolbar ? 44F : 8F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44F));
             layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
             ThemedLabel title = new ThemedLabel
             {
-                Text = heading,
+                Text = "My Tasks",
                 Role = LabelRole.Primary,
                 Font = ThemeFonts.H3,
                 Dock = DockStyle.Fill,
@@ -277,16 +283,7 @@ namespace SupplyBranch.Forms
             };
 
             layout.Controls.Add(title, 0, 0);
-
-            if (withTaskToolbar)
-                layout.Controls.Add(CreateTaskToolbar(), 0, 1);
-            else
-                layout.Controls.Add(new Panel
-                {
-                    Dock = DockStyle.Fill,
-                    BackColor = Color.Transparent,
-                    Margin = new Padding(0)
-                }, 0, 1);
+            layout.Controls.Add(CreateTaskToolbar(), 0, 1);
 
             ThemedPanel gridHost = new ThemedPanel
             {
@@ -296,11 +293,11 @@ namespace SupplyBranch.Forms
                 Margin = new Padding(0)
             };
 
-            grid.Dock = DockStyle.Fill;
-            grid.Margin = new Padding(0);
-            GridStyler.Apply(grid);
+            dgvTasks.Dock = DockStyle.Fill;
+            dgvTasks.Margin = new Padding(0);
+            GridStyler.Apply(dgvTasks);
 
-            emptyState = new ThemedLabel
+            taskEmptyState = new ThemedLabel
             {
                 Dock = DockStyle.Fill,
                 Role = LabelRole.Muted,
@@ -310,13 +307,138 @@ namespace SupplyBranch.Forms
                 BackColor = Color.Transparent
             };
 
-            gridHost.Controls.Add(grid);
-            gridHost.Controls.Add(emptyState);
-            emptyState.BringToFront();
+            gridHost.Controls.Add(dgvTasks);
+            gridHost.Controls.Add(taskEmptyState);
+            taskEmptyState.BringToFront();
 
             layout.Controls.Add(gridHost, 0, 2);
             card.Controls.Add(layout);
             return card;
+        }
+
+        private Control CreateSupplyChartSection()
+        {
+            CardPanel card = new CardPanel
+            {
+                Dock = DockStyle.Fill,
+                Padding = new Padding(18, 14, 18, 18),
+                Margin = new Padding(0)
+            };
+
+            ThemedTable layout = new ThemedTable
+            {
+                Dock = DockStyle.Fill,
+                Role = PanelRole.Surface,
+                ColumnCount = 1,
+                RowCount = 2,
+                Margin = new Padding(0),
+                Padding = new Padding(0)
+            };
+            layout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
+            layout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            ThemedTable topBar = new ThemedTable
+            {
+                Dock = DockStyle.Fill,
+                Role = PanelRole.Surface,
+                ColumnCount = 2,
+                RowCount = 1,
+                Margin = new Padding(0),
+                Padding = new Padding(0)
+            };
+            topBar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            topBar.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 148F));
+            topBar.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+
+            ThemedLabel title = new ThemedLabel
+            {
+                Text = "Category Supply: FY Comparison",
+                Role = LabelRole.Primary,
+                Font = ThemeFonts.H3,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Margin = new Padding(0)
+            };
+
+            FlowLayoutPanel toggleHost = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.RightToLeft,
+                WrapContents = false,
+                Margin = new Padding(0),
+                Padding = new Padding(0, 3, 0, 3)
+            };
+
+            btnMetricValue = new Button
+            {
+                Text = "Value",
+                Font = ThemeFonts.Small,
+                Size = new Size(68, 28),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                Margin = new Padding(4, 0, 0, 0)
+            };
+            btnMetricValue.Click += (s, e) =>
+            {
+                showValueMetric = true;
+                UpdateMetricButtonsStyle();
+                ApplyChartMetric();
+            };
+
+            btnMetricSheets = new Button
+            {
+                Text = "Sheets",
+                Font = ThemeFonts.Small,
+                Size = new Size(70, 28),
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                Margin = new Padding(0)
+            };
+            btnMetricSheets.Click += (s, e) =>
+            {
+                showValueMetric = false;
+                UpdateMetricButtonsStyle();
+                ApplyChartMetric();
+            };
+
+            toggleHost.Controls.Add(btnMetricValue);
+            toggleHost.Controls.Add(btnMetricSheets);
+            UpdateMetricButtonsStyle();
+
+            topBar.Controls.Add(title, 0, 0);
+            topBar.Controls.Add(toggleHost, 1, 0);
+
+            supplyChart = new CategorySupplyChart
+            {
+                Dock = DockStyle.Fill,
+                CornerRadius = 10,
+                BorderWidth = 1,
+                UseAltSurface = true,
+                Padding = new Padding(12),
+                Margin = new Padding(0, 8, 0, 0)
+            };
+
+            layout.Controls.Add(topBar, 0, 0);
+            layout.Controls.Add(supplyChart, 0, 1);
+            card.Controls.Add(layout);
+            return card;
+        }
+
+        private void UpdateMetricButtonsStyle()
+        {
+            if (btnMetricSheets == null || btnMetricValue == null)
+                return;
+
+            ThemePalette p = AppTheme.P;
+
+            btnMetricSheets.BackColor = !showValueMetric ? p.Primary : p.SurfaceAlt;
+            btnMetricSheets.ForeColor = !showValueMetric ? p.OnPrimary : p.TextSecondary;
+            btnMetricSheets.FlatAppearance.BorderColor = !showValueMetric ? p.Primary : p.Border;
+
+            btnMetricValue.BackColor = showValueMetric ? p.Primary : p.SurfaceAlt;
+            btnMetricValue.ForeColor = showValueMetric ? p.OnPrimary : p.TextSecondary;
+            btnMetricValue.FlatAppearance.BorderColor = showValueMetric ? p.Primary : p.Border;
         }
 
         private Control CreateTaskToolbar()
@@ -439,101 +561,82 @@ namespace SupplyBranch.Forms
         }
 
         // =============================================================
-        //  Supplies bottom grid
+        //  Supply counts + FY comparison chart
         // =============================================================
 
-        private void LoadSuppliesBottom()
+        private void LoadSupplyCounts()
         {
             try
             {
                 string[] statuses = new string[] { "Draft", "Approve" };
-
-                SupplyBranch.DataAccess.SupplyDAL dal = new SupplyBranch.DataAccess.SupplyDAL();
-                DataTable dt = dal.GetSuppliesByStatusNames(statuses);
-
-                suppliesData = dt;
-                dgvSuppliesBottom.DataSource = dt;
-
+                suppliesData = supplyDal.GetSuppliesByStatusNames(statuses);
                 UpdateSupplyStatistics();
-                UpdateEmptyStates();
-
-                if (dgvSuppliesBottom.Columns.Contains("SupplyID"))
-                    dgvSuppliesBottom.Columns["SupplyID"].Visible = false;
-
-                if (dgvSuppliesBottom.Columns.Contains("IndentID"))
-                    dgvSuppliesBottom.Columns["IndentID"].Visible = false;
-
-                if (dgvSuppliesBottom.Columns.Contains("StatusID"))
-                    dgvSuppliesBottom.Columns["StatusID"].Visible = false;
-
-                if (dgvSuppliesBottom.Columns.Contains("SupplyNo"))
-                    dgvSuppliesBottom.Columns["SupplyNo"].HeaderText = "Supply No";
-
-                if (dgvSuppliesBottom.Columns.Contains("SupplyDate"))
-                    dgvSuppliesBottom.Columns["SupplyDate"].HeaderText = "Supply Date";
-
-                if (dgvSuppliesBottom.Columns.Contains("OfficeName"))
-                    dgvSuppliesBottom.Columns["OfficeName"].HeaderText = "Office";
-
-                if (dgvSuppliesBottom.Columns.Contains("TotalSheet"))
-                {
-                    dgvSuppliesBottom.Columns["TotalSheet"].HeaderText = "Total Sheet";
-                    dgvSuppliesBottom.Columns["TotalSheet"].DefaultCellStyle.Alignment =
-                        DataGridViewContentAlignment.MiddleCenter;
-                    dgvSuppliesBottom.Columns["TotalSheet"].Width = 100;
-                }
-                else if (dgvSuppliesBottom.Columns.Contains("TotalPieces"))
-                {
-                    dgvSuppliesBottom.Columns["TotalPieces"].HeaderText = "Total Sheet";
-                    dgvSuppliesBottom.Columns["TotalPieces"].DefaultCellStyle.Alignment =
-                        DataGridViewContentAlignment.MiddleCenter;
-                    dgvSuppliesBottom.Columns["TotalPieces"].Width = 100;
-                }
-
-                if (dgvSuppliesBottom.Columns.Contains("TotalPieces") &&
-                    dgvSuppliesBottom.Columns.Contains("TotalSheet"))
-                {
-                    dgvSuppliesBottom.Columns["TotalPieces"].Visible = false;
-                }
-
-                foreach (DataGridViewColumn col in dgvSuppliesBottom.Columns)
-                {
-                    if (col.Name == "OfficeName" || col.Name == "IndentNo")
-                    {
-                        col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        col.MinimumWidth = 150;
-                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-                    }
-                    else if (col.ValueType == typeof(DateTime) ||
-                             col.Name.ToLower().Contains("date"))
-                    {
-                        col.Width = 110;
-                        col.DefaultCellStyle.Format = "dd-MMM-yyyy";
-                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    }
-                    else if (col.ValueType == typeof(int) ||
-                             col.ValueType == typeof(decimal) ||
-                             col.Name.ToLower().Contains("total") ||
-                             col.Name.ToLower().Contains("sheet"))
-                    {
-                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                        if (col.Width < 80)
-                            col.Width = 90;
-                    }
-                    else
-                    {
-                        col.MinimumWidth = 80;
-                    }
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Unable to load supplies:\n" + ex.Message,
+                    "Unable to load supply summary:\n" + ex.Message,
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadCategorySupplyChart()
+        {
+            try
+            {
+                FinancialYearRange fy = SupplyDAL.GetFinancialYearsRange(DateTime.Today);
+                chartComparisonData = supplyDal.GetCategorySupplyComparison(fy.CurrentFY, fy.LastFY);
+
+                if (supplyChart != null)
+                {
+                    supplyChart.CurrentYearLabel = "Current FY (" + fy.CurrentFY + ")";
+                    supplyChart.LastYearLabel = "Last FY (" + fy.LastFY + ")";
+                    ApplyChartMetric();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (supplyChart != null)
+                    supplyChart.SetItems(new List<CategoryComparisonItem>(), "Sheets");
+
+                MessageBox.Show(
+                    "Unable to load financial year chart data:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ApplyChartMetric()
+        {
+            if (supplyChart == null)
+                return;
+
+            List<CategoryComparisonItem> items = new List<CategoryComparisonItem>();
+
+            if (chartComparisonData != null)
+            {
+                string currentCol = showValueMetric ? "CurrentFyValue" : "CurrentFySheets";
+                string lastCol = showValueMetric ? "LastFyValue" : "LastFySheets";
+
+                foreach (DataRow row in chartComparisonData.Rows)
+                {
+                    string category = Convert.ToString(row["CategoryName"]) ?? "Category";
+                    double currentVal = row[currentCol] == DBNull.Value ? 0 : Convert.ToDouble(row[currentCol]);
+                    double lastVal = row[lastCol] == DBNull.Value ? 0 : Convert.ToDouble(row[lastCol]);
+
+                    items.Add(new CategoryComparisonItem
+                    {
+                        CategoryName = category,
+                        CurrentValue = currentVal,
+                        LastValue = lastVal
+                    });
+                }
+            }
+
+            supplyChart.SetItems(items, showValueMetric ? "Rs." : "Sheets");
         }
 
         // =============================================================
@@ -551,7 +654,8 @@ namespace SupplyBranch.Forms
                 FillCompletedTasksCombo();
                 ConfigureDataGridView();
                 UpdateStatistics();
-                LoadSuppliesBottom();
+                LoadSupplyCounts();
+                LoadCategorySupplyChart();
                 UpdateEmptyStates();
             }
             catch (Exception ex)
@@ -647,7 +751,8 @@ namespace SupplyBranch.Forms
             LoadTasks(showCompleted: true);
             FillCompletedTasksCombo();
             UpdateStatistics();
-            LoadSuppliesBottom();
+            LoadSupplyCounts();
+            LoadCategorySupplyChart();
             UpdateEmptyStates();
         }
 
@@ -836,12 +941,189 @@ namespace SupplyBranch.Forms
                 taskEmptyState.Text = "No tasks to show. Use Add task to create one.";
                 taskEmptyState.Visible = dgvTasks.Rows.Count == 0;
             }
+        }
+    }
 
-            if (supplyEmptyState != null)
+    internal sealed class CategoryComparisonItem
+    {
+        public string CategoryName { get; set; }
+        public double CurrentValue { get; set; }
+        public double LastValue { get; set; }
+    }
+
+    internal sealed class CategorySupplyChart : CardPanel
+    {
+        private List<CategoryComparisonItem> _items = new List<CategoryComparisonItem>();
+        private string _unitLabel = "Sheets";
+
+        public string CurrentYearLabel { get; set; }
+        public string LastYearLabel { get; set; }
+
+        public CategorySupplyChart()
+        {
+            CurrentYearLabel = "Current FY";
+            LastYearLabel = "Last FY";
+        }
+
+        public void SetItems(List<CategoryComparisonItem> items, string unitLabel)
+        {
+            _items = items ?? new List<CategoryComparisonItem>();
+            _unitLabel = string.IsNullOrWhiteSpace(unitLabel) ? "Sheets" : unitLabel;
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            ThemePalette p = AppTheme.P;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+
+            int padL = 14;
+            int padR = 14;
+            int padT = 12;
+            int padB = 12;
+
+            Rectangle inner = new Rectangle(
+                padL,
+                padT,
+                Math.Max(10, Width - padL - padR),
+                Math.Max(10, Height - padT - padB));
+
+            // Legend + Unit header
+            int legendHeight = 24;
+            Rectangle legendRect = new Rectangle(inner.X, inner.Y, inner.Width, legendHeight);
+
+            Color lastColor = p.TextMuted;
+            Color currentColor = p.Primary;
+
+            using (SolidBrush bLast = new SolidBrush(lastColor))
+                g.FillRectangle(bLast, legendRect.X, legendRect.Y + 6, 12, 12);
+
+            TextRenderer.DrawText(
+                g, LastYearLabel, ThemeFonts.Small,
+                new Point(legendRect.X + 17, legendRect.Y + 3), p.TextSecondary);
+
+            Size lastSize = TextRenderer.MeasureText(LastYearLabel, ThemeFonts.Small);
+            int curX = legendRect.X + 28 + lastSize.Width;
+
+            using (SolidBrush bCur = new SolidBrush(currentColor))
+                g.FillRectangle(bCur, curX, legendRect.Y + 6, 12, 12);
+
+            TextRenderer.DrawText(
+                g, CurrentYearLabel, ThemeFonts.Small,
+                new Point(curX + 17, legendRect.Y + 3), p.TextPrimary);
+
+            TextRenderer.DrawText(
+                g, "Unit: " + _unitLabel, ThemeFonts.Tiny,
+                new Rectangle(legendRect.Right - 110, legendRect.Y + 4, 110, 18),
+                p.TextMuted,
+                TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+
+            Rectangle plotArea = new Rectangle(
+                inner.X,
+                legendRect.Bottom + 8,
+                inner.Width,
+                Math.Max(20, inner.Height - legendHeight - 8));
+
+            if (_items.Count == 0)
             {
-                supplyEmptyState.Text = "No draft or approved supplies found.";
-                supplyEmptyState.Visible = dgvSuppliesBottom.Rows.Count == 0;
+                TextRenderer.DrawText(
+                    g,
+                    "No approved/issued supply data found for Current or Last FY.",
+                    ThemeFonts.Body,
+                    plotArea,
+                    p.TextMuted,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                return;
             }
+
+            double maxVal = 0;
+            foreach (CategoryComparisonItem item in _items)
+            {
+                if (item.CurrentValue > maxVal) maxVal = item.CurrentValue;
+                if (item.LastValue > maxVal) maxVal = item.LastValue;
+            }
+            if (maxVal <= 0) maxVal = 1;
+
+            // Horizontal bar layout for readable category names
+            int rowHeight = Math.Max(34, Math.Min(54, plotArea.Height / Math.Max(1, _items.Count)));
+            int labelColWidth = Math.Min(135, Math.Max(85, plotArea.Width / 3));
+            int valueColWidth = 78;
+            int barAreaLeft = plotArea.X + labelColWidth + 8;
+            int barAreaWidth = Math.Max(40, plotArea.Width - labelColWidth - valueColWidth - 16);
+
+            using (SolidBrush bLast = new SolidBrush(lastColor))
+            using (SolidBrush bCur = new SolidBrush(currentColor))
+            using (Pen gridPen = new Pen(ColorUtil.WithAlpha(p.Border, 140), 1F))
+            {
+                for (int i = 0; i < _items.Count; i++)
+                {
+                    int y = plotArea.Y + i * rowHeight;
+                    if (y + rowHeight > plotArea.Bottom + 4)
+                        break;
+
+                    CategoryComparisonItem item = _items[i];
+
+                    if (i > 0)
+                        g.DrawLine(gridPen, plotArea.X, y - 2, plotArea.Right, y - 2);
+
+                    Rectangle catRect = new Rectangle(plotArea.X, y, labelColWidth, rowHeight - 4);
+                    TextRenderer.DrawText(
+                        g, item.CategoryName, ThemeFonts.Small, catRect, p.TextPrimary,
+                        TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+
+                    int singleBarH = Math.Max(7, (rowHeight - 14) / 2);
+                    int gap = 3;
+                    int topBarY = y + Math.Max(3, (rowHeight - (singleBarH * 2 + gap)) / 2);
+
+                    int lastW = (int)Math.Round((item.LastValue / maxVal) * barAreaWidth);
+                    int curW = (int)Math.Round((item.CurrentValue / maxVal) * barAreaWidth);
+
+                    if (item.LastValue > 0 && lastW < 3) lastW = 3;
+                    if (item.CurrentValue > 0 && curW < 3) curW = 3;
+
+                    if (lastW > 0)
+                        g.FillRectangle(bLast, barAreaLeft, topBarY, lastW, singleBarH);
+
+                    if (curW > 0)
+                        g.FillRectangle(bCur, barAreaLeft, topBarY + singleBarH + gap, curW, singleBarH);
+
+                    Rectangle valRect = new Rectangle(
+                        barAreaLeft + barAreaWidth + 6,
+                        y,
+                        valueColWidth,
+                        rowHeight - 4);
+
+                    string curText = FormatCompact(item.CurrentValue);
+                    string lastText = FormatCompact(item.LastValue);
+
+                    TextRenderer.DrawText(
+                        g, curText, ThemeFonts.Tiny,
+                        new Rectangle(valRect.X, topBarY - 1, valRect.Width, singleBarH + 2),
+                        p.TextPrimary,
+                        TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+
+                    TextRenderer.DrawText(
+                        g, lastText, ThemeFonts.Tiny,
+                        new Rectangle(valRect.X, topBarY + singleBarH + gap - 1, valRect.Width, singleBarH + 2),
+                        p.TextMuted,
+                        TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+                }
+            }
+        }
+
+        private static string FormatCompact(double value)
+        {
+            if (Math.Abs(value) >= 10000000D)
+                return (value / 10000000D).ToString("0.##", CultureInfo.InvariantCulture) + "Cr";
+            if (Math.Abs(value) >= 100000D)
+                return (value / 100000D).ToString("0.##", CultureInfo.InvariantCulture) + "L";
+            if (Math.Abs(value) >= 1000D)
+                return (value / 1000D).ToString("0.#", CultureInfo.InvariantCulture) + "K";
+            return value.ToString("0.##", CultureInfo.InvariantCulture);
         }
     }
 }

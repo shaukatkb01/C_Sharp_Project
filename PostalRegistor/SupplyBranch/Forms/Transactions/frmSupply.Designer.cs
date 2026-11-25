@@ -1,11 +1,15 @@
-﻿namespace SupplyBranch.Forms.Transactions{
+using SupplyBranch.Forms.Transactions;
+using System.Security.Policy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace SupplyBranch.Forms.Transactions
+{
     partial class frmSupply
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -43,7 +47,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.pnlStockEntry1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,16 +67,16 @@
             this.txtIndentDate = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.cmbDispatchMode = new System.Windows.Forms.ComboBox();
+            this.cmbDispatchMode = new SupplyBranch.Controls.ModernComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.cmbPackingType = new System.Windows.Forms.ComboBox();
+            this.cmbPackingType = new SupplyBranch.Controls.ModernComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtPackingQty = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.cmbSupplyType = new System.Windows.Forms.ComboBox();
+            this.cmbSupplyType = new SupplyBranch.Controls.ModernComboBox();
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.chkAddDate = new System.Windows.Forms.CheckBox();
+            this.chkAddDate = new SupplyBranch.Controls.ModernCheckBox();
             this.fpnlButton = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveDraft = new System.Windows.Forms.Button();
             this.btnApprove = new System.Windows.Forms.Button();
@@ -132,14 +135,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSupplyDetail)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlStockEntry1
-            // 
-            this.pnlStockEntry1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlStockEntry1.Location = new System.Drawing.Point(780, 340);
-            this.pnlStockEntry1.Name = "pnlStockEntry1";
-            this.pnlStockEntry1.Size = new System.Drawing.Size(450, 100);
-            this.pnlStockEntry1.TabIndex = 50;
             // 
             // label1
             // 
@@ -347,7 +342,7 @@
             "Sheets",
             "Labels",
             "Packet",
-            "Parce",
+            "Parcel",
             "Envelope",
             "Other"});
             this.cmbPackingType.Location = new System.Drawing.Point(125, 282);
@@ -528,7 +523,7 @@
             this.btnSupplyPerforma.Name = "btnSupplyPerforma";
             this.btnSupplyPerforma.Size = new System.Drawing.Size(141, 40);
             this.btnSupplyPerforma.TabIndex = 41;
-            this.btnSupplyPerforma.Text = "🖨 Print Performa";
+            this.btnSupplyPerforma.Text = "Print Performa";
             this.btnSupplyPerforma.UseVisualStyleBackColor = true;
             this.btnSupplyPerforma.Click += new System.EventHandler(this.btnSupplyPerforma_Click);
             // 
@@ -756,8 +751,7 @@
             this.dgvSupplyDetail.Name = "dgvSupplyDetail";
             dataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle75.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle75.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); dataGridViewCellStyle75.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle75.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle75.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle75.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
@@ -1012,9 +1006,6 @@
 
         #endregion
 
-
-        private System.Windows.Forms.Label lblStockDenomination;
-        private System.Windows.Forms.Panel pnlStockEntry1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -1095,3 +1086,14 @@
         private System.Windows.Forms.TextBox txtOtherPacking;
     }
 }
+//```[cite: 4]
+
+//### Verification & Next Step
+//* **Build Check: **Dono files save karke Visual Studio mein **Build -> Build Solution** (`Ctrl+Shift+B`) chalayen—*Verification:*Output window mein `0 succeeded` aur koi designer/compiler error na aaye.
+//* **Runtime Check:** `frmSupply` open kar ke `"Case"` select karen aur check karen ke `cmbDispatchMode` enabled rahe aur `txtOtherPacking` badalne par `Save Changes` button zahir ho.
+
+//<ElicitationsGroup message="Agar koi dikkat aaye ya agla qadam chunen:">
+//  <Elicitation label="Build error aaya" query="frmSupply aur frmSupply.Designer paste karne ke baad build mein error aa raha hai. Kya check karun?"/>
+//  <Elicitation label="Designer open nahi hua" query="frmSupply ka Form Designer open karne par error ya warning aa rahi hai. Ise kaise theek karun?"/>
+//  <Elicitation label="Agla form dekhen" query="frmSupply theek chal raha hai. Ab project mein agla kya kaam karna chahiye?"/>
+//</ElicitationsGroup>

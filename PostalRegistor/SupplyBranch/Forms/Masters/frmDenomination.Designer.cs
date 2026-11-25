@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Masters
+namespace SupplyBranch.Forms.Masters
 {
     partial class frmDenomination
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
             this.txtDenomination = new System.Windows.Forms.TextBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,14 +45,14 @@
             // 
             this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategory.FormattingEnabled = true;
-            this.cmbCategory.Location = new System.Drawing.Point(100, 40);
+            this.cmbCategory.Location = new System.Drawing.Point(130, 40);
             this.cmbCategory.Name = "cmbCategory";
             this.cmbCategory.Size = new System.Drawing.Size(272, 21);
             this.cmbCategory.TabIndex = 0;
             // 
             // txtDenomination
             // 
-            this.txtDenomination.Location = new System.Drawing.Point(100, 78);
+            this.txtDenomination.Location = new System.Drawing.Point(130, 78);
             this.txtDenomination.Name = "txtDenomination";
             this.txtDenomination.Size = new System.Drawing.Size(272, 20);
             this.txtDenomination.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(100, 115);
+            this.txtSearch.Location = new System.Drawing.Point(130, 115);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(272, 20);
             this.txtSearch.TabIndex = 2;
@@ -96,7 +96,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(198, 156);
+            this.btnUpdate.Location = new System.Drawing.Point(228, 156);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(79, 36);
             this.btnUpdate.TabIndex = 4;
@@ -123,7 +123,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(293, 156);
+            this.btnDelete.Location = new System.Drawing.Point(323, 156);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(79, 36);
             this.btnDelete.TabIndex = 5;
@@ -133,7 +133,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(103, 156);
+            this.btnSave.Location = new System.Drawing.Point(133, 156);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(79, 36);
             this.btnSave.TabIndex = 3;

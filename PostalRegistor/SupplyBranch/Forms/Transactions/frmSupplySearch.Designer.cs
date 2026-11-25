@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Transactions
+namespace SupplyBranch.Forms.Transactions
 {
     partial class frmSupplySearch
     {
@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.cmbOffice = new System.Windows.Forms.ComboBox();
-            this.cmbZone = new System.Windows.Forms.ComboBox();
+            this.cmbOffice = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbZone = new SupplyBranch.Controls.ModernComboBox();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.dtTo = new System.Windows.Forms.DateTimePicker();
             this.txtSearchIndentNo = new System.Windows.Forms.TextBox();
-            this.rbPending = new System.Windows.Forms.RadioButton();
-            this.rbAll = new System.Windows.Forms.RadioButton();
-            this.rbCompleted = new System.Windows.Forms.RadioButton();
+            this.rbPending = new SupplyBranch.Controls.ModernRadioButton();
+            this.rbAll = new SupplyBranch.Controls.ModernRadioButton();
+            this.rbCompleted = new SupplyBranch.Controls.ModernRadioButton();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnNewSupply = new System.Windows.Forms.Button();
             this.dgvSupply = new System.Windows.Forms.DataGridView();

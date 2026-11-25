@@ -2100,6 +2100,8 @@
                                             <TextRuns>
                                               <TextRun>
                                                 <Value>=IIF(
+    IsNothing(Fields!PackingType.Value) Or
+    LCase(Trim(CStr(Fields!PackingType.Value &amp; ""))) &lt;&gt; "case" Or
     IsNothing(Fields!CaseCode.Value) Or
     IsNothing(Fields!CaseNoFrom.Value) Or
     IsNothing(Fields!CaseNoTo.Value) Or
@@ -2113,16 +2115,7 @@
         Val(Fields!CaseNoTo.Value &amp; "") -
         Val(Fields!CaseNoFrom.Value &amp; "") +
         1
-    )
-) &amp;
-IIF(
-    IsNothing(Fields!PackingType.Value),
-    "",
-    "  " &amp; IIF(
-        LCase(Trim(CStr(Fields!PackingType.Value))) = "case",
-        "Box(es)",
-        CStr(Fields!PackingType.Value)
-    )
+    ) &amp; "  Box(es)"
 )</Value>
                                                 <Style />
                                               </TextRun>

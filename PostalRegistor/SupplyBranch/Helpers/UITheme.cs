@@ -1,74 +1,90 @@
-﻿using System;
+﻿
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using SupplyBranch.Controls;
 
 namespace SupplyBranch.Helpers
 {
     /// <summary>
-    /// Application-wide modern theme (same palette as frmLogin).
+    /// Application-wide theme adapter for the module forms.
     /// Usage: UITheme.Apply(this) in a form's Load event.
-    /// Only colors, fonts and flat styles are changed - never sizes, positions or docking.
+    /// Keeps existing form layouts intact while providing modern, consistent
+    /// light/dark styling across controls.
     /// </summary>
     public static class UITheme
     {
-        //==================================================
-        // Main Colors (same palette as frmLogin)
-        //==================================================
+        private static readonly Font NormalFont = ThemeFonts.Body;
+        private static readonly Font LabelFont = ThemeFonts.Body;
+        private static readonly Font ButtonFont = ThemeFonts.Button;
+        private static readonly Font GridHeaderFont = ThemeFonts.BodyBold;
+        private static readonly Font MenuFont = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        private static readonly Font GroupBoxFont = new Font("Segoe UI Semibold", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        private static readonly Font SubtitleFont = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
 
-        private static readonly Color Primary = ColorTranslator.FromHtml("#2563EB");
-        private static readonly Color PrimaryHover = ColorTranslator.FromHtml("#1D4ED8");
-        private static readonly Color PrimaryPressed = ColorTranslator.FromHtml("#1E40AF");
-        private static readonly Color Success = ColorTranslator.FromHtml("#16A34A");
-        private static readonly Color SuccessHover = ColorTranslator.FromHtml("#15803D");
-        private static readonly Color Danger = ColorTranslator.FromHtml("#DC2626");
-        private static readonly Color DangerHover = ColorTranslator.FromHtml("#B91C1C");
-        private static readonly Color Slate = ColorTranslator.FromHtml("#334155");
-        private static readonly Color SlateHover = ColorTranslator.FromHtml("#1E293B");
-        private static readonly Color Dark = ColorTranslator.FromHtml("#0F172A");
+        private static readonly Dictionary<string, Font> BoldLabelFonts =
+            new Dictionary<string, Font>(StringComparer.Ordinal);
 
-        private static readonly Color FormBackColor = ColorTranslator.FromHtml("#F1F5F9");
-        private static readonly Color PanelBackColor = Color.White;
-        // Input fields are tinted light blue so empty boxes stand out from the white cards.
-        // Typing (focus) turns the field white; read-only fields are neutral grey.
-        private static readonly Color TextBackColor = ColorTranslator.FromHtml("#E8F0FE");
-        private static readonly Color FocusBackColor = Color.White;
-        private static readonly Color ReadOnlyBack = ColorTranslator.FromHtml("#EEF0F3");
-        private static readonly Color ReadOnlyFore = ColorTranslator.FromHtml("#475569");
-        private static readonly Color TextForeColor = ColorTranslator.FromHtml("#1E293B");
-        private static readonly Color BorderColor = ColorTranslator.FromHtml("#CBD5E1");
-        private static readonly Color GridLineColor = ColorTranslator.FromHtml("#E2E8F0");
-        private static readonly Color HeaderColor = Dark;
-        private static readonly Color RowAlt = ColorTranslator.FromHtml("#F8FAFC");
-        private static readonly Color RowSelect = ColorTranslator.FromHtml("#DBEAFE");
-        private static readonly Color DisabledBack = ColorTranslator.FromHtml("#E2E8F0");
-        private static readonly Color DisabledFore = ColorTranslator.FromHtml("#94A3B8");
-        private static readonly Color MenuBackColor = Dark;
+        private enum Role
+        {
+            None,
+            Label,
+            LabelSubtitle,
+            LabelBalance,
+            TextInput,
+            Combo,
+            Numeric,
+            Date,
+            Button,
+            PanelSurface,
+            PanelCustom,
+            Group,
+            Grid,
+            Check,
+            Radio,
+            RichText,
+            CheckedList,
+            TabPage,
+            Menu,
+            Status,
+            ToolStripBar
+        }
 
+        private sealed class RoleHolder
+        {
+            public Role Value;
+        }
 
-        //==================================================
-        // Fonts
-        //==================================================
+        private sealed class StatusHolder
+        {
+            public int StatusId;
+        }
 
-        private static readonly Font NormalFont = new Font("Segoe UI", 9.5F, FontStyle.Regular);
-        private static readonly Font LabelFont = new Font("Segoe UI", 9.5F, FontStyle.Regular);
-        private static readonly Font ButtonFont = new Font("Segoe UI Semibold", 9.5F);
-        private static readonly Font GridHeaderFont = new Font("Segoe UI Semibold", 9.5F);
-        private static readonly Font MenuFont = new Font("Segoe UI", 10F, FontStyle.Regular);
-        private static readonly Font GroupBoxFont = new Font("Segoe UI Semibold", 10F);
+        private sealed class FormHook
+        {
+            public EventHandler ThemeChangedHandler;
+            public EventHandler ShownHandler;
+            public EventHandler DisposedHandler;
+        }
 
-
-        //==================================================
-        // Tracks controls that already have event handlers attached,
-        // so calling Apply() twice never attaches handlers twice
-        //==================================================
+        private static readonly ConditionalWeakTable<Control, RoleHolder> Roles =
+            new ConditionalWeakTable<Control, RoleHolder>();
 
         private static readonly ConditionalWeakTable<Control, object> Styled =
             new ConditionalWeakTable<Control, object>();
 
-        // Text boxes styled as status badges - their colors must not be reset on focus changes
-        private static readonly ConditionalWeakTable<Control, object> StatusBoxes =
-            new ConditionalWeakTable<Control, object>();
+        private static readonly ConditionalWeakTable<Control, StatusHolder> StatusBoxes =
+            new ConditionalWeakTable<Control, StatusHolder>();
+
+        private static readonly ConditionalWeakTable<Form, FormHook> HookedForms =
+            new ConditionalWeakTable<Form, FormHook>();
+
+        private static ThemePalette P
+        {
+            get { return AppTheme.P; }
+        }
 
         private static bool FirstTime(Control c)
         {
@@ -80,568 +96,549 @@ namespace SupplyBranch.Helpers
             return true;
         }
 
-
-        //==================================================
-        // Modern Menu Renderer
-        //==================================================
-
-        private class ModernMenuRenderer : ToolStripProfessionalRenderer
+        private static Color C(string html)
         {
-            public ModernMenuRenderer()
-                : base(new ModernColorTable())
-            {
-            }
+            return ColorUtil.FromHexSafe(html, Color.Gray);
         }
 
-        private class ModernColorTable : ProfessionalColorTable
+        private static Font GetBoldLabelFont(float size, FontStyle existingStyle)
         {
-            public override Color MenuItemSelected
-            {
-                get { return Primary; }
-            }
+            FontStyle style = existingStyle | FontStyle.Bold;
+            string key = size.ToString("0.##") + ":" + ((int)style);
 
-            public override Color MenuItemSelectedGradientBegin
-            {
-                get { return Primary; }
-            }
+            Font cached;
+            if (BoldLabelFonts.TryGetValue(key, out cached))
+                return cached;
 
-            public override Color MenuItemSelectedGradientEnd
-            {
-                get { return PrimaryHover; }
-            }
-
-            public override Color MenuItemBorder
-            {
-                get { return Primary; }
-            }
-
-            public override Color MenuBorder
-            {
-                get { return BorderColor; }
-            }
-
-            public override Color ToolStripDropDownBackground
-            {
-                get { return Color.White; }
-            }
-
-            public override Color ImageMarginGradientBegin
-            {
-                get { return Color.White; }
-            }
-
-            public override Color ImageMarginGradientMiddle
-            {
-                get { return Color.White; }
-            }
-
-            public override Color ImageMarginGradientEnd
-            {
-                get { return Color.White; }
-            }
+            cached = new Font("Segoe UI", size, style, GraphicsUnit.Point);
+            BoldLabelFonts[key] = cached;
+            return cached;
         }
 
+        /// <summary>
+        /// Cells the user can type into (used by editable supply grids).
+        /// </summary>
+        public static Color EditableCellColor
+        {
+            get { return AppTheme.IsDark ? C("#3A3212") : C("#FEF9C3"); }
+        }
 
-        //==================================================
-        // Apply Theme
-        //==================================================
+        /// <summary>
+        /// Read-only / locked grid cells.
+        /// </summary>
+        public static Color LockedCellColor
+        {
+            get { return AppTheme.IsDark ? P.SurfaceAlt : C("#EEF0F3"); }
+        }
 
         public static void Apply(Form form)
         {
             if (form == null)
                 return;
 
-            form.BackColor = FormBackColor;
-            form.ForeColor = TextForeColor;
-            form.Font = NormalFont;
+            ApplyForm(form);
 
-            ApplyToControls(form);
+            FormHook existingHook;
+            if (HookedForms.TryGetValue(form, out existingHook))
+                return;
+
+            FormHook hook = new FormHook();
+            hook.ThemeChangedHandler = delegate
+            {
+                if (form.IsDisposed)
+                {
+                    AppTheme.ThemeChanged -= hook.ThemeChangedHandler;
+                    return;
+                }
+
+                ApplyForm(form);
+            };
+
+            hook.ShownHandler = delegate
+            {
+                if (!form.IsDisposed)
+                    ApplyScrollbars(form);
+            };
+
+            hook.DisposedHandler = delegate
+            {
+                AppTheme.ThemeChanged -= hook.ThemeChangedHandler;
+                form.Shown -= hook.ShownHandler;
+                form.Disposed -= hook.DisposedHandler;
+            };
+
+            HookedForms.Add(form, hook);
+            AppTheme.ThemeChanged += hook.ThemeChangedHandler;
+            form.Shown += hook.ShownHandler;
+            form.Disposed += hook.DisposedHandler;
         }
 
+        private static void ApplyForm(Form form)
+        {
+            ThemePalette palette = P;
+            form.BackColor = palette.Background;
+            form.ForeColor = palette.TextPrimary;
+            form.Font = NormalFont;
 
-        //==================================================
-        // Apply recursively to all controls
-        //==================================================
+            ApplyToControls(form, palette);
+            ApplyScrollbars(form);
+        }
 
-        private static void ApplyToControls(Control parent)
+        private static void ApplyScrollbars(Control parent)
+        {
+            if (parent == null || parent.IsDisposed)
+                return;
+
+            if (parent is Form || parent is DataGridView || parent is TextBoxBase || parent is ListBox)
+                AppTheme.ApplyScrollbarTheme(parent);
+
+            foreach (Control child in parent.Controls)
+                ApplyScrollbars(child);
+        }
+
+        private static void ApplyToControls(Control parent, ThemePalette palette)
         {
             foreach (Control control in parent.Controls)
             {
-                if (control.Name == "lblSubTitle" && control is Label lblSubTitle)
-                {
-                    // Subtitle specific properties
-                    lblSubTitle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-                    lblSubTitle.ForeColor = ColorTranslator.FromHtml("#64748B");
-                    lblSubTitle.BackColor = Color.Transparent;
-                    lblSubTitle.AutoSize = true;
-                }
-                else
-                {
-                    ApplyControl(control);
-                }
+                ApplyControl(control, palette);
 
-                // DataGridView internals are not child controls we style
-                if (control.HasChildren && !(control is DataGridView))
-                {
-                    ApplyToControls(control);
-                }
+                if (control.HasChildren && !(control is DataGridView) && !(control is ToolStrip))
+                    ApplyToControls(control, palette);
             }
         }
 
-
-        //==================================================
-        // Individual Control Styling
-        //==================================================
-
-        private static void ApplyControl(Control control)
+        private static void ApplyControl(Control control, ThemePalette palette)
         {
-            // ---------------------------------------------
-            // Label
-            // ---------------------------------------------
             if (control is Label)
             {
-                ApplyLabel((Label)control);
+                ApplyLabel((Label)control, palette);
             }
-
-            // ---------------------------------------------
-            // TextBox
-            // ---------------------------------------------
             else if (control is TextBox)
             {
-                ApplyTextBox((TextBox)control);
+                ApplyTextBox((TextBox)control, palette);
             }
-
-            // ---------------------------------------------
-            // ComboBox
-            // ---------------------------------------------
             else if (control is ComboBox)
             {
-                ApplyComboBox((ComboBox)control);
+                ApplyComboBox((ComboBox)control, palette);
             }
-
-            // ---------------------------------------------
-            // Button
-            // ---------------------------------------------
-            else if (control is Button)
+            else if (control is NumericUpDown)
             {
-                ApplyButtonDefaults((Button)control);
+                ApplyNumeric((NumericUpDown)control, palette);
             }
-
-            // ---------------------------------------------
-            // MenuStrip
-            // ---------------------------------------------
-            else if (control is MenuStrip)
-            {
-                ApplyMenuStrip((MenuStrip)control);
-            }
-
-            // ---------------------------------------------
-            // CheckBox
-            // ---------------------------------------------
-            else if (control is CheckBox)
-            {
-                CheckBox chk = (CheckBox)control;
-                chk.Font = NormalFont;
-                chk.ForeColor = TextForeColor;
-                chk.BackColor = Color.Transparent;
-                chk.Cursor = Cursors.Hand;
-            }
-
-            // ---------------------------------------------
-            // RadioButton
-            // ---------------------------------------------
-            else if (control is RadioButton)
-            {
-                RadioButton rb = (RadioButton)control;
-                rb.Font = NormalFont;
-                rb.ForeColor = TextForeColor;
-                rb.BackColor = Color.Transparent;
-                rb.Cursor = Cursors.Hand;
-            }
-
-            // ---------------------------------------------
-            // DateTimePicker
-            // ---------------------------------------------
             else if (control is DateTimePicker)
             {
                 DateTimePicker dtp = (DateTimePicker)control;
                 dtp.Font = NormalFont;
-                dtp.ForeColor = TextForeColor;
-                dtp.BackColor = Color.White;
-                dtp.Format = DateTimePickerFormat.Short;
+                dtp.ForeColor = AppTheme.IsDark ? C("#0F172A") : palette.TextPrimary;
+                dtp.BackColor = palette.Surface;
             }
-
-            // ---------------------------------------------
-            // NumericUpDown
-            // ---------------------------------------------
-            else if (control is NumericUpDown)
+            else if (control is Button)
             {
-                ApplyNumeric((NumericUpDown)control);
+                ApplyButtonDefaults((Button)control, palette);
             }
-
-            // ---------------------------------------------
-            // DataGridView
-            // ---------------------------------------------
+            else if (control is CheckBox)
+            {
+                CheckBox chk = (CheckBox)control;
+                chk.Font = NormalFont;
+                chk.ForeColor = palette.TextPrimary;
+                chk.BackColor = Color.Transparent;
+                chk.Cursor = Cursors.Hand;
+            }
+            else if (control is RadioButton)
+            {
+                RadioButton rb = (RadioButton)control;
+                rb.Font = NormalFont;
+                rb.ForeColor = palette.TextPrimary;
+                rb.BackColor = Color.Transparent;
+                rb.Cursor = Cursors.Hand;
+            }
             else if (control is DataGridView)
             {
                 StyleGrid((DataGridView)control);
             }
-
-            // ---------------------------------------------
-            // GroupBox
-            // ---------------------------------------------
             else if (control is GroupBox)
             {
                 GroupBox grp = (GroupBox)control;
                 grp.Font = GroupBoxFont;
-                grp.ForeColor = TextForeColor;
-                grp.BackColor = PanelBackColor;
+                grp.ForeColor = palette.TextPrimary;
+                grp.BackColor = palette.Surface;
             }
-
-            // ---------------------------------------------
-            // Panel (also FlowLayoutPanel / TableLayoutPanel)
-            // Panels with an intentional custom color are left alone.
-            // ---------------------------------------------
-            else if (control is Panel)
-            {
-                Panel panel = (Panel)control;
-                panel.ForeColor = TextForeColor;
-
-                if (panel.Parent != null &&
-                    (panel.BackColor == panel.Parent.BackColor ||
-                     panel.BackColor == SystemColors.Control))
-                {
-                    panel.BackColor = PanelBackColor;
-                }
-            }
-
-            // ---------------------------------------------
-            // TabControl
-            // ---------------------------------------------
-            else if (control is TabControl)
-            {
-                control.Font = NormalFont;
-            }
-
-            // ---------------------------------------------
-            // TabPage
-            // ---------------------------------------------
             else if (control is TabPage)
             {
                 TabPage page = (TabPage)control;
-                page.BackColor = PanelBackColor;
+                page.BackColor = palette.Surface;
+                page.ForeColor = palette.TextPrimary;
                 page.Font = NormalFont;
+            }
+            else if (control is RichTextBox)
+            {
+                RichTextBox rtb = (RichTextBox)control;
+                rtb.Font = NormalFont;
+                rtb.ForeColor = palette.TextPrimary;
+                rtb.BackColor = palette.Surface;
+                rtb.BorderStyle = BorderStyle.FixedSingle;
+            }
+            else if (control is CheckedListBox)
+            {
+                CheckedListBox clb = (CheckedListBox)control;
+                clb.Font = NormalFont;
+                clb.ForeColor = palette.TextPrimary;
+                clb.BackColor = palette.SurfaceAlt;
+                clb.BorderStyle = BorderStyle.FixedSingle;
+            }
+            else if (control is MenuStrip)
+            {
+                ApplyMenuStrip((MenuStrip)control, palette);
+            }
+            else if (control is StatusStrip)
+            {
+                StatusStrip strip = (StatusStrip)control;
+                strip.BackColor = palette.Surface;
+                strip.ForeColor = palette.TextPrimary;
+                strip.Font = NormalFont;
+                strip.SizingGrip = false;
+            }
+            else if (control is ToolStrip)
+            {
+                ToolStrip strip = (ToolStrip)control;
+                strip.BackColor = palette.Surface;
+                strip.ForeColor = palette.TextPrimary;
+                strip.Font = NormalFont;
+            }
+            else if (control is Panel)
+            {
+                ApplyPanel((Panel)control, palette);
             }
         }
 
-
-        //==================================================
-        // Label
-        //==================================================
-
-        private static void ApplyLabel(Label lbl)
+        private static Role GetRole(Control control)
         {
+            RoleHolder holder;
+            if (Roles.TryGetValue(control, out holder))
+                return holder.Value;
+
+            Role role = Role.None;
+
+            Label lbl = control as Label;
+            if (lbl != null)
+            {
+                string name = (lbl.Name ?? string.Empty).ToLowerInvariant();
+
+                if (name.EndsWith("balance"))
+                    role = Role.LabelBalance;
+                else if (name == "lblsubtitle")
+                    role = Role.LabelSubtitle;
+                else
+                    role = Role.Label;
+            }
+            else if (control is TextBox)
+            {
+                role = Role.TextInput;
+            }
+            else if (control is ComboBox)
+            {
+                role = Role.Combo;
+            }
+            else if (control is NumericUpDown)
+            {
+                role = Role.Numeric;
+            }
+            else if (control is Button)
+            {
+                role = Role.Button;
+            }
+            else if (control is DataGridView)
+            {
+                role = Role.Grid;
+            }
+            else if (control is GroupBox)
+            {
+                role = Role.Group;
+            }
+            else if (control is TabPage)
+            {
+                role = Role.TabPage;
+            }
+            else if (control is MenuStrip)
+            {
+                role = Role.Menu;
+            }
+            else if (control is StatusStrip)
+            {
+                role = Role.Status;
+            }
+            else if (control is ToolStrip)
+            {
+                role = Role.ToolStripBar;
+            }
+            else if (control is Panel)
+            {
+                Panel panel = (Panel)control;
+                role = IsNeutralSurface(panel.BackColor, panel.Parent)
+                    ? Role.PanelSurface
+                    : Role.PanelCustom;
+            }
+
+            holder = new RoleHolder { Value = role };
+            Roles.Add(control, holder);
+            return role;
+        }
+
+        private static bool IsNeutralSurface(Color color, Control parent)
+        {
+            if (color == Color.Transparent || color == Color.White || color == SystemColors.Control)
+                return true;
+
+            if (parent != null && color == parent.BackColor)
+                return true;
+
+            int max = Math.Max(color.R, Math.Max(color.G, color.B));
+            int min = Math.Min(color.R, Math.Min(color.G, color.B));
+
+            return color.GetBrightness() > 0.82F && (max - min) < 48;
+        }
+
+        private static void ApplyLabel(Label lbl, ThemePalette palette)
+        {
+            Role role = GetRole(lbl);
             lbl.BackColor = Color.Transparent;
-            lbl.ForeColor = TextForeColor;
 
-            string name = (lbl.Name ?? "").ToLowerInvariant();
+            if (role == Role.LabelSubtitle)
+            {
+                lbl.Font = SubtitleFont;
+                lbl.ForeColor = palette.TextSecondary;
+                lbl.AutoSize = true;
+                return;
+            }
 
-            // Bold labels (titles, balance "cards") keep their own size and
-            // weight so small stat boxes don't overflow - only the typeface changes.
+            lbl.ForeColor = (role == Role.LabelBalance) ? palette.Primary : palette.TextPrimary;
+
             if (lbl.Font != null && lbl.Font.Bold)
             {
-                lbl.Font = new Font("Segoe UI", lbl.Font.Size, lbl.Font.Style);
+                lbl.Font = GetBoldLabelFont(lbl.Font.Size > 0 ? lbl.Font.Size : 9.5F, lbl.Font.Style);
             }
             else
             {
                 lbl.Font = LabelFont;
             }
-
-            if (name.EndsWith("balance"))
-            {
-                lbl.ForeColor = Primary;
-            }
         }
 
-
-        //==================================================
-        // TextBox
-        //==================================================
-
-        private static void ApplyTextBox(TextBox txt)
+        private static void ApplyTextBox(TextBox txt, ThemePalette palette)
         {
             txt.Font = NormalFont;
-            txt.ForeColor = TextForeColor;
             txt.BorderStyle = BorderStyle.FixedSingle;
-            txt.Margin = new Padding(3);
 
-            Action refresh = delegate
+            StatusHolder status;
+            if (StatusBoxes.TryGetValue(txt, out status))
             {
-                // Status badges (StyleStatusBox) keep their own colors
-                object marker;
-                if (StatusBoxes.TryGetValue(txt, out marker))
-                    return;
-
-                if (txt.ReadOnly || !txt.Enabled)
-                {
-                    txt.BackColor = ReadOnlyBack;
-                    txt.ForeColor = ReadOnlyFore;
-                }
-                else
-                {
-                    txt.BackColor = TextBackColor;
-                    txt.ForeColor = TextForeColor;
-                }
-            };
-
-            if (FirstTime(txt))
-            {
-                txt.ReadOnlyChanged += delegate { refresh(); };
-                txt.EnabledChanged += delegate { refresh(); };
-
-                // White while typing so the active field is obvious
-                txt.Enter += delegate
-                {
-                    if (!txt.ReadOnly && txt.Enabled)
-                        txt.BackColor = FocusBackColor;
-                };
-                txt.Leave += delegate { refresh(); };
+                ApplyStatusColors(txt, status.StatusId, palette);
+                return;
             }
 
-            refresh();
+            RefreshTextBox(txt, palette);
+
+            if (!FirstTime(txt))
+                return;
+
+            txt.ReadOnlyChanged += delegate { RefreshTextBox(txt, P); };
+            txt.EnabledChanged += delegate { RefreshTextBox(txt, P); };
+            txt.Enter += delegate { RefreshTextBox(txt, P); };
+            txt.Leave += delegate { RefreshTextBox(txt, P); };
         }
 
+        private static void RefreshTextBox(TextBox txt, ThemePalette palette)
+        {
+            StatusHolder status;
+            if (StatusBoxes.TryGetValue(txt, out status))
+                return;
 
-        //==================================================
-        // ComboBox
-        //==================================================
+            if (!txt.Enabled || txt.ReadOnly)
+            {
+                txt.BackColor = palette.SurfaceAlt;
+                txt.ForeColor = palette.TextMuted;
+            }
+            else if (txt.Focused)
+            {
+                txt.BackColor = palette.Surface;
+                txt.ForeColor = palette.TextPrimary;
+            }
+            else
+            {
+                txt.BackColor = palette.SurfaceAlt;
+                txt.ForeColor = palette.TextPrimary;
+            }
+        }
 
-        private static void ApplyComboBox(ComboBox cmb)
+        private static void ApplyComboBox(ComboBox cmb, ThemePalette palette)
         {
             cmb.Font = NormalFont;
             cmb.FlatStyle = FlatStyle.Flat;
-
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;
             cmb.IntegralHeight = true;
             cmb.Margin = new Padding(3);
-
-            // 1. AutoCompleteSource ko PEHLE set karein (Error se bachne ke liye)
             cmb.AutoCompleteSource = AutoCompleteSource.ListItems;
-            // 2. AutoCompleteMode ko BAAD me set karein
             cmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
-            Action refresh = delegate
-            {
-                if (cmb.Enabled)
-                {
-                    cmb.BackColor = TextBackColor;
-                    cmb.ForeColor = TextForeColor;
-                }
-                else
-                {
-                    cmb.BackColor = ReadOnlyBack;
-                    cmb.ForeColor = ReadOnlyFore;
-                }
-            };
-
-            refresh();
+            RefreshCombo(cmb, palette);
 
             if (!FirstTime(cmb))
                 return;
 
-            cmb.EnabledChanged += delegate { refresh(); };
-
-            // White while the dropdown has focus, tinted otherwise
+            cmb.EnabledChanged += delegate { RefreshCombo(cmb, P); };
             cmb.Enter += delegate
             {
                 if (cmb.Enabled)
-                    cmb.BackColor = FocusBackColor;
+                    cmb.BackColor = P.Surface;
             };
-            cmb.Leave += delegate { refresh(); };
+            cmb.Leave += delegate { RefreshCombo(cmb, P); };
 
-            // Dropdown width auto-adjust logic
-            cmb.DropDown += (s, e) =>
+            cmb.DropDown += delegate
             {
-                ComboBox cb = s as ComboBox;
-                if (cb == null || cb.Items.Count == 0) return;
+                if (cmb.Items.Count == 0)
+                    return;
 
-                int maxWidth = cb.Width;
+                int maxWidth = cmb.Width;
                 int scrollBarWidth = SystemInformation.VerticalScrollBarWidth;
 
-                using (Graphics g = cb.CreateGraphics())
+                using (Graphics g = cmb.CreateGraphics())
                 {
-                    foreach (var item in cb.Items)
+                    foreach (object item in cmb.Items)
                     {
-                        string text = cb.GetItemText(item);
-                        int itemWidth = (int)g.MeasureString(text, cb.Font).Width + scrollBarWidth + 10;
+                        string text = cmb.GetItemText(item);
+                        int itemWidth = (int)g.MeasureString(text, cmb.Font).Width + scrollBarWidth + 10;
                         if (itemWidth > maxWidth)
-                        {
                             maxWidth = itemWidth;
-                        }
                     }
                 }
-                cb.DropDownWidth = maxWidth;
+
+                cmb.DropDownWidth = maxWidth;
             };
         }
 
+        private static void RefreshCombo(ComboBox cmb, ThemePalette palette)
+        {
+            cmb.BackColor = palette.SurfaceAlt;
+            cmb.ForeColor = cmb.Enabled ? palette.TextPrimary : palette.TextMuted;
+        }
 
-        //==================================================
-        // NumericUpDown
-        //==================================================
-
-        private static void ApplyNumeric(NumericUpDown num)
+        private static void ApplyNumeric(NumericUpDown num, ThemePalette palette)
         {
             num.Font = NormalFont;
-            num.ForeColor = TextForeColor;
-            num.BackColor = TextBackColor;
+            num.ForeColor = palette.TextPrimary;
+            num.BackColor = palette.SurfaceAlt;
 
             if (!FirstTime(num))
                 return;
 
-            num.Enter += delegate { num.BackColor = FocusBackColor; };
-            num.Leave += delegate { num.BackColor = TextBackColor; };
+            num.Enter += delegate { num.BackColor = P.Surface; };
+            num.Leave += delegate { num.BackColor = P.SurfaceAlt; };
         }
 
+        private class ThemedMenuRenderer : ToolStripProfessionalRenderer
+        {
+            public ThemedMenuRenderer()
+                : base(new ThemedColorTable())
+            {
+            }
+        }
 
-        //==================================================
-        // MenuStrip
-        //==================================================
+        private class ThemedColorTable : ProfessionalColorTable
+        {
+            public override Color MenuItemSelected { get { return P.Primary; } }
+            public override Color MenuItemSelectedGradientBegin { get { return P.Primary; } }
+            public override Color MenuItemSelectedGradientEnd { get { return P.PrimaryHover; } }
+            public override Color MenuItemBorder { get { return P.Primary; } }
+            public override Color MenuBorder { get { return P.Border; } }
+            public override Color ToolStripDropDownBackground { get { return P.Surface; } }
+            public override Color ImageMarginGradientBegin { get { return P.Surface; } }
+            public override Color ImageMarginGradientMiddle { get { return P.Surface; } }
+            public override Color ImageMarginGradientEnd { get { return P.Surface; } }
+        }
 
-        private static void ApplyMenuStrip(MenuStrip menuStrip)
+        private static void ApplyMenuStrip(MenuStrip menuStrip, ThemePalette palette)
         {
             menuStrip.Font = MenuFont;
-
-            menuStrip.BackColor = MenuBackColor;
-            menuStrip.ForeColor = Color.White;
-
+            menuStrip.BackColor = palette.Sidebar;
+            menuStrip.ForeColor = palette.SidebarText;
             menuStrip.RenderMode = ToolStripRenderMode.Professional;
-            menuStrip.Renderer = new ModernMenuRenderer();
-
+            menuStrip.Renderer = new ThemedMenuRenderer();
             menuStrip.Padding = new Padding(6, 3, 6, 3);
 
             foreach (ToolStripItem item in menuStrip.Items)
             {
-                if (item is ToolStripMenuItem menuItem)
-                {
-                    ApplyMenuItem(menuItem);
-                }
+                ToolStripMenuItem menuItem = item as ToolStripMenuItem;
+                if (menuItem != null)
+                    ApplyMenuItem(menuItem, true, palette);
             }
         }
 
-        private static void ApplyMenuItem(ToolStripMenuItem item)
+        private static void ApplyMenuItem(ToolStripMenuItem item, bool topLevel, ThemePalette palette)
         {
             item.Font = MenuFont;
-
-            item.ForeColor = Color.White;
-            item.BackColor = MenuBackColor;
-
-            item.Padding = new Padding(8, 5, 8, 5);
+            item.ForeColor = topLevel ? palette.SidebarText : palette.TextPrimary;
+            item.BackColor = topLevel ? palette.Sidebar : palette.Surface;
+            item.Padding = topLevel ? new Padding(8, 5, 8, 5) : new Padding(10, 5, 10, 5);
 
             foreach (ToolStripItem child in item.DropDownItems)
             {
-                if (child is ToolStripMenuItem subItem)
-                {
-                    subItem.Font = MenuFont;
-                    subItem.ForeColor = TextForeColor;
-                    subItem.BackColor = Color.White;
-                    subItem.Padding = new Padding(10, 5, 10, 5);
-
-                    ApplyMenuItem(subItem);
-
-                    // ApplyMenuItem sets white text for top-level items; sub items stay dark
-                    subItem.ForeColor = TextForeColor;
-                    subItem.BackColor = Color.White;
-                }
+                ToolStripMenuItem subItem = child as ToolStripMenuItem;
+                if (subItem != null)
+                    ApplyMenuItem(subItem, false, palette);
             }
         }
 
-
-        //==================================================
-        // DataGridView  (public so forms can re-style a grid created later)
-        //==================================================
-
+        /// <summary>
+        /// Aligns DataGridView styling with GridStyler so forms and custom grids share one look.
+        /// </summary>
         public static void StyleGrid(DataGridView dgv)
         {
             if (dgv == null)
                 return;
 
-            dgv.Font = NormalFont;
-            dgv.BackgroundColor = FormBackColor;
-            dgv.BorderStyle = BorderStyle.None;
-            dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgv.GridColor = GridLineColor;
-
-            dgv.EnableHeadersVisualStyles = false;
-            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-
-            // Header
-            dgv.ColumnHeadersDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor = HeaderColor,
-                    ForeColor = Color.White,
-                    Font = GridHeaderFont,
-                    Alignment = DataGridViewContentAlignment.MiddleLeft,
-                    SelectionBackColor = HeaderColor,
-                    SelectionForeColor = Color.White,
-                    Padding = new Padding(8, 6, 8, 6)
-                };
-
-            // Rows
-            dgv.DefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor = Color.White,
-                    ForeColor = TextForeColor,
-                    SelectionBackColor = RowSelect,
-                    SelectionForeColor = TextForeColor,
-                    Font = NormalFont,
-                    Padding = new Padding(8, 6, 8, 6)
-                };
-
-            // Alternating rows
-            dgv.AlternatingRowsDefaultCellStyle =
-                new DataGridViewCellStyle
-                {
-                    BackColor = RowAlt,
-                    ForeColor = TextForeColor,
-                    SelectionBackColor = RowSelect,
-                    SelectionForeColor = TextForeColor
-                };
-
-            dgv.RowHeadersVisible = false;
-            dgv.AllowUserToAddRows = false;
-            dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgv.MultiSelect = false;
-            dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-            dgv.RowTemplate.Height = 31;
-            dgv.ColumnHeadersHeight = 34;
+            GridStyler.Apply(dgv);
         }
-
-
-        //==================================================
-        // Status badge: Draft = amber, Approved = blue,
-        // Issued = green, Cancelled = red
-        //==================================================
 
         public static void StyleStatusBox(TextBox txt, int statusId)
         {
             if (txt == null)
                 return;
 
-            object marker;
-            if (!StatusBoxes.TryGetValue(txt, out marker))
-                StatusBoxes.Add(txt, new object());
+            StatusHolder holder;
+            if (!StatusBoxes.TryGetValue(txt, out holder))
+            {
+                holder = new StatusHolder();
+                StatusBoxes.Add(txt, holder);
+            }
 
+            holder.StatusId = statusId;
+            ApplyStatusColors(txt, statusId, P);
+        }
+
+        private static void ApplyStatusColors(TextBox txt, int statusId, ThemePalette palette)
+        {
             Color back, fore;
 
-            switch (statusId)
+            if (AppTheme.IsDark)
             {
-                case 1: back = ColorTranslator.FromHtml("#FEF3C7"); fore = ColorTranslator.FromHtml("#92400E"); break;
-                case 2: back = ColorTranslator.FromHtml("#DBEAFE"); fore = ColorTranslator.FromHtml("#1E40AF"); break;
-                case 3: back = ColorTranslator.FromHtml("#DCFCE7"); fore = ColorTranslator.FromHtml("#166534"); break;
-                case 4: back = ColorTranslator.FromHtml("#FEE2E2"); fore = ColorTranslator.FromHtml("#991B1B"); break;
-                default: back = ReadOnlyBack; fore = TextForeColor; break;
+                switch (statusId)
+                {
+                    case 1: back = C("#3A2A08"); fore = C("#FBBF24"); break;
+                    case 2: back = C("#10294D"); fore = C("#93C5FD"); break;
+                    case 3: back = C("#0E2E1B"); fore = C("#86EFAC"); break;
+                    case 4: back = C("#3A1518"); fore = C("#FCA5A5"); break;
+                    default: back = palette.SurfaceAlt; fore = palette.TextPrimary; break;
+                }
+            }
+            else
+            {
+                switch (statusId)
+                {
+                    case 1: back = C("#FEF3C7"); fore = C("#92400E"); break;
+                    case 2: back = C("#DBEAFE"); fore = C("#1E40AF"); break;
+                    case 3: back = C("#DCFCE7"); fore = C("#166534"); break;
+                    case 4: back = C("#FEE2E2"); fore = C("#991B1B"); break;
+                    default: back = palette.Background; fore = palette.TextPrimary; break;
+                }
             }
 
             txt.BackColor = back;
@@ -650,59 +647,61 @@ namespace SupplyBranch.Helpers
             txt.TextAlign = HorizontalAlignment.Center;
         }
 
-
-        //==================================================
-        // Buttons
-        // Color is chosen from the button's name:
-        //   Close / Cancel / Refresh / Exit / Clear / Reset  -> white with border
-        //   Approve                                          -> green
-        //   Delete / Remove                                  -> red
-        //   Assign / Print / Report / Performa / Export      -> slate
-        //   everything else (Save, Issue, Add, Search ...)   -> blue
-        //==================================================
-
-        private static void ApplyButtonDefaults(Button btn)
+        private static void ApplyPanel(Panel panel, ThemePalette palette)
         {
-            if (btn == null) return;
+            Role role = GetRole(panel);
+            panel.ForeColor = palette.TextPrimary;
 
-            string n = (btn.Name ?? "").ToLowerInvariant();
+            if (role == Role.PanelSurface)
+                panel.BackColor = palette.Surface;
+        }
 
-            Color back, hover, pressed, fore = Color.White;
+        private static void ApplyButtonDefaults(Button btn, ThemePalette palette)
+        {
+            if (btn == null)
+                return;
+
+            string n = (btn.Name ?? string.Empty).ToLowerInvariant();
+            string t = (btn.Text ?? string.Empty).ToLowerInvariant();
+
+            Color back, hover, pressed, fore = palette.OnPrimary;
             bool secondary = false;
 
             if (n.Contains("close") || n.Contains("cancel") || n.Contains("exit") ||
-                n.Contains("refresh") || n.Contains("clear") || n.Contains("reset"))
+                n.Contains("refresh") || n.Contains("clear") || n.Contains("reset") ||
+                t.Contains("close") || t.Contains("cancel") || t.Contains("exit") ||
+                t.Contains("refresh") || t.Contains("clear") || t.Contains("reset"))
             {
                 secondary = true;
-                back = Color.White;
-                hover = FormBackColor;
-                pressed = DisabledBack;
-                fore = TextForeColor;
+                back = palette.SurfaceAlt;
+                hover = palette.Surface;
+                pressed = palette.Border;
+                fore = palette.TextPrimary;
             }
             else if (n.Contains("approve"))
             {
-                back = Success;
-                hover = SuccessHover;
-                pressed = SuccessHover;
+                back = palette.Success;
+                hover = ColorUtil.Darken(palette.Success, 0.12F);
+                pressed = ColorUtil.Darken(palette.Success, 0.22F);
             }
             else if (n.Contains("delete") || n.Contains("remove"))
             {
-                back = Danger;
-                hover = DangerHover;
-                pressed = DangerHover;
+                back = palette.Danger;
+                hover = ColorUtil.Darken(palette.Danger, 0.12F);
+                pressed = ColorUtil.Darken(palette.Danger, 0.22F);
             }
             else if (n.Contains("assign") || n.Contains("print") || n.Contains("report") ||
                      n.Contains("performa") || n.Contains("export"))
             {
-                back = Slate;
-                hover = SlateHover;
-                pressed = SlateHover;
+                back = AppTheme.IsDark ? C("#3B4A63") : C("#334155");
+                hover = AppTheme.IsDark ? C("#465878") : C("#1E293B");
+                pressed = AppTheme.IsDark ? C("#2C384C") : C("#0F172A");
             }
             else
             {
-                back = Primary;
-                hover = PrimaryHover;
-                pressed = PrimaryPressed;
+                back = palette.Primary;
+                hover = palette.PrimaryHover;
+                pressed = palette.PrimaryPressed;
             }
 
             btn.Font = ButtonFont;
@@ -711,33 +710,46 @@ namespace SupplyBranch.Helpers
             btn.Padding = new Padding(10, 5, 10, 5);
 
             btn.FlatAppearance.BorderSize = secondary ? 1 : 0;
-            btn.FlatAppearance.BorderColor = BorderColor;
+            btn.FlatAppearance.BorderColor = palette.Border;
             btn.FlatAppearance.MouseOverBackColor = hover;
             btn.FlatAppearance.MouseDownBackColor = pressed;
 
-            Action refresh = delegate
+            if (btn.Enabled)
             {
-                if (btn.Enabled)
-                {
-                    btn.BackColor = back;
-                    btn.ForeColor = fore;
-                    btn.Cursor = Cursors.Hand;
-                }
-                else
-                {
-                    btn.BackColor = DisabledBack;
-                    btn.ForeColor = DisabledFore;
-                    btn.Cursor = Cursors.Default;
-                }
-            };
-
-            // Buttons such as Issue / Save are enabled & disabled by code - keep the look in sync
-            if (FirstTime(btn))
+                btn.BackColor = back;
+                btn.ForeColor = fore;
+                btn.Cursor = Cursors.Hand;
+            }
+            else
             {
-                btn.EnabledChanged += delegate { refresh(); };
+                btn.BackColor = palette.SurfaceAlt;
+                btn.ForeColor = palette.TextMuted;
+                btn.Cursor = Cursors.Default;
             }
 
-            refresh();
+            if (FirstTime(btn))
+            {
+                btn.EnabledChanged += delegate { UpdateButtonEnabledState(btn, back, fore, P); };
+            }
+        }
+
+        private static void UpdateButtonEnabledState(Button btn, Color enabledBack, Color enabledFore, ThemePalette palette)
+        {
+            if (btn.IsDisposed)
+                return;
+
+            if (btn.Enabled)
+            {
+                btn.BackColor = enabledBack;
+                btn.ForeColor = enabledFore;
+                btn.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                btn.BackColor = palette.SurfaceAlt;
+                btn.ForeColor = palette.TextMuted;
+                btn.Cursor = Cursors.Default;
+            }
         }
     }
 }

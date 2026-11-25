@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Transactions
+namespace SupplyBranch.Forms.Transactions
 {
     partial class frmDraftSupply
     {
@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtSupplyNo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmbOffice = new System.Windows.Forms.ComboBox();
+            this.cmbOffice = new SupplyBranch.Controls.ModernComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
@@ -46,7 +46,7 @@
             this.OfficeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cmbDraftStatus = new System.Windows.Forms.ComboBox();
+            this.cmbDraftStatus = new SupplyBranch.Controls.ModernComboBox();
             this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDraft)).BeginInit();
             this.SuspendLayout();

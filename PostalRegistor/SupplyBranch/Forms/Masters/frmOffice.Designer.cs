@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Masters
+namespace SupplyBranch.Forms.Masters
 {
     partial class frmOffice
     {
@@ -32,7 +32,7 @@
             this.lblOfficeName = new System.Windows.Forms.Label();
             this.lblOfficeFileNo = new System.Windows.Forms.Label();
             this.lblOfficeCode = new System.Windows.Forms.Label();
-            this.cmbZone = new System.Windows.Forms.ComboBox();
+            this.cmbZone = new SupplyBranch.Controls.ModernComboBox();
             this.txtOfficeName = new System.Windows.Forms.TextBox();
             this.txtOfficeCode = new System.Windows.Forms.TextBox();
             this.txtOfficeFileNo = new System.Windows.Forms.TextBox();

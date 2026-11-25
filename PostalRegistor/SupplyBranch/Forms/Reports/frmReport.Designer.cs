@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Reports
+namespace SupplyBranch.Forms.Reports
 {
     partial class frmReport
     {
@@ -30,19 +30,19 @@
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbReportType = new System.Windows.Forms.ComboBox();
+            this.cmbReportType = new SupplyBranch.Controls.ModernComboBox();
             this.lblOffice = new System.Windows.Forms.Label();
-            this.cmbOffice = new System.Windows.Forms.ComboBox();
+            this.cmbOffice = new SupplyBranch.Controls.ModernComboBox();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.cmbStatus = new SupplyBranch.Controls.ModernComboBox();
             this.lblFincialYear = new System.Windows.Forms.Label();
-            this.cmbFinancialYear = new System.Windows.Forms.ComboBox();
+            this.cmbFinancialYear = new SupplyBranch.Controls.ModernComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
             this.lblDenomination = new System.Windows.Forms.Label();
-            this.cmbDenomination = new System.Windows.Forms.ComboBox();
+            this.cmbDenomination = new SupplyBranch.Controls.ModernComboBox();
             this.lblTransactionType = new System.Windows.Forms.Label();
-            this.cmbTransactionType = new System.Windows.Forms.ComboBox();
+            this.cmbTransactionType = new SupplyBranch.Controls.ModernComboBox();
             this.lblFrom = new System.Windows.Forms.Label();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.lblTo = new System.Windows.Forms.Label();
@@ -77,7 +77,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(178, 31);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(238, 568);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(360, 568);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // label3
@@ -91,15 +91,15 @@
             // 
             // cmbReportType
             // 
+            this.cmbReportType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbReportType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReportType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbReportType.FormattingEnabled = true;
             this.cmbReportType.Items.AddRange(new object[] {
             "Office Wise Supply",
             "Category Wise Supply",
             "Supply Register",
-            "Office Wise Indent",
-            "Category Wise Indent",
             "Indent Register",
-            "Financial Year Report",
             "Pending Supplies",
             "Dispatch Register",
             "Invoice Register",
@@ -108,7 +108,7 @@
             "Stock Register"});
             this.cmbReportType.Location = new System.Drawing.Point(3, 16);
             this.cmbReportType.Name = "cmbReportType";
-            this.cmbReportType.Size = new System.Drawing.Size(203, 21);
+            this.cmbReportType.Size = new System.Drawing.Size(320, 21);
             this.cmbReportType.TabIndex = 0;
             this.cmbReportType.SelectedIndexChanged += new System.EventHandler(this.cmbReportType_SelectedIndexChanged);
             // 
@@ -123,10 +123,12 @@
             // 
             // cmbOffice
             // 
+            this.cmbOffice.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbOffice.FormattingEnabled = true;
             this.cmbOffice.Location = new System.Drawing.Point(3, 56);
             this.cmbOffice.Name = "cmbOffice";
-            this.cmbOffice.Size = new System.Drawing.Size(203, 21);
+            this.cmbOffice.Size = new System.Drawing.Size(320, 21);
             this.cmbOffice.TabIndex = 1;
             // 
             // lblStatus
@@ -140,10 +142,12 @@
             // 
             // cmbStatus
             // 
+            this.cmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Location = new System.Drawing.Point(3, 96);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(203, 21);
+            this.cmbStatus.Size = new System.Drawing.Size(320, 21);
             this.cmbStatus.TabIndex = 2;
             // 
             // lblFincialYear
@@ -157,10 +161,12 @@
             // 
             // cmbFinancialYear
             // 
+            this.cmbFinancialYear.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbFinancialYear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbFinancialYear.FormattingEnabled = true;
             this.cmbFinancialYear.Location = new System.Drawing.Point(3, 136);
             this.cmbFinancialYear.Name = "cmbFinancialYear";
-            this.cmbFinancialYear.Size = new System.Drawing.Size(203, 21);
+            this.cmbFinancialYear.Size = new System.Drawing.Size(320, 21);
             this.cmbFinancialYear.TabIndex = 3;
             // 
             // label5
@@ -174,10 +180,12 @@
             // 
             // cmbCategory
             // 
+            this.cmbCategory.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbCategory.FormattingEnabled = true;
             this.cmbCategory.Location = new System.Drawing.Point(3, 176);
             this.cmbCategory.Name = "cmbCategory";
-            this.cmbCategory.Size = new System.Drawing.Size(203, 21);
+            this.cmbCategory.Size = new System.Drawing.Size(320, 21);
             this.cmbCategory.TabIndex = 4;
             this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
             // 
@@ -193,31 +201,40 @@
             // 
             // cmbDenomination
             // 
+            this.cmbDenomination.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbDenomination.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbDenomination.FormattingEnabled = true;
             this.cmbDenomination.Location = new System.Drawing.Point(3, 216);
             this.cmbDenomination.Name = "cmbDenomination";
-            this.cmbDenomination.Size = new System.Drawing.Size(203, 21);
+            this.cmbDenomination.Size = new System.Drawing.Size(320, 21);
             this.cmbDenomination.TabIndex = 5;
+            this.cmbDenomination.Visible = false;
             // 
             // lblTransactionType
             // 
             this.lblTransactionType.AutoSize = true;
             this.lblTransactionType.Location = new System.Drawing.Point(3, 240);
             this.lblTransactionType.Name = "lblTransactionType";
-            this.lblTransactionType.Size = new System.Drawing.Size(87, 13);
+            this.lblTransactionType.Size = new System.Drawing.Size(90, 13);
             this.lblTransactionType.TabIndex = 18;
-            this.lblTransactionType.Text = "TransactionType";
+            this.lblTransactionType.Text = "Transaction Type";
+            this.lblTransactionType.Visible = false;
             // 
             // cmbTransactionType
             // 
+            this.cmbTransactionType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbTransactionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTransactionType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbTransactionType.FormattingEnabled = true;
             this.cmbTransactionType.Items.AddRange(new object[] {
+            "-- All Transactions --",
             "IN",
             "OUT"});
             this.cmbTransactionType.Location = new System.Drawing.Point(3, 256);
             this.cmbTransactionType.Name = "cmbTransactionType";
-            this.cmbTransactionType.Size = new System.Drawing.Size(203, 21);
+            this.cmbTransactionType.Size = new System.Drawing.Size(320, 21);
             this.cmbTransactionType.TabIndex = 17;
+            this.cmbTransactionType.Visible = false;
             // 
             // lblFrom
             // 
@@ -257,7 +274,7 @@
             // 
             this.btnOfficeWise.Location = new System.Drawing.Point(3, 361);
             this.btnOfficeWise.Name = "btnOfficeWise";
-            this.btnOfficeWise.Size = new System.Drawing.Size(203, 32);
+            this.btnOfficeWise.Size = new System.Drawing.Size(320, 36);
             this.btnOfficeWise.TabIndex = 8;
             this.btnOfficeWise.Text = "Print Report";
             this.btnOfficeWise.UseVisualStyleBackColor = true;
@@ -271,7 +288,7 @@
             this.ClientSize = new System.Drawing.Size(800, 611);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "frmReport";
-            this.Text = " INDENT/SUPPLY REPORTS AND INDENX";
+            this.Text = "INDENT / SUPPLY REPORTS AND INDEX";
             this.Load += new System.EventHandler(this.frmReport_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -280,25 +297,26 @@
         }
 
         #endregion
+
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cmbReportType;
         private System.Windows.Forms.Label lblOffice;
-        private System.Windows.Forms.ComboBox cmbOffice;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Label lblFincialYear;
-        private System.Windows.Forms.ComboBox cmbFinancialYear;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cmbCategory;
         private System.Windows.Forms.Label lblDenomination;
-        private System.Windows.Forms.ComboBox cmbDenomination;
         private System.Windows.Forms.Label lblFrom;
         private System.Windows.Forms.DateTimePicker dtFrom;
         private System.Windows.Forms.Label lblTo;
         private System.Windows.Forms.DateTimePicker dtTo;
         private System.Windows.Forms.Button btnOfficeWise;
-        private System.Windows.Forms.ComboBox cmbTransactionType;
         private System.Windows.Forms.Label lblTransactionType;
+        private Controls.ModernComboBox cmbReportType;
+        private Controls.ModernComboBox cmbOffice;
+        private Controls.ModernComboBox cmbStatus;
+        private Controls.ModernComboBox cmbFinancialYear;
+        private Controls.ModernComboBox cmbCategory;
+        private Controls.ModernComboBox cmbDenomination;
+        private Controls.ModernComboBox cmbTransactionType;
     }
 }

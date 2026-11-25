@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Masters
+namespace SupplyBranch.Forms.Masters
 {
     partial class frmUnitConversionMaster
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.cmbDenomination = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbDenomination = new SupplyBranch.Controls.ModernComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPiecesPerSheet = new System.Windows.Forms.TextBox();

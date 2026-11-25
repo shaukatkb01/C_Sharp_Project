@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Masters
+namespace SupplyBranch.Forms.Masters
 {
     partial class frmModuleManagement
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlTop = new System.Windows.Forms.Panel();
-            this.chkIsActive = new System.Windows.Forms.CheckBox();
-            this.numSortOrder = new System.Windows.Forms.NumericUpDown();
+            this.chkIsActive = new SupplyBranch.Controls.ModernCheckBox();
+            this.numSortOrder = new SupplyBranch.Controls.ModernNumericUpDown();
             this.lblSortOrder = new System.Windows.Forms.Label();
             this.txtModuleName = new System.Windows.Forms.TextBox();
             this.lblModuleName = new System.Windows.Forms.Label();

@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Transactions
+namespace SupplyBranch.Forms.Transactions
 {
     partial class frmIndentSearch
     {
@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.cmbZone = new System.Windows.Forms.ComboBox();
-            this.cmbOffice = new System.Windows.Forms.ComboBox();
+            this.cmbZone = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbOffice = new SupplyBranch.Controls.ModernComboBox();
             this.dtFrom = new System.Windows.Forms.DateTimePicker();
             this.dtTo = new System.Windows.Forms.DateTimePicker();
-            this.cmbIndentNo = new System.Windows.Forms.ComboBox();
+            this.cmbIndentNo = new SupplyBranch.Controls.ModernComboBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.dgvIndent = new System.Windows.Forms.DataGridView();

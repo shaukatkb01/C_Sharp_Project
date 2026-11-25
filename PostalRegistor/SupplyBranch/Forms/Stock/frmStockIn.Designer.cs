@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Stock
+namespace SupplyBranch.Forms.Stock
 {
     partial class frmStockIn
     {
@@ -18,8 +18,8 @@
 
         private void InitializeComponent()
         {
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.cmbDenomination = new System.Windows.Forms.ComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbDenomination = new SupplyBranch.Controls.ModernComboBox();
 
             this.lblCategory = new System.Windows.Forms.Label();
             this.lblDenomination = new System.Windows.Forms.Label();

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SupplyBranch.Helpers;
 
 namespace SupplyBranch.Forms.Help
 {
@@ -77,7 +78,7 @@ Use the Help menu to access this User Guide, About information and check Applica
 
         private void frmUserGuide_Load(object sender, EventArgs e)
         {
-
+            UITheme.Apply(this);
         }
     }
 }

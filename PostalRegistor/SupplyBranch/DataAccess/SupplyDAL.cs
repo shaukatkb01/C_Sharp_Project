@@ -82,6 +82,76 @@ namespace SupplyBranch.DataAccess
     {
         private readonly DBHelper db = new DBHelper();
 
+       
+
+        public static (string CurrentFY, string LastFY) GetFinancialYears1(DateTime referenceDate)
+        {
+            // July (month >= 7) se naya financial year shuru hota hai
+            int fyStartYear = referenceDate.Month >= 7 ? referenceDate.Year : referenceDate.Year - 1;
+            int fyEndYear = fyStartYear + 1;
+            int prevStartYear = fyStartYear - 1;
+            int prevEndYear = fyStartYear;
+
+            string currentFY = $"{fyStartYear % 100:00}-{fyEndYear % 100:00}"; // e.g. "26-27"
+            string lastFY = $"{prevStartYear % 100:00}-{prevEndYear % 100:00}";   // e.g. "25-26"
+
+            return (currentFY, lastFY);
+        }
+
+        public struct FinancialYearRange
+        {
+            public string CurrentFY { get; set; }
+            public string LastFY { get; set; }
+        }
+
+        public static FinancialYearRange GetFinancialYearsRange(DateTime referenceDate)
+        {
+            // Pakistan financial year: July (month >= 7) se June tak
+            int fyStartYear = referenceDate.Month >= 7 ? referenceDate.Year : referenceDate.Year - 1;
+            int fyEndYear = fyStartYear + 1;
+            int prevStartYear = fyStartYear - 1;
+            int prevEndYear = fyStartYear;
+
+            return new FinancialYearRange
+            {
+                CurrentFY = string.Format("{0:00}-{1:00}", fyStartYear % 100, fyEndYear % 100),
+                LastFY = string.Format("{0:00}-{1:00}", prevStartYear % 100, prevEndYear % 100)
+            };
+        }
+
+        public DataTable GetCategorySupplyComparison(string currentFY, string lastFY)
+        {
+            string query = @"
+SELECT
+    SC.Name AS CategoryName,
+    SUM(CASE WHEN SM.FinancialYear = @CurrentFY THEN ISNULL(SD.SupplyQty, 0) ELSE 0 END) AS CurrentFySheets,
+    SUM(CASE WHEN SM.FinancialYear = @LastFY    THEN ISNULL(SD.SupplyQty, 0) ELSE 0 END) AS LastFySheets,
+    SUM(CASE WHEN SM.FinancialYear = @CurrentFY THEN ISNULL(SD.TotalPieces, 0) ELSE 0 END) AS CurrentFyPieces,
+    SUM(CASE WHEN SM.FinancialYear = @LastFY    THEN ISNULL(SD.TotalPieces, 0) ELSE 0 END) AS LastFyPieces,
+    SUM(CASE WHEN SM.FinancialYear = @CurrentFY
+             THEN CAST(ISNULL(SD.TotalPieces, 0) AS DECIMAL(18, 2)) * ISNULL(D.Denomination, 0)
+             ELSE 0 END) AS CurrentFyValue,
+    SUM(CASE WHEN SM.FinancialYear = @LastFY
+             THEN CAST(ISNULL(SD.TotalPieces, 0) AS DECIMAL(18, 2)) * ISNULL(D.Denomination, 0)
+             ELSE 0 END) AS LastFyValue
+FROM SupplyDetail SD
+INNER JOIN SupplyMaster SM ON SD.SupplyID = SM.SupplyID
+INNER JOIN StampCategory SC ON SD.CategoryID = SC.CategoryID
+LEFT JOIN Denomination D ON SD.DenominationID = D.DenominationID
+WHERE SM.FinancialYear IN (@CurrentFY, @LastFY)
+  AND SM.StatusID IN (2, 3)
+GROUP BY SC.Name
+ORDER BY SC.Name;";
+
+            SqlParameter[] parameters =
+            {
+        new SqlParameter("@CurrentFY", currentFY ?? string.Empty),
+        new SqlParameter("@LastFY", lastFY ?? string.Empty)
+    };
+
+            return db.ExecuteQuery(query, parameters);
+        }
+
         public int GetSheetsPerCase(int categoryID, int denominationID)
         {
             // PacketsPerBox aur SheetsPerPacket ko multiply karke Sheets Per Case calculate kar rahe hain

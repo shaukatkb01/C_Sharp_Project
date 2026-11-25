@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms
+namespace SupplyBranch.Forms
 {
     partial class frmDashBoard
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmb_Task = new System.Windows.Forms.ComboBox();
+            this.cmb_Task = new SupplyBranch.Controls.ModernComboBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dgvTasks = new System.Windows.Forms.DataGridView();

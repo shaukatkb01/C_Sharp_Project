@@ -138,7 +138,7 @@ namespace SupplyBranch.Forms.Masters
         private void frmDenomination_Load(object sender, EventArgs e)
         {
             UITheme.Apply(this);
-
+            
             LoadCategories();
 
             LoadData();

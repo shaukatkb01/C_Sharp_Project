@@ -1,49 +1,62 @@
-﻿using FastReport.Utils;
-using Microsoft.Win32;
-using SupplyBranch.DAL;
+﻿using SupplyBranch.DAL;
 using SupplyBranch.DataAccess;
 using SupplyBranch.Helpers;
 using SupplyBranch.Models;
 using System;
 using System.Data;
-using System.Windows.Forms;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Reflection;
-
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SupplyBranch.Forms.Reports
 {
     public partial class frmReport : Form
     {
-        private bool IsEditMode = false;
-
         private readonly ReportDAL _dal = new ReportDAL();
+        private readonly OfficeDAL _officeDal = new OfficeDAL();
+        private readonly SupplyDAL _supplyDal = new SupplyDAL();
+        private readonly StockDAL _stockDal = new StockDAL();
 
         private ToolTip _toolTip;
+        private bool _isLoadingLookups = false;
+
+        public frmReport()
+        {
+            InitializeComponent();
+            EnableDoubleBuffering(flowLayoutPanel1);
+        }
+
+        private static void EnableDoubleBuffering(Control control)
+        {
+            if (control == null) return;
+
+            try
+            {
+                PropertyInfo prop = typeof(Control).GetProperty(
+                    "DoubleBuffered",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+
+                prop?.SetValue(control, true, null);
+            }
+            catch
+            {
+                // Ignore if restricted by environment
+            }
+        }
 
         /// <summary>
         /// Apply modern visual adjustments to frmReport controls at runtime.
-        /// Does not modify control names, handlers or behavior — only appearance, layout and accessibility hints.
         /// </summary>
         private void ApplyModernReportUI()
         {
+            if (flowLayoutPanel1 != null)
+                flowLayoutPanel1.SuspendLayout();
+
+            SuspendLayout();
+
             try
             {
-                // 1. FlowLayoutPanel layouting ko PAUSE karein taake controls hilein nahi
-                if (flowLayoutPanel1 != null)
-                {
-                    flowLayoutPanel1.SuspendLayout();
-
-                    // Double Buffering enable karein flickering khatam karne ke liye
-                    typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                                   ?.SetValue(flowLayoutPanel1, true, null);
-                }
-
-                // Form ki drawing bhi pause karein
-                this.SuspendLayout();
-
-                // ToolTip initialization
                 _toolTip = new ToolTip
                 {
                     ShowAlways = true,
@@ -55,13 +68,11 @@ namespace SupplyBranch.Forms.Reports
                     ForeColor = Color.FromArgb(34, 34, 34)
                 };
 
-                // Base fonts and colors
-                var labelFont = new Font("Segoe UI", 9F, FontStyle.Regular);
-                var labelBold = new Font("Segoe UI", 9F, FontStyle.Bold);
-                var controlFont = new Font("Segoe UI", 10F, FontStyle.Regular);
-                var primary = Color.FromArgb(31, 78, 121);
+                Font labelFont = new Font("Segoe UI", 9F, FontStyle.Regular);
+                Font labelBold = new Font("Segoe UI", 9F, FontStyle.Bold);
+                Font controlFont = new Font("Segoe UI", 10F, FontStyle.Regular);
+                Color primary = Color.FromArgb(31, 78, 121);
 
-                // Flow panel visual improvements
                 if (flowLayoutPanel1 != null)
                 {
                     flowLayoutPanel1.BackColor = Color.Transparent;
@@ -70,69 +81,59 @@ namespace SupplyBranch.Forms.Reports
                     flowLayoutPanel1.Padding = new Padding(10);
                     flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
                     flowLayoutPanel1.Width = Math.Max(360, flowLayoutPanel1.Width);
-                }
 
-                // Styling logic
-                Action<Control> styleControl = (ctrl) =>
-                {
-                    if (ctrl is Label lbl)
-                    {
-                        lbl.Font = labelFont;
-                        lbl.ForeColor = Color.FromArgb(45, 45, 45);
-                        lbl.Margin = new Padding(3, 6, 3, 4);
-                    }
-                    else if (ctrl is ComboBox cb)
-                    {
-                        cb.Font = controlFont;
-                        cb.FlatStyle = FlatStyle.Flat;
-                        cb.BackColor = Color.White;
-                        cb.ForeColor = Color.FromArgb(34, 34, 34);
-                        cb.Margin = new Padding(3, 3, 3, 8);
-                        cb.Padding = new Padding(6);
-                        cb.DropDownHeight = 200;
-                        cb.IntegralHeight = false;
-                        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-                        string targetName = (cb.Tag != null)
-                            ? cb.Tag.ToString()
-                            : cb.Name.Replace("cmb", "").Replace("Combo", "").Trim();
-                        _toolTip.SetToolTip(cb, "Select " + targetName);
-                    }
-                    else if (ctrl is DateTimePicker dt)
-                    {
-                        dt.Font = controlFont;
-                        dt.Format = DateTimePickerFormat.Custom;
-                        dt.CustomFormat = "dd-MMM-yyyy";
-                        dt.Width = 200;
-                        dt.Margin = new Padding(3, 3, 3, 8);
-                        _toolTip.SetToolTip(dt, "Choose date");
-                    }
-                    else if (ctrl is Button btn)
-                    {
-                        btn.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
-                        btn.FlatStyle = FlatStyle.Flat;
-                        btn.FlatAppearance.BorderSize = 0;
-                        btn.BackColor = primary;
-                        btn.ForeColor = Color.White;
-                        btn.Padding = new Padding(12, 6, 12, 6);
-                        btn.Height = 36;
-                        btn.Cursor = Cursors.Hand;
-                        btn.Margin = new Padding(6, 12, 6, 6);
-                        _toolTip.SetToolTip(btn, btn.Text);
-                    }
-                };
-
-                // Standardize all controls in flowLayoutPanel1
-                if (flowLayoutPanel1 != null)
-                {
                     foreach (Control ctrl in flowLayoutPanel1.Controls)
                     {
-                        styleControl(ctrl);
+                        if (ctrl is Label lbl)
+                        {
+                            lbl.Font = labelFont;
+                            lbl.ForeColor = Color.FromArgb(45, 45, 45);
+                            lbl.Margin = new Padding(3, 6, 3, 4);
+                        }
+                        else if (ctrl is ComboBox cb)
+                        {
+                            cb.Font = controlFont;
+                            cb.FlatStyle = FlatStyle.Flat;
+                            cb.BackColor = Color.White;
+                            cb.ForeColor = Color.FromArgb(34, 34, 34);
+                            cb.Margin = new Padding(3, 3, 3, 8);
+                            cb.DropDownHeight = 220;
+                            cb.IntegralHeight = false;
+                            cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                            cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                            cb.Width = 320;
+
+                            string targetName = cb.Tag != null
+                                ? cb.Tag.ToString()
+                                : cb.Name.Replace("cmb", "").Trim();
+                            _toolTip.SetToolTip(cb, "Select " + targetName);
+                        }
+                        else if (ctrl is DateTimePicker dt)
+                        {
+                            dt.Font = controlFont;
+                            dt.Format = DateTimePickerFormat.Custom;
+                            dt.CustomFormat = "dd-MMM-yyyy";
+                            dt.Width = 200;
+                            dt.Margin = new Padding(3, 3, 3, 8);
+                            _toolTip.SetToolTip(dt, "Choose date");
+                        }
+                        else if (ctrl is Button btn)
+                        {
+                            btn.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+                            btn.FlatStyle = FlatStyle.Flat;
+                            btn.FlatAppearance.BorderSize = 0;
+                            btn.BackColor = primary;
+                            btn.ForeColor = Color.White;
+                            btn.Padding = new Padding(12, 6, 12, 6);
+                            btn.Height = 36;
+                            btn.Width = 320;
+                            btn.Cursor = Cursors.Hand;
+                            btn.Margin = new Padding(3, 12, 3, 6);
+                            _toolTip.SetToolTip(btn, btn.Text);
+                        }
                     }
                 }
 
-                // Specific adjustments
                 if (label3 != null)
                 {
                     label3.Font = labelBold;
@@ -140,145 +141,139 @@ namespace SupplyBranch.Forms.Reports
                     label3.Margin = new Padding(3, 2, 3, 6);
                 }
 
-                if (cmbReportType != null) { cmbReportType.Width = 320; _toolTip.SetToolTip(cmbReportType, "Select the report type to generate"); }
-                if (cmbCategory != null) { cmbCategory.Width = 320; cmbCategory.DropDownHeight = 240; }
-                if (cmbDenomination != null) cmbDenomination.Width = 320;
-                if (cmbOffice != null) cmbOffice.Width = 320;
-                if (cmbStatus != null) cmbStatus.Width = 320;
-                if (cmbFinancialYear != null) cmbFinancialYear.Width = 320;
-                if (dtFrom != null) dtFrom.Width = 200;
-                if (dtTo != null) dtTo.Width = 200;
-
-                if (cmbReportType != null && string.IsNullOrWhiteSpace(cmbReportType.AccessibilityObject.Name))
-                    cmbReportType.AccessibleName = "Report Type";
-
-                if (btnOfficeWise != null)
+                if (cmbReportType != null)
                 {
-                    btnOfficeWise.Anchor = AnchorStyles.Top;
+                    _toolTip.SetToolTip(cmbReportType, "Select the report type to generate");
+                    if (string.IsNullOrWhiteSpace(cmbReportType.AccessibilityObject.Name))
+                        cmbReportType.AccessibleName = "Report Type";
                 }
-            }
-            catch
-            {
-                // Non-blocking catch
             }
             finally
             {
-                // 2. Layout rendering ko RESUME karein taake sab aik saath display ho
                 if (flowLayoutPanel1 != null)
-                {
                     flowLayoutPanel1.ResumeLayout(true);
-                }
-                this.ResumeLayout(true);
+
+                ResumeLayout(true);
             }
         }
 
-        private void UpdateCombo()
-        {
-            cmbStatus.Enabled = IsEditMode;
-
-            //btnDelete.Enabled = !IsEditMode;
-
-            //btnPrint.Enabled = !IsEditMode;
-
-            //btnNew.Enabled = !IsEditMode;
-
-            //btnEdit.Enabled = !IsEditMode;
-        }
-        // Constructor: enable double-buffering on heavy panels and keep existing InitializeComponent call
-        public frmReport()
-        {
-            InitializeComponent();
-
-            // reduce flicker / repaint overhead on complex layouts
-            try
-            {
-                if (flowLayoutPanel1 != null)
-                {
-                    // set protected DoubleBuffered property via reflection
-                    typeof(Control).GetProperty("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance)
-                        .SetValue(flowLayoutPanel1, true, null);
-                }
-            }
-            catch
-            {
-                // non-fatal
-            }
-        }
-
-        // Make Load async and move blocking data calls off the UI thread
         private async void frmReport_Load(object sender, EventArgs e)
         {
             UITheme.Apply(this);
-
-            // Apply modern UI improvements (runtime only) — keep quick UI ops on UI thread
             ApplyModernReportUI();
 
+            // Transaction Type (IN / OUT) stays hidden unless "Stock Register" is chosen
+            SetTransactionTypeVisible(false);
+            SetDenominationVisible(false);
+
             if (dtFrom != null)
-            {
-                dtFrom.Value = new DateTime(2026, 1, 1);
-            }
+                dtFrom.Value = new DateTime(DateTime.Today.Year, 1, 1);
+
+            if (dtTo != null)
+                dtTo.Value = DateTime.Today;
 
             btnOfficeWise.Enabled = false;
+            _isLoadingLookups = true;
 
             try
             {
-                var reportLookups = await Task.Run(() => new
+                var lookups = await Task.Run(() => new
                 {
-                    Offices = new OfficeDAL().GetAllOffices(),
-                    FinancialYears = new OfficeDAL().GetFinancialYear(),
-                    Statuses = new SupplyDAL().GetDraftStatus(),
-                    Categories = new ReportDAL().GetCategories()
+                    Offices = _officeDal.GetAllOffices(),
+                    FinancialYears = _officeDal.GetFinancialYear(),
+                    Statuses = _supplyDal.GetDraftStatus(),
+                    Categories = _dal.GetCategories()
                 });
 
-                cmbOffice.DataSource = reportLookups.Offices;
-                cmbOffice.DisplayMember = "OfficeName";
-                cmbOffice.ValueMember = "OfficeID";
-                cmbOffice.SelectedIndex = 0;
+                BindComboSafe(cmbOffice, lookups.Offices, "OfficeName", "OfficeID");
+                BindComboSafe(cmbFinancialYear, lookups.FinancialYears, "FinancialYearName", "FinancialYear");
+                BindComboSafe(cmbStatus, lookups.Statuses, "StatusName", "StatusID");
+                BindComboSafe(cmbCategory, lookups.Categories, "Name", "CategoryID");
 
-                cmbFinancialYear.DataSource = reportLookups.FinancialYears;
-                cmbFinancialYear.DisplayMember = "FinancialYearName";
-                cmbFinancialYear.ValueMember = "FinancialYear";
-                cmbFinancialYear.SelectedIndex = 0;
-
-                cmbStatus.DataSource = reportLookups.Statuses;
-                cmbStatus.DisplayMember = "StatusName";
-                cmbStatus.ValueMember = "StatusID";
-                cmbStatus.SelectedIndex = 0;
-
-                cmbCategory.DisplayMember = "Name";
-                cmbCategory.ValueMember = "CategoryID";
-                cmbCategory.DataSource = reportLookups.Categories;
-                cmbCategory.Enabled = true;
+                LoadAllDenominationsOnly();
+                InitializeTransactionTypes();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "Report filters could not be loaded. Please try again or contact support.\n\n" + ex.Message,
+                    "Report filters could not be loaded. Please try again.\n\n" + ex.Message,
                     "Report Filters",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
             finally
             {
+                _isLoadingLookups = false;
                 btnOfficeWise.Enabled = true;
             }
+        }
 
+        private static void BindComboSafe(ComboBox combo, DataTable data, string displayMember, string valueMember)
+        {
+            if (combo == null || data == null) return;
+
+            combo.DisplayMember = displayMember;
+            combo.ValueMember = valueMember;
+            combo.DataSource = data;
+
+            if (data.Rows.Count > 0)
+                combo.SelectedIndex = 0;
+        }
+
+        private void InitializeTransactionTypes()
+        {
+            cmbTransactionType.Items.Clear();
+            cmbTransactionType.Items.Add("-- All Transactions --");
+            cmbTransactionType.Items.Add("IN");
+            cmbTransactionType.Items.Add("OUT");
+            cmbTransactionType.SelectedIndex = 0;
+        }
+
+        private void SetTransactionTypeVisible(bool visible)
+        {
+            lblTransactionType.Visible = visible;
+            cmbTransactionType.Visible = visible;
+
+            if (!visible && cmbTransactionType.Items.Count > 0)
+                cmbTransactionType.SelectedIndex = 0;
+        }
+
+        private void SetDenominationVisible(bool visible)
+        {
+            lblDenomination.Visible = visible;
+            cmbDenomination.Visible = visible;
+        }
+
+        private void SetStandardFilterVisibility(bool showOffice, bool showStatus, bool showFinancialYear, bool showDateRange)
+        {
+            lblOffice.Visible = showOffice;
+            cmbOffice.Visible = showOffice;
+
+            lblStatus.Visible = showStatus;
+            cmbStatus.Visible = showStatus;
+
+            lblFincialYear.Visible = showFinancialYear;
+            cmbFinancialYear.Visible = showFinancialYear;
+
+            lblFrom.Visible = showDateRange;
+            dtFrom.Visible = showDateRange;
+            lblTo.Visible = showDateRange;
+            dtTo.Visible = showDateRange;
         }
 
         public void LoadDenominationCombo(int categoryID)
         {
             DataTable dt = _dal.GetDenominations(categoryID);
 
-            // Dynamic Top Row 'All' Insert
             DataRow dr = dt.NewRow();
             dr["DenominationID"] = 0;
             dr["DisplayDenomination"] = "-- All Denominations --";
             dt.Rows.InsertAt(dr, 0);
 
-            // ComboBox Binding
-            cmbDenomination.DataSource = dt;
             cmbDenomination.DisplayMember = "DisplayDenomination";
             cmbDenomination.ValueMember = "DenominationID";
+            cmbDenomination.DataSource = dt;
+            cmbDenomination.SelectedIndex = 0;
         }
 
         private void LoadAllDenominationsOnly()
@@ -286,47 +281,51 @@ namespace SupplyBranch.Forms.Reports
             DataTable dt = new DataTable();
             dt.Columns.Add("DenominationID", typeof(int));
             dt.Columns.Add("DisplayDenomination", typeof(string));
-
-            // Sirf Single Row "All Denominations"
             dt.Rows.Add(0, "-- All Denominations --");
 
-            cmbDenomination.DataSource = dt;
             cmbDenomination.DisplayMember = "DisplayDenomination";
             cmbDenomination.ValueMember = "DenominationID";
+            cmbDenomination.DataSource = dt;
+            cmbDenomination.SelectedIndex = 0;
         }
 
+        private static int GetSelectedInt(ComboBox combo)
+        {
+            if (combo?.SelectedValue == null) return 0;
+
+            int value;
+            return int.TryParse(combo.SelectedValue.ToString(), out value) ? value : 0;
+        }
 
         private void btnOfficeWise_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(cmbReportType.Text))
+            {
+                MessageBox.Show("Please select a report type.", "Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cmbReportType.Focus();
+                return;
+            }
+
+            if (dtFrom.Visible && dtTo.Visible && dtFrom.Value.Date > dtTo.Value.Date)
+            {
+                MessageBox.Show("'From' date cannot be greater than 'To' date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtFrom.Focus();
+                return;
+            }
+
             ReportFilter filter = new ReportFilter();
 
-            //----------------------------
-            // Common Filters
-            //----------------------------
+            int officeID = GetSelectedInt(cmbOffice);
+            if (officeID != 0)
+                filter.OfficeID = officeID;
 
-            if (cmbOffice.SelectedValue != null)
-            {
-                int officeID = Convert.ToInt32(cmbOffice.SelectedValue);
+            int categoryID = GetSelectedInt(cmbCategory);
+            if (categoryID != 0)
+                filter.CategoryID = categoryID;
 
-                if (officeID != 0)
-                    filter.OfficeID = officeID;
-            }
-
-            if (cmbCategory.SelectedValue != null)
-            {
-                int categoryID = Convert.ToInt32(cmbCategory.SelectedValue);
-
-                if (categoryID != 0)
-                    filter.CategoryID = categoryID;
-            }
-
-            if (cmbDenomination.SelectedValue != null)
-            {
-                int denominationID = Convert.ToInt32(cmbDenomination.SelectedValue);
-
-                if (denominationID != 0)
-                    filter.DenominationID = denominationID;
-            }
+            int denominationID = GetSelectedInt(cmbDenomination);
+            if (denominationID != 0)
+                filter.DenominationID = denominationID;
 
             if (cmbFinancialYear.SelectedValue != null)
             {
@@ -335,21 +334,12 @@ namespace SupplyBranch.Forms.Reports
                     filter.FinancialYear = financialYear;
             }
 
-            if (cmbStatus.SelectedValue != null)
-            {
-                int statusID = Convert.ToInt32(cmbStatus.SelectedValue);
-
-                if (statusID != 0)
-                    filter.StatusID = statusID;
-            }
+            int statusID = GetSelectedInt(cmbStatus);
+            if (statusID != 0)
+                filter.StatusID = statusID;
 
             filter.FromDate = dtFrom.Value.Date;
             filter.ToDate = dtTo.Value.Date;
-
-
-            //----------------------------
-            // Variables
-            //----------------------------
 
             string reportFile = "";
             DataTable dt = null;
@@ -358,170 +348,92 @@ namespace SupplyBranch.Forms.Reports
             DataTable dt3 = null;
             DataTable dt4 = null;
 
-
-            //----------------------------
-            // Report Selection
-            //----------------------------
-
             switch (cmbReportType.Text)
             {
-                //========================================
+                // ========================================
                 // SUPPLY REPORTS
-                //========================================
-
+                // ========================================
                 case "Office Wise Supply":
-
                     reportFile = "rptOfficeWiseSupply.rdlc";
-
                     filter.StatusID = 3;
-
                     dt = _dal.GetSupplyRegister(filter);
-
                     break;
-
 
                 case "Category Wise Supply":
-
                     reportFile = "rptCategoryWiseSupply.rdlc";
-
                     dt = _dal.GetSupplyRegister(filter);
-
                     break;
-
 
                 case "Supply Register":
-
                     reportFile = "rptSupplyRegister.rdlc";
-
                     filter.SupplyRegisterOnly = true;
-
                     dt = _dal.GetSupplyRegister(filter);
-
                     break;
 
+                case "Dispatch Register":
+                    reportFile = "rptSupplyRegister.rdlc";
+                    filter.StatusID = 3;
+                    dt = _dal.GetSupplyRegister(filter);
+                    break;
 
-                //========================================
+                case "Pending Supplies":
+                    reportFile = "rptIndentRegister.rdlc";
+                    dt2 = _dal.GetIndentCurrentBalanceReport(filter);
+                    break;
+
+                // ========================================
                 // INDENT REPORTS
-                //========================================
-
+                // ========================================
                 case "Office Wise Indent":
-
                     reportFile = "rptOfficeWiseIndent.rdlc";
-
                     dt1 = _dal.GetIndentRegister(filter);
-
                     break;
-
 
                 case "Category Wise Indent":
-
                     reportFile = "rptCategoryWiseIndent.rdlc";
-
                     dt1 = _dal.GetIndentRegister(filter);
-
                     break;
-
 
                 case "Indent Register":
-
                     reportFile = "rptIndentRegister.rdlc";
-
                     dt2 = _dal.GetIndentCurrentBalanceReport(filter);
-
                     break;
 
-
-                //========================================
-                // OTHER REPORTS
-                //========================================
-
+                // ========================================
+                // OTHER & STOCK REPORTS
+                // ========================================
                 case "Invoice Register":
-
                     reportFile = "rptInvoiceRegister.rdlc";
-
                     dt = _dal.GetSupplyRegister(filter);
-
                     break;
-
 
                 case "Financial Year Report":
-
                     reportFile = "rptCurrentStock.rdlc";
-                    StockDAL sd = new StockDAL();
-
-                    dt = sd.GetCurrentStockPosition();
-
+                    dt = _stockDal.GetCurrentStockPosition();
                     break;
-
 
                 case "Index Register":
-
                     reportFile = "rptIndex.rdlc";
-
                     dt = _dal.GetSupplyRegister(filter);
-
                     break;
-
 
                 case "Current Stock":
                     reportFile = "rptCurrentStock.rdlc";
-
-                    int selectedCategory = 0;
-                    int selectedDenomination = 0;
-
-                    if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int cId))
-                        selectedCategory = cId;
-
-                    if (cmbDenomination.SelectedValue != null && int.TryParse(cmbDenomination.SelectedValue.ToString(), out int dId))
-                        selectedDenomination = dId;
-
-                    dt3 = _dal.GetCurrentStockReport(selectedCategory, selectedDenomination);
-
-                    
+                    dt3 = _dal.GetCurrentStockReport(categoryID, denominationID);
                     break;
 
                 case "Stock Register":
-
                     reportFile = "rptStockRegister.rdlc";
-
-                    int selectedCategory1 = 0;
-                    int selectedDenomination1 = 0;
-                    string transactionType = "";
-
-                    // 1. Category ID Read
-                    if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int cId1))
-                        selectedCategory1 = cId1;
-
-                    // 2. Denomination ID Read
-                    if (cmbDenomination.SelectedValue != null && int.TryParse(cmbDenomination.SelectedValue.ToString(), out int dId1))
-                        selectedDenomination1 = dId1;
-
-                    // 3. Transaction Type Read (FIXED SYNTAX)
-                    if (cmbTransactionType.SelectedItem != null)
-                    {
-                        transactionType = cmbTransactionType.Text.Trim();
-                    }
-
-                    // Call DAL Method
-                    dt3 = _dal.GetStockTransaction(selectedCategory1, selectedDenomination1, transactionType);
-
+                    string transactionType = cmbTransactionType.SelectedIndex > 0
+                        ? cmbTransactionType.Text.Trim()
+                        : "";
+                    dt3 = _dal.GetStockTransaction(categoryID, denominationID, transactionType);
                     break;
 
                 default:
-
-                    MessageBox.Show(
-                        "Please Select Report.",
-                        "Report",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
+                    MessageBox.Show("Please Select Report.", "Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
             }
-
-
-            //----------------------------
-            // Check Record
-            //----------------------------
 
             if ((dt == null || dt.Rows.Count == 0) &&
                 (dt1 == null || dt1.Rows.Count == 0) &&
@@ -529,160 +441,88 @@ namespace SupplyBranch.Forms.Reports
                 (dt3 == null || dt3.Rows.Count == 0) &&
                 (dt4 == null || dt4.Rows.Count == 0))
             {
-                MessageBox.Show(
-                    "No Record Found.",
-                    "Report",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
+                MessageBox.Show("No Record Found.", "Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-
-            //----------------------------
-            // Open Preview
-            //----------------------------
-
             frmReportPreview frm = new frmReportPreview();
-
-            frm.LoadReport(
-                reportFile,
-                dt,
-                dt1,
-                dt2,
-                dt3,
-                dt4);
-
+            frm.LoadReport(reportFile, dt, dt1, dt2, dt3, dt4);
             frm.ShowDialog();
         }
 
         private void cmbReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            // defult property of status combo box is enabled, but for some reports it should be disabled, so we are changing the property based on report type selection.
-            cmbStatus.SelectedValue = 0;
+            if (cmbStatus.Items.Count > 0) cmbStatus.SelectedValue = 0;
             cmbStatus.Enabled = true;
-            cmbOffice.SelectedIndex = 0;
-            cmbOffice.Enabled = true;
-            cmbCategory.SelectedIndex = 0;
-            cmbCategory.Enabled = true;
-            lblDenomination.Visible = false;
-            cmbDenomination.Visible = false;
 
-            lblOffice.Visible = true;
-            lblStatus.Visible = true;
-            lblFincialYear.Visible = true;
-            lblFrom.Visible = true;
-            lblTo.Visible = true;
-            // combo
-            cmbOffice.Visible = true;
-            cmbStatus.Visible = true;
-            cmbFinancialYear.Visible = true;
-            dtFrom.Visible = true;
-            dtTo.Visible = true;
+            if (cmbOffice.Items.Count > 0) cmbOffice.SelectedIndex = 0;
+            cmbOffice.Enabled = true;
+
+            if (cmbCategory.Items.Count > 0) cmbCategory.SelectedIndex = 0;
+            cmbCategory.Enabled = true;
+
+            // Default: hide Denomination and TransactionType (IN/OUT)
+            SetDenominationVisible(false);
+            SetTransactionTypeVisible(false);
+            SetStandardFilterVisibility(showOffice: true, showStatus: true, showFinancialYear: true, showDateRange: true);
 
             switch (cmbReportType.Text)
             {
-
                 case "Office Wise Supply":
-
+                case "Dispatch Register":
                     cmbStatus.SelectedValue = 3;
                     cmbStatus.Enabled = false;
-
-
                     break;
 
                 case "Category Wise Supply":
-
-                    break;
-
                 case "Supply Register":
-
-
+                case "Invoice Register":
+                case "Index Register":
+                case "Financial Year Report":
                     break;
-
 
                 case "Office Wise Indent":
                     cmbStatus.Enabled = false;
-
                     break;
 
                 case "Category Wise Indent":
-                    cmbDenomination.Visible = true;
+                case "Pending Supplies":
+                    SetDenominationVisible(true);
                     break;
-
 
                 case "Indent Register":
-                    cmbDenomination.Visible = true;
-                    lblStatus.Visible = false;
-                    cmbStatus.Visible = false;
-                    cmbFinancialYear.Visible = false;
-                    lblFincialYear.Visible = false;
-
-                    break;
-
-                case "Invoice Register":
-
-                    break;
-
-                case "Financial Year Report":
-
-
-                case "Pending Supplies":
-                    cmbDenomination.Visible = true;
-
+                    SetDenominationVisible(true);
+                    SetStandardFilterVisibility(showOffice: true, showStatus: false, showFinancialYear: false, showDateRange: true);
                     break;
 
                 case "Current Stock":
-                    lblDenomination.Visible = true;
-                    cmbDenomination.Visible = true;
-
-                    // lable
-                    lblOffice.Visible = false;
-                    lblStatus.Visible = false;
-                    lblFincialYear.Visible = false;
-                    lblFrom.Visible = false;
-                    lblTo.Visible = false;
-                    // combo
-                    cmbOffice.Visible = false;
-                    cmbStatus.Visible = false;
-                    cmbFinancialYear.Visible = false;
-                    dtFrom.Visible = false;
-                    dtTo.Visible = false;
-
+                    SetDenominationVisible(true);
+                    SetStandardFilterVisibility(showOffice: false, showStatus: false, showFinancialYear: false, showDateRange: false);
                     break;
 
-                case "Index Register":
-                    break;
-
-
-                case "Performa":
-
+                case "Stock Register":
+                    // IN / OUT combo shown ONLY here
+                    SetDenominationVisible(true);
+                    SetTransactionTypeVisible(true);
+                    SetStandardFilterVisibility(showOffice: false, showStatus: false, showFinancialYear: false, showDateRange: false);
                     break;
 
                 default:
-                    MessageBox.Show("Please Select Report.");
-                    return;
+                    MessageBox.Show("Please Select Report.", "Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
             }
         }
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            if (cmbCategory.SelectedValue != null && int.TryParse(cmbCategory.SelectedValue.ToString(), out int categoryID))
-            {
-                if (categoryID > 0)
-                {
-                    // Jab koi specific Category select ho, to us ke Denominations load karein
-                    LoadDenominationCombo(categoryID);
-                    
-                }
-                else
-                {
-                    // Jab "All Categories" (0) select ho, to Denomination mein bhi sirf "All" set kar dein
-                    LoadAllDenominationsOnly();
-                }
-            }
+            if (_isLoadingLookups) return;
+
+            int categoryID = GetSelectedInt(cmbCategory);
+
+            if (categoryID > 0)
+                LoadDenominationCombo(categoryID);
+            else
+                LoadAllDenominationsOnly();
         }
     }
 }

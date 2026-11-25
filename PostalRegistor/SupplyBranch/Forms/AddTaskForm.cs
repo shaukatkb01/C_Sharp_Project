@@ -45,6 +45,7 @@ namespace SupplyBranch.Forms
             UserName = userName;
             InitializeComponent();
             InitializeCustomComponents();
+            UITheme.Apply(this);
         }
 
         #endregion
@@ -54,9 +55,9 @@ namespace SupplyBranch.Forms
         private void InitializeComponent()
         {
             this.txtTask = new TextBox();
-            this.cmbPriority = new ComboBox();
+            this.cmbPriority = new SupplyBranch.Controls.ModernComboBox();
             this.dtpDueDate = new DateTimePicker();
-            this.chkDueDate = new CheckBox();
+            this.chkDueDate = new SupplyBranch.Controls.ModernCheckBox();
             this.txtRemarks = new TextBox();
             this.btnSave = new Button();
             this.btnCancel = new Button();

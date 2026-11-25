@@ -1,4 +1,4 @@
-﻿namespace SupplyBranch.Forms.Masters
+namespace SupplyBranch.Forms.Masters
 {
     partial class frmUserManagement
     {
@@ -36,7 +36,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.pnlModules = new System.Windows.Forms.Panel();
-            this.clbModules = new System.Windows.Forms.CheckedListBox();
+            this.clbModules = new SupplyBranch.Controls.ModernCheckedListBox();
             this.lblModulesTitle = new System.Windows.Forms.Label();
             this.btnSavePermissions = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();

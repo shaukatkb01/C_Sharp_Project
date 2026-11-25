@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SupplyBranch.Helpers;
 
 namespace SupplyBranch.Forms.Help
 {
@@ -15,6 +16,7 @@ namespace SupplyBranch.Forms.Help
         public frmKeyboardShortcuts()
         {
             InitializeComponent();
+            UITheme.Apply(this);
 
             rtbShortcuts.Text =
         @"SUPPLY BRANCH MANAGEMENT SYSTEM

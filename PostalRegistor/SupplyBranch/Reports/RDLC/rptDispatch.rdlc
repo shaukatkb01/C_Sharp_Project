@@ -1208,7 +1208,21 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "other", IIF(IsNothing(Fields!OtherPackingType.Value) OrElse Trim(CStr(Fields!OtherPackingType.Value)) = "", "Other", CStr(Fields!OtherPackingType.Value)), Format(Fields!PackingQty.Value, "00") &amp; "  " &amp; IIF(LCase(Trim(CStr(Fields!PackingType.Value))) = "case", "Box(es)", CStr(Fields!PackingType.Value)))</Value>
+                                                <Value>=IIF(
+    LCase(Trim(CStr(Fields!PackingType.Value &amp; ""))) = "other",
+    IIF(
+        IsNothing(Fields!OtherPackingType.Value) Or
+        Trim(CStr(Fields!OtherPackingType.Value &amp; "")) = "",
+        "Other",
+        Trim(CStr(Fields!OtherPackingType.Value &amp; ""))
+    ),
+    Format(Val(Fields!PackingQty.Value &amp; ""), "00") &amp; "  " &amp;
+    IIF(
+        LCase(Trim(CStr(Fields!PackingType.Value &amp; ""))) = "case",
+        "Box(es)",
+        Trim(CStr(Fields!PackingType.Value &amp; ""))
+    )
+)</Value>
                                                 <Style />
                                               </TextRun>
                                             </TextRuns>

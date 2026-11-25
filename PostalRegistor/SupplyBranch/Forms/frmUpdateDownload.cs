@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SupplyBranch.Helpers;
 
 namespace SupplyBranch.Forms
 {
@@ -20,6 +21,7 @@ namespace SupplyBranch.Forms
 
         private async void frmUpdateDownload_Load(object sender, EventArgs e)
         {
+            UITheme.Apply(this);
             await StartDownloadAsync();
         }
 

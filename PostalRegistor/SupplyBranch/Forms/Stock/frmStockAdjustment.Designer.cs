@@ -1,4 +1,4 @@
-﻿namespace StampStoreApp
+namespace StampStoreApp
 {
     partial class frmStockAdjustment
     {
@@ -32,9 +32,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.cmbAdjustType = new System.Windows.Forms.ComboBox();
-            this.cmbDenomination = new System.Windows.Forms.ComboBox();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
+            this.cmbAdjustType = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbDenomination = new SupplyBranch.Controls.ModernComboBox();
+            this.cmbCategory = new SupplyBranch.Controls.ModernComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();

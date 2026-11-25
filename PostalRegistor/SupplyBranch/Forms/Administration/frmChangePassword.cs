@@ -127,7 +127,7 @@ namespace SupplyBranch.Forms.Administration
 
         private void frmChangePassword_Load(object sender, EventArgs e)
         {
-
+            UITheme.Apply(this);
         }
     }
 }

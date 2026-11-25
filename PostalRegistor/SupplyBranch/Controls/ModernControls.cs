@@ -1,3 +1,4 @@
+
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -9,15 +10,17 @@ using SupplyBranch.Helpers;
 
 namespace SupplyBranch.Controls
 {
-    // =====================================================================
-    //  Shared drawing helpers
-    // =====================================================================
-
     internal static class DrawUtil
     {
         public static GraphicsPath RoundedRect(Rectangle bounds, int radius)
         {
             GraphicsPath path = new GraphicsPath();
+
+            if (bounds.Width <= 0 || bounds.Height <= 0)
+            {
+                path.AddRectangle(bounds);
+                return path;
+            }
 
             if (radius <= 0)
             {
@@ -38,11 +41,6 @@ namespace SupplyBranch.Controls
             return path;
         }
 
-        /// <summary>
-        /// Resolves the first opaque background color walking up the parent
-        /// chain. Used to clear a custom-painted control so no stale text or
-        /// rounded-corner artefacts remain behind it.
-        /// </summary>
         public static Color ParentBackColor(Control control, ThemePalette palette)
         {
             Control parent = control != null ? control.Parent : null;
@@ -58,11 +56,35 @@ namespace SupplyBranch.Controls
 
             return palette.Surface;
         }
-    }
 
-    // =====================================================================
-    //  Themed containers
-    // =====================================================================
+        public static void ApplyRoleColor(Control control, PanelRole role, ThemePalette palette)
+        {
+            if (control == null || palette == null)
+                return;
+
+            switch (role)
+            {
+                case PanelRole.Background:
+                    control.BackColor = palette.Background;
+                    break;
+                case PanelRole.Surface:
+                    control.BackColor = palette.Surface;
+                    break;
+                case PanelRole.SurfaceAlt:
+                    control.BackColor = palette.SurfaceAlt;
+                    break;
+                case PanelRole.Sidebar:
+                    control.BackColor = palette.Sidebar;
+                    break;
+                case PanelRole.Header:
+                    control.BackColor = palette.Header;
+                    break;
+                case PanelRole.Transparent:
+                    control.BackColor = Color.Transparent;
+                    break;
+            }
+        }
+    }
 
     public enum PanelRole
     {
@@ -105,29 +127,7 @@ namespace SupplyBranch.Controls
 
         private void ApplyRole()
         {
-            ThemePalette p = AppTheme.P;
-
-            switch (_role)
-            {
-                case PanelRole.Background:
-                    BackColor = p.Background;
-                    break;
-                case PanelRole.Surface:
-                    BackColor = p.Surface;
-                    break;
-                case PanelRole.SurfaceAlt:
-                    BackColor = p.SurfaceAlt;
-                    break;
-                case PanelRole.Sidebar:
-                    BackColor = p.Sidebar;
-                    break;
-                case PanelRole.Header:
-                    BackColor = p.Header;
-                    break;
-                case PanelRole.Transparent:
-                    BackColor = Color.Transparent;
-                    break;
-            }
+            DrawUtil.ApplyRoleColor(this, _role, AppTheme.P);
         }
 
         protected override void Dispose(bool disposing)
@@ -139,11 +139,6 @@ namespace SupplyBranch.Controls
         }
     }
 
-    /// <summary>
-    /// A panel that hosts a single tall child and scrolls it with the mouse
-    /// wheel, drawing its own slim scrollbar so the sidebar stays consistent
-    /// in both themes (native scrollbars ignore the dark sidebar styling).
-    /// </summary>
     public class ScrollHostPanel : Panel, IMessageFilter
     {
         private const int WM_MOUSEWHEEL = 0x020A;
@@ -199,7 +194,6 @@ namespace SupplyBranch.Controls
             Relayout();
         }
 
-        /// <summary>Re-measures the hosted content. Call after adding rows.</summary>
         public void Relayout()
         {
             if (_content == null || _inLayout || IsDisposed)
@@ -258,7 +252,7 @@ namespace SupplyBranch.Controls
             if (MaxOffset >= 0)
                 return;
 
-            _offset -= delta;
+            _offset += delta;
             ClampOffset();
 
             if (_content != null)
@@ -392,7 +386,11 @@ namespace SupplyBranch.Controls
 
         public bool PreFilterMessage(ref Message m)
         {
-            if (m.Msg != WM_MOUSEWHEEL || _content == null || MaxOffset >= 0 || !IsHandleCreated)
+            if (m.Msg != WM_MOUSEWHEEL || _content == null || MaxOffset >= 0 || !IsHandleCreated || !Visible)
+                return false;
+
+            Form ownerForm = FindForm();
+            if (ownerForm != null && (ownerForm.IsDisposed || !ownerForm.Visible || Form.ActiveForm != ownerForm))
                 return false;
 
             if (!RectangleToScreen(ClientRectangle).Contains(Cursor.Position))
@@ -436,29 +434,7 @@ namespace SupplyBranch.Controls
 
         private void ApplyRole()
         {
-            ThemePalette p = AppTheme.P;
-
-            switch (_role)
-            {
-                case PanelRole.Background:
-                    BackColor = p.Background;
-                    break;
-                case PanelRole.Surface:
-                    BackColor = p.Surface;
-                    break;
-                case PanelRole.SurfaceAlt:
-                    BackColor = p.SurfaceAlt;
-                    break;
-                case PanelRole.Sidebar:
-                    BackColor = p.Sidebar;
-                    break;
-                case PanelRole.Header:
-                    BackColor = p.Header;
-                    break;
-                case PanelRole.Transparent:
-                    BackColor = Color.Transparent;
-                    break;
-            }
+            DrawUtil.ApplyRoleColor(this, _role, AppTheme.P);
         }
 
         protected override void Dispose(bool disposing)
@@ -509,29 +485,7 @@ namespace SupplyBranch.Controls
 
         private void ApplyRole()
         {
-            ThemePalette p = AppTheme.P;
-
-            switch (_role)
-            {
-                case PanelRole.Background:
-                    BackColor = p.Background;
-                    break;
-                case PanelRole.Surface:
-                    BackColor = p.Surface;
-                    break;
-                case PanelRole.SurfaceAlt:
-                    BackColor = p.SurfaceAlt;
-                    break;
-                case PanelRole.Sidebar:
-                    BackColor = p.Sidebar;
-                    break;
-                case PanelRole.Header:
-                    BackColor = p.Header;
-                    break;
-                case PanelRole.Transparent:
-                    BackColor = Color.Transparent;
-                    break;
-            }
+            DrawUtil.ApplyRoleColor(this, _role, AppTheme.P);
         }
 
         protected override void Dispose(bool disposing)
@@ -543,12 +497,14 @@ namespace SupplyBranch.Controls
         }
     }
 
-    /// <summary>A card with rounded corners and a subtle 1px border.</summary>
+    /// <summary>A card with rounded corners, subtle border, and optional hover accent.</summary>
     public class CardPanel : Panel
     {
         private int _cornerRadius = 14;
         private int _borderWidth = 1;
         private bool _useAltSurface;
+        private bool _hoverHighlight;
+        private bool _hovered;
 
         public bool UseAltSurface
         {
@@ -559,6 +515,12 @@ namespace SupplyBranch.Controls
                 BackColor = SurfaceColor;
                 Invalidate();
             }
+        }
+
+        public bool HoverHighlight
+        {
+            get { return _hoverHighlight; }
+            set { _hoverHighlight = value; Invalidate(); }
         }
 
         private Color SurfaceColor
@@ -608,6 +570,26 @@ namespace SupplyBranch.Controls
             Invalidate(true);
         }
 
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+            if (_hoverHighlight)
+            {
+                _hovered = true;
+                Invalidate();
+            }
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            if (_hovered)
+            {
+                _hovered = false;
+                Invalidate();
+            }
+        }
+
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -636,11 +618,14 @@ namespace SupplyBranch.Controls
             if (_borderWidth <= 0)
                 return;
 
+            ThemePalette p = AppTheme.P;
+            Color borderColor = (_hoverHighlight && _hovered) ? p.Primary : p.Border;
+
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             Rectangle r = new Rectangle(0, 0, Width - 1, Height - 1);
             using (GraphicsPath path = DrawUtil.RoundedRect(r, _cornerRadius))
-            using (Pen pen = new Pen(AppTheme.P.Border, _borderWidth))
+            using (Pen pen = new Pen(borderColor, _borderWidth))
             {
                 e.Graphics.DrawPath(pen, path);
             }
@@ -649,15 +634,18 @@ namespace SupplyBranch.Controls
         protected override void Dispose(bool disposing)
         {
             if (disposing)
+            {
                 AppTheme.ThemeChanged -= HandleThemeChanged;
+                if (Region != null)
+                {
+                    Region.Dispose();
+                    Region = null;
+                }
+            }
 
             base.Dispose(disposing);
         }
     }
-
-    // =====================================================================
-    //  Themed labels
-    // =====================================================================
 
     public enum LabelRole
     {
@@ -745,10 +733,6 @@ namespace SupplyBranch.Controls
         }
     }
 
-    // =====================================================================
-    //  Buttons
-    // =====================================================================
-
     public enum ButtonVariant
     {
         Primary,
@@ -834,6 +818,18 @@ namespace SupplyBranch.Controls
             Invalidate();
         }
 
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            Invalidate();
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            Invalidate();
+        }
+
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
@@ -852,8 +848,6 @@ namespace SupplyBranch.Controls
             ThemePalette p = AppTheme.P;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            // Always clear the full client area first so no stale glyphs or
-            // rounded-corner remnants stay behind this button.
             using (SolidBrush clear = new SolidBrush(DrawUtil.ParentBackColor(this, p)))
             {
                 e.Graphics.FillRectangle(clear, ClientRectangle);
@@ -875,7 +869,7 @@ namespace SupplyBranch.Controls
 
                 if (border.A > 0)
                 {
-                    using (Pen pen = new Pen(border, 1F))
+                    using (Pen pen = new Pen(border, Focused && Enabled ? 1.8F : 1F))
                         e.Graphics.DrawPath(pen, path);
                 }
             }
@@ -922,14 +916,15 @@ namespace SupplyBranch.Controls
 
         private void ResolveColors(ThemePalette p, out Color back, out Color fore, out Color border)
         {
-            border = Color.Transparent;
+            border = (Focused && Enabled) ? p.Primary : Color.Transparent;
 
             switch (_variant)
             {
                 case ButtonVariant.Secondary:
                     back = p.Surface;
                     fore = p.TextPrimary;
-                    border = p.Border;
+                    if (!Focused)
+                        border = p.Border;
                     break;
                 case ButtonVariant.Ghost:
                     back = Color.Transparent;
@@ -1008,7 +1003,6 @@ namespace SupplyBranch.Controls
         }
     }
 
-    /// <summary>A left-aligned navigation button used in the sidebar.</summary>
     public class SidebarButton : Button
     {
         private bool _hover;
@@ -1064,6 +1058,18 @@ namespace SupplyBranch.Controls
             Invalidate();
         }
 
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
+            Invalidate();
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
+            Invalidate();
+        }
+
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
@@ -1076,8 +1082,6 @@ namespace SupplyBranch.Controls
             ThemePalette p = AppTheme.P;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            // Clear the whole row first (prevents text ghosting when the
-            // navigation panel scrolls or the theme changes).
             using (SolidBrush clear = new SolidBrush(DrawUtil.ParentBackColor(this, p)))
             {
                 e.Graphics.FillRectangle(clear, ClientRectangle);
@@ -1105,6 +1109,12 @@ namespace SupplyBranch.Controls
                     using (SolidBrush brush = new SolidBrush(back))
                         e.Graphics.FillPath(brush, path);
                 }
+
+                if (Focused && Enabled && !IsActive)
+                {
+                    using (Pen focusPen = new Pen(p.Primary, 1.5F))
+                        e.Graphics.DrawPath(focusPen, path);
+                }
             }
 
             string glyph = IconGlyph ?? string.Empty;
@@ -1131,10 +1141,6 @@ namespace SupplyBranch.Controls
             base.Dispose(disposing);
         }
     }
-
-    // =====================================================================
-    //  Icon badge + KPI card
-    // =====================================================================
 
     public class IconBadge : Control
     {
@@ -1189,7 +1195,6 @@ namespace SupplyBranch.Controls
         }
     }
 
-    /// <summary>KPI / statistics card used on the dashboard.</summary>
     public class StatCard : CardPanel
     {
         private readonly IconBadge _badge;
@@ -1203,6 +1208,7 @@ namespace SupplyBranch.Controls
         {
             Padding = new Padding(18);
             Height = 112;
+            HoverHighlight = true;
 
             _badge = new IconBadge
             {
@@ -1246,19 +1252,19 @@ namespace SupplyBranch.Controls
         }
     }
 
-    // =====================================================================
-    //  Modern input field
-    // =====================================================================
-
+    /// <summary>Modern input box with optional icon, clear action, password toggle, and error state.</summary>
     public class InputBox : Panel
     {
         private readonly TextBox _textBox;
         private readonly Label _iconLabel;
         private readonly Label _revealLabel;
+        private readonly Label _clearLabel;
         private readonly Label _placeholderLabel;
 
         private bool _focused;
         private bool _revealed;
+        private bool _hasError;
+        private bool _showClear;
         private string _placeholder = string.Empty;
         private string _iconGlyph = string.Empty;
         private bool _showReveal;
@@ -1272,6 +1278,23 @@ namespace SupplyBranch.Controls
         }
 
         public TextBox InnerTextBox { get { return _textBox; } }
+
+        public bool HasError
+        {
+            get { return _hasError; }
+            set { _hasError = value; Invalidate(); }
+        }
+
+        public bool ShowClearButton
+        {
+            get { return _showClear; }
+            set
+            {
+                _showClear = value;
+                UpdateActionButtons();
+                LayoutChildren();
+            }
+        }
 
         public string Placeholder
         {
@@ -1304,7 +1327,7 @@ namespace SupplyBranch.Controls
             set
             {
                 _showReveal = value;
-                _revealLabel.Visible = value;
+                UpdateActionButtons();
                 LayoutChildren();
             }
         }
@@ -1323,7 +1346,13 @@ namespace SupplyBranch.Controls
         public bool ReadOnly
         {
             get { return _textBox.ReadOnly; }
-            set { _textBox.ReadOnly = value; }
+            set
+            {
+                _textBox.ReadOnly = value;
+                SyncColors();
+                UpdateActionButtons();
+                LayoutChildren();
+            }
         }
 
         public InputBox()
@@ -1359,15 +1388,34 @@ namespace SupplyBranch.Controls
 
             _textBox.TextChanged += (s, e) =>
             {
+                if (_hasError && _textBox.TextLength > 0)
+                    _hasError = false;
+
                 UpdatePlaceholderVisibility();
+                UpdateActionButtons();
+                LayoutChildren();
+                Invalidate();
 
                 EventHandler handler = ValueChanged;
                 if (handler != null)
                     handler(this, EventArgs.Empty);
             };
 
-            _textBox.Enter += (s, e) => { _focused = true; UpdatePlaceholderVisibility(); Invalidate(); };
-            _textBox.Leave += (s, e) => { _focused = false; UpdatePlaceholderVisibility(); Invalidate(); };
+            _textBox.Enter += (s, e) =>
+            {
+                _focused = true;
+                SyncColors();
+                UpdatePlaceholderVisibility();
+                Invalidate();
+            };
+
+            _textBox.Leave += (s, e) =>
+            {
+                _focused = false;
+                SyncColors();
+                UpdatePlaceholderVisibility();
+                Invalidate();
+            };
 
             _placeholderLabel = new Label
             {
@@ -1382,6 +1430,24 @@ namespace SupplyBranch.Controls
             };
             _placeholderLabel.Click += (s, e) => _textBox.Focus();
 
+            _clearLabel = new Label
+            {
+                AutoSize = false,
+                Size = new Size(22, 22),
+                Text = ThemeIcons.Cancel,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = ThemeFonts.IconSmall,
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand,
+                Visible = false,
+                ForeColor = AppTheme.P.TextMuted
+            };
+            _clearLabel.Click += (s, e) =>
+            {
+                _textBox.Clear();
+                _textBox.Focus();
+            };
+
             _revealLabel = new Label
             {
                 AutoSize = false,
@@ -1394,16 +1460,25 @@ namespace SupplyBranch.Controls
                 Visible = false,
                 ForeColor = AppTheme.P.TextMuted
             };
-
             _revealLabel.Click += (s, e) => ToggleReveal();
 
             Controls.Add(_iconLabel);
             Controls.Add(_textBox);
+            Controls.Add(_clearLabel);
             Controls.Add(_revealLabel);
             Controls.Add(_placeholderLabel);
             _placeholderLabel.BringToFront();
 
             AppTheme.ThemeChanged += HandleThemeChanged;
+        }
+
+        private void UpdateActionButtons()
+        {
+            if (_clearLabel != null)
+                _clearLabel.Visible = _showClear && Enabled && !_textBox.ReadOnly && _textBox.TextLength > 0;
+
+            if (_revealLabel != null)
+                _revealLabel.Visible = _showReveal;
         }
 
         private void UpdatePlaceholderVisibility()
@@ -1415,14 +1490,24 @@ namespace SupplyBranch.Controls
                 !_focused && _textBox.TextLength == 0 && !string.IsNullOrEmpty(_placeholder);
         }
 
+        private void SyncColors()
+        {
+            ThemePalette p = AppTheme.P;
+            Color boxBg = (!Enabled || _textBox.ReadOnly) ? p.SurfaceAlt : p.Surface;
+            Color boxFg = (!Enabled) ? p.TextMuted : p.TextPrimary;
+
+            BackColor = boxBg;
+            _textBox.BackColor = boxBg;
+            _textBox.ForeColor = boxFg;
+            _iconLabel.ForeColor = _hasError ? p.Danger : (_focused ? p.Primary : p.TextMuted);
+            _revealLabel.ForeColor = _revealed ? p.Primary : p.TextMuted;
+            _clearLabel.ForeColor = p.TextMuted;
+            _placeholderLabel.ForeColor = p.TextMuted;
+        }
+
         private void HandleThemeChanged(object sender, EventArgs e)
         {
-            BackColor = AppTheme.P.Surface;
-            _textBox.BackColor = AppTheme.P.Surface;
-            _textBox.ForeColor = AppTheme.P.TextPrimary;
-            _iconLabel.ForeColor = _focused ? AppTheme.P.Primary : AppTheme.P.TextMuted;
-            _revealLabel.ForeColor = AppTheme.P.TextMuted;
-            _placeholderLabel.ForeColor = AppTheme.P.TextMuted;
+            SyncColors();
             UpdateRegion();
             Invalidate();
         }
@@ -1431,15 +1516,18 @@ namespace SupplyBranch.Controls
         {
             _revealed = !_revealed;
             _textBox.UseSystemPasswordChar = !_revealed;
-            _revealLabel.ForeColor = _revealed ? AppTheme.P.Primary : AppTheme.P.TextMuted;
+            SyncColors();
             _textBox.Focus();
         }
 
-        private void ApplyCueBanner()
+        protected override void OnEnabledChanged(EventArgs e)
         {
-            // Placeholder is drawn by a themed label instead of the native cue
-            // banner so it renders consistently in both themes and in bitmaps.
-            UpdatePlaceholderVisibility();
+            base.OnEnabledChanged(e);
+            _textBox.Enabled = Enabled;
+            SyncColors();
+            UpdateActionButtons();
+            LayoutChildren();
+            Invalidate();
         }
 
         protected override void OnResize(EventArgs e)
@@ -1466,23 +1554,32 @@ namespace SupplyBranch.Controls
 
         private void LayoutChildren()
         {
-            if (_textBox == null || _iconLabel == null || _revealLabel == null)
+            if (_textBox == null || _iconLabel == null || _revealLabel == null || _clearLabel == null)
                 return;
 
             int iconWidth = string.IsNullOrEmpty(_iconGlyph) ? 0 : 40;
-            int revealWidth = _showReveal ? 32 : 12;
+            int rightCursor = Width - 8;
 
             _iconLabel.Visible = iconWidth > 0;
             _iconLabel.Location = new Point(14, (Height - _iconLabel.Height) / 2);
 
+            if (_revealLabel.Visible)
+            {
+                _revealLabel.Location = new Point(rightCursor - _revealLabel.Width, (Height - _revealLabel.Height) / 2);
+                rightCursor = _revealLabel.Left - 4;
+            }
+
+            if (_clearLabel.Visible)
+            {
+                _clearLabel.Location = new Point(rightCursor - _clearLabel.Width, (Height - _clearLabel.Height) / 2);
+                rightCursor = _clearLabel.Left - 4;
+            }
+
             int textLeft = 14 + iconWidth;
-            int textWidth = Math.Max(20, Width - textLeft - revealWidth - 4);
+            int textWidth = Math.Max(20, rightCursor - textLeft - 4);
 
             _textBox.Location = new Point(textLeft, (Height - _textBox.Height) / 2);
             _textBox.Width = textWidth;
-
-            _revealLabel.Location = new Point(Width - _revealLabel.Width - 8,
-                (Height - _revealLabel.Height) / 2);
 
             if (_placeholderLabel != null)
             {
@@ -1497,12 +1594,15 @@ namespace SupplyBranch.Controls
         {
             base.OnPaint(e);
 
+            ThemePalette p = AppTheme.P;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Color borderColor = _hasError ? p.Danger : (_focused ? p.Primary : p.Border);
+            float borderWidth = (_hasError || _focused) ? 1.8F : 1F;
 
             Rectangle bounds = new Rectangle(0, 0, Width - 1, Height - 1);
             using (GraphicsPath path = DrawUtil.RoundedRect(bounds, 10))
-            using (Pen pen = new Pen(_focused ? AppTheme.P.Primary : AppTheme.P.Border,
-                _focused ? 1.8F : 1F))
+            using (Pen pen = new Pen(borderColor, borderWidth))
             {
                 e.Graphics.DrawPath(pen, path);
             }
@@ -1522,15 +1622,404 @@ namespace SupplyBranch.Controls
         protected override void Dispose(bool disposing)
         {
             if (disposing)
+            {
                 AppTheme.ThemeChanged -= HandleThemeChanged;
+                if (Region != null)
+                {
+                    Region.Dispose();
+                    Region = null;
+                }
+            }
 
             base.Dispose(disposing);
         }
     }
 
-    // =====================================================================
-    //  Standard-control theming helpers
-    // =====================================================================
+    public class ModernComboBox : ComboBox
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        private struct COMBOBOXINFO
+        {
+            public int cbSize;
+            public RECT rcItem;
+            public RECT rcButton;
+            public int stateButton;
+            public IntPtr hwndCombo;
+            public IntPtr hwndItem;
+            public IntPtr hwndList;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetComboBoxInfo(IntPtr hwnd, ref COMBOBOXINFO info);
+
+        public ModernComboBox()
+        {
+            DrawMode = DrawMode.OwnerDrawFixed;
+            FlatStyle = FlatStyle.Flat;
+            IntegralHeight = true;
+        }
+
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            ThemePalette p = AppTheme.P;
+
+            bool editing = (e.State & DrawItemState.ComboBoxEdit) == DrawItemState.ComboBoxEdit;
+            bool selected = !editing && (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+            Color back = editing
+                ? BackColor
+                : (selected ? p.GridSelection : p.Surface);
+
+            Color fore = editing
+                ? ForeColor
+                : (selected ? p.GridSelectionText : p.TextPrimary);
+
+            using (SolidBrush brush = new SolidBrush(back))
+                e.Graphics.FillRectangle(brush, e.Bounds);
+
+            if (e.Index < 0 || e.Index >= Items.Count)
+                return;
+
+            string text = GetItemText(Items[e.Index]);
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                text,
+                Font,
+                e.Bounds,
+                fore,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.EndEllipsis);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            Invalidate();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == 0x000F && IsHandleCreated)
+                PaintArrow();
+        }
+
+        private void PaintArrow()
+        {
+            COMBOBOXINFO info = new COMBOBOXINFO();
+            info.cbSize = Marshal.SizeOf(typeof(COMBOBOXINFO));
+
+            if (!GetComboBoxInfo(Handle, ref info))
+                return;
+
+            Rectangle rect = new Rectangle(
+                info.rcButton.Left,
+                info.rcButton.Top,
+                Math.Max(0, info.rcButton.Right - info.rcButton.Left),
+                Math.Max(0, info.rcButton.Bottom - info.rcButton.Top));
+
+            if (rect.Width <= 0 || rect.Height <= 0)
+                return;
+
+            ThemePalette p = AppTheme.P;
+
+            try
+            {
+                using (Graphics g = Graphics.FromHwnd(Handle))
+                using (SolidBrush back = new SolidBrush(BackColor))
+                {
+                    g.FillRectangle(back, rect);
+
+                    int cx = rect.Left + rect.Width / 2;
+                    int cy = rect.Top + rect.Height / 2;
+
+                    using (Pen pen = new Pen(Enabled ? p.TextMuted : p.Border, 1.6F))
+                    {
+                        pen.StartCap = LineCap.Round;
+                        pen.EndCap = LineCap.Round;
+                        pen.LineJoin = LineJoin.Round;
+
+                        g.SmoothingMode = SmoothingMode.AntiAlias;
+                        g.DrawLines(pen, new[]
+                        {
+                            new Point(cx - 4, cy - 2),
+                            new Point(cx, cy + 2),
+                            new Point(cx + 4, cy - 2)
+                        });
+                    }
+
+                    Rectangle client = ClientRectangle;
+                    if (client.Width > 2 && client.Height > 2)
+                    {
+                        using (Pen border = new Pen(p.Border))
+                            g.DrawRectangle(border, 0, 0, client.Width - 1, client.Height - 1);
+                    }
+                }
+            }
+            catch
+            {
+                // Painting the overlay is best-effort only.
+            }
+        }
+    }
+
+    public class ModernCheckedListBox : CheckedListBox
+    {
+        public ModernCheckedListBox()
+        {
+            BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == 0x000F && IsHandleCreated)
+                PaintChecks();
+        }
+
+        private void PaintChecks()
+        {
+            if (Items.Count == 0)
+                return;
+
+            ThemePalette p = AppTheme.P;
+
+            try
+            {
+                using (Graphics g = Graphics.FromHwnd(Handle))
+                {
+                    g.SmoothingMode = SmoothingMode.AntiAlias;
+                    g.SetClip(ClientRectangle);
+
+                    using (SolidBrush onFill = new SolidBrush(p.Primary))
+                    using (SolidBrush offFill = new SolidBrush(p.SurfaceAlt))
+                    using (Pen onBorder = new Pen(p.Primary))
+                    using (Pen offBorder = new Pen(p.TextMuted))
+                    using (Pen tick = new Pen(p.OnPrimary, 1.8F))
+                    {
+                        tick.StartCap = LineCap.Round;
+                        tick.EndCap = LineCap.Round;
+                        tick.LineJoin = LineJoin.Round;
+
+                        for (int i = 0; i < Items.Count; i++)
+                        {
+                            Rectangle row = GetItemRectangle(i);
+
+                            if (row.Bottom <= 0 || row.Top >= ClientSize.Height)
+                                continue;
+
+                            const int size = 13;
+                            Rectangle box = new Rectangle(2, row.Top + (row.Height - size) / 2, size, size);
+
+                            bool isChecked = GetItemChecked(i);
+
+                            g.FillRectangle(isChecked ? (Brush)onFill : offFill, box);
+                            g.DrawRectangle(isChecked ? onBorder : offBorder, box);
+
+                            if (!isChecked)
+                                continue;
+
+                            g.DrawLines(tick, new[]
+                            {
+                                new Point(box.Left + 3, box.Top + 7),
+                                new Point(box.Left + 6, box.Top + 10),
+                                new Point(box.Left + 11, box.Top + 4)
+                            });
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Overdrawing is best-effort only.
+            }
+        }
+    }
+
+    public class ModernCheckBox : CheckBox
+    {
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            PaintBox(e.Graphics);
+        }
+
+        private void PaintBox(Graphics g)
+        {
+            ThemePalette p = AppTheme.P;
+            const int size = 13;
+            Rectangle box = new Rectangle(1, (Height - size) / 2, size, size);
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            using (SolidBrush fill = new SolidBrush(Checked ? p.Primary : p.SurfaceAlt))
+                g.FillRectangle(fill, box);
+
+            using (Pen border = new Pen(Checked ? p.Primary : p.TextMuted))
+                g.DrawRectangle(border, box);
+
+            if (!Checked)
+                return;
+
+            using (Pen tick = new Pen(p.OnPrimary, 1.8F))
+            {
+                tick.StartCap = LineCap.Round;
+                tick.EndCap = LineCap.Round;
+                tick.LineJoin = LineJoin.Round;
+
+                g.DrawLines(tick, new[]
+                {
+                    new Point(box.Left + 3, box.Top + 7),
+                    new Point(box.Left + 6, box.Top + 10),
+                    new Point(box.Left + 11, box.Top + 4)
+                });
+            }
+        }
+    }
+
+    public class ModernRadioButton : RadioButton
+    {
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            PaintCircle(e.Graphics);
+        }
+
+        private void PaintCircle(Graphics g)
+        {
+            ThemePalette p = AppTheme.P;
+            const int size = 13;
+            Rectangle box = new Rectangle(1, (Height - size) / 2, size, size);
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            using (SolidBrush fill = new SolidBrush(p.SurfaceAlt))
+                g.FillEllipse(fill, box);
+
+            using (Pen border = new Pen(Checked ? p.Primary : p.TextMuted, 1.4F))
+                g.DrawEllipse(border, box);
+
+            if (!Checked)
+                return;
+
+            Rectangle dot = new Rectangle(box.X + 4, box.Y + 4, box.Width - 8, box.Height - 8);
+
+            using (SolidBrush brush = new SolidBrush(p.Primary))
+                g.FillEllipse(brush, dot);
+        }
+    }
+
+    public class ModernNumericUpDown : NumericUpDown
+    {
+        private Control _buttons;
+        private EventHandler _themeHandler;
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            AttachButtons();
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            DetachButtons();
+            base.OnHandleDestroyed(e);
+        }
+
+        private void AttachButtons()
+        {
+            if (_buttons != null)
+                return;
+
+            foreach (Control child in Controls)
+            {
+                if (child.GetType().Name == "UpDownButtons")
+                {
+                    _buttons = child;
+                    break;
+                }
+            }
+
+            if (_buttons == null)
+                return;
+
+            _buttons.Paint += PaintButtons;
+
+            _themeHandler = delegate { _buttons.Invalidate(); };
+            AppTheme.ThemeChanged += _themeHandler;
+        }
+
+        private void DetachButtons()
+        {
+            if (_buttons == null)
+                return;
+
+            _buttons.Paint -= PaintButtons;
+
+            if (_themeHandler != null)
+            {
+                AppTheme.ThemeChanged -= _themeHandler;
+                _themeHandler = null;
+            }
+
+            _buttons = null;
+        }
+
+        private void PaintButtons(object sender, PaintEventArgs e)
+        {
+            Control buttons = (Control)sender;
+            ThemePalette p = AppTheme.P;
+            Graphics g = e.Graphics;
+
+            g.Clear(p.SurfaceAlt);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            int width = buttons.Width;
+            int height = buttons.Height;
+            int half = height / 2;
+
+            using (Pen line = new Pen(p.Border))
+            {
+                g.DrawLine(line, 1, half, width, half);
+                g.DrawRectangle(line, 0, 0, width - 1, height - 1);
+            }
+
+            using (Pen arrow = new Pen(Enabled ? p.TextMuted : p.Border, 1.5F))
+            {
+                arrow.StartCap = LineCap.Round;
+                arrow.EndCap = LineCap.Round;
+
+                int cx = width / 2;
+
+                int topY = half / 2;
+                g.DrawLines(arrow, new[]
+                {
+                    new Point(cx - 3, topY + 2),
+                    new Point(cx, topY - 1),
+                    new Point(cx + 3, topY + 2)
+                });
+
+                int bottomY = half + (height - half) / 2;
+                g.DrawLines(arrow, new[]
+                {
+                    new Point(cx - 3, bottomY - 2),
+                    new Point(cx, bottomY + 1),
+                    new Point(cx + 3, bottomY - 2)
+                });
+            }
+        }
+    }
 
     public static class ControlStyler
     {
@@ -1539,7 +2028,7 @@ namespace SupplyBranch.Controls
 
         public static void StyleComboBox(ComboBox combo)
         {
-            if (combo == null)
+            if (combo == null || combo is ModernComboBox)
                 return;
 
             EventHandler existing;
@@ -1584,7 +2073,7 @@ namespace SupplyBranch.Controls
             using (SolidBrush brush = new SolidBrush(back))
                 e.Graphics.FillRectangle(brush, e.Bounds);
 
-            if (e.Index >= 0)
+            if (e.Index >= 0 && e.Index < combo.Items.Count)
             {
                 string text = combo.GetItemText(combo.Items[e.Index]);
 
@@ -1598,7 +2087,196 @@ namespace SupplyBranch.Controls
         }
     }
 
-    /// <summary>Applies a modern, theme-aware look to any DataGridView.</summary>
+    public static class ScrollBarStyler
+    {
+        private static readonly ConditionalWeakTable<ScrollBar, object> Hooked =
+            new ConditionalWeakTable<ScrollBar, object>();
+
+        private static readonly ConditionalWeakTable<Control, object> Pending =
+            new ConditionalWeakTable<Control, object>();
+
+        public static void Attach(Control parent)
+        {
+            if (parent == null)
+                return;
+
+            if (!parent.IsHandleCreated)
+            {
+                object marker;
+                if (!Pending.TryGetValue(parent, out marker))
+                {
+                    Pending.Add(parent, new object());
+                    Control target = parent;
+                    parent.HandleCreated += delegate { Attach(target); };
+                }
+
+                return;
+            }
+
+            foreach (Control child in parent.Controls)
+            {
+                ScrollBar bar = child as ScrollBar;
+                if (bar == null)
+                    continue;
+
+                object marker;
+                if (Hooked.TryGetValue(bar, out marker))
+                    continue;
+
+                Hooked.Add(bar, new object());
+                bar.Paint += PaintBar;
+            }
+        }
+
+        public static void Refresh(Control parent)
+        {
+            if (parent == null)
+                return;
+
+            foreach (Control child in parent.Controls)
+            {
+                ScrollBar bar = child as ScrollBar;
+                if (bar != null)
+                    bar.Invalidate();
+            }
+        }
+
+        private static void PaintBar(object sender, PaintEventArgs e)
+        {
+            ScrollBar bar = (ScrollBar)sender;
+            ThemePalette p = AppTheme.P;
+            Graphics g = e.Graphics;
+
+            bool vertical = bar is VScrollBar;
+            int width = bar.ClientSize.Width;
+            int height = bar.ClientSize.Height;
+
+            if (width <= 0 || height <= 0)
+                return;
+
+            Color track = p.SurfaceAlt;
+            Color thumb = AppTheme.IsDark
+                ? Color.FromArgb(58, 76, 107)
+                : Color.FromArgb(195, 206, 223);
+            Color arrowColor = bar.Enabled ? p.TextMuted : p.Border;
+
+            g.Clear(track);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            int arrow = Math.Min(SystemInformation.VerticalScrollBarWidth, vertical ? height / 4 : width / 4);
+            if (arrow < 8)
+                arrow = 8;
+
+            int min = bar.Minimum;
+            int max = bar.Maximum;
+            int large = Math.Max(1, bar.LargeChange);
+            int range = Math.Max(1, max - min + 1);
+
+            double ratio = (double)large / range;
+            double position = range > large
+                ? (double)(bar.Value - min) / (range - large)
+                : 0;
+
+            if (position < 0) position = 0;
+            if (position > 1) position = 1;
+
+            if (vertical)
+            {
+                int trackTop = arrow;
+                int trackHeight = height - arrow * 2;
+
+                if (trackHeight < 4)
+                    return;
+
+                int thumbHeight = Math.Max(28, (int)(trackHeight * ratio));
+                if (thumbHeight > trackHeight)
+                    thumbHeight = trackHeight;
+
+                int thumbTop = trackTop + (int)((trackHeight - thumbHeight) * position);
+
+                using (SolidBrush brush = new SolidBrush(thumb))
+                using (GraphicsPath path = DrawUtil.RoundedRect(
+                    new Rectangle(3, thumbTop + 1, width - 6, thumbHeight - 2), 4))
+                    g.FillPath(brush, path);
+
+                using (Pen pen = new Pen(arrowColor, 1.5F))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+
+                    int cx = width / 2;
+
+                    int topY = arrow / 2;
+                    g.DrawLines(pen, new[]
+                    {
+                        new Point(cx - 3, topY + 2),
+                        new Point(cx, topY - 1),
+                        new Point(cx + 3, topY + 2)
+                    });
+
+                    int bottomY = height - arrow / 2;
+                    g.DrawLines(pen, new[]
+                    {
+                        new Point(cx - 3, bottomY - 2),
+                        new Point(cx, bottomY + 1),
+                        new Point(cx + 3, bottomY - 2)
+                    });
+                }
+            }
+            else
+            {
+                int trackLeft = arrow;
+                int trackWidth = width - arrow * 2;
+
+                if (trackWidth < 4)
+                    return;
+
+                int thumbWidth = Math.Max(28, (int)(trackWidth * ratio));
+                if (thumbWidth > trackWidth)
+                    thumbWidth = trackWidth;
+
+                int thumbLeft = trackLeft + (int)((trackWidth - thumbWidth) * position);
+
+                using (SolidBrush brush = new SolidBrush(thumb))
+                using (GraphicsPath path = DrawUtil.RoundedRect(
+                    new Rectangle(thumbLeft + 1, 3, thumbWidth - 2, height - 6), 4))
+                    g.FillPath(brush, path);
+
+                using (Pen pen = new Pen(arrowColor, 1.5F))
+                {
+                    pen.StartCap = LineCap.Round;
+                    pen.EndCap = LineCap.Round;
+
+                    int cy = height / 2;
+
+                    int leftX = arrow / 2;
+                    g.DrawLines(pen, new[]
+                    {
+                        new Point(leftX + 2, cy - 3),
+                        new Point(leftX - 1, cy),
+                        new Point(leftX + 2, cy + 3)
+                    });
+
+                    int rightX = width - arrow / 2;
+                    g.DrawLines(pen, new[]
+                    {
+                        new Point(rightX - 2, cy - 3),
+                        new Point(rightX + 1, cy),
+                        new Point(rightX - 2, cy + 3)
+                    });
+                }
+            }
+
+            using (Pen edge = new Pen(p.Border))
+            {
+                if (vertical)
+                    g.DrawLine(edge, 0, 0, 0, height);
+                else
+                    g.DrawLine(edge, 0, 0, width, 0);
+            }
+        }
+    }
+
     public static class GridStyler
     {
         private static readonly ConditionalWeakTable<DataGridView, EventHandler> Handlers =
@@ -1639,26 +2317,28 @@ namespace SupplyBranch.Controls
             grid.MultiSelect = false;
 
             grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            grid.ColumnHeadersHeight = 40;
+            grid.ColumnHeadersHeight = 36;
             grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             grid.ColumnHeadersDefaultCellStyle.BackColor = p.GridHeader;
             grid.ColumnHeadersDefaultCellStyle.ForeColor = p.GridHeaderText;
             grid.ColumnHeadersDefaultCellStyle.SelectionBackColor = p.GridHeader;
             grid.ColumnHeadersDefaultCellStyle.SelectionForeColor = p.GridHeaderText;
             grid.ColumnHeadersDefaultCellStyle.Font = ThemeFonts.BodyBold;
-            grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(6, 0, 6, 0);
+            grid.ColumnHeadersDefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
 
             grid.DefaultCellStyle.BackColor = p.GridRow;
             grid.DefaultCellStyle.ForeColor = p.TextPrimary;
             grid.DefaultCellStyle.SelectionBackColor = p.GridSelection;
             grid.DefaultCellStyle.SelectionForeColor = p.GridSelectionText;
             grid.DefaultCellStyle.Font = ThemeFonts.Body;
-            grid.DefaultCellStyle.Padding = new Padding(6, 0, 6, 0);
+            grid.DefaultCellStyle.Padding = new Padding(8, 0, 8, 0);
 
             grid.AlternatingRowsDefaultCellStyle.BackColor = p.GridRowAlt;
-            grid.RowTemplate.Height = 38;
+            grid.RowTemplate.Height = 33;
 
             AppTheme.ApplyScrollbarTheme(grid);
+            ScrollBarStyler.Attach(grid);
+            ScrollBarStyler.Refresh(grid);
             grid.Refresh();
         }
 

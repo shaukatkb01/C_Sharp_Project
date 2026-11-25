@@ -1,4 +1,5 @@
-﻿using SupplyBranch.DAL;
+﻿using SupplyBranch.Controls;
+using SupplyBranch.DAL;
 using SupplyBranch.DataAccess;
 using SupplyBranch.Helpers;
 using SupplyBranch.Models;
@@ -40,8 +41,8 @@ namespace SupplyBranch.Forms.Transactions
         private static readonly Color ColorPartialSupplyBack = Color.LightYellow; // yellow - 0 < total < pending
         private static readonly Color ColorPartialSupplyFore = Color.DarkGoldenrod;
 
-        private static readonly Color EditCellBack = Color.FromArgb(254, 249, 195); // editable supply cells
-        private static readonly Color LockedCellBack = Color.FromArgb(238, 240, 243);
+        private static Color EditCellBack { get { return UITheme.EditableCellColor; } } // editable supply cells
+        private static Color LockedCellBack { get { return UITheme.LockedCellColor; } }
 
         // =====================================================================
         // Fields
@@ -151,8 +152,17 @@ namespace SupplyBranch.Forms.Transactions
 
             // ----- events attached once -----
             dtSupplyDate.ValueChanged += FormDataChanged;
+            txtOtherPacking.TextChanged += FormDataChanged;
             txtRemarks.TextChanged += FormDataChanged;
             dgvSupplyDetail.CurrentCellChanged += dgvSupplyDetail_CurrentCellChanged;
+
+            AppTheme.ThemeChanged += HandleThemeChanged;
+            Disposed += (s, e) => AppTheme.ThemeChanged -= HandleThemeChanged;
+        }
+
+        private void HandleThemeChanged(object sender, EventArgs e)
+        {
+            RefreshGridTheme();
         }
 
         private void BuildStockEntryGrid()
@@ -175,7 +185,7 @@ namespace SupplyBranch.Forms.Transactions
             dgvStockEntry.AllowUserToResizeRows = false;
             dgvStockEntry.AutoGenerateColumns = false;
             dgvStockEntry.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvStockEntry.BackgroundColor = Color.White;
+            dgvStockEntry.BackgroundColor = AppTheme.P.Background;
             dgvStockEntry.BorderStyle = BorderStyle.FixedSingle;
             dgvStockEntry.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStockEntry.Dock = DockStyle.Fill;
@@ -381,6 +391,7 @@ namespace SupplyBranch.Forms.Transactions
         private void frmSupply_Load(object sender, EventArgs e)
         {
             UITheme.Apply(this);
+            RefreshGridTheme();
 
             ConfigureGridColumns();
 
@@ -900,6 +911,43 @@ namespace SupplyBranch.Forms.Transactions
                 dgvSupplyDetail.Columns[columnName].Visible = visible;
         }
 
+        private void RefreshGridTheme()
+        {
+            if (IsDisposed || dgvSupplyDetail == null)
+                return;
+
+            ThemePalette palette = AppTheme.P;
+
+            if (dgvSupplyDetail.Columns.Contains(ColSupplySheets))
+                dgvSupplyDetail.Columns[ColSupplySheets].DefaultCellStyle.BackColor = EditCellBack;
+
+            if (dgvSupplyDetail.Columns.Contains(ColSupplyPieces))
+                dgvSupplyDetail.Columns[ColSupplyPieces].DefaultCellStyle.BackColor = EditCellBack;
+
+            if (dgvStockEntry != null)
+            {
+                dgvStockEntry.BackgroundColor = palette.Background;
+                GridStyler.Apply(dgvStockEntry);
+            }
+
+            if (pnlCurrentStock != null)
+            {
+                pnlCurrentStock.BackColor = palette.Surface;
+                pnlCurrentStock.ForeColor = palette.TextPrimary;
+            }
+
+            foreach (Panel card in new[] { pnlBox, pnlPacket, pnlSheet, pnlStamp })
+            {
+                if (card != null)
+                {
+                    card.BackColor = palette.SurfaceAlt;
+                    card.ForeColor = palette.TextPrimary;
+                }
+            }
+
+            ApplyCaseColumnState(_lastPackingWasCase);
+        }
+
         private void ApplyCaseColumnState(bool isCase)
         {
             string[] caseColumns = { "CaseNoFrom", "CaseNoTo", "CaseCode" };
@@ -908,7 +956,7 @@ namespace SupplyBranch.Forms.Transactions
             {
                 DataGridViewColumn col = dgvSupplyDetail.Columns[name];
                 col.ReadOnly = !isCase;
-                col.DefaultCellStyle.BackColor = isCase ? Color.White : LockedCellBack;
+                col.DefaultCellStyle.BackColor = isCase ? AppTheme.P.Surface : LockedCellBack;
             }
 
             dgvSupplyDetail.Columns["LedgerFolio"].ReadOnly = false;
@@ -1461,14 +1509,12 @@ namespace SupplyBranch.Forms.Transactions
             txtOtherPacking.Visible = isOther;
             label14.Text = isOther ? "Other Type" : "Packing Qty";
 
-            cmbDispatchMode.Enabled = !isCase;
+            cmbDispatchMode.Enabled = !IsFormLocked();
 
             // Do not touch the saved values while a draft is being loaded
             if (!_isLoadingDraft)
             {
-                if (isCase)
-                    cmbDispatchMode.SelectedIndex = 2;                      // By RMS
-                else if (cmbDispatchMode.SelectedIndex == -1 || _lastPackingWasCase)
+                if (cmbDispatchMode.SelectedIndex == -1)
                     cmbDispatchMode.SelectedIndex = 0;                      // By Post
 
                 if (!isOther)

@@ -51,6 +51,7 @@ namespace SupplyBranch.Forms.Stock
 
         private void frmStockBalance_Load(object sender, EventArgs e)
         {
+            UITheme.Apply(this);
             LoadStockBalance();
         }
 
