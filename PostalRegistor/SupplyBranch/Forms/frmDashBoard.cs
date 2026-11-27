@@ -32,6 +32,7 @@ namespace SupplyBranch.Forms
         private DataTable suppliesData;
         private DataTable chartComparisonData;
         private string currentUserName = "User";
+        private ThemedLabel welcomeLabel;
 
         public event Action<Form> NavigationRequested;
 
@@ -119,11 +120,15 @@ namespace SupplyBranch.Forms
             header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             header.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 
-            Panel titlePanel = new Panel
+            FlowLayoutPanel titlePanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = false,
                 BackColor = Color.Transparent,
-                Margin = new Padding(0)
+                Margin = new Padding(0),
+                Padding = new Padding(0, 2, 0, 0)
             };
 
             ThemedLabel title = new ThemedLabel
@@ -132,8 +137,10 @@ namespace SupplyBranch.Forms
                 Role = LabelRole.Primary,
                 Font = ThemeFonts.H1,
                 AutoSize = true,
-                Location = new Point(0, 4)
+                Margin = new Padding(0)
             };
+
+            welcomeLabel = title;
 
             ThemedLabel date = new ThemedLabel
             {
@@ -141,7 +148,7 @@ namespace SupplyBranch.Forms
                 Role = LabelRole.Muted,
                 Font = ThemeFonts.Small,
                 AutoSize = true,
-                Location = new Point(2, 40)
+                Margin = new Padding(2, 4, 0, 0)
             };
 
             titlePanel.Controls.Add(title);
@@ -643,12 +650,29 @@ namespace SupplyBranch.Forms
         //  Form load
         // =============================================================
 
-        private void frmDashBoard_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Shows the full name of the signed-in user (falls back to the login
+        /// name when the full name is not available).
+        /// </summary>
+        private void UpdateWelcomeText()
         {
-            try
+            if (welcomeLabel == null)
+                return;
+
+            string displayName = string.IsNullOrWhiteSpace(CurrentUser.FullName)
+                ? currentUserName
+                : CurrentUser.FullName.Trim();
+
+            welcomeLabel.Text = "Welcome back, " + displayName;
+        }
+
+        private void frmDashBoard_Load(object sender, EventArgs e)
+        {            try
             {
                 if (!string.IsNullOrEmpty(CurrentUser.UserName))
                     currentUserName = CurrentUser.UserName;
+
+                UpdateWelcomeText();
 
                 LoadTasks();
                 FillCompletedTasksCombo();

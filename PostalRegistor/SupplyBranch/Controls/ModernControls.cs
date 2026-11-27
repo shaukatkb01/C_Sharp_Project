@@ -1223,8 +1223,9 @@ namespace SupplyBranch.Controls
                 Text = title,
                 Role = LabelRole.Muted,
                 Font = ThemeFonts.Small,
-                AutoSize = true,
-                Location = new Point(76, 22)
+                AutoSize = false,
+                Bounds = new Rectangle(76, 20, 180, 22),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             _value = new ThemedLabel
@@ -1232,8 +1233,9 @@ namespace SupplyBranch.Controls
                 Text = "0",
                 Role = LabelRole.Primary,
                 Font = ThemeFonts.Metric,
-                AutoSize = true,
-                Location = new Point(74, 40)
+                AutoSize = false,
+                Bounds = new Rectangle(74, 38, 180, 46),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             _hint = new ThemedLabel
@@ -1241,8 +1243,9 @@ namespace SupplyBranch.Controls
                 Text = hint,
                 Role = LabelRole.Muted,
                 Font = ThemeFonts.Tiny,
-                AutoSize = true,
-                Location = new Point(76, 78)
+                AutoSize = false,
+                Bounds = new Rectangle(76, 82, 180, 22),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
 
             Controls.Add(_badge);

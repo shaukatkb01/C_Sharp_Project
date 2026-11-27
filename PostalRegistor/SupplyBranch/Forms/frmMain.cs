@@ -235,6 +235,10 @@ namespace SupplyBranch.Forms
                 () => OpenForm(new frmSupplySearch()));
             AddNavItem(navStack, "Draft Supply", ThemeIcons.Page, "DraftSearch", typeof(frmDraftSupply),
                 () => OpenForm(new frmDraftSupply()));
+
+            AddNavItem(navStack, "Sale Return", ThemeIcons.Page, "SaleReturn", typeof(frmSaleReturn),
+              () => OpenForm(new frmSaleReturn()));
+
             AddNavItem(navStack, "Postal Stationery", ThemeIcons.Library, "SUPPLY", null,
                 () => btnPostal_Click(null, EventArgs.Empty));
 

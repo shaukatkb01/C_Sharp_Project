@@ -92,6 +92,7 @@
     <Compile Include="DataAccess\ModuleDAL.cs" />
     <Compile Include="DataAccess\OfficeDAL.cs" />
     <Compile Include="DataAccess\OfficeZoneDAL.cs" />
+    <Compile Include="DataAccess\SaleReturnDAL.cs" />
     <Compile Include="DataAccess\StampCategoryDAL.cs" />
     <Compile Include="DataAccess\StockDAL.cs" />
     <Compile Include="DataAccess\SupplyDAL.cs" />
@@ -274,6 +275,12 @@
     <Compile Include="Forms\Transactions\frmIndentSearch.Designer.cs">
       <DependentUpon>frmIndentSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Transactions\frmSaleReturn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Transactions\frmSaleReturn.Designer.cs">
+      <DependentUpon>frmSaleReturn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Transactions\frmSupply.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -416,6 +423,9 @@
     <EmbeddedResource Include="Forms\Transactions\frmIndentSearch.resx">
       <DependentUpon>frmIndentSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Transactions\frmSaleReturn.resx">
+      <DependentUpon>frmSaleReturn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Transactions\frmSupply.resx">
       <DependentUpon>frmSupply.cs</DependentUpon>
     </EmbeddedResource>
@@ -464,6 +474,7 @@
     <EmbeddedResource Include="Reports\RDLC\rptPendingSupply.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RDLC\rptSaleRetun.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptStockRegister.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\rptSupplyRegister.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

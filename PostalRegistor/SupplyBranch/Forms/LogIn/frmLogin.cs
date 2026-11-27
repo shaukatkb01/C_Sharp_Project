@@ -607,7 +607,6 @@ namespace SupplyBranch.Forms
 
             if (success)
             {
-                CurrentUser.FullName = user.UserName;
                 SaveUsernameToHistory(user.UserName);
 
                 // Stop listening for theme changes while this form is hidden.

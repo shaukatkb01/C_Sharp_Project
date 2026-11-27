@@ -680,6 +680,8 @@ VALUES
 
 SELECT
 
+    SD.SupplyDetailID,
+
     SD.IndentDetailID AS DetailID,
 
     SD.CategoryID,
